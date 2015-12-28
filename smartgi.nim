@@ -1,7 +1,8 @@
 
 import os
 import gobjectintrospection
-import streams, syntax, future
+import streams
+import future
 import algorithm
 import sequtils
 import strutils
