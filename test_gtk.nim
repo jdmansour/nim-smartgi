@@ -7,8 +7,11 @@ from future import `=>`
 # doesnt work, the byref/bycopy attribute of the original type stays:
 # type TEventConfigure_ByRef {.byref.} = Gdk3.TEventConfigure
 
-declareSignal(Gtk3.Window, Gtk3.TWindow, destroy)
-declareSignal(Gtk3.Button, Gtk3.TButton, clicked)
+#proc toWidget(obj: Gtk3.Window): Gtk3.Widget =
+
+
+# declareSignal(Gtk3.Window, Gtk3.TWindow, destroy)
+# declareSignal(Gtk3.Button, Gtk3.TButton, clicked)
 declareSignal(Gtk3.Window, Gtk3.TWindow, configure_event, Gdk3.TEventConfigure)
 
 
@@ -74,8 +77,9 @@ proc main() =
   # for x in text:
   #   echo x
 
-
-  window.connect("destroy", (w:Gtk3.Window)=>gtkMainQuit())
+  # let wid: Gtk3.Widget = window
+  window.connect("destroy", (w:Gtk3.Widget)=>gtkMainQuit())
+  # wid.connect("destroy", (w:Gtk3.Window)=>gtkMainQuit())
   window.showAll
 
 

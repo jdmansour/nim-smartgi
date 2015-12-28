@@ -1504,6 +1504,26 @@ proc main() =
     for meth in oi.methods:
       createMethod(meth, oi)
 
+
+  output.writeln "# object signals"
+  output.writeln "#------------------"
+  for info in gi.infos(namespace).filter((i:GIBaseInfo) => i.getType == GIInfoType.OBJECT):
+    let oi = toGIObjectInfo(info)
+    for signal in oi.signals:
+      output.write "# ", oi.getName, " - ", signal.getName, " - "
+      var hasArgs = false
+      for arg in signal.args:
+        hasArgs = true
+        output.write arg.getName, " "
+      output.writeln
+
+      if not hasArgs:
+        output.write "declareSignal(", oi.getQualifiedNimStructName(wrapped=true)
+        output.write ", ", oi.getQualifiedNimStructName(wrapped=false)
+        output.writeln ", ", signal.getName.escapeName.replace("-", "_"), ")"
+
+
+
   output.writeln "  # struct methods"
   output.writeln "  #------------------"
 

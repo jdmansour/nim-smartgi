@@ -58,6 +58,8 @@ converter unwrap[T](s: ref GSmartPtr[T]): ptr T = s.pointer
 proc XOpenDisplay*() {.cdecl, dynlib: lib, importc: "XOpenDisplay".}
   # object methods
   #------------------
+# object signals
+#------------------
   # struct methods
   #------------------
 # struct Display

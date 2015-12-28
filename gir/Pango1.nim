@@ -903,7 +903,7 @@ proc pango_is_zero_width*(ch: unichar): bool {.cdecl, dynlib: lib, importc: "pan
 # 'ptr GLIST_TODO' 'ptr GLIST_TODO'
 proc pango_itemize(context: ptr TContext, text: ucstring, start_index: int32, length: int32, attrs: ptr TAttrList, cached_iter: ptr TAttrIterator): ptr GLIST_TODO {.cdecl, dynlib: lib, importc: "pango_itemize".}
 proc pango_itemize*(context: Context, text: ustring, start_index: int32, length: int32, attrs: TAttrList, cached_iter: TAttrIterator): ptr GLIST_TODO {.inline.} =
-  pango_itemize(context.pointer, ucstring(text), start_index, length, myUnsafeAddr(attrs), myUnsafeAddr(cached_iter))
+  pango_itemize(context.getPointer, ucstring(text), start_index, length, myUnsafeAddr(attrs), myUnsafeAddr(cached_iter))
 # proc pango_itemize*(context: Context, text: ustring, start_index: int32, length: int32, attrs: TAttrList, cached_iter: TAttrIterator): ptr GLIST_TODO {.inline.} =
 
 # pango_itemize_with_base_dir
@@ -918,7 +918,7 @@ proc pango_itemize*(context: Context, text: ustring, start_index: int32, length:
 # 'ptr GLIST_TODO' 'ptr GLIST_TODO'
 proc pango_itemize_with_base_dir(context: ptr TContext, base_dir: Direction, text: ucstring, start_index: int32, length: int32, attrs: ptr TAttrList, cached_iter: ptr TAttrIterator): ptr GLIST_TODO {.cdecl, dynlib: lib, importc: "pango_itemize_with_base_dir".}
 proc pango_itemize_with_base_dir*(context: Context, base_dir: Direction, text: ustring, start_index: int32, length: int32, attrs: TAttrList, cached_iter: TAttrIterator): ptr GLIST_TODO {.inline.} =
-  pango_itemize_with_base_dir(context.pointer, base_dir, ucstring(text), start_index, length, myUnsafeAddr(attrs), myUnsafeAddr(cached_iter))
+  pango_itemize_with_base_dir(context.getPointer, base_dir, ucstring(text), start_index, length, myUnsafeAddr(attrs), myUnsafeAddr(cached_iter))
 # proc pango_itemize_with_base_dir*(context: Context, base_dir: Direction, text: ustring, start_index: int32, length: int32, attrs: TAttrList, cached_iter: TAttrIterator): ptr GLIST_TODO {.inline.} =
 
 # pango_language_from_string
@@ -1425,7 +1425,7 @@ proc set_font_description*(self: Context, desc: TFontDescription) {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc pango_context_set_font_map(self: ptr TContext, font_map: ptr TFontMap) {.cdecl, dynlib: lib, importc: "pango_context_set_font_map".}
 proc set_font_map*(self: Context, font_map: FontMap) {.inline.} =
-  pango_context_set_font_map(self, font_map.pointer)
+  pango_context_set_font_map(self, font_map.getPointer)
 # proc set_font_map*(self: Context, font_map: FontMap) {.inline.} =
 
 # pango_context_set_gravity_hint
@@ -1652,7 +1652,7 @@ proc list_families*(self: FontMap, families: var openarray[ptr TFontFamily], n_f
 # 'Font' 'TransferFull[TFont]' (diff., need sugar)
 proc pango_font_map_load_font(self: ptr TFontMap, context: ptr TContext, desc: ptr TFontDescription): TransferFull[TFont] {.cdecl, dynlib: lib, importc: "pango_font_map_load_font".}
 proc load_font*(self: FontMap, context: Context, desc: TFontDescription): Font {.inline.} =
-  wrap(pango_font_map_load_font(self, context.pointer, myUnsafeAddr(desc)))
+  wrap(pango_font_map_load_font(self, context.getPointer, myUnsafeAddr(desc)))
 # proc load_font*(self: FontMap, context: Context, desc: TFontDescription): Font {.inline.} =
 
 # pango_font_map_load_fontset
@@ -1664,7 +1664,7 @@ proc load_font*(self: FontMap, context: Context, desc: TFontDescription): Font {
 # 'Fontset' 'TransferFull[TFontset]' (diff., need sugar)
 proc pango_font_map_load_fontset(self: ptr TFontMap, context: ptr TContext, desc: ptr TFontDescription, language: ptr TLanguage): TransferFull[TFontset] {.cdecl, dynlib: lib, importc: "pango_font_map_load_fontset".}
 proc load_fontset*(self: FontMap, context: Context, desc: TFontDescription, language: TLanguage): Fontset {.inline.} =
-  wrap(pango_font_map_load_fontset(self, context.pointer, myUnsafeAddr(desc), myUnsafeAddr(language)))
+  wrap(pango_font_map_load_fontset(self, context.getPointer, myUnsafeAddr(desc), myUnsafeAddr(language)))
 # proc load_fontset*(self: FontMap, context: Context, desc: TFontDescription, language: TLanguage): Fontset {.inline.} =
 
 # pango_fontset_foreach
@@ -1714,7 +1714,7 @@ proc fontsetsimple_new*(language: TLanguage): FontsetSimple {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc pango_fontset_simple_append(self: ptr TFontsetSimple, font: ptr TFont) {.cdecl, dynlib: lib, importc: "pango_fontset_simple_append".}
 proc append*(self: FontsetSimple, font: Font) {.inline.} =
-  pango_fontset_simple_append(self, font.pointer)
+  pango_fontset_simple_append(self, font.getPointer)
 # proc append*(self: FontsetSimple, font: Font) {.inline.} =
 
 # pango_fontset_simple_size
@@ -1733,7 +1733,7 @@ proc size*(self: FontsetSimple): int32 {.inline.} =
 # 'Layout' 'TransferFull[TLayout]' (diff., need sugar)
 proc pango_layout_new(context: ptr TContext): TransferFull[TLayout] {.cdecl, dynlib: lib, importc: "pango_layout_new".}
 proc layout_new*(context: Context): Layout {.inline.} =
-  wrap(pango_layout_new(context.pointer))
+  wrap(pango_layout_new(context.getPointer))
 # proc layout_new*(context: Context): Layout {.inline.} =
 
 # pango_layout_context_changed
@@ -2367,7 +2367,7 @@ proc draw_error_underline*(self: Renderer, x: int32, y: int32, width: int32, hei
 # 'VOID_TODO' 'VOID_TODO'
 proc pango_renderer_draw_glyph(self: ptr TRenderer, font: ptr TFont, glyph: uint32, x: float64, y: float64) {.cdecl, dynlib: lib, importc: "pango_renderer_draw_glyph".}
 proc draw_glyph*(self: Renderer, font: Font, glyph: uint32, x: float64, y: float64) {.inline.} =
-  pango_renderer_draw_glyph(self, font.pointer, glyph, x, y)
+  pango_renderer_draw_glyph(self, font.getPointer, glyph, x, y)
 # proc draw_glyph*(self: Renderer, font: Font, glyph: uint32, x: float64, y: float64) {.inline.} =
 
 # pango_renderer_draw_glyph_item
@@ -2393,7 +2393,7 @@ proc draw_glyph_item*(self: Renderer, text: ustring, glyph_item: TGlyphItem, x: 
 # 'VOID_TODO' 'VOID_TODO'
 proc pango_renderer_draw_glyphs(self: ptr TRenderer, font: ptr TFont, glyphs: ptr TGlyphString, x: int32, y: int32) {.cdecl, dynlib: lib, importc: "pango_renderer_draw_glyphs".}
 proc draw_glyphs*(self: Renderer, font: Font, glyphs: TGlyphString, x: int32, y: int32) {.inline.} =
-  pango_renderer_draw_glyphs(self, font.pointer, myUnsafeAddr(glyphs), x, y)
+  pango_renderer_draw_glyphs(self, font.getPointer, myUnsafeAddr(glyphs), x, y)
 # proc draw_glyphs*(self: Renderer, font: Font, glyphs: TGlyphString, x: int32, y: int32) {.inline.} =
 
 # pango_renderer_draw_layout
@@ -2405,7 +2405,7 @@ proc draw_glyphs*(self: Renderer, font: Font, glyphs: TGlyphString, x: int32, y:
 # 'VOID_TODO' 'VOID_TODO'
 proc pango_renderer_draw_layout(self: ptr TRenderer, layout: ptr TLayout, x: int32, y: int32) {.cdecl, dynlib: lib, importc: "pango_renderer_draw_layout".}
 proc draw_layout*(self: Renderer, layout: Layout, x: int32, y: int32) {.inline.} =
-  pango_renderer_draw_layout(self, layout.pointer, x, y)
+  pango_renderer_draw_layout(self, layout.getPointer, x, y)
 # proc draw_layout*(self: Renderer, layout: Layout, x: int32, y: int32) {.inline.} =
 
 # pango_renderer_draw_layout_line
@@ -2518,6 +2518,8 @@ proc set_matrix*(self: Renderer, matrix: TMatrix) {.inline.} =
   pango_renderer_set_matrix(self, myUnsafeAddr(matrix))
 # proc set_matrix*(self: Renderer, matrix: TMatrix) {.inline.} =
 
+# object signals
+#------------------
   # struct methods
   #------------------
 # struct Analysis
@@ -3361,7 +3363,7 @@ proc copy*(self: GlyphString): TGlyphString {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc pango_glyph_string_extents(self: ptr TGlyphString, font: ptr TFont, ink_rect: ptr TRectangle, logical_rect: ptr TRectangle) {.cdecl, dynlib: lib, importc: "pango_glyph_string_extents".}
 proc extents*(self: GlyphString, font: Font, ink_rect: var TRectangle, logical_rect: var TRectangle) {.inline.} =
-  pango_glyph_string_extents(self, font.pointer, addr(ink_rect), addr(logical_rect))
+  pango_glyph_string_extents(self, font.getPointer, addr(ink_rect), addr(logical_rect))
 # tuple-return
 # ink_rect: var TRectangle
 # logical_rect: var TRectangle
@@ -3378,7 +3380,7 @@ proc extents*(self: GlyphString, font: Font, ink_rect: var TRectangle, logical_r
 # 'VOID_TODO' 'VOID_TODO'
 proc pango_glyph_string_extents_range(self: ptr TGlyphString, start: int32, end_x: int32, font: ptr TFont, ink_rect: ptr TRectangle, logical_rect: ptr TRectangle) {.cdecl, dynlib: lib, importc: "pango_glyph_string_extents_range".}
 proc extents_range*(self: GlyphString, start: int32, end_x: int32, font: Font, ink_rect: var TRectangle, logical_rect: var TRectangle) {.inline.} =
-  pango_glyph_string_extents_range(self, start, end_x, font.pointer, addr(ink_rect), addr(logical_rect))
+  pango_glyph_string_extents_range(self, start, end_x, font.getPointer, addr(ink_rect), addr(logical_rect))
 # tuple-return
 # ink_rect: var TRectangle
 # logical_rect: var TRectangle

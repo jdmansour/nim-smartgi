@@ -129,6 +129,26 @@ template declareSubclass*(S: typedesc[TRoot], T: typedesc[TRoot]) =
   converter unwrapToBase*(s: ref GSmartPtr[S]): ptr T =
     return s.pointer
 
+  # converter toWrappedT*(s: ref GSmartPtr[S]): ref GSmartPtr[T] =
+  #   # new(result)
+  #   # result.pointer = s.pointer
+  #   # return s.pointer
+
+  #   # # this should cause a ref and later an unref
+  #   # let tmp: TransferFull[T] = cast[TransferFull[T]](s)
+  #   # return tmp
+
+  #   if s.pointer != nil:
+  #     discard g_object_ref(s.pointer)
+  #     # this is not really right, we'd want to call the finalizer of the actual type (S)
+  #     # and not of the base type (T) - but in the case of GObject this is the same function
+  #     new(result, customFinalizer[T])
+  #     result.pointer = cast[ptr T](s.pointer) #g_object_ref(point)
+  #   else:
+  #     new(result)
+  #     result.pointer = nil
+
+
   # converter `toWrapped T`*(s: ref GSmartPtr[S]): ref GSmartPtr[T] =
   #   # new(result)
   #   # result.pointer = s.pointer

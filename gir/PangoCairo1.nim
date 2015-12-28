@@ -64,7 +64,7 @@ converter unwrap[T](s: ref GSmartPtr[T]): ptr T = s.pointer
 # 'cairo1.TFontOptions' 'ptr cairo1.TFontOptions' (diff., need sugar)
 proc pango_cairo_context_get_font_options(context: ptr Pango1.TContext): ptr cairo1.TFontOptions {.cdecl, dynlib: lib, importc: "pango_cairo_context_get_font_options".}
 proc pango_cairo_context_get_font_options*(context: Pango1.Context): cairo1.TFontOptions {.inline.} =
-  (pango_cairo_context_get_font_options(context.pointer))[]
+  (pango_cairo_context_get_font_options(context.getPointer))[]
 # proc pango_cairo_context_get_font_options*(context: Pango1.Context): cairo1.TFontOptions {.inline.} =
 
 # pango_cairo_context_get_resolution
@@ -73,7 +73,7 @@ proc pango_cairo_context_get_font_options*(context: Pango1.Context): cairo1.TFon
 # 'float64' 'float64'
 proc pango_cairo_context_get_resolution(context: ptr Pango1.TContext): float64 {.cdecl, dynlib: lib, importc: "pango_cairo_context_get_resolution".}
 proc pango_cairo_context_get_resolution*(context: Pango1.Context): float64 {.inline.} =
-  pango_cairo_context_get_resolution(context.pointer)
+  pango_cairo_context_get_resolution(context.getPointer)
 # proc pango_cairo_context_get_resolution*(context: Pango1.Context): float64 {.inline.} =
 
 # pango_cairo_context_set_font_options
@@ -83,7 +83,7 @@ proc pango_cairo_context_get_resolution*(context: Pango1.Context): float64 {.inl
 # 'VOID_TODO' 'VOID_TODO'
 proc pango_cairo_context_set_font_options(context: ptr Pango1.TContext, options: ptr cairo1.TFontOptions) {.cdecl, dynlib: lib, importc: "pango_cairo_context_set_font_options".}
 proc pango_cairo_context_set_font_options*(context: Pango1.Context, options: cairo1.TFontOptions) {.inline.} =
-  pango_cairo_context_set_font_options(context.pointer, myUnsafeAddr(options))
+  pango_cairo_context_set_font_options(context.getPointer, myUnsafeAddr(options))
 # proc pango_cairo_context_set_font_options*(context: Pango1.Context, options: cairo1.TFontOptions) {.inline.} =
 
 # pango_cairo_context_set_resolution
@@ -93,7 +93,7 @@ proc pango_cairo_context_set_font_options*(context: Pango1.Context, options: cai
 # 'VOID_TODO' 'VOID_TODO'
 proc pango_cairo_context_set_resolution(context: ptr Pango1.TContext, dpi: float64) {.cdecl, dynlib: lib, importc: "pango_cairo_context_set_resolution".}
 proc pango_cairo_context_set_resolution*(context: Pango1.Context, dpi: float64) {.inline.} =
-  pango_cairo_context_set_resolution(context.pointer, dpi)
+  pango_cairo_context_set_resolution(context.getPointer, dpi)
 # proc pango_cairo_context_set_resolution*(context: Pango1.Context, dpi: float64) {.inline.} =
 
 # pango_cairo_context_set_shape_renderer
@@ -105,7 +105,7 @@ proc pango_cairo_context_set_resolution*(context: Pango1.Context, dpi: float64) 
 # 'VOID_TODO' 'VOID_TODO'
 proc pango_cairo_context_set_shape_renderer(context: ptr Pango1.TContext, func_x: pointer, data: pointer, dnotify: pointer) {.cdecl, dynlib: lib, importc: "pango_cairo_context_set_shape_renderer".}
 proc pango_cairo_context_set_shape_renderer*(context: Pango1.Context, func_x: pointer, data: pointer, dnotify: pointer) {.inline.} =
-  pango_cairo_context_set_shape_renderer(context.pointer, func_x, data, dnotify)
+  pango_cairo_context_set_shape_renderer(context.getPointer, func_x, data, dnotify)
 # proc pango_cairo_context_set_shape_renderer*(context: Pango1.Context, func_x: pointer, data: pointer, dnotify: pointer) {.inline.} =
 
 # pango_cairo_create_context
@@ -172,7 +172,7 @@ proc pango_cairo_font_map_new_for_font_type*(fonttype: cairo1.TFontType): Pango1
 # 'VOID_TODO' 'VOID_TODO'
 proc pango_cairo_glyph_string_path(cr: ptr cairo1.TContext, font: ptr Pango1.TFont, glyphs: ptr Pango1.TGlyphString) {.cdecl, dynlib: lib, importc: "pango_cairo_glyph_string_path".}
 proc pango_cairo_glyph_string_path*(cr: cairo1.TContext, font: Pango1.Font, glyphs: Pango1.TGlyphString) {.inline.} =
-  pango_cairo_glyph_string_path(myUnsafeAddr(cr), font.pointer, myUnsafeAddr(glyphs))
+  pango_cairo_glyph_string_path(myUnsafeAddr(cr), font.getPointer, myUnsafeAddr(glyphs))
 # proc pango_cairo_glyph_string_path*(cr: cairo1.TContext, font: Pango1.Font, glyphs: Pango1.TGlyphString) {.inline.} =
 
 # pango_cairo_layout_line_path
@@ -192,7 +192,7 @@ proc pango_cairo_layout_line_path*(cr: cairo1.TContext, line: Pango1.TLayoutLine
 # 'VOID_TODO' 'VOID_TODO'
 proc pango_cairo_layout_path(cr: ptr cairo1.TContext, layout: ptr Pango1.TLayout) {.cdecl, dynlib: lib, importc: "pango_cairo_layout_path".}
 proc pango_cairo_layout_path*(cr: cairo1.TContext, layout: Pango1.Layout) {.inline.} =
-  pango_cairo_layout_path(myUnsafeAddr(cr), layout.pointer)
+  pango_cairo_layout_path(myUnsafeAddr(cr), layout.getPointer)
 # proc pango_cairo_layout_path*(cr: cairo1.TContext, layout: Pango1.Layout) {.inline.} =
 
 # pango_cairo_show_error_underline
@@ -227,7 +227,7 @@ proc pango_cairo_show_glyph_item*(cr: cairo1.TContext, text: ustring, glyph_item
 # 'VOID_TODO' 'VOID_TODO'
 proc pango_cairo_show_glyph_string(cr: ptr cairo1.TContext, font: ptr Pango1.TFont, glyphs: ptr Pango1.TGlyphString) {.cdecl, dynlib: lib, importc: "pango_cairo_show_glyph_string".}
 proc pango_cairo_show_glyph_string*(cr: cairo1.TContext, font: Pango1.Font, glyphs: Pango1.TGlyphString) {.inline.} =
-  pango_cairo_show_glyph_string(myUnsafeAddr(cr), font.pointer, myUnsafeAddr(glyphs))
+  pango_cairo_show_glyph_string(myUnsafeAddr(cr), font.getPointer, myUnsafeAddr(glyphs))
 # proc pango_cairo_show_glyph_string*(cr: cairo1.TContext, font: Pango1.Font, glyphs: Pango1.TGlyphString) {.inline.} =
 
 # pango_cairo_show_layout
@@ -237,7 +237,7 @@ proc pango_cairo_show_glyph_string*(cr: cairo1.TContext, font: Pango1.Font, glyp
 # 'VOID_TODO' 'VOID_TODO'
 proc pango_cairo_show_layout(cr: ptr cairo1.TContext, layout: ptr Pango1.TLayout) {.cdecl, dynlib: lib, importc: "pango_cairo_show_layout".}
 proc pango_cairo_show_layout*(cr: cairo1.TContext, layout: Pango1.Layout) {.inline.} =
-  pango_cairo_show_layout(myUnsafeAddr(cr), layout.pointer)
+  pango_cairo_show_layout(myUnsafeAddr(cr), layout.getPointer)
 # proc pango_cairo_show_layout*(cr: cairo1.TContext, layout: Pango1.Layout) {.inline.} =
 
 # pango_cairo_show_layout_line
@@ -257,7 +257,7 @@ proc pango_cairo_show_layout_line*(cr: cairo1.TContext, line: Pango1.TLayoutLine
 # 'VOID_TODO' 'VOID_TODO'
 proc pango_cairo_update_context(cr: ptr cairo1.TContext, context: ptr Pango1.TContext) {.cdecl, dynlib: lib, importc: "pango_cairo_update_context".}
 proc pango_cairo_update_context*(cr: cairo1.TContext, context: Pango1.Context) {.inline.} =
-  pango_cairo_update_context(myUnsafeAddr(cr), context.pointer)
+  pango_cairo_update_context(myUnsafeAddr(cr), context.getPointer)
 # proc pango_cairo_update_context*(cr: cairo1.TContext, context: Pango1.Context) {.inline.} =
 
 # pango_cairo_update_layout
@@ -267,10 +267,12 @@ proc pango_cairo_update_context*(cr: cairo1.TContext, context: Pango1.Context) {
 # 'VOID_TODO' 'VOID_TODO'
 proc pango_cairo_update_layout(cr: ptr cairo1.TContext, layout: ptr Pango1.TLayout) {.cdecl, dynlib: lib, importc: "pango_cairo_update_layout".}
 proc pango_cairo_update_layout*(cr: cairo1.TContext, layout: Pango1.Layout) {.inline.} =
-  pango_cairo_update_layout(myUnsafeAddr(cr), layout.pointer)
+  pango_cairo_update_layout(myUnsafeAddr(cr), layout.getPointer)
 # proc pango_cairo_update_layout*(cr: cairo1.TContext, layout: Pango1.Layout) {.inline.} =
 
   # object methods
   #------------------
+# object signals
+#------------------
   # struct methods
   #------------------

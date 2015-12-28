@@ -3152,7 +3152,7 @@ proc g_app_info_get_recommended_for_type*(content_type: ustring): ptr GLIST_TODO
 # 'bool' 'bool'
 proc g_app_info_launch_default_for_uri(uri: ucstring, launch_context: ptr TAppLaunchContext, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_app_info_launch_default_for_uri".}
 proc g_app_info_launch_default_for_uri*(uri: ustring, launch_context: AppLaunchContext): bool {.inline.} =
-  g_app_info_launch_default_for_uri(ucstring(uri), launch_context.pointer)
+  g_app_info_launch_default_for_uri(ucstring(uri), launch_context.getPointer)
 # proc g_app_info_launch_default_for_uri*(uri: ustring, launch_context: AppLaunchContext): bool {.inline.} =
 
 # g_app_info_reset_type_associations
@@ -3176,7 +3176,7 @@ proc g_app_info_reset_type_associations*(content_type: ustring) {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc g_async_initable_newv_async(object_type: GType, n_parameters: uint32, parameters: ptr GObject2.TParameter, io_priority: int32, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_async_initable_newv_async".}
 proc g_async_initable_newv_async*(object_type: GType, n_parameters: uint32, parameters: GObject2.TParameter, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_async_initable_newv_async(object_type, n_parameters, myUnsafeAddr(parameters), io_priority, cancellable.pointer, callback, user_data)
+  g_async_initable_newv_async(object_type, n_parameters, myUnsafeAddr(parameters), io_priority, cancellable.getPointer, callback, user_data)
 # proc g_async_initable_newv_async*(object_type: GType, n_parameters: uint32, parameters: GObject2.TParameter, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_bus_get
@@ -3188,7 +3188,7 @@ proc g_async_initable_newv_async*(object_type: GType, n_parameters: uint32, para
 # 'VOID_TODO' 'VOID_TODO'
 proc g_bus_get(bus_type: BusType, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_bus_get".}
 proc g_bus_get*(bus_type: BusType, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_bus_get(bus_type, cancellable.pointer, callback, user_data)
+  g_bus_get(bus_type, cancellable.getPointer, callback, user_data)
 # proc g_bus_get*(bus_type: BusType, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_bus_get_finish
@@ -3209,7 +3209,7 @@ proc g_bus_get_finish*(res: AsyncResult): DBusConnection {.inline.} =
 # 'DBusConnection' 'TransferFull[TDBusConnection]' (diff., need sugar)
 proc g_bus_get_sync(bus_type: BusType, cancellable: ptr TCancellable, error: ptr PGError=nil): TransferFull[TDBusConnection] {.cdecl, dynlib: lib, importc: "g_bus_get_sync".}
 proc g_bus_get_sync*(bus_type: BusType, cancellable: Cancellable): DBusConnection {.inline.} =
-  wrap(g_bus_get_sync(bus_type, cancellable.pointer))
+  wrap(g_bus_get_sync(bus_type, cancellable.getPointer))
 # proc g_bus_get_sync*(bus_type: BusType, cancellable: Cancellable): DBusConnection {.inline.} =
 
 # g_bus_own_name_on_connection_with_closures
@@ -3222,7 +3222,7 @@ proc g_bus_get_sync*(bus_type: BusType, cancellable: Cancellable): DBusConnectio
 # 'uint32' 'uint32'
 proc g_bus_own_name_on_connection_with_closures(connection: ptr TDBusConnection, name: ucstring, flags: SBusNameOwnerFlags, name_acquired_closure: ptr GObject2.TClosure, name_lost_closure: ptr GObject2.TClosure): uint32 {.cdecl, dynlib: lib, importc: "g_bus_own_name_on_connection_with_closures".}
 proc g_bus_own_name_on_connection_with_closures*(connection: DBusConnection, name: ustring, flags: SBusNameOwnerFlags, name_acquired_closure: GObject2.TClosure, name_lost_closure: GObject2.TClosure): uint32 {.inline.} =
-  g_bus_own_name_on_connection_with_closures(connection.pointer, ucstring(name), flags, myUnsafeAddr(name_acquired_closure), myUnsafeAddr(name_lost_closure))
+  g_bus_own_name_on_connection_with_closures(connection.getPointer, ucstring(name), flags, myUnsafeAddr(name_acquired_closure), myUnsafeAddr(name_lost_closure))
 # proc g_bus_own_name_on_connection_with_closures*(connection: DBusConnection, name: ustring, flags: SBusNameOwnerFlags, name_acquired_closure: GObject2.TClosure, name_lost_closure: GObject2.TClosure): uint32 {.inline.} =
 
 # g_bus_own_name_with_closures
@@ -3259,7 +3259,7 @@ proc g_bus_unwatch_name*(watcher_id: uint32) {.cdecl, dynlib: lib, importc: "g_b
 # 'uint32' 'uint32'
 proc g_bus_watch_name_on_connection_with_closures(connection: ptr TDBusConnection, name: ucstring, flags: SBusNameWatcherFlags, name_appeared_closure: ptr GObject2.TClosure, name_vanished_closure: ptr GObject2.TClosure): uint32 {.cdecl, dynlib: lib, importc: "g_bus_watch_name_on_connection_with_closures".}
 proc g_bus_watch_name_on_connection_with_closures*(connection: DBusConnection, name: ustring, flags: SBusNameWatcherFlags, name_appeared_closure: GObject2.TClosure, name_vanished_closure: GObject2.TClosure): uint32 {.inline.} =
-  g_bus_watch_name_on_connection_with_closures(connection.pointer, ucstring(name), flags, myUnsafeAddr(name_appeared_closure), myUnsafeAddr(name_vanished_closure))
+  g_bus_watch_name_on_connection_with_closures(connection.getPointer, ucstring(name), flags, myUnsafeAddr(name_appeared_closure), myUnsafeAddr(name_vanished_closure))
 # proc g_bus_watch_name_on_connection_with_closures*(connection: DBusConnection, name: ustring, flags: SBusNameWatcherFlags, name_appeared_closure: GObject2.TClosure, name_vanished_closure: GObject2.TClosure): uint32 {.inline.} =
 
 # g_bus_watch_name_with_closures
@@ -3411,7 +3411,7 @@ proc g_dbus_address_escape_value*(string: ustring): ustring {.inline.} =
 # 'ustring' 'ucstring' (diff., need sugar)
 proc g_dbus_address_get_for_bus_sync(bus_type: BusType, cancellable: ptr TCancellable, error: ptr PGError=nil): ucstring {.cdecl, dynlib: lib, importc: "g_dbus_address_get_for_bus_sync".}
 proc g_dbus_address_get_for_bus_sync*(bus_type: BusType, cancellable: Cancellable): ustring {.inline.} =
-  ustring($(g_dbus_address_get_for_bus_sync(bus_type, cancellable.pointer)))
+  ustring($(g_dbus_address_get_for_bus_sync(bus_type, cancellable.getPointer)))
 # proc g_dbus_address_get_for_bus_sync*(bus_type: BusType, cancellable: Cancellable): ustring {.inline.} =
 
 # g_dbus_address_get_stream
@@ -3423,7 +3423,7 @@ proc g_dbus_address_get_for_bus_sync*(bus_type: BusType, cancellable: Cancellabl
 # 'VOID_TODO' 'VOID_TODO'
 proc g_dbus_address_get_stream(address: ucstring, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_dbus_address_get_stream".}
 proc g_dbus_address_get_stream*(address: ustring, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_dbus_address_get_stream(ucstring(address), cancellable.pointer, callback, user_data)
+  g_dbus_address_get_stream(ucstring(address), cancellable.getPointer, callback, user_data)
 # proc g_dbus_address_get_stream*(address: ustring, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_dbus_address_get_stream_finish
@@ -3446,7 +3446,7 @@ proc g_dbus_address_get_stream_finish*(res: AsyncResult, out_guid: ustring): IOS
 # 'IOStream' 'TransferFull[TIOStream]' (diff., need sugar)
 proc g_dbus_address_get_stream_sync(address: ucstring, out_guid: ucstring, cancellable: ptr TCancellable, error: ptr PGError=nil): TransferFull[TIOStream] {.cdecl, dynlib: lib, importc: "g_dbus_address_get_stream_sync".}
 proc g_dbus_address_get_stream_sync*(address: ustring, out_guid: ustring, cancellable: Cancellable): IOStream {.inline.} =
-  wrap(g_dbus_address_get_stream_sync(ucstring(address), ucstring(out_guid), cancellable.pointer))
+  wrap(g_dbus_address_get_stream_sync(ucstring(address), ucstring(out_guid), cancellable.getPointer))
 # proc g_dbus_address_get_stream_sync*(address: ustring, out_guid: ustring, cancellable: Cancellable): IOStream {.inline.} =
 
 # g_dbus_annotation_info_lookup
@@ -3674,7 +3674,7 @@ proc g_file_new_for_uri*(uri: ustring): File {.inline.} =
 # 'File' 'TransferFull[TFile]' (diff., need sugar)
 proc g_file_new_tmp(tmpl: cstring, iostream: ptr TFileIOStream, error: ptr PGError=nil): TransferFull[TFile] {.cdecl, dynlib: lib, importc: "g_file_new_tmp".}
 proc g_file_new_tmp*(tmpl: string, iostream: var FileIOStream): File {.inline.} =
-  wrap(g_file_new_tmp(cstring(tmpl), iostream.pointer))
+  wrap(g_file_new_tmp(cstring(tmpl), iostream.getPointer))
 # tuple-return
 # iostream: var FileIOStream
 # proc g_file_new_tmp*(tmpl: string): File {.inline.} =
@@ -3722,7 +3722,7 @@ proc g_icon_new_for_string*(str: ustring): Icon {.inline.} =
 # 'GObject2.Object' 'TransferFull[GObject2.TObject]' (diff., need sugar)
 proc g_initable_newv(object_type: GType, n_parameters: uint32, parameters: openarray[GObject2.TParameter], cancellable: ptr TCancellable, error: ptr PGError=nil): TransferFull[GObject2.TObject] {.cdecl, dynlib: lib, importc: "g_initable_newv".}
 proc g_initable_newv*(object_type: GType, parameters: var openarray[GObject2.TParameter], cancellable: Cancellable): GObject2.Object {.inline.} =
-  wrap(g_initable_newv(object_type, parameters.len.uint32, parameters, cancellable.pointer))
+  wrap(g_initable_newv(object_type, parameters.len.uint32, parameters, cancellable.getPointer))
 # proc g_initable_newv*(object_type: GType, parameters: var openarray[GObject2.TParameter], cancellable: Cancellable): GObject2.Object {.inline.} =
 
 # g_io_error_from_errno
@@ -3829,7 +3829,7 @@ proc g_networking_init*() {.cdecl, dynlib: lib, importc: "g_networking_init".}
 # 'GLib2.TSource' 'ptr GLib2.TSource' (diff., need sugar)
 proc g_pollable_source_new(pollable_stream: ptr GObject2.TObject): ptr GLib2.TSource {.cdecl, dynlib: lib, importc: "g_pollable_source_new".}
 proc g_pollable_source_new*(pollable_stream: GObject2.Object): GLib2.TSource {.inline.} =
-  (g_pollable_source_new(pollable_stream.pointer))[]
+  (g_pollable_source_new(pollable_stream.getPointer))[]
 # proc g_pollable_source_new*(pollable_stream: GObject2.Object): GLib2.TSource {.inline.} =
 
 # g_pollable_source_new_full
@@ -3840,7 +3840,7 @@ proc g_pollable_source_new*(pollable_stream: GObject2.Object): GLib2.TSource {.i
 # 'GLib2.TSource' 'ptr GLib2.TSource' (diff., need sugar)
 proc g_pollable_source_new_full(pollable_stream: ptr GObject2.TObject, child_source: ptr GLib2.TSource, cancellable: ptr TCancellable): ptr GLib2.TSource {.cdecl, dynlib: lib, importc: "g_pollable_source_new_full".}
 proc g_pollable_source_new_full*(pollable_stream: GObject2.Object, child_source: GLib2.TSource, cancellable: Cancellable): GLib2.TSource {.inline.} =
-  (g_pollable_source_new_full(pollable_stream.pointer, myUnsafeAddr(child_source), cancellable.pointer))[]
+  (g_pollable_source_new_full(pollable_stream.getPointer, myUnsafeAddr(child_source), cancellable.getPointer))[]
 # proc g_pollable_source_new_full*(pollable_stream: GObject2.Object, child_source: GLib2.TSource, cancellable: Cancellable): GLib2.TSource {.inline.} =
 
 # g_pollable_stream_read
@@ -3854,7 +3854,7 @@ proc g_pollable_source_new_full*(pollable_stream: GObject2.Object, child_source:
 # 'int32' 'int32'
 proc g_pollable_stream_read(stream: ptr TInputStream, buffer: cstring, count: uint32, blocking: bool, cancellable: ptr TCancellable, error: ptr PGError=nil): int32 {.cdecl, dynlib: lib, importc: "g_pollable_stream_read".}
 proc g_pollable_stream_read*(stream: InputStream, buffer: string, blocking: bool, cancellable: Cancellable): int32 {.inline.} =
-  g_pollable_stream_read(stream.pointer, cstring(buffer), buffer.len.uint32, blocking, cancellable.pointer)
+  g_pollable_stream_read(stream.getPointer, cstring(buffer), buffer.len.uint32, blocking, cancellable.getPointer)
 # proc g_pollable_stream_read*(stream: InputStream, buffer: string, blocking: bool, cancellable: Cancellable): int32 {.inline.} =
 
 # g_pollable_stream_write
@@ -3868,7 +3868,7 @@ proc g_pollable_stream_read*(stream: InputStream, buffer: string, blocking: bool
 # 'int32' 'int32'
 proc g_pollable_stream_write(stream: ptr TOutputStream, buffer: cstring, count: uint32, blocking: bool, cancellable: ptr TCancellable, error: ptr PGError=nil): int32 {.cdecl, dynlib: lib, importc: "g_pollable_stream_write".}
 proc g_pollable_stream_write*(stream: OutputStream, buffer: string, blocking: bool, cancellable: Cancellable): int32 {.inline.} =
-  g_pollable_stream_write(stream.pointer, cstring(buffer), buffer.len.uint32, blocking, cancellable.pointer)
+  g_pollable_stream_write(stream.getPointer, cstring(buffer), buffer.len.uint32, blocking, cancellable.getPointer)
 # proc g_pollable_stream_write*(stream: OutputStream, buffer: string, blocking: bool, cancellable: Cancellable): int32 {.inline.} =
 
 # g_pollable_stream_write_all
@@ -3883,7 +3883,7 @@ proc g_pollable_stream_write*(stream: OutputStream, buffer: string, blocking: bo
 # 'bool' 'bool'
 proc g_pollable_stream_write_all(stream: ptr TOutputStream, buffer: cstring, count: uint32, blocking: bool, bytes_written: ptr uint32, cancellable: ptr TCancellable, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_pollable_stream_write_all".}
 proc g_pollable_stream_write_all*(stream: OutputStream, buffer: string, blocking: bool, bytes_written: var uint32, cancellable: Cancellable): bool {.inline.} =
-  g_pollable_stream_write_all(stream.pointer, cstring(buffer), buffer.len.uint32, blocking, addr(bytes_written), cancellable.pointer)
+  g_pollable_stream_write_all(stream.getPointer, cstring(buffer), buffer.len.uint32, blocking, addr(bytes_written), cancellable.getPointer)
 # tuple-return
 # bytes_written: var uint32
 # proc g_pollable_stream_write_all*(stream: OutputStream, buffer: string, blocking: bool, cancellable: Cancellable): bool {.inline.} =
@@ -4007,7 +4007,7 @@ proc g_settings_schema_source_get_default*(): TSettingsSchemaSource {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc g_simple_async_report_gerror_in_idle(object_x: ptr GObject2.TObject, callback: pointer, user_data: pointer, error: ptr ERROR_TODO) {.cdecl, dynlib: lib, importc: "g_simple_async_report_gerror_in_idle".}
 proc g_simple_async_report_gerror_in_idle*(object_x: GObject2.Object, callback: pointer, user_data: pointer, error: ptr ERROR_TODO) {.inline.} =
-  g_simple_async_report_gerror_in_idle(object_x.pointer, callback, user_data, error)
+  g_simple_async_report_gerror_in_idle(object_x.getPointer, callback, user_data, error)
 # proc g_simple_async_report_gerror_in_idle*(object_x: GObject2.Object, callback: pointer, user_data: pointer, error: ptr ERROR_TODO) {.inline.} =
 
 # g_tls_backend_get_default
@@ -4026,7 +4026,7 @@ proc g_tls_backend_get_default*(): TlsBackend {.inline.} =
 # 'TlsClientConnection' 'TransferFull[TTlsClientConnection]' (diff., need sugar)
 proc g_tls_client_connection_new(base_io_stream: ptr TIOStream, server_identity: ptr TSocketConnectable, error: ptr PGError=nil): TransferFull[TTlsClientConnection] {.cdecl, dynlib: lib, importc: "g_tls_client_connection_new".}
 proc g_tls_client_connection_new*(base_io_stream: IOStream, server_identity: SocketConnectable): TlsClientConnection {.inline.} =
-  wrap(g_tls_client_connection_new(base_io_stream.pointer, unwrap(server_identity)))
+  wrap(g_tls_client_connection_new(base_io_stream.getPointer, unwrap(server_identity)))
 # proc g_tls_client_connection_new*(base_io_stream: IOStream, server_identity: SocketConnectable): TlsClientConnection {.inline.} =
 
 # g_tls_error_quark
@@ -4051,7 +4051,7 @@ proc g_tls_file_database_new*(anchors: ustring): TlsFileDatabase {.inline.} =
 # 'TlsServerConnection' 'TransferFull[TTlsServerConnection]' (diff., need sugar)
 proc g_tls_server_connection_new(base_io_stream: ptr TIOStream, certificate: ptr TTlsCertificate, error: ptr PGError=nil): TransferFull[TTlsServerConnection] {.cdecl, dynlib: lib, importc: "g_tls_server_connection_new".}
 proc g_tls_server_connection_new*(base_io_stream: IOStream, certificate: TlsCertificate): TlsServerConnection {.inline.} =
-  wrap(g_tls_server_connection_new(base_io_stream.pointer, certificate.pointer))
+  wrap(g_tls_server_connection_new(base_io_stream.getPointer, certificate.getPointer))
 # proc g_tls_server_connection_new*(base_io_stream: IOStream, certificate: TlsCertificate): TlsServerConnection {.inline.} =
 
   # object methods
@@ -4329,7 +4329,7 @@ proc quit*(self: Application) {.inline.} =
 # 'bool' 'bool'
 proc g_application_register(self: ptr TApplication, cancellable: ptr TCancellable, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_application_register".}
 proc register*(self: Application, cancellable: Cancellable): bool {.inline.} =
-  g_application_register(self, cancellable.pointer)
+  g_application_register(self, cancellable.getPointer)
 # proc register*(self: Application, cancellable: Cancellable): bool {.inline.} =
 
 # g_application_release
@@ -4360,7 +4360,7 @@ proc run*(self: Application, argv: var openarray[ucstring]): int32 {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc g_application_send_notification(self: ptr TApplication, id: ucstring, notification: ptr TNotification) {.cdecl, dynlib: lib, importc: "g_application_send_notification".}
 proc send_notification*(self: Application, id: ustring, notification: Notification) {.inline.} =
-  g_application_send_notification(self, ucstring(id), notification.pointer)
+  g_application_send_notification(self, ucstring(id), notification.getPointer)
 # proc send_notification*(self: Application, id: ustring, notification: Notification) {.inline.} =
 
 # g_application_set_action_group
@@ -4545,7 +4545,7 @@ proc set_exit_status*(self: ApplicationCommandLine, exit_status: int32) {.inline
 # 'BufferedInputStream' 'TransferFull[TBufferedInputStream]' (diff., need sugar)
 proc g_buffered_input_stream_new(base_stream: ptr TInputStream): TransferFull[TBufferedInputStream] {.cdecl, dynlib: lib, importc: "g_buffered_input_stream_new".}
 proc bufferedinputstream_new*(base_stream: InputStream): BufferedInputStream {.inline.} =
-  wrap(g_buffered_input_stream_new(base_stream.pointer))
+  wrap(g_buffered_input_stream_new(base_stream.getPointer))
 # proc bufferedinputstream_new*(base_stream: InputStream): BufferedInputStream {.inline.} =
 
 # g_buffered_input_stream_new_sized
@@ -4556,7 +4556,7 @@ proc bufferedinputstream_new*(base_stream: InputStream): BufferedInputStream {.i
 # 'BufferedInputStream' 'TransferFull[TBufferedInputStream]' (diff., need sugar)
 proc g_buffered_input_stream_new_sized(base_stream: ptr TInputStream, size: uint32): TransferFull[TBufferedInputStream] {.cdecl, dynlib: lib, importc: "g_buffered_input_stream_new_sized".}
 proc bufferedinputstream_new_sized*(base_stream: InputStream, size: uint32): BufferedInputStream {.inline.} =
-  wrap(g_buffered_input_stream_new_sized(base_stream.pointer, size))
+  wrap(g_buffered_input_stream_new_sized(base_stream.getPointer, size))
 # proc bufferedinputstream_new_sized*(base_stream: InputStream, size: uint32): BufferedInputStream {.inline.} =
 
 # g_buffered_input_stream_fill
@@ -4568,7 +4568,7 @@ proc bufferedinputstream_new_sized*(base_stream: InputStream, size: uint32): Buf
 # 'int32' 'int32'
 proc g_buffered_input_stream_fill(self: ptr TBufferedInputStream, count: int32, cancellable: ptr TCancellable, error: ptr PGError=nil): int32 {.cdecl, dynlib: lib, importc: "g_buffered_input_stream_fill".}
 proc fill*(self: BufferedInputStream, count: int32, cancellable: Cancellable): int32 {.inline.} =
-  g_buffered_input_stream_fill(self, count, cancellable.pointer)
+  g_buffered_input_stream_fill(self, count, cancellable.getPointer)
 # proc fill*(self: BufferedInputStream, count: int32, cancellable: Cancellable): int32 {.inline.} =
 
 # g_buffered_input_stream_fill_async
@@ -4582,7 +4582,7 @@ proc fill*(self: BufferedInputStream, count: int32, cancellable: Cancellable): i
 # 'VOID_TODO' 'VOID_TODO'
 proc g_buffered_input_stream_fill_async(self: ptr TBufferedInputStream, count: int32, io_priority: int32, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_buffered_input_stream_fill_async".}
 proc fill_async*(self: BufferedInputStream, count: int32, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_buffered_input_stream_fill_async(self, count, io_priority, cancellable.pointer, callback, user_data)
+  g_buffered_input_stream_fill_async(self, count, io_priority, cancellable.getPointer, callback, user_data)
 # proc fill_async*(self: BufferedInputStream, count: int32, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_buffered_input_stream_fill_finish
@@ -4646,7 +4646,7 @@ proc peek_buffer*(self: BufferedInputStream, count: var uint32): string {.inline
 # 'int32' 'int32'
 proc g_buffered_input_stream_read_byte(self: ptr TBufferedInputStream, cancellable: ptr TCancellable, error: ptr PGError=nil): int32 {.cdecl, dynlib: lib, importc: "g_buffered_input_stream_read_byte".}
 proc read_byte*(self: BufferedInputStream, cancellable: Cancellable): int32 {.inline.} =
-  g_buffered_input_stream_read_byte(self, cancellable.pointer)
+  g_buffered_input_stream_read_byte(self, cancellable.getPointer)
 # proc read_byte*(self: BufferedInputStream, cancellable: Cancellable): int32 {.inline.} =
 
 # g_buffered_input_stream_set_buffer_size
@@ -4666,7 +4666,7 @@ proc set_buffer_size*(self: BufferedInputStream, size: uint32) {.inline.} =
 # 'BufferedOutputStream' 'TransferFull[TBufferedOutputStream]' (diff., need sugar)
 proc g_buffered_output_stream_new(base_stream: ptr TOutputStream): TransferFull[TBufferedOutputStream] {.cdecl, dynlib: lib, importc: "g_buffered_output_stream_new".}
 proc bufferedoutputstream_new*(base_stream: OutputStream): BufferedOutputStream {.inline.} =
-  wrap(g_buffered_output_stream_new(base_stream.pointer))
+  wrap(g_buffered_output_stream_new(base_stream.getPointer))
 # proc bufferedoutputstream_new*(base_stream: OutputStream): BufferedOutputStream {.inline.} =
 
 # g_buffered_output_stream_new_sized
@@ -4677,7 +4677,7 @@ proc bufferedoutputstream_new*(base_stream: OutputStream): BufferedOutputStream 
 # 'BufferedOutputStream' 'TransferFull[TBufferedOutputStream]' (diff., need sugar)
 proc g_buffered_output_stream_new_sized(base_stream: ptr TOutputStream, size: uint32): TransferFull[TBufferedOutputStream] {.cdecl, dynlib: lib, importc: "g_buffered_output_stream_new_sized".}
 proc bufferedoutputstream_new_sized*(base_stream: OutputStream, size: uint32): BufferedOutputStream {.inline.} =
-  wrap(g_buffered_output_stream_new_sized(base_stream.pointer, size))
+  wrap(g_buffered_output_stream_new_sized(base_stream.getPointer, size))
 # proc bufferedoutputstream_new_sized*(base_stream: OutputStream, size: uint32): BufferedOutputStream {.inline.} =
 
 # g_buffered_output_stream_get_auto_grow
@@ -4908,7 +4908,7 @@ proc set_use_fallback*(self: CharsetConverter, use_fallback: bool) {.inline.} =
 # 'ConverterInputStream' 'TransferFull[TConverterInputStream]' (diff., need sugar)
 proc g_converter_input_stream_new(base_stream: ptr TInputStream, converter_x: ptr TConverter): TransferFull[TConverterInputStream] {.cdecl, dynlib: lib, importc: "g_converter_input_stream_new".}
 proc converterinputstream_new*(base_stream: InputStream, converter_x: Converter): ConverterInputStream {.inline.} =
-  wrap(g_converter_input_stream_new(base_stream.pointer, unwrap(converter_x)))
+  wrap(g_converter_input_stream_new(base_stream.getPointer, unwrap(converter_x)))
 # proc converterinputstream_new*(base_stream: InputStream, converter_x: Converter): ConverterInputStream {.inline.} =
 
 # g_converter_input_stream_get_converter
@@ -4928,7 +4928,7 @@ proc get_converter*(self: ConverterInputStream): Converter {.inline.} =
 # 'ConverterOutputStream' 'TransferFull[TConverterOutputStream]' (diff., need sugar)
 proc g_converter_output_stream_new(base_stream: ptr TOutputStream, converter_x: ptr TConverter): TransferFull[TConverterOutputStream] {.cdecl, dynlib: lib, importc: "g_converter_output_stream_new".}
 proc converteroutputstream_new*(base_stream: OutputStream, converter_x: Converter): ConverterOutputStream {.inline.} =
-  wrap(g_converter_output_stream_new(base_stream.pointer, unwrap(converter_x)))
+  wrap(g_converter_output_stream_new(base_stream.getPointer, unwrap(converter_x)))
 # proc converteroutputstream_new*(base_stream: OutputStream, converter_x: Converter): ConverterOutputStream {.inline.} =
 
 # g_converter_output_stream_get_converter
@@ -4957,7 +4957,7 @@ proc credentials_new*(): Credentials {.inline.} =
 # 'bool' 'bool'
 proc g_credentials_is_same_user(self: ptr TCredentials, other_credentials: ptr TCredentials, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_credentials_is_same_user".}
 proc is_same_user*(self: Credentials, other_credentials: Credentials): bool {.inline.} =
-  g_credentials_is_same_user(self, other_credentials.pointer)
+  g_credentials_is_same_user(self, other_credentials.getPointer)
 # proc is_same_user*(self: Credentials, other_credentials: Credentials): bool {.inline.} =
 
 # g_credentials_set_native
@@ -4989,7 +4989,7 @@ proc to_string*(self: Credentials): ustring {.inline.} =
 # 'DBusActionGroup' 'TransferFull[TDBusActionGroup]' (diff., need sugar)
 proc g_dbus_action_group_get(connection: ptr TDBusConnection, bus_name: ucstring, object_path: ucstring): TransferFull[TDBusActionGroup] {.cdecl, dynlib: lib, importc: "g_dbus_action_group_get".}
 template get*(klass_parameter: typedesc[DBusActionGroup], connection: DBusConnection, bus_name: ustring, object_path: ustring): DBusActionGroup =
-  wrap(g_dbus_action_group_get(connection.pointer, ucstring(bus_name), ucstring(object_path)))
+  wrap(g_dbus_action_group_get(connection.getPointer, ucstring(bus_name), ucstring(object_path)))
 # template get*(klass_parameter: typedesc[DBusActionGroup], connection: DBusConnection, bus_name: ustring, object_path: ustring): DBusActionGroup =
 
 # g_dbus_auth_observer_new
@@ -5019,7 +5019,7 @@ proc allow_mechanism*(self: DBusAuthObserver, mechanism: ustring): bool {.inline
 # 'bool' 'bool'
 proc g_dbus_auth_observer_authorize_authenticated_peer(self: ptr TDBusAuthObserver, stream: ptr TIOStream, credentials: ptr TCredentials): bool {.cdecl, dynlib: lib, importc: "g_dbus_auth_observer_authorize_authenticated_peer".}
 proc authorize_authenticated_peer*(self: DBusAuthObserver, stream: IOStream, credentials: Credentials): bool {.inline.} =
-  g_dbus_auth_observer_authorize_authenticated_peer(self, stream.pointer, credentials.pointer)
+  g_dbus_auth_observer_authorize_authenticated_peer(self, stream.getPointer, credentials.getPointer)
 # proc authorize_authenticated_peer*(self: DBusAuthObserver, stream: IOStream, credentials: Credentials): bool {.inline.} =
 
 # g_dbus_connection_new_finish
@@ -5055,7 +5055,7 @@ proc dbusconnection_new_for_address_finish*(res: AsyncResult): DBusConnection {.
 # 'DBusConnection' 'TransferFull[TDBusConnection]' (diff., need sugar)
 proc g_dbus_connection_new_for_address_sync(address: ucstring, flags: SDBusConnectionFlags, observer: ptr TDBusAuthObserver, cancellable: ptr TCancellable, error: ptr PGError=nil): TransferFull[TDBusConnection] {.cdecl, dynlib: lib, importc: "g_dbus_connection_new_for_address_sync".}
 proc dbusconnection_new_for_address_sync*(address: ustring, flags: SDBusConnectionFlags, observer: DBusAuthObserver, cancellable: Cancellable): DBusConnection {.inline.} =
-  wrap(g_dbus_connection_new_for_address_sync(ucstring(address), flags, observer.pointer, cancellable.pointer))
+  wrap(g_dbus_connection_new_for_address_sync(ucstring(address), flags, observer.getPointer, cancellable.getPointer))
 # proc dbusconnection_new_for_address_sync*(address: ustring, flags: SDBusConnectionFlags, observer: DBusAuthObserver, cancellable: Cancellable): DBusConnection {.inline.} =
 
 # g_dbus_connection_new_sync
@@ -5070,7 +5070,7 @@ proc dbusconnection_new_for_address_sync*(address: ustring, flags: SDBusConnecti
 # 'DBusConnection' 'TransferFull[TDBusConnection]' (diff., need sugar)
 proc g_dbus_connection_new_sync(stream: ptr TIOStream, guid: ucstring, flags: SDBusConnectionFlags, observer: ptr TDBusAuthObserver, cancellable: ptr TCancellable, error: ptr PGError=nil): TransferFull[TDBusConnection] {.cdecl, dynlib: lib, importc: "g_dbus_connection_new_sync".}
 proc dbusconnection_new_sync*(stream: IOStream, guid: ustring, flags: SDBusConnectionFlags, observer: DBusAuthObserver, cancellable: Cancellable): DBusConnection {.inline.} =
-  wrap(g_dbus_connection_new_sync(stream.pointer, ucstring(guid), flags, observer.pointer, cancellable.pointer))
+  wrap(g_dbus_connection_new_sync(stream.getPointer, ucstring(guid), flags, observer.getPointer, cancellable.getPointer))
 # proc dbusconnection_new_sync*(stream: IOStream, guid: ustring, flags: SDBusConnectionFlags, observer: DBusAuthObserver, cancellable: Cancellable): DBusConnection {.inline.} =
 
 # g_dbus_connection_new
@@ -5086,7 +5086,7 @@ proc dbusconnection_new_sync*(stream: IOStream, guid: ustring, flags: SDBusConne
 # 'VOID_TODO' 'VOID_TODO'
 proc g_dbus_connection_new(stream: ptr TIOStream, guid: ucstring, flags: SDBusConnectionFlags, observer: ptr TDBusAuthObserver, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_dbus_connection_new".}
 template new*(klass_parameter: typedesc[DBusConnection], stream: IOStream, guid: ustring, flags: SDBusConnectionFlags, observer: DBusAuthObserver, cancellable: Cancellable, callback: pointer, user_data: pointer) =
-  g_dbus_connection_new(stream.pointer, ucstring(guid), flags, observer.pointer, cancellable.pointer, callback, user_data)
+  g_dbus_connection_new(stream.getPointer, ucstring(guid), flags, observer.getPointer, cancellable.getPointer, callback, user_data)
 # template new*(klass_parameter: typedesc[DBusConnection], stream: IOStream, guid: ustring, flags: SDBusConnectionFlags, observer: DBusAuthObserver, cancellable: Cancellable, callback: pointer, user_data: pointer) =
 
 # g_dbus_connection_new_for_address
@@ -5101,7 +5101,7 @@ template new*(klass_parameter: typedesc[DBusConnection], stream: IOStream, guid:
 # 'VOID_TODO' 'VOID_TODO'
 proc g_dbus_connection_new_for_address(address: ucstring, flags: SDBusConnectionFlags, observer: ptr TDBusAuthObserver, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_dbus_connection_new_for_address".}
 template new_for_address*(klass_parameter: typedesc[DBusConnection], address: ustring, flags: SDBusConnectionFlags, observer: DBusAuthObserver, cancellable: Cancellable, callback: pointer, user_data: pointer) =
-  g_dbus_connection_new_for_address(ucstring(address), flags, observer.pointer, cancellable.pointer, callback, user_data)
+  g_dbus_connection_new_for_address(ucstring(address), flags, observer.getPointer, cancellable.getPointer, callback, user_data)
 # template new_for_address*(klass_parameter: typedesc[DBusConnection], address: ustring, flags: SDBusConnectionFlags, observer: DBusAuthObserver, cancellable: Cancellable, callback: pointer, user_data: pointer) =
 
 # g_dbus_connection_add_filter
@@ -5133,7 +5133,7 @@ proc add_filter*(self: DBusConnection, filter_function: pointer, user_data: poin
 # 'VOID_TODO' 'VOID_TODO'
 proc g_dbus_connection_call(self: ptr TDBusConnection, bus_name: ucstring, object_path: ucstring, interface_name: ucstring, method_name: ucstring, parameters: ptr GLib2.TVariant, reply_type: ptr GLib2.TVariantType, flags: SDBusCallFlags, timeout_msec: int32, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_dbus_connection_call".}
 proc call*(self: DBusConnection, bus_name: ustring, object_path: ustring, interface_name: ustring, method_name: ustring, parameters: GLib2.TVariant, reply_type: GLib2.TVariantType, flags: SDBusCallFlags, timeout_msec: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_dbus_connection_call(self, ucstring(bus_name), ucstring(object_path), ucstring(interface_name), ucstring(method_name), myUnsafeAddr(parameters), myUnsafeAddr(reply_type), flags, timeout_msec, cancellable.pointer, callback, user_data)
+  g_dbus_connection_call(self, ucstring(bus_name), ucstring(object_path), ucstring(interface_name), ucstring(method_name), myUnsafeAddr(parameters), myUnsafeAddr(reply_type), flags, timeout_msec, cancellable.getPointer, callback, user_data)
 # proc call*(self: DBusConnection, bus_name: ustring, object_path: ustring, interface_name: ustring, method_name: ustring, parameters: GLib2.TVariant, reply_type: GLib2.TVariantType, flags: SDBusCallFlags, timeout_msec: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_dbus_connection_call_finish
@@ -5163,7 +5163,7 @@ proc call_finish*(self: DBusConnection, res: AsyncResult): GLib2.TVariant {.inli
 # 'GLib2.TVariant' 'ptr GLib2.TVariant' (diff., need sugar)
 proc g_dbus_connection_call_sync(self: ptr TDBusConnection, bus_name: ucstring, object_path: ucstring, interface_name: ucstring, method_name: ucstring, parameters: ptr GLib2.TVariant, reply_type: ptr GLib2.TVariantType, flags: SDBusCallFlags, timeout_msec: int32, cancellable: ptr TCancellable, error: ptr PGError=nil): ptr GLib2.TVariant {.cdecl, dynlib: lib, importc: "g_dbus_connection_call_sync".}
 proc call_sync*(self: DBusConnection, bus_name: ustring, object_path: ustring, interface_name: ustring, method_name: ustring, parameters: GLib2.TVariant, reply_type: GLib2.TVariantType, flags: SDBusCallFlags, timeout_msec: int32, cancellable: Cancellable): GLib2.TVariant {.inline.} =
-  (g_dbus_connection_call_sync(self, ucstring(bus_name), ucstring(object_path), ucstring(interface_name), ucstring(method_name), myUnsafeAddr(parameters), myUnsafeAddr(reply_type), flags, timeout_msec, cancellable.pointer))[]
+  (g_dbus_connection_call_sync(self, ucstring(bus_name), ucstring(object_path), ucstring(interface_name), ucstring(method_name), myUnsafeAddr(parameters), myUnsafeAddr(reply_type), flags, timeout_msec, cancellable.getPointer))[]
 # proc call_sync*(self: DBusConnection, bus_name: ustring, object_path: ustring, interface_name: ustring, method_name: ustring, parameters: GLib2.TVariant, reply_type: GLib2.TVariantType, flags: SDBusCallFlags, timeout_msec: int32, cancellable: Cancellable): GLib2.TVariant {.inline.} =
 
 # g_dbus_connection_call_with_unix_fd_list
@@ -5184,7 +5184,7 @@ proc call_sync*(self: DBusConnection, bus_name: ustring, object_path: ustring, i
 # 'VOID_TODO' 'VOID_TODO'
 proc g_dbus_connection_call_with_unix_fd_list(self: ptr TDBusConnection, bus_name: ucstring, object_path: ucstring, interface_name: ucstring, method_name: ucstring, parameters: ptr GLib2.TVariant, reply_type: ptr GLib2.TVariantType, flags: SDBusCallFlags, timeout_msec: int32, fd_list: ptr TUnixFDList, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_dbus_connection_call_with_unix_fd_list".}
 proc call_with_unix_fd_list*(self: DBusConnection, bus_name: ustring, object_path: ustring, interface_name: ustring, method_name: ustring, parameters: GLib2.TVariant, reply_type: GLib2.TVariantType, flags: SDBusCallFlags, timeout_msec: int32, fd_list: TUnixFDList, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_dbus_connection_call_with_unix_fd_list(self, ucstring(bus_name), ucstring(object_path), ucstring(interface_name), ucstring(method_name), myUnsafeAddr(parameters), myUnsafeAddr(reply_type), flags, timeout_msec, myUnsafeAddr(fd_list), cancellable.pointer, callback, user_data)
+  g_dbus_connection_call_with_unix_fd_list(self, ucstring(bus_name), ucstring(object_path), ucstring(interface_name), ucstring(method_name), myUnsafeAddr(parameters), myUnsafeAddr(reply_type), flags, timeout_msec, myUnsafeAddr(fd_list), cancellable.getPointer, callback, user_data)
 # proc call_with_unix_fd_list*(self: DBusConnection, bus_name: ustring, object_path: ustring, interface_name: ustring, method_name: ustring, parameters: GLib2.TVariant, reply_type: GLib2.TVariantType, flags: SDBusCallFlags, timeout_msec: int32, fd_list: TUnixFDList, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_dbus_connection_call_with_unix_fd_list_finish
@@ -5219,7 +5219,7 @@ proc call_with_unix_fd_list_finish*(self: DBusConnection, out_fd_list: var TUnix
 # 'GLib2.TVariant' 'ptr GLib2.TVariant' (diff., need sugar)
 proc g_dbus_connection_call_with_unix_fd_list_sync(self: ptr TDBusConnection, bus_name: ucstring, object_path: ucstring, interface_name: ucstring, method_name: ucstring, parameters: ptr GLib2.TVariant, reply_type: ptr GLib2.TVariantType, flags: SDBusCallFlags, timeout_msec: int32, fd_list: ptr TUnixFDList, out_fd_list: ptr TUnixFDList, cancellable: ptr TCancellable, error: ptr PGError=nil): ptr GLib2.TVariant {.cdecl, dynlib: lib, importc: "g_dbus_connection_call_with_unix_fd_list_sync".}
 proc call_with_unix_fd_list_sync*(self: DBusConnection, bus_name: ustring, object_path: ustring, interface_name: ustring, method_name: ustring, parameters: GLib2.TVariant, reply_type: GLib2.TVariantType, flags: SDBusCallFlags, timeout_msec: int32, fd_list: TUnixFDList, out_fd_list: var TUnixFDList, cancellable: Cancellable): GLib2.TVariant {.inline.} =
-  (g_dbus_connection_call_with_unix_fd_list_sync(self, ucstring(bus_name), ucstring(object_path), ucstring(interface_name), ucstring(method_name), myUnsafeAddr(parameters), myUnsafeAddr(reply_type), flags, timeout_msec, myUnsafeAddr(fd_list), addr(out_fd_list), cancellable.pointer))[]
+  (g_dbus_connection_call_with_unix_fd_list_sync(self, ucstring(bus_name), ucstring(object_path), ucstring(interface_name), ucstring(method_name), myUnsafeAddr(parameters), myUnsafeAddr(reply_type), flags, timeout_msec, myUnsafeAddr(fd_list), addr(out_fd_list), cancellable.getPointer))[]
 # tuple-return
 # out_fd_list: var TUnixFDList
 # proc call_with_unix_fd_list_sync*(self: DBusConnection, bus_name: ustring, object_path: ustring, interface_name: ustring, method_name: ustring, parameters: GLib2.TVariant, reply_type: GLib2.TVariantType, flags: SDBusCallFlags, timeout_msec: int32, fd_list: TUnixFDList, cancellable: Cancellable): GLib2.TVariant {.inline.} =
@@ -5233,7 +5233,7 @@ proc call_with_unix_fd_list_sync*(self: DBusConnection, bus_name: ustring, objec
 # 'VOID_TODO' 'VOID_TODO'
 proc g_dbus_connection_close(self: ptr TDBusConnection, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_dbus_connection_close".}
 proc close*(self: DBusConnection, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_dbus_connection_close(self, cancellable.pointer, callback, user_data)
+  g_dbus_connection_close(self, cancellable.getPointer, callback, user_data)
 # proc close*(self: DBusConnection, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_dbus_connection_close_finish
@@ -5255,7 +5255,7 @@ proc close_finish*(self: DBusConnection, res: AsyncResult): bool {.inline.} =
 # 'bool' 'bool'
 proc g_dbus_connection_close_sync(self: ptr TDBusConnection, cancellable: ptr TCancellable, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_dbus_connection_close_sync".}
 proc close_sync*(self: DBusConnection, cancellable: Cancellable): bool {.inline.} =
-  g_dbus_connection_close_sync(self, cancellable.pointer)
+  g_dbus_connection_close_sync(self, cancellable.getPointer)
 # proc close_sync*(self: DBusConnection, cancellable: Cancellable): bool {.inline.} =
 
 # g_dbus_connection_emit_signal
@@ -5294,7 +5294,7 @@ proc export_action_group*(self: DBusConnection, object_path: ustring, action_gro
 # 'uint32' 'uint32'
 proc g_dbus_connection_export_menu_model(self: ptr TDBusConnection, object_path: ucstring, menu: ptr TMenuModel, error: ptr PGError=nil): uint32 {.cdecl, dynlib: lib, importc: "g_dbus_connection_export_menu_model".}
 proc export_menu_model*(self: DBusConnection, object_path: ustring, menu: MenuModel): uint32 {.inline.} =
-  g_dbus_connection_export_menu_model(self, ucstring(object_path), menu.pointer)
+  g_dbus_connection_export_menu_model(self, ucstring(object_path), menu.getPointer)
 # proc export_menu_model*(self: DBusConnection, object_path: ustring, menu: MenuModel): uint32 {.inline.} =
 
 # g_dbus_connection_flush
@@ -5306,7 +5306,7 @@ proc export_menu_model*(self: DBusConnection, object_path: ustring, menu: MenuMo
 # 'VOID_TODO' 'VOID_TODO'
 proc g_dbus_connection_flush(self: ptr TDBusConnection, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_dbus_connection_flush".}
 proc flush*(self: DBusConnection, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_dbus_connection_flush(self, cancellable.pointer, callback, user_data)
+  g_dbus_connection_flush(self, cancellable.getPointer, callback, user_data)
 # proc flush*(self: DBusConnection, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_dbus_connection_flush_finish
@@ -5328,7 +5328,7 @@ proc flush_finish*(self: DBusConnection, res: AsyncResult): bool {.inline.} =
 # 'bool' 'bool'
 proc g_dbus_connection_flush_sync(self: ptr TDBusConnection, cancellable: ptr TCancellable, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_dbus_connection_flush_sync".}
 proc flush_sync*(self: DBusConnection, cancellable: Cancellable): bool {.inline.} =
-  g_dbus_connection_flush_sync(self, cancellable.pointer)
+  g_dbus_connection_flush_sync(self, cancellable.getPointer)
 # proc flush_sync*(self: DBusConnection, cancellable: Cancellable): bool {.inline.} =
 
 # g_dbus_connection_get_capabilities
@@ -5453,7 +5453,7 @@ proc remove_filter*(self: DBusConnection, filter_id: uint32) {.inline.} =
 # 'bool' 'bool'
 proc g_dbus_connection_send_message(self: ptr TDBusConnection, message: ptr TDBusMessage, flags: SDBusSendMessageFlags, out_serial: ptr uint32, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_dbus_connection_send_message".}
 proc send_message*(self: DBusConnection, message: DBusMessage, flags: SDBusSendMessageFlags, out_serial: var uint32): bool {.inline.} =
-  g_dbus_connection_send_message(self, message.pointer, flags, addr(out_serial))
+  g_dbus_connection_send_message(self, message.getPointer, flags, addr(out_serial))
 # tuple-return
 # out_serial: var uint32
 # proc send_message*(self: DBusConnection, message: DBusMessage, flags: SDBusSendMessageFlags): bool {.inline.} =
@@ -5471,7 +5471,7 @@ proc send_message*(self: DBusConnection, message: DBusMessage, flags: SDBusSendM
 # 'VOID_TODO' 'VOID_TODO'
 proc g_dbus_connection_send_message_with_reply(self: ptr TDBusConnection, message: ptr TDBusMessage, flags: SDBusSendMessageFlags, timeout_msec: int32, out_serial: ptr uint32, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_dbus_connection_send_message_with_reply".}
 proc send_message_with_reply*(self: DBusConnection, message: DBusMessage, flags: SDBusSendMessageFlags, timeout_msec: int32, out_serial: var uint32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_dbus_connection_send_message_with_reply(self, message.pointer, flags, timeout_msec, addr(out_serial), cancellable.pointer, callback, user_data)
+  g_dbus_connection_send_message_with_reply(self, message.getPointer, flags, timeout_msec, addr(out_serial), cancellable.getPointer, callback, user_data)
 # tuple-return
 # out_serial: var uint32
 # proc send_message_with_reply*(self: DBusConnection, message: DBusMessage, flags: SDBusSendMessageFlags, timeout_msec: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
@@ -5499,7 +5499,7 @@ proc send_message_with_reply_finish*(self: DBusConnection, res: AsyncResult): DB
 # 'DBusMessage' 'TransferFull[TDBusMessage]' (diff., need sugar)
 proc g_dbus_connection_send_message_with_reply_sync(self: ptr TDBusConnection, message: ptr TDBusMessage, flags: SDBusSendMessageFlags, timeout_msec: int32, out_serial: ptr uint32, cancellable: ptr TCancellable, error: ptr PGError=nil): TransferFull[TDBusMessage] {.cdecl, dynlib: lib, importc: "g_dbus_connection_send_message_with_reply_sync".}
 proc send_message_with_reply_sync*(self: DBusConnection, message: DBusMessage, flags: SDBusSendMessageFlags, timeout_msec: int32, out_serial: var uint32, cancellable: Cancellable): DBusMessage {.inline.} =
-  wrap(g_dbus_connection_send_message_with_reply_sync(self, message.pointer, flags, timeout_msec, addr(out_serial), cancellable.pointer))
+  wrap(g_dbus_connection_send_message_with_reply_sync(self, message.getPointer, flags, timeout_msec, addr(out_serial), cancellable.getPointer))
 # tuple-return
 # out_serial: var uint32
 # proc send_message_with_reply_sync*(self: DBusConnection, message: DBusMessage, flags: SDBusSendMessageFlags, timeout_msec: int32, cancellable: Cancellable): DBusMessage {.inline.} =
@@ -5600,7 +5600,7 @@ proc unregister_subtree*(self: DBusConnection, registration_id: uint32): bool {.
 # 'bool' 'bool'
 proc g_dbus_interface_skeleton_export(self: ptr TDBusInterfaceSkeleton, connection: ptr TDBusConnection, object_path: ucstring, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_dbus_interface_skeleton_export".}
 proc export_x*(self: DBusInterfaceSkeleton, connection: DBusConnection, object_path: ustring): bool {.inline.} =
-  g_dbus_interface_skeleton_export(self, connection.pointer, ucstring(object_path))
+  g_dbus_interface_skeleton_export(self, connection.getPointer, ucstring(object_path))
 # proc export_x*(self: DBusInterfaceSkeleton, connection: DBusConnection, object_path: ustring): bool {.inline.} =
 
 # g_dbus_interface_skeleton_flush
@@ -5673,7 +5673,7 @@ proc get_properties*(self: DBusInterfaceSkeleton): GLib2.TVariant {.inline.} =
 # 'bool' 'bool'
 proc g_dbus_interface_skeleton_has_connection(self: ptr TDBusInterfaceSkeleton, connection: ptr TDBusConnection): bool {.cdecl, dynlib: lib, importc: "g_dbus_interface_skeleton_has_connection".}
 proc has_connection*(self: DBusInterfaceSkeleton, connection: DBusConnection): bool {.inline.} =
-  g_dbus_interface_skeleton_has_connection(self, connection.pointer)
+  g_dbus_interface_skeleton_has_connection(self, connection.getPointer)
 # proc has_connection*(self: DBusInterfaceSkeleton, connection: DBusConnection): bool {.inline.} =
 
 # g_dbus_interface_skeleton_set_flags
@@ -5702,7 +5702,7 @@ proc unexport*(self: DBusInterfaceSkeleton) {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc g_dbus_interface_skeleton_unexport_from_connection(self: ptr TDBusInterfaceSkeleton, connection: ptr TDBusConnection) {.cdecl, dynlib: lib, importc: "g_dbus_interface_skeleton_unexport_from_connection".}
 proc unexport_from_connection*(self: DBusInterfaceSkeleton, connection: DBusConnection) {.inline.} =
-  g_dbus_interface_skeleton_unexport_from_connection(self, connection.pointer)
+  g_dbus_interface_skeleton_unexport_from_connection(self, connection.getPointer)
 # proc unexport_from_connection*(self: DBusInterfaceSkeleton, connection: DBusConnection) {.inline.} =
 
 # g_dbus_menu_model_get
@@ -5714,7 +5714,7 @@ proc unexport_from_connection*(self: DBusInterfaceSkeleton, connection: DBusConn
 # 'DBusMenuModel' 'TransferFull[TDBusMenuModel]' (diff., need sugar)
 proc g_dbus_menu_model_get(connection: ptr TDBusConnection, bus_name: ucstring, object_path: ucstring): TransferFull[TDBusMenuModel] {.cdecl, dynlib: lib, importc: "g_dbus_menu_model_get".}
 template get*(klass_parameter: typedesc[DBusMenuModel], connection: DBusConnection, bus_name: ustring, object_path: ustring): DBusMenuModel =
-  wrap(g_dbus_menu_model_get(connection.pointer, ucstring(bus_name), ucstring(object_path)))
+  wrap(g_dbus_menu_model_get(connection.getPointer, ucstring(bus_name), ucstring(object_path)))
 # template get*(klass_parameter: typedesc[DBusMenuModel], connection: DBusConnection, bus_name: ustring, object_path: ustring): DBusMenuModel =
 
 # g_dbus_message_new
@@ -6354,7 +6354,7 @@ proc dbusobjectmanagerclient_new_for_bus_finish*(res: AsyncResult): DBusObjectMa
 # 'DBusObjectManagerClient' 'TransferFull[TDBusObjectManagerClient]' (diff., need sugar)
 proc g_dbus_object_manager_client_new_for_bus_sync(bus_type: BusType, flags: SDBusObjectManagerClientFlags, name: ucstring, object_path: ucstring, get_proxy_type_func: pointer, get_proxy_type_user_data: pointer, get_proxy_type_destroy_notify: pointer, cancellable: ptr TCancellable, error: ptr PGError=nil): TransferFull[TDBusObjectManagerClient] {.cdecl, dynlib: lib, importc: "g_dbus_object_manager_client_new_for_bus_sync".}
 proc dbusobjectmanagerclient_new_for_bus_sync*(bus_type: BusType, flags: SDBusObjectManagerClientFlags, name: ustring, object_path: ustring, get_proxy_type_func: pointer, get_proxy_type_user_data: pointer, get_proxy_type_destroy_notify: pointer, cancellable: Cancellable): DBusObjectManagerClient {.inline.} =
-  wrap(g_dbus_object_manager_client_new_for_bus_sync(bus_type, flags, ucstring(name), ucstring(object_path), get_proxy_type_func, get_proxy_type_user_data, get_proxy_type_destroy_notify, cancellable.pointer))
+  wrap(g_dbus_object_manager_client_new_for_bus_sync(bus_type, flags, ucstring(name), ucstring(object_path), get_proxy_type_func, get_proxy_type_user_data, get_proxy_type_destroy_notify, cancellable.getPointer))
 # proc dbusobjectmanagerclient_new_for_bus_sync*(bus_type: BusType, flags: SDBusObjectManagerClientFlags, name: ustring, object_path: ustring, get_proxy_type_func: pointer, get_proxy_type_user_data: pointer, get_proxy_type_destroy_notify: pointer, cancellable: Cancellable): DBusObjectManagerClient {.inline.} =
 
 # g_dbus_object_manager_client_new_sync
@@ -6372,7 +6372,7 @@ proc dbusobjectmanagerclient_new_for_bus_sync*(bus_type: BusType, flags: SDBusOb
 # 'DBusObjectManagerClient' 'TransferFull[TDBusObjectManagerClient]' (diff., need sugar)
 proc g_dbus_object_manager_client_new_sync(connection: ptr TDBusConnection, flags: SDBusObjectManagerClientFlags, name: ucstring, object_path: ucstring, get_proxy_type_func: pointer, get_proxy_type_user_data: pointer, get_proxy_type_destroy_notify: pointer, cancellable: ptr TCancellable, error: ptr PGError=nil): TransferFull[TDBusObjectManagerClient] {.cdecl, dynlib: lib, importc: "g_dbus_object_manager_client_new_sync".}
 proc dbusobjectmanagerclient_new_sync*(connection: DBusConnection, flags: SDBusObjectManagerClientFlags, name: ustring, object_path: ustring, get_proxy_type_func: pointer, get_proxy_type_user_data: pointer, get_proxy_type_destroy_notify: pointer, cancellable: Cancellable): DBusObjectManagerClient {.inline.} =
-  wrap(g_dbus_object_manager_client_new_sync(connection.pointer, flags, ucstring(name), ucstring(object_path), get_proxy_type_func, get_proxy_type_user_data, get_proxy_type_destroy_notify, cancellable.pointer))
+  wrap(g_dbus_object_manager_client_new_sync(connection.getPointer, flags, ucstring(name), ucstring(object_path), get_proxy_type_func, get_proxy_type_user_data, get_proxy_type_destroy_notify, cancellable.getPointer))
 # proc dbusobjectmanagerclient_new_sync*(connection: DBusConnection, flags: SDBusObjectManagerClientFlags, name: ustring, object_path: ustring, get_proxy_type_func: pointer, get_proxy_type_user_data: pointer, get_proxy_type_destroy_notify: pointer, cancellable: Cancellable): DBusObjectManagerClient {.inline.} =
 
 # g_dbus_object_manager_client_new
@@ -6391,7 +6391,7 @@ proc dbusobjectmanagerclient_new_sync*(connection: DBusConnection, flags: SDBusO
 # 'VOID_TODO' 'VOID_TODO'
 proc g_dbus_object_manager_client_new(connection: ptr TDBusConnection, flags: SDBusObjectManagerClientFlags, name: ucstring, object_path: ucstring, get_proxy_type_func: pointer, get_proxy_type_user_data: pointer, get_proxy_type_destroy_notify: pointer, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_dbus_object_manager_client_new".}
 template new*(klass_parameter: typedesc[DBusObjectManagerClient], connection: DBusConnection, flags: SDBusObjectManagerClientFlags, name: ustring, object_path: ustring, get_proxy_type_func: pointer, get_proxy_type_user_data: pointer, get_proxy_type_destroy_notify: pointer, cancellable: Cancellable, callback: pointer, user_data: pointer) =
-  g_dbus_object_manager_client_new(connection.pointer, flags, ucstring(name), ucstring(object_path), get_proxy_type_func, get_proxy_type_user_data, get_proxy_type_destroy_notify, cancellable.pointer, callback, user_data)
+  g_dbus_object_manager_client_new(connection.getPointer, flags, ucstring(name), ucstring(object_path), get_proxy_type_func, get_proxy_type_user_data, get_proxy_type_destroy_notify, cancellable.getPointer, callback, user_data)
 # template new*(klass_parameter: typedesc[DBusObjectManagerClient], connection: DBusConnection, flags: SDBusObjectManagerClientFlags, name: ustring, object_path: ustring, get_proxy_type_func: pointer, get_proxy_type_user_data: pointer, get_proxy_type_destroy_notify: pointer, cancellable: Cancellable, callback: pointer, user_data: pointer) =
 
 # g_dbus_object_manager_client_new_for_bus
@@ -6410,7 +6410,7 @@ template new*(klass_parameter: typedesc[DBusObjectManagerClient], connection: DB
 # 'VOID_TODO' 'VOID_TODO'
 proc g_dbus_object_manager_client_new_for_bus(bus_type: BusType, flags: SDBusObjectManagerClientFlags, name: ucstring, object_path: ucstring, get_proxy_type_func: pointer, get_proxy_type_user_data: pointer, get_proxy_type_destroy_notify: pointer, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_dbus_object_manager_client_new_for_bus".}
 template new_for_bus*(klass_parameter: typedesc[DBusObjectManagerClient], bus_type: BusType, flags: SDBusObjectManagerClientFlags, name: ustring, object_path: ustring, get_proxy_type_func: pointer, get_proxy_type_user_data: pointer, get_proxy_type_destroy_notify: pointer, cancellable: Cancellable, callback: pointer, user_data: pointer) =
-  g_dbus_object_manager_client_new_for_bus(bus_type, flags, ucstring(name), ucstring(object_path), get_proxy_type_func, get_proxy_type_user_data, get_proxy_type_destroy_notify, cancellable.pointer, callback, user_data)
+  g_dbus_object_manager_client_new_for_bus(bus_type, flags, ucstring(name), ucstring(object_path), get_proxy_type_func, get_proxy_type_user_data, get_proxy_type_destroy_notify, cancellable.getPointer, callback, user_data)
 # template new_for_bus*(klass_parameter: typedesc[DBusObjectManagerClient], bus_type: BusType, flags: SDBusObjectManagerClientFlags, name: ustring, object_path: ustring, get_proxy_type_func: pointer, get_proxy_type_user_data: pointer, get_proxy_type_destroy_notify: pointer, cancellable: Cancellable, callback: pointer, user_data: pointer) =
 
 # g_dbus_object_manager_client_get_connection
@@ -6466,7 +6466,7 @@ proc dbusobjectmanagerserver_new*(object_path: ustring): DBusObjectManagerServer
 # 'VOID_TODO' 'VOID_TODO'
 proc g_dbus_object_manager_server_export(self: ptr TDBusObjectManagerServer, object_x: ptr TDBusObjectSkeleton) {.cdecl, dynlib: lib, importc: "g_dbus_object_manager_server_export".}
 proc export_x*(self: DBusObjectManagerServer, object_x: DBusObjectSkeleton) {.inline.} =
-  g_dbus_object_manager_server_export(self, object_x.pointer)
+  g_dbus_object_manager_server_export(self, object_x.getPointer)
 # proc export_x*(self: DBusObjectManagerServer, object_x: DBusObjectSkeleton) {.inline.} =
 
 # g_dbus_object_manager_server_export_uniquely
@@ -6476,7 +6476,7 @@ proc export_x*(self: DBusObjectManagerServer, object_x: DBusObjectSkeleton) {.in
 # 'VOID_TODO' 'VOID_TODO'
 proc g_dbus_object_manager_server_export_uniquely(self: ptr TDBusObjectManagerServer, object_x: ptr TDBusObjectSkeleton) {.cdecl, dynlib: lib, importc: "g_dbus_object_manager_server_export_uniquely".}
 proc export_uniquely*(self: DBusObjectManagerServer, object_x: DBusObjectSkeleton) {.inline.} =
-  g_dbus_object_manager_server_export_uniquely(self, object_x.pointer)
+  g_dbus_object_manager_server_export_uniquely(self, object_x.getPointer)
 # proc export_uniquely*(self: DBusObjectManagerServer, object_x: DBusObjectSkeleton) {.inline.} =
 
 # g_dbus_object_manager_server_get_connection
@@ -6495,7 +6495,7 @@ proc get_connection*(self: DBusObjectManagerServer): DBusConnection {.inline.} =
 # 'bool' 'bool'
 proc g_dbus_object_manager_server_is_exported(self: ptr TDBusObjectManagerServer, object_x: ptr TDBusObjectSkeleton): bool {.cdecl, dynlib: lib, importc: "g_dbus_object_manager_server_is_exported".}
 proc is_exported*(self: DBusObjectManagerServer, object_x: DBusObjectSkeleton): bool {.inline.} =
-  g_dbus_object_manager_server_is_exported(self, object_x.pointer)
+  g_dbus_object_manager_server_is_exported(self, object_x.getPointer)
 # proc is_exported*(self: DBusObjectManagerServer, object_x: DBusObjectSkeleton): bool {.inline.} =
 
 # g_dbus_object_manager_server_set_connection
@@ -6505,7 +6505,7 @@ proc is_exported*(self: DBusObjectManagerServer, object_x: DBusObjectSkeleton): 
 # 'VOID_TODO' 'VOID_TODO'
 proc g_dbus_object_manager_server_set_connection(self: ptr TDBusObjectManagerServer, connection: ptr TDBusConnection) {.cdecl, dynlib: lib, importc: "g_dbus_object_manager_server_set_connection".}
 proc set_connection*(self: DBusObjectManagerServer, connection: DBusConnection) {.inline.} =
-  g_dbus_object_manager_server_set_connection(self, connection.pointer)
+  g_dbus_object_manager_server_set_connection(self, connection.getPointer)
 # proc set_connection*(self: DBusObjectManagerServer, connection: DBusConnection) {.inline.} =
 
 # g_dbus_object_manager_server_unexport
@@ -6526,7 +6526,7 @@ proc unexport*(self: DBusObjectManagerServer, object_path: ustring): bool {.inli
 # 'DBusObjectProxy' 'TransferFull[TDBusObjectProxy]' (diff., need sugar)
 proc g_dbus_object_proxy_new(connection: ptr TDBusConnection, object_path: ucstring): TransferFull[TDBusObjectProxy] {.cdecl, dynlib: lib, importc: "g_dbus_object_proxy_new".}
 proc dbusobjectproxy_new*(connection: DBusConnection, object_path: ustring): DBusObjectProxy {.inline.} =
-  wrap(g_dbus_object_proxy_new(connection.pointer, ucstring(object_path)))
+  wrap(g_dbus_object_proxy_new(connection.getPointer, ucstring(object_path)))
 # proc dbusobjectproxy_new*(connection: DBusConnection, object_path: ustring): DBusObjectProxy {.inline.} =
 
 # g_dbus_object_proxy_get_connection
@@ -6555,7 +6555,7 @@ proc dbusobjectskeleton_new*(object_path: ustring): DBusObjectSkeleton {.inline.
 # 'VOID_TODO' 'VOID_TODO'
 proc g_dbus_object_skeleton_add_interface(self: ptr TDBusObjectSkeleton, interface_x: ptr TDBusInterfaceSkeleton) {.cdecl, dynlib: lib, importc: "g_dbus_object_skeleton_add_interface".}
 proc add_interface*(self: DBusObjectSkeleton, interface_x: DBusInterfaceSkeleton) {.inline.} =
-  g_dbus_object_skeleton_add_interface(self, interface_x.pointer)
+  g_dbus_object_skeleton_add_interface(self, interface_x.getPointer)
 # proc add_interface*(self: DBusObjectSkeleton, interface_x: DBusInterfaceSkeleton) {.inline.} =
 
 # g_dbus_object_skeleton_flush
@@ -6574,7 +6574,7 @@ proc flush*(self: DBusObjectSkeleton) {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc g_dbus_object_skeleton_remove_interface(self: ptr TDBusObjectSkeleton, interface_x: ptr TDBusInterfaceSkeleton) {.cdecl, dynlib: lib, importc: "g_dbus_object_skeleton_remove_interface".}
 proc remove_interface*(self: DBusObjectSkeleton, interface_x: DBusInterfaceSkeleton) {.inline.} =
-  g_dbus_object_skeleton_remove_interface(self, interface_x.pointer)
+  g_dbus_object_skeleton_remove_interface(self, interface_x.getPointer)
 # proc remove_interface*(self: DBusObjectSkeleton, interface_x: DBusInterfaceSkeleton) {.inline.} =
 
 # g_dbus_object_skeleton_remove_interface_by_name
@@ -6633,7 +6633,7 @@ proc dbusproxy_new_for_bus_finish*(res: AsyncResult): DBusProxy {.inline.} =
 # 'DBusProxy' 'TransferFull[TDBusProxy]' (diff., need sugar)
 proc g_dbus_proxy_new_for_bus_sync(bus_type: BusType, flags: SDBusProxyFlags, info: ptr TDBusInterfaceInfo, name: ucstring, object_path: ucstring, interface_name: ucstring, cancellable: ptr TCancellable, error: ptr PGError=nil): TransferFull[TDBusProxy] {.cdecl, dynlib: lib, importc: "g_dbus_proxy_new_for_bus_sync".}
 proc dbusproxy_new_for_bus_sync*(bus_type: BusType, flags: SDBusProxyFlags, info: TDBusInterfaceInfo, name: ustring, object_path: ustring, interface_name: ustring, cancellable: Cancellable): DBusProxy {.inline.} =
-  wrap(g_dbus_proxy_new_for_bus_sync(bus_type, flags, myUnsafeAddr(info), ucstring(name), ucstring(object_path), ucstring(interface_name), cancellable.pointer))
+  wrap(g_dbus_proxy_new_for_bus_sync(bus_type, flags, myUnsafeAddr(info), ucstring(name), ucstring(object_path), ucstring(interface_name), cancellable.getPointer))
 # proc dbusproxy_new_for_bus_sync*(bus_type: BusType, flags: SDBusProxyFlags, info: TDBusInterfaceInfo, name: ustring, object_path: ustring, interface_name: ustring, cancellable: Cancellable): DBusProxy {.inline.} =
 
 # g_dbus_proxy_new_sync
@@ -6650,7 +6650,7 @@ proc dbusproxy_new_for_bus_sync*(bus_type: BusType, flags: SDBusProxyFlags, info
 # 'DBusProxy' 'TransferFull[TDBusProxy]' (diff., need sugar)
 proc g_dbus_proxy_new_sync(connection: ptr TDBusConnection, flags: SDBusProxyFlags, info: ptr TDBusInterfaceInfo, name: ucstring, object_path: ucstring, interface_name: ucstring, cancellable: ptr TCancellable, error: ptr PGError=nil): TransferFull[TDBusProxy] {.cdecl, dynlib: lib, importc: "g_dbus_proxy_new_sync".}
 proc dbusproxy_new_sync*(connection: DBusConnection, flags: SDBusProxyFlags, info: TDBusInterfaceInfo, name: ustring, object_path: ustring, interface_name: ustring, cancellable: Cancellable): DBusProxy {.inline.} =
-  wrap(g_dbus_proxy_new_sync(connection.pointer, flags, myUnsafeAddr(info), ucstring(name), ucstring(object_path), ucstring(interface_name), cancellable.pointer))
+  wrap(g_dbus_proxy_new_sync(connection.getPointer, flags, myUnsafeAddr(info), ucstring(name), ucstring(object_path), ucstring(interface_name), cancellable.getPointer))
 # proc dbusproxy_new_sync*(connection: DBusConnection, flags: SDBusProxyFlags, info: TDBusInterfaceInfo, name: ustring, object_path: ustring, interface_name: ustring, cancellable: Cancellable): DBusProxy {.inline.} =
 
 # g_dbus_proxy_new
@@ -6668,7 +6668,7 @@ proc dbusproxy_new_sync*(connection: DBusConnection, flags: SDBusProxyFlags, inf
 # 'VOID_TODO' 'VOID_TODO'
 proc g_dbus_proxy_new(connection: ptr TDBusConnection, flags: SDBusProxyFlags, info: ptr TDBusInterfaceInfo, name: ucstring, object_path: ucstring, interface_name: ucstring, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_dbus_proxy_new".}
 template new*(klass_parameter: typedesc[DBusProxy], connection: DBusConnection, flags: SDBusProxyFlags, info: TDBusInterfaceInfo, name: ustring, object_path: ustring, interface_name: ustring, cancellable: Cancellable, callback: pointer, user_data: pointer) =
-  g_dbus_proxy_new(connection.pointer, flags, myUnsafeAddr(info), ucstring(name), ucstring(object_path), ucstring(interface_name), cancellable.pointer, callback, user_data)
+  g_dbus_proxy_new(connection.getPointer, flags, myUnsafeAddr(info), ucstring(name), ucstring(object_path), ucstring(interface_name), cancellable.getPointer, callback, user_data)
 # template new*(klass_parameter: typedesc[DBusProxy], connection: DBusConnection, flags: SDBusProxyFlags, info: TDBusInterfaceInfo, name: ustring, object_path: ustring, interface_name: ustring, cancellable: Cancellable, callback: pointer, user_data: pointer) =
 
 # g_dbus_proxy_new_for_bus
@@ -6686,7 +6686,7 @@ template new*(klass_parameter: typedesc[DBusProxy], connection: DBusConnection, 
 # 'VOID_TODO' 'VOID_TODO'
 proc g_dbus_proxy_new_for_bus(bus_type: BusType, flags: SDBusProxyFlags, info: ptr TDBusInterfaceInfo, name: ucstring, object_path: ucstring, interface_name: ucstring, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_dbus_proxy_new_for_bus".}
 template new_for_bus*(klass_parameter: typedesc[DBusProxy], bus_type: BusType, flags: SDBusProxyFlags, info: TDBusInterfaceInfo, name: ustring, object_path: ustring, interface_name: ustring, cancellable: Cancellable, callback: pointer, user_data: pointer) =
-  g_dbus_proxy_new_for_bus(bus_type, flags, myUnsafeAddr(info), ucstring(name), ucstring(object_path), ucstring(interface_name), cancellable.pointer, callback, user_data)
+  g_dbus_proxy_new_for_bus(bus_type, flags, myUnsafeAddr(info), ucstring(name), ucstring(object_path), ucstring(interface_name), cancellable.getPointer, callback, user_data)
 # template new_for_bus*(klass_parameter: typedesc[DBusProxy], bus_type: BusType, flags: SDBusProxyFlags, info: TDBusInterfaceInfo, name: ustring, object_path: ustring, interface_name: ustring, cancellable: Cancellable, callback: pointer, user_data: pointer) =
 
 # g_dbus_proxy_call
@@ -6702,7 +6702,7 @@ template new_for_bus*(klass_parameter: typedesc[DBusProxy], bus_type: BusType, f
 # 'VOID_TODO' 'VOID_TODO'
 proc g_dbus_proxy_call(self: ptr TDBusProxy, method_name: ucstring, parameters: ptr GLib2.TVariant, flags: SDBusCallFlags, timeout_msec: int32, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_dbus_proxy_call".}
 proc call*(self: DBusProxy, method_name: ustring, parameters: GLib2.TVariant, flags: SDBusCallFlags, timeout_msec: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_dbus_proxy_call(self, ucstring(method_name), myUnsafeAddr(parameters), flags, timeout_msec, cancellable.pointer, callback, user_data)
+  g_dbus_proxy_call(self, ucstring(method_name), myUnsafeAddr(parameters), flags, timeout_msec, cancellable.getPointer, callback, user_data)
 # proc call*(self: DBusProxy, method_name: ustring, parameters: GLib2.TVariant, flags: SDBusCallFlags, timeout_msec: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_dbus_proxy_call_finish
@@ -6728,7 +6728,7 @@ proc call_finish*(self: DBusProxy, res: AsyncResult): GLib2.TVariant {.inline.} 
 # 'GLib2.TVariant' 'ptr GLib2.TVariant' (diff., need sugar)
 proc g_dbus_proxy_call_sync(self: ptr TDBusProxy, method_name: ucstring, parameters: ptr GLib2.TVariant, flags: SDBusCallFlags, timeout_msec: int32, cancellable: ptr TCancellable, error: ptr PGError=nil): ptr GLib2.TVariant {.cdecl, dynlib: lib, importc: "g_dbus_proxy_call_sync".}
 proc call_sync*(self: DBusProxy, method_name: ustring, parameters: GLib2.TVariant, flags: SDBusCallFlags, timeout_msec: int32, cancellable: Cancellable): GLib2.TVariant {.inline.} =
-  (g_dbus_proxy_call_sync(self, ucstring(method_name), myUnsafeAddr(parameters), flags, timeout_msec, cancellable.pointer))[]
+  (g_dbus_proxy_call_sync(self, ucstring(method_name), myUnsafeAddr(parameters), flags, timeout_msec, cancellable.getPointer))[]
 # proc call_sync*(self: DBusProxy, method_name: ustring, parameters: GLib2.TVariant, flags: SDBusCallFlags, timeout_msec: int32, cancellable: Cancellable): GLib2.TVariant {.inline.} =
 
 # g_dbus_proxy_call_with_unix_fd_list
@@ -6745,7 +6745,7 @@ proc call_sync*(self: DBusProxy, method_name: ustring, parameters: GLib2.TVarian
 # 'VOID_TODO' 'VOID_TODO'
 proc g_dbus_proxy_call_with_unix_fd_list(self: ptr TDBusProxy, method_name: ucstring, parameters: ptr GLib2.TVariant, flags: SDBusCallFlags, timeout_msec: int32, fd_list: ptr TUnixFDList, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_dbus_proxy_call_with_unix_fd_list".}
 proc call_with_unix_fd_list*(self: DBusProxy, method_name: ustring, parameters: GLib2.TVariant, flags: SDBusCallFlags, timeout_msec: int32, fd_list: TUnixFDList, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_dbus_proxy_call_with_unix_fd_list(self, ucstring(method_name), myUnsafeAddr(parameters), flags, timeout_msec, myUnsafeAddr(fd_list), cancellable.pointer, callback, user_data)
+  g_dbus_proxy_call_with_unix_fd_list(self, ucstring(method_name), myUnsafeAddr(parameters), flags, timeout_msec, myUnsafeAddr(fd_list), cancellable.getPointer, callback, user_data)
 # proc call_with_unix_fd_list*(self: DBusProxy, method_name: ustring, parameters: GLib2.TVariant, flags: SDBusCallFlags, timeout_msec: int32, fd_list: TUnixFDList, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_dbus_proxy_call_with_unix_fd_list_finish
@@ -6776,7 +6776,7 @@ proc call_with_unix_fd_list_finish*(self: DBusProxy, out_fd_list: var TUnixFDLis
 # 'GLib2.TVariant' 'ptr GLib2.TVariant' (diff., need sugar)
 proc g_dbus_proxy_call_with_unix_fd_list_sync(self: ptr TDBusProxy, method_name: ucstring, parameters: ptr GLib2.TVariant, flags: SDBusCallFlags, timeout_msec: int32, fd_list: ptr TUnixFDList, out_fd_list: ptr TUnixFDList, cancellable: ptr TCancellable, error: ptr PGError=nil): ptr GLib2.TVariant {.cdecl, dynlib: lib, importc: "g_dbus_proxy_call_with_unix_fd_list_sync".}
 proc call_with_unix_fd_list_sync*(self: DBusProxy, method_name: ustring, parameters: GLib2.TVariant, flags: SDBusCallFlags, timeout_msec: int32, fd_list: TUnixFDList, out_fd_list: var TUnixFDList, cancellable: Cancellable): GLib2.TVariant {.inline.} =
-  (g_dbus_proxy_call_with_unix_fd_list_sync(self, ucstring(method_name), myUnsafeAddr(parameters), flags, timeout_msec, myUnsafeAddr(fd_list), addr(out_fd_list), cancellable.pointer))[]
+  (g_dbus_proxy_call_with_unix_fd_list_sync(self, ucstring(method_name), myUnsafeAddr(parameters), flags, timeout_msec, myUnsafeAddr(fd_list), addr(out_fd_list), cancellable.getPointer))[]
 # tuple-return
 # out_fd_list: var TUnixFDList
 # proc call_with_unix_fd_list_sync*(self: DBusProxy, method_name: ustring, parameters: GLib2.TVariant, flags: SDBusCallFlags, timeout_msec: int32, fd_list: TUnixFDList, cancellable: Cancellable): GLib2.TVariant {.inline.} =
@@ -6915,7 +6915,7 @@ proc set_interface_info*(self: DBusProxy, info: TDBusInterfaceInfo) {.inline.} =
 # 'DBusServer' 'TransferFull[TDBusServer]' (diff., need sugar)
 proc g_dbus_server_new_sync(address: ucstring, flags: SDBusServerFlags, guid: ucstring, observer: ptr TDBusAuthObserver, cancellable: ptr TCancellable, error: ptr PGError=nil): TransferFull[TDBusServer] {.cdecl, dynlib: lib, importc: "g_dbus_server_new_sync".}
 proc dbusserver_new_sync*(address: ustring, flags: SDBusServerFlags, guid: ustring, observer: DBusAuthObserver, cancellable: Cancellable): DBusServer {.inline.} =
-  wrap(g_dbus_server_new_sync(ucstring(address), flags, ucstring(guid), observer.pointer, cancellable.pointer))
+  wrap(g_dbus_server_new_sync(ucstring(address), flags, ucstring(guid), observer.getPointer, cancellable.getPointer))
 # proc dbusserver_new_sync*(address: ustring, flags: SDBusServerFlags, guid: ustring, observer: DBusAuthObserver, cancellable: Cancellable): DBusServer {.inline.} =
 
 # g_dbus_server_get_client_address
@@ -6979,7 +6979,7 @@ proc stop*(self: DBusServer) {.inline.} =
 # 'DataInputStream' 'TransferFull[TDataInputStream]' (diff., need sugar)
 proc g_data_input_stream_new(base_stream: ptr TInputStream): TransferFull[TDataInputStream] {.cdecl, dynlib: lib, importc: "g_data_input_stream_new".}
 proc datainputstream_new*(base_stream: InputStream): DataInputStream {.inline.} =
-  wrap(g_data_input_stream_new(base_stream.pointer))
+  wrap(g_data_input_stream_new(base_stream.getPointer))
 # proc datainputstream_new*(base_stream: InputStream): DataInputStream {.inline.} =
 
 # g_data_input_stream_get_byte_order
@@ -7008,7 +7008,7 @@ proc get_newline_type*(self: DataInputStream): DataStreamNewlineType {.inline.} 
 # 'uint8' 'uint8'
 proc g_data_input_stream_read_byte(self: ptr TDataInputStream, cancellable: ptr TCancellable, error: ptr PGError=nil): uint8 {.cdecl, dynlib: lib, importc: "g_data_input_stream_read_byte".}
 proc read_byte*(self: DataInputStream, cancellable: Cancellable): uint8 {.inline.} =
-  g_data_input_stream_read_byte(self, cancellable.pointer)
+  g_data_input_stream_read_byte(self, cancellable.getPointer)
 # proc read_byte*(self: DataInputStream, cancellable: Cancellable): uint8 {.inline.} =
 
 # g_data_input_stream_read_int16
@@ -7019,7 +7019,7 @@ proc read_byte*(self: DataInputStream, cancellable: Cancellable): uint8 {.inline
 # 'int16' 'int16'
 proc g_data_input_stream_read_int16(self: ptr TDataInputStream, cancellable: ptr TCancellable, error: ptr PGError=nil): int16 {.cdecl, dynlib: lib, importc: "g_data_input_stream_read_int16".}
 proc read_int16*(self: DataInputStream, cancellable: Cancellable): int16 {.inline.} =
-  g_data_input_stream_read_int16(self, cancellable.pointer)
+  g_data_input_stream_read_int16(self, cancellable.getPointer)
 # proc read_int16*(self: DataInputStream, cancellable: Cancellable): int16 {.inline.} =
 
 # g_data_input_stream_read_int32
@@ -7030,7 +7030,7 @@ proc read_int16*(self: DataInputStream, cancellable: Cancellable): int16 {.inlin
 # 'int32' 'int32'
 proc g_data_input_stream_read_int32(self: ptr TDataInputStream, cancellable: ptr TCancellable, error: ptr PGError=nil): int32 {.cdecl, dynlib: lib, importc: "g_data_input_stream_read_int32".}
 proc read_int32*(self: DataInputStream, cancellable: Cancellable): int32 {.inline.} =
-  g_data_input_stream_read_int32(self, cancellable.pointer)
+  g_data_input_stream_read_int32(self, cancellable.getPointer)
 # proc read_int32*(self: DataInputStream, cancellable: Cancellable): int32 {.inline.} =
 
 # g_data_input_stream_read_int64
@@ -7041,7 +7041,7 @@ proc read_int32*(self: DataInputStream, cancellable: Cancellable): int32 {.inlin
 # 'int64' 'int64'
 proc g_data_input_stream_read_int64(self: ptr TDataInputStream, cancellable: ptr TCancellable, error: ptr PGError=nil): int64 {.cdecl, dynlib: lib, importc: "g_data_input_stream_read_int64".}
 proc read_int64*(self: DataInputStream, cancellable: Cancellable): int64 {.inline.} =
-  g_data_input_stream_read_int64(self, cancellable.pointer)
+  g_data_input_stream_read_int64(self, cancellable.getPointer)
 # proc read_int64*(self: DataInputStream, cancellable: Cancellable): int64 {.inline.} =
 
 # g_data_input_stream_read_line
@@ -7053,7 +7053,7 @@ proc read_int64*(self: DataInputStream, cancellable: Cancellable): int64 {.inlin
 # 'string' 'cstring' (diff., need sugar)
 proc g_data_input_stream_read_line(self: ptr TDataInputStream, length: ptr uint32, cancellable: ptr TCancellable, error: ptr PGError=nil): cstring {.cdecl, dynlib: lib, importc: "g_data_input_stream_read_line".}
 proc read_line*(self: DataInputStream, length: var uint32, cancellable: Cancellable): string {.inline.} =
-  $(g_data_input_stream_read_line(self, addr(length), cancellable.pointer))
+  $(g_data_input_stream_read_line(self, addr(length), cancellable.getPointer))
 # tuple-return
 # length: var uint32
 # proc read_line*(self: DataInputStream, cancellable: Cancellable): string {.inline.} =
@@ -7068,7 +7068,7 @@ proc read_line*(self: DataInputStream, length: var uint32, cancellable: Cancella
 # 'VOID_TODO' 'VOID_TODO'
 proc g_data_input_stream_read_line_async(self: ptr TDataInputStream, io_priority: int32, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_data_input_stream_read_line_async".}
 proc read_line_async*(self: DataInputStream, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_data_input_stream_read_line_async(self, io_priority, cancellable.pointer, callback, user_data)
+  g_data_input_stream_read_line_async(self, io_priority, cancellable.getPointer, callback, user_data)
 # proc read_line_async*(self: DataInputStream, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_data_input_stream_read_line_finish
@@ -7108,7 +7108,7 @@ proc read_line_finish_utf8*(self: DataInputStream, result_x: AsyncResult, length
 # 'ustring' 'ucstring' (diff., need sugar)
 proc g_data_input_stream_read_line_utf8(self: ptr TDataInputStream, length: ptr uint32, cancellable: ptr TCancellable, error: ptr PGError=nil): ucstring {.cdecl, dynlib: lib, importc: "g_data_input_stream_read_line_utf8".}
 proc read_line_utf8*(self: DataInputStream, length: var uint32, cancellable: Cancellable): ustring {.inline.} =
-  ustring($(g_data_input_stream_read_line_utf8(self, addr(length), cancellable.pointer)))
+  ustring($(g_data_input_stream_read_line_utf8(self, addr(length), cancellable.getPointer)))
 # tuple-return
 # length: var uint32
 # proc read_line_utf8*(self: DataInputStream, cancellable: Cancellable): ustring {.inline.} =
@@ -7121,7 +7121,7 @@ proc read_line_utf8*(self: DataInputStream, length: var uint32, cancellable: Can
 # 'uint16' 'uint16'
 proc g_data_input_stream_read_uint16(self: ptr TDataInputStream, cancellable: ptr TCancellable, error: ptr PGError=nil): uint16 {.cdecl, dynlib: lib, importc: "g_data_input_stream_read_uint16".}
 proc read_uint16*(self: DataInputStream, cancellable: Cancellable): uint16 {.inline.} =
-  g_data_input_stream_read_uint16(self, cancellable.pointer)
+  g_data_input_stream_read_uint16(self, cancellable.getPointer)
 # proc read_uint16*(self: DataInputStream, cancellable: Cancellable): uint16 {.inline.} =
 
 # g_data_input_stream_read_uint32
@@ -7132,7 +7132,7 @@ proc read_uint16*(self: DataInputStream, cancellable: Cancellable): uint16 {.inl
 # 'uint32' 'uint32'
 proc g_data_input_stream_read_uint32(self: ptr TDataInputStream, cancellable: ptr TCancellable, error: ptr PGError=nil): uint32 {.cdecl, dynlib: lib, importc: "g_data_input_stream_read_uint32".}
 proc read_uint32*(self: DataInputStream, cancellable: Cancellable): uint32 {.inline.} =
-  g_data_input_stream_read_uint32(self, cancellable.pointer)
+  g_data_input_stream_read_uint32(self, cancellable.getPointer)
 # proc read_uint32*(self: DataInputStream, cancellable: Cancellable): uint32 {.inline.} =
 
 # g_data_input_stream_read_uint64
@@ -7143,7 +7143,7 @@ proc read_uint32*(self: DataInputStream, cancellable: Cancellable): uint32 {.inl
 # 'uint64' 'uint64'
 proc g_data_input_stream_read_uint64(self: ptr TDataInputStream, cancellable: ptr TCancellable, error: ptr PGError=nil): uint64 {.cdecl, dynlib: lib, importc: "g_data_input_stream_read_uint64".}
 proc read_uint64*(self: DataInputStream, cancellable: Cancellable): uint64 {.inline.} =
-  g_data_input_stream_read_uint64(self, cancellable.pointer)
+  g_data_input_stream_read_uint64(self, cancellable.getPointer)
 # proc read_uint64*(self: DataInputStream, cancellable: Cancellable): uint64 {.inline.} =
 
 # g_data_input_stream_read_until
@@ -7156,7 +7156,7 @@ proc read_uint64*(self: DataInputStream, cancellable: Cancellable): uint64 {.inl
 # 'ustring' 'ucstring' (diff., need sugar)
 proc g_data_input_stream_read_until(self: ptr TDataInputStream, stop_chars: ucstring, length: ptr uint32, cancellable: ptr TCancellable, error: ptr PGError=nil): ucstring {.cdecl, dynlib: lib, importc: "g_data_input_stream_read_until".}
 proc read_until*(self: DataInputStream, stop_chars: ustring, length: var uint32, cancellable: Cancellable): ustring {.inline.} =
-  ustring($(g_data_input_stream_read_until(self, ucstring(stop_chars), addr(length), cancellable.pointer)))
+  ustring($(g_data_input_stream_read_until(self, ucstring(stop_chars), addr(length), cancellable.getPointer)))
 # tuple-return
 # length: var uint32
 # proc read_until*(self: DataInputStream, stop_chars: ustring, cancellable: Cancellable): ustring {.inline.} =
@@ -7172,7 +7172,7 @@ proc read_until*(self: DataInputStream, stop_chars: ustring, length: var uint32,
 # 'VOID_TODO' 'VOID_TODO'
 proc g_data_input_stream_read_until_async(self: ptr TDataInputStream, stop_chars: ucstring, io_priority: int32, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_data_input_stream_read_until_async".}
 proc read_until_async*(self: DataInputStream, stop_chars: ustring, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_data_input_stream_read_until_async(self, ucstring(stop_chars), io_priority, cancellable.pointer, callback, user_data)
+  g_data_input_stream_read_until_async(self, ucstring(stop_chars), io_priority, cancellable.getPointer, callback, user_data)
 # proc read_until_async*(self: DataInputStream, stop_chars: ustring, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_data_input_stream_read_until_finish
@@ -7200,7 +7200,7 @@ proc read_until_finish*(self: DataInputStream, result_x: AsyncResult, length: va
 # 'ustring' 'ucstring' (diff., need sugar)
 proc g_data_input_stream_read_upto(self: ptr TDataInputStream, stop_chars: ucstring, stop_chars_len: int32, length: ptr uint32, cancellable: ptr TCancellable, error: ptr PGError=nil): ucstring {.cdecl, dynlib: lib, importc: "g_data_input_stream_read_upto".}
 proc read_upto*(self: DataInputStream, stop_chars: ustring, stop_chars_len: int32, length: var uint32, cancellable: Cancellable): ustring {.inline.} =
-  ustring($(g_data_input_stream_read_upto(self, ucstring(stop_chars), stop_chars_len, addr(length), cancellable.pointer)))
+  ustring($(g_data_input_stream_read_upto(self, ucstring(stop_chars), stop_chars_len, addr(length), cancellable.getPointer)))
 # tuple-return
 # length: var uint32
 # proc read_upto*(self: DataInputStream, stop_chars: ustring, stop_chars_len: int32, cancellable: Cancellable): ustring {.inline.} =
@@ -7217,7 +7217,7 @@ proc read_upto*(self: DataInputStream, stop_chars: ustring, stop_chars_len: int3
 # 'VOID_TODO' 'VOID_TODO'
 proc g_data_input_stream_read_upto_async(self: ptr TDataInputStream, stop_chars: ucstring, stop_chars_len: int32, io_priority: int32, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_data_input_stream_read_upto_async".}
 proc read_upto_async*(self: DataInputStream, stop_chars: ustring, stop_chars_len: int32, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_data_input_stream_read_upto_async(self, ucstring(stop_chars), stop_chars_len, io_priority, cancellable.pointer, callback, user_data)
+  g_data_input_stream_read_upto_async(self, ucstring(stop_chars), stop_chars_len, io_priority, cancellable.getPointer, callback, user_data)
 # proc read_upto_async*(self: DataInputStream, stop_chars: ustring, stop_chars_len: int32, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_data_input_stream_read_upto_finish
@@ -7261,7 +7261,7 @@ proc set_newline_type*(self: DataInputStream, type_x: DataStreamNewlineType) {.i
 # 'DataOutputStream' 'TransferFull[TDataOutputStream]' (diff., need sugar)
 proc g_data_output_stream_new(base_stream: ptr TOutputStream): TransferFull[TDataOutputStream] {.cdecl, dynlib: lib, importc: "g_data_output_stream_new".}
 proc dataoutputstream_new*(base_stream: OutputStream): DataOutputStream {.inline.} =
-  wrap(g_data_output_stream_new(base_stream.pointer))
+  wrap(g_data_output_stream_new(base_stream.getPointer))
 # proc dataoutputstream_new*(base_stream: OutputStream): DataOutputStream {.inline.} =
 
 # g_data_output_stream_get_byte_order
@@ -7282,7 +7282,7 @@ proc get_byte_order*(self: DataOutputStream): DataStreamByteOrder {.inline.} =
 # 'bool' 'bool'
 proc g_data_output_stream_put_byte(self: ptr TDataOutputStream, data: uint8, cancellable: ptr TCancellable, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_data_output_stream_put_byte".}
 proc put_byte*(self: DataOutputStream, data: uint8, cancellable: Cancellable): bool {.inline.} =
-  g_data_output_stream_put_byte(self, data, cancellable.pointer)
+  g_data_output_stream_put_byte(self, data, cancellable.getPointer)
 # proc put_byte*(self: DataOutputStream, data: uint8, cancellable: Cancellable): bool {.inline.} =
 
 # g_data_output_stream_put_int16
@@ -7294,7 +7294,7 @@ proc put_byte*(self: DataOutputStream, data: uint8, cancellable: Cancellable): b
 # 'bool' 'bool'
 proc g_data_output_stream_put_int16(self: ptr TDataOutputStream, data: int16, cancellable: ptr TCancellable, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_data_output_stream_put_int16".}
 proc put_int16*(self: DataOutputStream, data: int16, cancellable: Cancellable): bool {.inline.} =
-  g_data_output_stream_put_int16(self, data, cancellable.pointer)
+  g_data_output_stream_put_int16(self, data, cancellable.getPointer)
 # proc put_int16*(self: DataOutputStream, data: int16, cancellable: Cancellable): bool {.inline.} =
 
 # g_data_output_stream_put_int32
@@ -7306,7 +7306,7 @@ proc put_int16*(self: DataOutputStream, data: int16, cancellable: Cancellable): 
 # 'bool' 'bool'
 proc g_data_output_stream_put_int32(self: ptr TDataOutputStream, data: int32, cancellable: ptr TCancellable, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_data_output_stream_put_int32".}
 proc put_int32*(self: DataOutputStream, data: int32, cancellable: Cancellable): bool {.inline.} =
-  g_data_output_stream_put_int32(self, data, cancellable.pointer)
+  g_data_output_stream_put_int32(self, data, cancellable.getPointer)
 # proc put_int32*(self: DataOutputStream, data: int32, cancellable: Cancellable): bool {.inline.} =
 
 # g_data_output_stream_put_int64
@@ -7318,7 +7318,7 @@ proc put_int32*(self: DataOutputStream, data: int32, cancellable: Cancellable): 
 # 'bool' 'bool'
 proc g_data_output_stream_put_int64(self: ptr TDataOutputStream, data: int64, cancellable: ptr TCancellable, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_data_output_stream_put_int64".}
 proc put_int64*(self: DataOutputStream, data: int64, cancellable: Cancellable): bool {.inline.} =
-  g_data_output_stream_put_int64(self, data, cancellable.pointer)
+  g_data_output_stream_put_int64(self, data, cancellable.getPointer)
 # proc put_int64*(self: DataOutputStream, data: int64, cancellable: Cancellable): bool {.inline.} =
 
 # g_data_output_stream_put_string
@@ -7330,7 +7330,7 @@ proc put_int64*(self: DataOutputStream, data: int64, cancellable: Cancellable): 
 # 'bool' 'bool'
 proc g_data_output_stream_put_string(self: ptr TDataOutputStream, str: ucstring, cancellable: ptr TCancellable, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_data_output_stream_put_string".}
 proc put_string*(self: DataOutputStream, str: ustring, cancellable: Cancellable): bool {.inline.} =
-  g_data_output_stream_put_string(self, ucstring(str), cancellable.pointer)
+  g_data_output_stream_put_string(self, ucstring(str), cancellable.getPointer)
 # proc put_string*(self: DataOutputStream, str: ustring, cancellable: Cancellable): bool {.inline.} =
 
 # g_data_output_stream_put_uint16
@@ -7342,7 +7342,7 @@ proc put_string*(self: DataOutputStream, str: ustring, cancellable: Cancellable)
 # 'bool' 'bool'
 proc g_data_output_stream_put_uint16(self: ptr TDataOutputStream, data: uint16, cancellable: ptr TCancellable, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_data_output_stream_put_uint16".}
 proc put_uint16*(self: DataOutputStream, data: uint16, cancellable: Cancellable): bool {.inline.} =
-  g_data_output_stream_put_uint16(self, data, cancellable.pointer)
+  g_data_output_stream_put_uint16(self, data, cancellable.getPointer)
 # proc put_uint16*(self: DataOutputStream, data: uint16, cancellable: Cancellable): bool {.inline.} =
 
 # g_data_output_stream_put_uint32
@@ -7354,7 +7354,7 @@ proc put_uint16*(self: DataOutputStream, data: uint16, cancellable: Cancellable)
 # 'bool' 'bool'
 proc g_data_output_stream_put_uint32(self: ptr TDataOutputStream, data: uint32, cancellable: ptr TCancellable, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_data_output_stream_put_uint32".}
 proc put_uint32*(self: DataOutputStream, data: uint32, cancellable: Cancellable): bool {.inline.} =
-  g_data_output_stream_put_uint32(self, data, cancellable.pointer)
+  g_data_output_stream_put_uint32(self, data, cancellable.getPointer)
 # proc put_uint32*(self: DataOutputStream, data: uint32, cancellable: Cancellable): bool {.inline.} =
 
 # g_data_output_stream_put_uint64
@@ -7366,7 +7366,7 @@ proc put_uint32*(self: DataOutputStream, data: uint32, cancellable: Cancellable)
 # 'bool' 'bool'
 proc g_data_output_stream_put_uint64(self: ptr TDataOutputStream, data: uint64, cancellable: ptr TCancellable, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_data_output_stream_put_uint64".}
 proc put_uint64*(self: DataOutputStream, data: uint64, cancellable: Cancellable): bool {.inline.} =
-  g_data_output_stream_put_uint64(self, data, cancellable.pointer)
+  g_data_output_stream_put_uint64(self, data, cancellable.getPointer)
 # proc put_uint64*(self: DataOutputStream, data: uint64, cancellable: Cancellable): bool {.inline.} =
 
 # g_data_output_stream_set_byte_order
@@ -7426,7 +7426,7 @@ proc get_origin*(self: Emblem): EmblemOrigin {.inline.} =
 # 'EmblemedIcon' 'TransferFull[TEmblemedIcon]' (diff., need sugar)
 proc g_emblemed_icon_new(icon: ptr TIcon, emblem: ptr TEmblem): TransferFull[TEmblemedIcon] {.cdecl, dynlib: lib, importc: "g_emblemed_icon_new".}
 proc emblemedicon_new*(icon: Icon, emblem: Emblem): EmblemedIcon {.inline.} =
-  wrap(g_emblemed_icon_new(unwrap(icon), emblem.pointer))
+  wrap(g_emblemed_icon_new(unwrap(icon), emblem.getPointer))
 # proc emblemedicon_new*(icon: Icon, emblem: Emblem): EmblemedIcon {.inline.} =
 
 # g_emblemed_icon_add_emblem
@@ -7436,7 +7436,7 @@ proc emblemedicon_new*(icon: Icon, emblem: Emblem): EmblemedIcon {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc g_emblemed_icon_add_emblem(self: ptr TEmblemedIcon, emblem: ptr TEmblem) {.cdecl, dynlib: lib, importc: "g_emblemed_icon_add_emblem".}
 proc add_emblem*(self: EmblemedIcon, emblem: Emblem) {.inline.} =
-  g_emblemed_icon_add_emblem(self, emblem.pointer)
+  g_emblemed_icon_add_emblem(self, emblem.getPointer)
 # proc add_emblem*(self: EmblemedIcon, emblem: Emblem) {.inline.} =
 
 # g_emblemed_icon_clear_emblems
@@ -7474,7 +7474,7 @@ proc get_icon*(self: EmblemedIcon): Icon {.inline.} =
 # 'bool' 'bool'
 proc g_file_enumerator_close(self: ptr TFileEnumerator, cancellable: ptr TCancellable, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_file_enumerator_close".}
 proc close*(self: FileEnumerator, cancellable: Cancellable): bool {.inline.} =
-  g_file_enumerator_close(self, cancellable.pointer)
+  g_file_enumerator_close(self, cancellable.getPointer)
 # proc close*(self: FileEnumerator, cancellable: Cancellable): bool {.inline.} =
 
 # g_file_enumerator_close_async
@@ -7487,7 +7487,7 @@ proc close*(self: FileEnumerator, cancellable: Cancellable): bool {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc g_file_enumerator_close_async(self: ptr TFileEnumerator, io_priority: int32, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_file_enumerator_close_async".}
 proc close_async*(self: FileEnumerator, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_file_enumerator_close_async(self, io_priority, cancellable.pointer, callback, user_data)
+  g_file_enumerator_close_async(self, io_priority, cancellable.getPointer, callback, user_data)
 # proc close_async*(self: FileEnumerator, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_file_enumerator_close_finish
@@ -7508,7 +7508,7 @@ proc close_finish*(self: FileEnumerator, result_x: AsyncResult): bool {.inline.}
 # 'File' 'TransferFull[TFile]' (diff., need sugar)
 proc g_file_enumerator_get_child(self: ptr TFileEnumerator, info: ptr TFileInfo): TransferFull[TFile] {.cdecl, dynlib: lib, importc: "g_file_enumerator_get_child".}
 proc get_child*(self: FileEnumerator, info: FileInfo): File {.inline.} =
-  wrap(g_file_enumerator_get_child(self, info.pointer))
+  wrap(g_file_enumerator_get_child(self, info.getPointer))
 # proc get_child*(self: FileEnumerator, info: FileInfo): File {.inline.} =
 
 # g_file_enumerator_get_container
@@ -7546,7 +7546,7 @@ proc is_closed*(self: FileEnumerator): bool {.inline.} =
 # 'FileInfo' 'TransferFull[TFileInfo]' (diff., need sugar)
 proc g_file_enumerator_next_file(self: ptr TFileEnumerator, cancellable: ptr TCancellable, error: ptr PGError=nil): TransferFull[TFileInfo] {.cdecl, dynlib: lib, importc: "g_file_enumerator_next_file".}
 proc next_file*(self: FileEnumerator, cancellable: Cancellable): FileInfo {.inline.} =
-  wrap(g_file_enumerator_next_file(self, cancellable.pointer))
+  wrap(g_file_enumerator_next_file(self, cancellable.getPointer))
 # proc next_file*(self: FileEnumerator, cancellable: Cancellable): FileInfo {.inline.} =
 
 # g_file_enumerator_next_files_async
@@ -7560,7 +7560,7 @@ proc next_file*(self: FileEnumerator, cancellable: Cancellable): FileInfo {.inli
 # 'VOID_TODO' 'VOID_TODO'
 proc g_file_enumerator_next_files_async(self: ptr TFileEnumerator, num_files: int32, io_priority: int32, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_file_enumerator_next_files_async".}
 proc next_files_async*(self: FileEnumerator, num_files: int32, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_file_enumerator_next_files_async(self, num_files, io_priority, cancellable.pointer, callback, user_data)
+  g_file_enumerator_next_files_async(self, num_files, io_priority, cancellable.getPointer, callback, user_data)
 # proc next_files_async*(self: FileEnumerator, num_files: int32, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_file_enumerator_next_files_finish
@@ -7602,7 +7602,7 @@ proc get_etag*(self: FileIOStream): ustring {.inline.} =
 # 'FileInfo' 'TransferFull[TFileInfo]' (diff., need sugar)
 proc g_file_io_stream_query_info(self: ptr TFileIOStream, attributes: ucstring, cancellable: ptr TCancellable, error: ptr PGError=nil): TransferFull[TFileInfo] {.cdecl, dynlib: lib, importc: "g_file_io_stream_query_info".}
 proc query_info*(self: FileIOStream, attributes: ustring, cancellable: Cancellable): FileInfo {.inline.} =
-  wrap(g_file_io_stream_query_info(self, ucstring(attributes), cancellable.pointer))
+  wrap(g_file_io_stream_query_info(self, ucstring(attributes), cancellable.getPointer))
 # proc query_info*(self: FileIOStream, attributes: ustring, cancellable: Cancellable): FileInfo {.inline.} =
 
 # g_file_io_stream_query_info_async
@@ -7616,7 +7616,7 @@ proc query_info*(self: FileIOStream, attributes: ustring, cancellable: Cancellab
 # 'VOID_TODO' 'VOID_TODO'
 proc g_file_io_stream_query_info_async(self: ptr TFileIOStream, attributes: ucstring, io_priority: int32, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_file_io_stream_query_info_async".}
 proc query_info_async*(self: FileIOStream, attributes: ustring, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_file_io_stream_query_info_async(self, ucstring(attributes), io_priority, cancellable.pointer, callback, user_data)
+  g_file_io_stream_query_info_async(self, ucstring(attributes), io_priority, cancellable.getPointer, callback, user_data)
 # proc query_info_async*(self: FileIOStream, attributes: ustring, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_file_io_stream_query_info_finish
@@ -7674,7 +7674,7 @@ proc clear_status*(self: FileInfo) {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc g_file_info_copy_into(self: ptr TFileInfo, dest_info: ptr TFileInfo) {.cdecl, dynlib: lib, importc: "g_file_info_copy_into".}
 proc copy_into*(self: FileInfo, dest_info: FileInfo) {.inline.} =
-  g_file_info_copy_into(self, dest_info.pointer)
+  g_file_info_copy_into(self, dest_info.getPointer)
 # proc copy_into*(self: FileInfo, dest_info: FileInfo) {.inline.} =
 
 # g_file_info_dup
@@ -8084,7 +8084,7 @@ proc set_attribute_mask*(self: FileInfo, mask: TFileAttributeMatcher) {.inline.}
 # 'VOID_TODO' 'VOID_TODO'
 proc g_file_info_set_attribute_object(self: ptr TFileInfo, attribute: ucstring, attr_value: ptr GObject2.TObject) {.cdecl, dynlib: lib, importc: "g_file_info_set_attribute_object".}
 proc set_attribute_object*(self: FileInfo, attribute: ustring, attr_value: GObject2.Object) {.inline.} =
-  g_file_info_set_attribute_object(self, ucstring(attribute), attr_value.pointer)
+  g_file_info_set_attribute_object(self, ucstring(attribute), attr_value.getPointer)
 # proc set_attribute_object*(self: FileInfo, attribute: ustring, attr_value: GObject2.Object) {.inline.} =
 
 # g_file_info_set_attribute_status
@@ -8290,7 +8290,7 @@ proc unset_attribute_mask*(self: FileInfo) {.inline.} =
 # 'FileInfo' 'TransferFull[TFileInfo]' (diff., need sugar)
 proc g_file_input_stream_query_info(self: ptr TFileInputStream, attributes: ucstring, cancellable: ptr TCancellable, error: ptr PGError=nil): TransferFull[TFileInfo] {.cdecl, dynlib: lib, importc: "g_file_input_stream_query_info".}
 proc query_info*(self: FileInputStream, attributes: ustring, cancellable: Cancellable): FileInfo {.inline.} =
-  wrap(g_file_input_stream_query_info(self, ucstring(attributes), cancellable.pointer))
+  wrap(g_file_input_stream_query_info(self, ucstring(attributes), cancellable.getPointer))
 # proc query_info*(self: FileInputStream, attributes: ustring, cancellable: Cancellable): FileInfo {.inline.} =
 
 # g_file_input_stream_query_info_async
@@ -8304,7 +8304,7 @@ proc query_info*(self: FileInputStream, attributes: ustring, cancellable: Cancel
 # 'VOID_TODO' 'VOID_TODO'
 proc g_file_input_stream_query_info_async(self: ptr TFileInputStream, attributes: ucstring, io_priority: int32, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_file_input_stream_query_info_async".}
 proc query_info_async*(self: FileInputStream, attributes: ustring, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_file_input_stream_query_info_async(self, ucstring(attributes), io_priority, cancellable.pointer, callback, user_data)
+  g_file_input_stream_query_info_async(self, ucstring(attributes), io_priority, cancellable.getPointer, callback, user_data)
 # proc query_info_async*(self: FileInputStream, attributes: ustring, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_file_input_stream_query_info_finish
@@ -8376,7 +8376,7 @@ proc get_etag*(self: FileOutputStream): ustring {.inline.} =
 # 'FileInfo' 'TransferFull[TFileInfo]' (diff., need sugar)
 proc g_file_output_stream_query_info(self: ptr TFileOutputStream, attributes: ucstring, cancellable: ptr TCancellable, error: ptr PGError=nil): TransferFull[TFileInfo] {.cdecl, dynlib: lib, importc: "g_file_output_stream_query_info".}
 proc query_info*(self: FileOutputStream, attributes: ustring, cancellable: Cancellable): FileInfo {.inline.} =
-  wrap(g_file_output_stream_query_info(self, ucstring(attributes), cancellable.pointer))
+  wrap(g_file_output_stream_query_info(self, ucstring(attributes), cancellable.getPointer))
 # proc query_info*(self: FileOutputStream, attributes: ustring, cancellable: Cancellable): FileInfo {.inline.} =
 
 # g_file_output_stream_query_info_async
@@ -8390,7 +8390,7 @@ proc query_info*(self: FileOutputStream, attributes: ustring, cancellable: Cance
 # 'VOID_TODO' 'VOID_TODO'
 proc g_file_output_stream_query_info_async(self: ptr TFileOutputStream, attributes: ucstring, io_priority: int32, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_file_output_stream_query_info_async".}
 proc query_info_async*(self: FileOutputStream, attributes: ustring, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_file_output_stream_query_info_async(self, ucstring(attributes), io_priority, cancellable.pointer, callback, user_data)
+  g_file_output_stream_query_info_async(self, ucstring(attributes), io_priority, cancellable.getPointer, callback, user_data)
 # proc query_info_async*(self: FileOutputStream, attributes: ustring, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_file_output_stream_query_info_finish
@@ -8564,7 +8564,7 @@ proc clear_pending*(self: IOStream) {.inline.} =
 # 'bool' 'bool'
 proc g_io_stream_close(self: ptr TIOStream, cancellable: ptr TCancellable, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_io_stream_close".}
 proc close*(self: IOStream, cancellable: Cancellable): bool {.inline.} =
-  g_io_stream_close(self, cancellable.pointer)
+  g_io_stream_close(self, cancellable.getPointer)
 # proc close*(self: IOStream, cancellable: Cancellable): bool {.inline.} =
 
 # g_io_stream_close_async
@@ -8577,7 +8577,7 @@ proc close*(self: IOStream, cancellable: Cancellable): bool {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc g_io_stream_close_async(self: ptr TIOStream, io_priority: int32, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_io_stream_close_async".}
 proc close_async*(self: IOStream, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_io_stream_close_async(self, io_priority, cancellable.pointer, callback, user_data)
+  g_io_stream_close_async(self, io_priority, cancellable.getPointer, callback, user_data)
 # proc close_async*(self: IOStream, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_io_stream_close_finish
@@ -8649,7 +8649,7 @@ proc set_pending*(self: IOStream): bool {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc g_io_stream_splice_async(self: ptr TIOStream, stream2: ptr TIOStream, flags: SIOStreamSpliceFlags, io_priority: int32, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_io_stream_splice_async".}
 proc splice_async*(self: IOStream, stream2: IOStream, flags: SIOStreamSpliceFlags, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_io_stream_splice_async(self, stream2.pointer, flags, io_priority, cancellable.pointer, callback, user_data)
+  g_io_stream_splice_async(self, stream2.getPointer, flags, io_priority, cancellable.getPointer, callback, user_data)
 # proc splice_async*(self: IOStream, stream2: IOStream, flags: SIOStreamSpliceFlags, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_inet_address_new_any
@@ -8700,7 +8700,7 @@ proc inetaddress_new_loopback*(family: SocketFamily): InetAddress {.inline.} =
 # 'bool' 'bool'
 proc g_inet_address_equal(self: ptr TInetAddress, other_address: ptr TInetAddress): bool {.cdecl, dynlib: lib, importc: "g_inet_address_equal".}
 proc equal*(self: InetAddress, other_address: InetAddress): bool {.inline.} =
-  g_inet_address_equal(self, other_address.pointer)
+  g_inet_address_equal(self, other_address.getPointer)
 # proc equal*(self: InetAddress, other_address: InetAddress): bool {.inline.} =
 
 # g_inet_address_get_family
@@ -8829,7 +8829,7 @@ proc to_string*(self: InetAddress): ustring {.inline.} =
 # 'InetAddressMask' 'TransferFull[TInetAddressMask]' (diff., need sugar)
 proc g_inet_address_mask_new(addr_x: ptr TInetAddress, length: uint32, error: ptr PGError=nil): TransferFull[TInetAddressMask] {.cdecl, dynlib: lib, importc: "g_inet_address_mask_new".}
 proc inetaddressmask_new*(addr_x: InetAddress, length: uint32): InetAddressMask {.inline.} =
-  wrap(g_inet_address_mask_new(addr_x.pointer, length))
+  wrap(g_inet_address_mask_new(addr_x.getPointer, length))
 # proc inetaddressmask_new*(addr_x: InetAddress, length: uint32): InetAddressMask {.inline.} =
 
 # g_inet_address_mask_new_from_string
@@ -8850,7 +8850,7 @@ proc inetaddressmask_new_from_string*(mask_string: ustring): InetAddressMask {.i
 # 'bool' 'bool'
 proc g_inet_address_mask_equal(self: ptr TInetAddressMask, mask2: ptr TInetAddressMask): bool {.cdecl, dynlib: lib, importc: "g_inet_address_mask_equal".}
 proc equal*(self: InetAddressMask, mask2: InetAddressMask): bool {.inline.} =
-  g_inet_address_mask_equal(self, mask2.pointer)
+  g_inet_address_mask_equal(self, mask2.getPointer)
 # proc equal*(self: InetAddressMask, mask2: InetAddressMask): bool {.inline.} =
 
 # g_inet_address_mask_get_address
@@ -8887,7 +8887,7 @@ proc get_length*(self: InetAddressMask): uint32 {.inline.} =
 # 'bool' 'bool'
 proc g_inet_address_mask_matches(self: ptr TInetAddressMask, address: ptr TInetAddress): bool {.cdecl, dynlib: lib, importc: "g_inet_address_mask_matches".}
 proc matches*(self: InetAddressMask, address: InetAddress): bool {.inline.} =
-  g_inet_address_mask_matches(self, address.pointer)
+  g_inet_address_mask_matches(self, address.getPointer)
 # proc matches*(self: InetAddressMask, address: InetAddress): bool {.inline.} =
 
 # g_inet_address_mask_to_string
@@ -8907,7 +8907,7 @@ proc to_string*(self: InetAddressMask): ustring {.inline.} =
 # 'InetSocketAddress' 'TransferFull[TInetSocketAddress]' (diff., need sugar)
 proc g_inet_socket_address_new(address: ptr TInetAddress, port: uint16): TransferFull[TInetSocketAddress] {.cdecl, dynlib: lib, importc: "g_inet_socket_address_new".}
 proc inetsocketaddress_new*(address: InetAddress, port: uint16): InetSocketAddress {.inline.} =
-  wrap(g_inet_socket_address_new(address.pointer, port))
+  wrap(g_inet_socket_address_new(address.getPointer, port))
 # proc inetsocketaddress_new*(address: InetAddress, port: uint16): InetSocketAddress {.inline.} =
 
 # g_inet_socket_address_new_from_string
@@ -8974,7 +8974,7 @@ proc clear_pending*(self: InputStream) {.inline.} =
 # 'bool' 'bool'
 proc g_input_stream_close(self: ptr TInputStream, cancellable: ptr TCancellable, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_input_stream_close".}
 proc close*(self: InputStream, cancellable: Cancellable): bool {.inline.} =
-  g_input_stream_close(self, cancellable.pointer)
+  g_input_stream_close(self, cancellable.getPointer)
 # proc close*(self: InputStream, cancellable: Cancellable): bool {.inline.} =
 
 # g_input_stream_close_async
@@ -8987,7 +8987,7 @@ proc close*(self: InputStream, cancellable: Cancellable): bool {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc g_input_stream_close_async(self: ptr TInputStream, io_priority: int32, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_input_stream_close_async".}
 proc close_async*(self: InputStream, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_input_stream_close_async(self, io_priority, cancellable.pointer, callback, user_data)
+  g_input_stream_close_async(self, io_priority, cancellable.getPointer, callback, user_data)
 # proc close_async*(self: InputStream, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_input_stream_close_finish
@@ -9029,7 +9029,7 @@ proc is_closed*(self: InputStream): bool {.inline.} =
 # 'int32' 'int32'
 proc g_input_stream_read(self: ptr TInputStream, buffer: cstring, count: uint32, cancellable: ptr TCancellable, error: ptr PGError=nil): int32 {.cdecl, dynlib: lib, importc: "g_input_stream_read".}
 proc read*(self: InputStream, buffer: string, cancellable: Cancellable): int32 {.inline.} =
-  g_input_stream_read(self, cstring(buffer), buffer.len.uint32, cancellable.pointer)
+  g_input_stream_read(self, cstring(buffer), buffer.len.uint32, cancellable.getPointer)
 # proc read*(self: InputStream, buffer: string, cancellable: Cancellable): int32 {.inline.} =
 
 # g_input_stream_read_all
@@ -9043,7 +9043,7 @@ proc read*(self: InputStream, buffer: string, cancellable: Cancellable): int32 {
 # 'bool' 'bool'
 proc g_input_stream_read_all(self: ptr TInputStream, buffer: cstring, count: uint32, bytes_read: ptr uint32, cancellable: ptr TCancellable, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_input_stream_read_all".}
 proc read_all*(self: InputStream, buffer: string, bytes_read: var uint32, cancellable: Cancellable): bool {.inline.} =
-  g_input_stream_read_all(self, cstring(buffer), buffer.len.uint32, addr(bytes_read), cancellable.pointer)
+  g_input_stream_read_all(self, cstring(buffer), buffer.len.uint32, addr(bytes_read), cancellable.getPointer)
 # tuple-return
 # bytes_read: var uint32
 # proc read_all*(self: InputStream, buffer: string, cancellable: Cancellable): bool {.inline.} =
@@ -9060,7 +9060,7 @@ proc read_all*(self: InputStream, buffer: string, bytes_read: var uint32, cancel
 # 'VOID_TODO' 'VOID_TODO'
 proc g_input_stream_read_async(self: ptr TInputStream, buffer: cstring, count: uint32, io_priority: int32, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_input_stream_read_async".}
 proc read_async*(self: InputStream, buffer: string, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_input_stream_read_async(self, cstring(buffer), buffer.len.uint32, io_priority, cancellable.pointer, callback, user_data)
+  g_input_stream_read_async(self, cstring(buffer), buffer.len.uint32, io_priority, cancellable.getPointer, callback, user_data)
 # proc read_async*(self: InputStream, buffer: string, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_input_stream_read_bytes
@@ -9072,7 +9072,7 @@ proc read_async*(self: InputStream, buffer: string, io_priority: int32, cancella
 # 'GLib2.TBytes' 'ptr GLib2.TBytes' (diff., need sugar)
 proc g_input_stream_read_bytes(self: ptr TInputStream, count: uint32, cancellable: ptr TCancellable, error: ptr PGError=nil): ptr GLib2.TBytes {.cdecl, dynlib: lib, importc: "g_input_stream_read_bytes".}
 proc read_bytes*(self: InputStream, count: uint32, cancellable: Cancellable): GLib2.TBytes {.inline.} =
-  (g_input_stream_read_bytes(self, count, cancellable.pointer))[]
+  (g_input_stream_read_bytes(self, count, cancellable.getPointer))[]
 # proc read_bytes*(self: InputStream, count: uint32, cancellable: Cancellable): GLib2.TBytes {.inline.} =
 
 # g_input_stream_read_bytes_async
@@ -9086,7 +9086,7 @@ proc read_bytes*(self: InputStream, count: uint32, cancellable: Cancellable): GL
 # 'VOID_TODO' 'VOID_TODO'
 proc g_input_stream_read_bytes_async(self: ptr TInputStream, count: uint32, io_priority: int32, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_input_stream_read_bytes_async".}
 proc read_bytes_async*(self: InputStream, count: uint32, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_input_stream_read_bytes_async(self, count, io_priority, cancellable.pointer, callback, user_data)
+  g_input_stream_read_bytes_async(self, count, io_priority, cancellable.getPointer, callback, user_data)
 # proc read_bytes_async*(self: InputStream, count: uint32, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_input_stream_read_bytes_finish
@@ -9130,7 +9130,7 @@ proc set_pending*(self: InputStream): bool {.inline.} =
 # 'int32' 'int32'
 proc g_input_stream_skip(self: ptr TInputStream, count: uint32, cancellable: ptr TCancellable, error: ptr PGError=nil): int32 {.cdecl, dynlib: lib, importc: "g_input_stream_skip".}
 proc skip*(self: InputStream, count: uint32, cancellable: Cancellable): int32 {.inline.} =
-  g_input_stream_skip(self, count, cancellable.pointer)
+  g_input_stream_skip(self, count, cancellable.getPointer)
 # proc skip*(self: InputStream, count: uint32, cancellable: Cancellable): int32 {.inline.} =
 
 # g_input_stream_skip_async
@@ -9144,7 +9144,7 @@ proc skip*(self: InputStream, count: uint32, cancellable: Cancellable): int32 {.
 # 'VOID_TODO' 'VOID_TODO'
 proc g_input_stream_skip_async(self: ptr TInputStream, count: uint32, io_priority: int32, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_input_stream_skip_async".}
 proc skip_async*(self: InputStream, count: uint32, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_input_stream_skip_async(self, count, io_priority, cancellable.pointer, callback, user_data)
+  g_input_stream_skip_async(self, count, io_priority, cancellable.getPointer, callback, user_data)
 # proc skip_async*(self: InputStream, count: uint32, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_input_stream_skip_finish
@@ -9292,7 +9292,7 @@ proc append*(self: Menu, label: ustring, detailed_action: ustring) {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc g_menu_append_item(self: ptr TMenu, item: ptr TMenuItem) {.cdecl, dynlib: lib, importc: "g_menu_append_item".}
 proc append_item*(self: Menu, item: MenuItem) {.inline.} =
-  g_menu_append_item(self, item.pointer)
+  g_menu_append_item(self, item.getPointer)
 # proc append_item*(self: Menu, item: MenuItem) {.inline.} =
 
 # g_menu_append_section
@@ -9303,7 +9303,7 @@ proc append_item*(self: Menu, item: MenuItem) {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc g_menu_append_section(self: ptr TMenu, label: ucstring, section: ptr TMenuModel) {.cdecl, dynlib: lib, importc: "g_menu_append_section".}
 proc append_section*(self: Menu, label: ustring, section: MenuModel) {.inline.} =
-  g_menu_append_section(self, ucstring(label), section.pointer)
+  g_menu_append_section(self, ucstring(label), section.getPointer)
 # proc append_section*(self: Menu, label: ustring, section: MenuModel) {.inline.} =
 
 # g_menu_append_submenu
@@ -9314,7 +9314,7 @@ proc append_section*(self: Menu, label: ustring, section: MenuModel) {.inline.} 
 # 'VOID_TODO' 'VOID_TODO'
 proc g_menu_append_submenu(self: ptr TMenu, label: ucstring, submenu: ptr TMenuModel) {.cdecl, dynlib: lib, importc: "g_menu_append_submenu".}
 proc append_submenu*(self: Menu, label: ustring, submenu: MenuModel) {.inline.} =
-  g_menu_append_submenu(self, ucstring(label), submenu.pointer)
+  g_menu_append_submenu(self, ucstring(label), submenu.getPointer)
 # proc append_submenu*(self: Menu, label: ustring, submenu: MenuModel) {.inline.} =
 
 # g_menu_freeze
@@ -9346,7 +9346,7 @@ proc insert*(self: Menu, position: int32, label: ustring, detailed_action: ustri
 # 'VOID_TODO' 'VOID_TODO'
 proc g_menu_insert_item(self: ptr TMenu, position: int32, item: ptr TMenuItem) {.cdecl, dynlib: lib, importc: "g_menu_insert_item".}
 proc insert_item*(self: Menu, position: int32, item: MenuItem) {.inline.} =
-  g_menu_insert_item(self, position, item.pointer)
+  g_menu_insert_item(self, position, item.getPointer)
 # proc insert_item*(self: Menu, position: int32, item: MenuItem) {.inline.} =
 
 # g_menu_insert_section
@@ -9358,7 +9358,7 @@ proc insert_item*(self: Menu, position: int32, item: MenuItem) {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc g_menu_insert_section(self: ptr TMenu, position: int32, label: ucstring, section: ptr TMenuModel) {.cdecl, dynlib: lib, importc: "g_menu_insert_section".}
 proc insert_section*(self: Menu, position: int32, label: ustring, section: MenuModel) {.inline.} =
-  g_menu_insert_section(self, position, ucstring(label), section.pointer)
+  g_menu_insert_section(self, position, ucstring(label), section.getPointer)
 # proc insert_section*(self: Menu, position: int32, label: ustring, section: MenuModel) {.inline.} =
 
 # g_menu_insert_submenu
@@ -9370,7 +9370,7 @@ proc insert_section*(self: Menu, position: int32, label: ustring, section: MenuM
 # 'VOID_TODO' 'VOID_TODO'
 proc g_menu_insert_submenu(self: ptr TMenu, position: int32, label: ucstring, submenu: ptr TMenuModel) {.cdecl, dynlib: lib, importc: "g_menu_insert_submenu".}
 proc insert_submenu*(self: Menu, position: int32, label: ustring, submenu: MenuModel) {.inline.} =
-  g_menu_insert_submenu(self, position, ucstring(label), submenu.pointer)
+  g_menu_insert_submenu(self, position, ucstring(label), submenu.getPointer)
 # proc insert_submenu*(self: Menu, position: int32, label: ustring, submenu: MenuModel) {.inline.} =
 
 # g_menu_prepend
@@ -9391,7 +9391,7 @@ proc prepend*(self: Menu, label: ustring, detailed_action: ustring) {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc g_menu_prepend_item(self: ptr TMenu, item: ptr TMenuItem) {.cdecl, dynlib: lib, importc: "g_menu_prepend_item".}
 proc prepend_item*(self: Menu, item: MenuItem) {.inline.} =
-  g_menu_prepend_item(self, item.pointer)
+  g_menu_prepend_item(self, item.getPointer)
 # proc prepend_item*(self: Menu, item: MenuItem) {.inline.} =
 
 # g_menu_prepend_section
@@ -9402,7 +9402,7 @@ proc prepend_item*(self: Menu, item: MenuItem) {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc g_menu_prepend_section(self: ptr TMenu, label: ucstring, section: ptr TMenuModel) {.cdecl, dynlib: lib, importc: "g_menu_prepend_section".}
 proc prepend_section*(self: Menu, label: ustring, section: MenuModel) {.inline.} =
-  g_menu_prepend_section(self, ucstring(label), section.pointer)
+  g_menu_prepend_section(self, ucstring(label), section.getPointer)
 # proc prepend_section*(self: Menu, label: ustring, section: MenuModel) {.inline.} =
 
 # g_menu_prepend_submenu
@@ -9413,7 +9413,7 @@ proc prepend_section*(self: Menu, label: ustring, section: MenuModel) {.inline.}
 # 'VOID_TODO' 'VOID_TODO'
 proc g_menu_prepend_submenu(self: ptr TMenu, label: ucstring, submenu: ptr TMenuModel) {.cdecl, dynlib: lib, importc: "g_menu_prepend_submenu".}
 proc prepend_submenu*(self: Menu, label: ustring, submenu: MenuModel) {.inline.} =
-  g_menu_prepend_submenu(self, ucstring(label), submenu.pointer)
+  g_menu_prepend_submenu(self, ucstring(label), submenu.getPointer)
 # proc prepend_submenu*(self: Menu, label: ustring, submenu: MenuModel) {.inline.} =
 
 # g_menu_remove
@@ -9495,7 +9495,7 @@ proc menuitem_new*(label: ustring, detailed_action: ustring): MenuItem {.inline.
 # 'MenuItem' 'TransferFull[TMenuItem]' (diff., need sugar)
 proc g_menu_item_new_from_model(model: ptr TMenuModel, item_index: int32): TransferFull[TMenuItem] {.cdecl, dynlib: lib, importc: "g_menu_item_new_from_model".}
 proc menuitem_new_from_model*(model: MenuModel, item_index: int32): MenuItem {.inline.} =
-  wrap(g_menu_item_new_from_model(model.pointer, item_index))
+  wrap(g_menu_item_new_from_model(model.getPointer, item_index))
 # proc menuitem_new_from_model*(model: MenuModel, item_index: int32): MenuItem {.inline.} =
 
 # g_menu_item_new_section
@@ -9506,7 +9506,7 @@ proc menuitem_new_from_model*(model: MenuModel, item_index: int32): MenuItem {.i
 # 'MenuItem' 'TransferFull[TMenuItem]' (diff., need sugar)
 proc g_menu_item_new_section(label: ucstring, section: ptr TMenuModel): TransferFull[TMenuItem] {.cdecl, dynlib: lib, importc: "g_menu_item_new_section".}
 proc menuitem_new_section*(label: ustring, section: MenuModel): MenuItem {.inline.} =
-  wrap(g_menu_item_new_section(ucstring(label), section.pointer))
+  wrap(g_menu_item_new_section(ucstring(label), section.getPointer))
 # proc menuitem_new_section*(label: ustring, section: MenuModel): MenuItem {.inline.} =
 
 # g_menu_item_new_submenu
@@ -9517,7 +9517,7 @@ proc menuitem_new_section*(label: ustring, section: MenuModel): MenuItem {.inlin
 # 'MenuItem' 'TransferFull[TMenuItem]' (diff., need sugar)
 proc g_menu_item_new_submenu(label: ucstring, submenu: ptr TMenuModel): TransferFull[TMenuItem] {.cdecl, dynlib: lib, importc: "g_menu_item_new_submenu".}
 proc menuitem_new_submenu*(label: ustring, submenu: MenuModel): MenuItem {.inline.} =
-  wrap(g_menu_item_new_submenu(ucstring(label), submenu.pointer))
+  wrap(g_menu_item_new_submenu(ucstring(label), submenu.getPointer))
 # proc menuitem_new_submenu*(label: ustring, submenu: MenuModel): MenuItem {.inline.} =
 
 # g_menu_item_get_attribute_value
@@ -9601,7 +9601,7 @@ proc set_label*(self: MenuItem, label: ustring) {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc g_menu_item_set_link(self: ptr TMenuItem, link: ucstring, model: ptr TMenuModel) {.cdecl, dynlib: lib, importc: "g_menu_item_set_link".}
 proc set_link*(self: MenuItem, link: ustring, model: MenuModel) {.inline.} =
-  g_menu_item_set_link(self, ucstring(link), model.pointer)
+  g_menu_item_set_link(self, ucstring(link), model.getPointer)
 # proc set_link*(self: MenuItem, link: ustring, model: MenuModel) {.inline.} =
 
 # g_menu_item_set_section
@@ -9611,7 +9611,7 @@ proc set_link*(self: MenuItem, link: ustring, model: MenuModel) {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc g_menu_item_set_section(self: ptr TMenuItem, section: ptr TMenuModel) {.cdecl, dynlib: lib, importc: "g_menu_item_set_section".}
 proc set_section*(self: MenuItem, section: MenuModel) {.inline.} =
-  g_menu_item_set_section(self, section.pointer)
+  g_menu_item_set_section(self, section.getPointer)
 # proc set_section*(self: MenuItem, section: MenuModel) {.inline.} =
 
 # g_menu_item_set_submenu
@@ -9621,7 +9621,7 @@ proc set_section*(self: MenuItem, section: MenuModel) {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc g_menu_item_set_submenu(self: ptr TMenuItem, submenu: ptr TMenuModel) {.cdecl, dynlib: lib, importc: "g_menu_item_set_submenu".}
 proc set_submenu*(self: MenuItem, submenu: MenuModel) {.inline.} =
-  g_menu_item_set_submenu(self, submenu.pointer)
+  g_menu_item_set_submenu(self, submenu.getPointer)
 # proc set_submenu*(self: MenuItem, submenu: MenuModel) {.inline.} =
 
 # g_menu_link_iter_get_name
@@ -9641,7 +9641,7 @@ proc get_name*(self: MenuLinkIter): ustring {.inline.} =
 # 'bool' 'bool'
 proc g_menu_link_iter_get_next(self: ptr TMenuLinkIter, out_link: ptr ucstring, value: ptr TMenuModel): bool {.cdecl, dynlib: lib, importc: "g_menu_link_iter_get_next".}
 proc get_next*(self: MenuLinkIter, out_link: var ucstring, value: var MenuModel): bool {.inline.} =
-  g_menu_link_iter_get_next(self, addr(out_link), value.pointer)
+  g_menu_link_iter_get_next(self, addr(out_link), value.getPointer)
 # tuple-return
 # out_link: var ucstring
 # value: var MenuModel
@@ -10112,7 +10112,7 @@ proc clear_pending*(self: OutputStream) {.inline.} =
 # 'bool' 'bool'
 proc g_output_stream_close(self: ptr TOutputStream, cancellable: ptr TCancellable, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_output_stream_close".}
 proc close*(self: OutputStream, cancellable: Cancellable): bool {.inline.} =
-  g_output_stream_close(self, cancellable.pointer)
+  g_output_stream_close(self, cancellable.getPointer)
 # proc close*(self: OutputStream, cancellable: Cancellable): bool {.inline.} =
 
 # g_output_stream_close_async
@@ -10125,7 +10125,7 @@ proc close*(self: OutputStream, cancellable: Cancellable): bool {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc g_output_stream_close_async(self: ptr TOutputStream, io_priority: int32, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_output_stream_close_async".}
 proc close_async*(self: OutputStream, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_output_stream_close_async(self, io_priority, cancellable.pointer, callback, user_data)
+  g_output_stream_close_async(self, io_priority, cancellable.getPointer, callback, user_data)
 # proc close_async*(self: OutputStream, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_output_stream_close_finish
@@ -10147,7 +10147,7 @@ proc close_finish*(self: OutputStream, result_x: AsyncResult): bool {.inline.} =
 # 'bool' 'bool'
 proc g_output_stream_flush(self: ptr TOutputStream, cancellable: ptr TCancellable, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_output_stream_flush".}
 proc flush*(self: OutputStream, cancellable: Cancellable): bool {.inline.} =
-  g_output_stream_flush(self, cancellable.pointer)
+  g_output_stream_flush(self, cancellable.getPointer)
 # proc flush*(self: OutputStream, cancellable: Cancellable): bool {.inline.} =
 
 # g_output_stream_flush_async
@@ -10160,7 +10160,7 @@ proc flush*(self: OutputStream, cancellable: Cancellable): bool {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc g_output_stream_flush_async(self: ptr TOutputStream, io_priority: int32, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_output_stream_flush_async".}
 proc flush_async*(self: OutputStream, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_output_stream_flush_async(self, io_priority, cancellable.pointer, callback, user_data)
+  g_output_stream_flush_async(self, io_priority, cancellable.getPointer, callback, user_data)
 # proc flush_async*(self: OutputStream, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_output_stream_flush_finish
@@ -10221,7 +10221,7 @@ proc set_pending*(self: OutputStream): bool {.inline.} =
 # 'int32' 'int32'
 proc g_output_stream_splice(self: ptr TOutputStream, source: ptr TInputStream, flags: SOutputStreamSpliceFlags, cancellable: ptr TCancellable, error: ptr PGError=nil): int32 {.cdecl, dynlib: lib, importc: "g_output_stream_splice".}
 proc splice*(self: OutputStream, source: InputStream, flags: SOutputStreamSpliceFlags, cancellable: Cancellable): int32 {.inline.} =
-  g_output_stream_splice(self, source.pointer, flags, cancellable.pointer)
+  g_output_stream_splice(self, source.getPointer, flags, cancellable.getPointer)
 # proc splice*(self: OutputStream, source: InputStream, flags: SOutputStreamSpliceFlags, cancellable: Cancellable): int32 {.inline.} =
 
 # g_output_stream_splice_async
@@ -10236,7 +10236,7 @@ proc splice*(self: OutputStream, source: InputStream, flags: SOutputStreamSplice
 # 'VOID_TODO' 'VOID_TODO'
 proc g_output_stream_splice_async(self: ptr TOutputStream, source: ptr TInputStream, flags: SOutputStreamSpliceFlags, io_priority: int32, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_output_stream_splice_async".}
 proc splice_async*(self: OutputStream, source: InputStream, flags: SOutputStreamSpliceFlags, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_output_stream_splice_async(self, source.pointer, flags, io_priority, cancellable.pointer, callback, user_data)
+  g_output_stream_splice_async(self, source.getPointer, flags, io_priority, cancellable.getPointer, callback, user_data)
 # proc splice_async*(self: OutputStream, source: InputStream, flags: SOutputStreamSpliceFlags, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_output_stream_splice_finish
@@ -10260,7 +10260,7 @@ proc splice_finish*(self: OutputStream, result_x: AsyncResult): int32 {.inline.}
 # 'int32' 'int32'
 proc g_output_stream_write(self: ptr TOutputStream, buffer: cstring, count: uint32, cancellable: ptr TCancellable, error: ptr PGError=nil): int32 {.cdecl, dynlib: lib, importc: "g_output_stream_write".}
 proc write*(self: OutputStream, buffer: string, cancellable: Cancellable): int32 {.inline.} =
-  g_output_stream_write(self, cstring(buffer), buffer.len.uint32, cancellable.pointer)
+  g_output_stream_write(self, cstring(buffer), buffer.len.uint32, cancellable.getPointer)
 # proc write*(self: OutputStream, buffer: string, cancellable: Cancellable): int32 {.inline.} =
 
 # g_output_stream_write_all
@@ -10274,7 +10274,7 @@ proc write*(self: OutputStream, buffer: string, cancellable: Cancellable): int32
 # 'bool' 'bool'
 proc g_output_stream_write_all(self: ptr TOutputStream, buffer: cstring, count: uint32, bytes_written: ptr uint32, cancellable: ptr TCancellable, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_output_stream_write_all".}
 proc write_all*(self: OutputStream, buffer: string, bytes_written: var uint32, cancellable: Cancellable): bool {.inline.} =
-  g_output_stream_write_all(self, cstring(buffer), buffer.len.uint32, addr(bytes_written), cancellable.pointer)
+  g_output_stream_write_all(self, cstring(buffer), buffer.len.uint32, addr(bytes_written), cancellable.getPointer)
 # tuple-return
 # bytes_written: var uint32
 # proc write_all*(self: OutputStream, buffer: string, cancellable: Cancellable): bool {.inline.} =
@@ -10291,7 +10291,7 @@ proc write_all*(self: OutputStream, buffer: string, bytes_written: var uint32, c
 # 'VOID_TODO' 'VOID_TODO'
 proc g_output_stream_write_async(self: ptr TOutputStream, buffer: cstring, count: uint32, io_priority: int32, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_output_stream_write_async".}
 proc write_async*(self: OutputStream, buffer: string, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_output_stream_write_async(self, cstring(buffer), buffer.len.uint32, io_priority, cancellable.pointer, callback, user_data)
+  g_output_stream_write_async(self, cstring(buffer), buffer.len.uint32, io_priority, cancellable.getPointer, callback, user_data)
 # proc write_async*(self: OutputStream, buffer: string, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_output_stream_write_bytes
@@ -10303,7 +10303,7 @@ proc write_async*(self: OutputStream, buffer: string, io_priority: int32, cancel
 # 'int32' 'int32'
 proc g_output_stream_write_bytes(self: ptr TOutputStream, bytes: ptr GLib2.TBytes, cancellable: ptr TCancellable, error: ptr PGError=nil): int32 {.cdecl, dynlib: lib, importc: "g_output_stream_write_bytes".}
 proc write_bytes*(self: OutputStream, bytes: GLib2.TBytes, cancellable: Cancellable): int32 {.inline.} =
-  g_output_stream_write_bytes(self, myUnsafeAddr(bytes), cancellable.pointer)
+  g_output_stream_write_bytes(self, myUnsafeAddr(bytes), cancellable.getPointer)
 # proc write_bytes*(self: OutputStream, bytes: GLib2.TBytes, cancellable: Cancellable): int32 {.inline.} =
 
 # g_output_stream_write_bytes_async
@@ -10317,7 +10317,7 @@ proc write_bytes*(self: OutputStream, bytes: GLib2.TBytes, cancellable: Cancella
 # 'VOID_TODO' 'VOID_TODO'
 proc g_output_stream_write_bytes_async(self: ptr TOutputStream, bytes: ptr GLib2.TBytes, io_priority: int32, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_output_stream_write_bytes_async".}
 proc write_bytes_async*(self: OutputStream, bytes: GLib2.TBytes, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_output_stream_write_bytes_async(self, myUnsafeAddr(bytes), io_priority, cancellable.pointer, callback, user_data)
+  g_output_stream_write_bytes_async(self, myUnsafeAddr(bytes), io_priority, cancellable.getPointer, callback, user_data)
 # proc write_bytes_async*(self: OutputStream, bytes: GLib2.TBytes, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_output_stream_write_bytes_finish
@@ -10350,7 +10350,7 @@ proc write_finish*(self: OutputStream, result_x: AsyncResult): int32 {.inline.} 
 # 'bool' 'bool'
 proc g_permission_acquire(self: ptr TPermission, cancellable: ptr TCancellable, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_permission_acquire".}
 proc acquire*(self: Permission, cancellable: Cancellable): bool {.inline.} =
-  g_permission_acquire(self, cancellable.pointer)
+  g_permission_acquire(self, cancellable.getPointer)
 # proc acquire*(self: Permission, cancellable: Cancellable): bool {.inline.} =
 
 # g_permission_acquire_async
@@ -10362,7 +10362,7 @@ proc acquire*(self: Permission, cancellable: Cancellable): bool {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc g_permission_acquire_async(self: ptr TPermission, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_permission_acquire_async".}
 proc acquire_async*(self: Permission, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_permission_acquire_async(self, cancellable.pointer, callback, user_data)
+  g_permission_acquire_async(self, cancellable.getPointer, callback, user_data)
 # proc acquire_async*(self: Permission, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_permission_acquire_finish
@@ -10423,7 +10423,7 @@ proc impl_update*(self: Permission, allowed: bool, can_acquire: bool, can_releas
 # 'bool' 'bool'
 proc g_permission_release(self: ptr TPermission, cancellable: ptr TCancellable, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_permission_release".}
 proc release*(self: Permission, cancellable: Cancellable): bool {.inline.} =
-  g_permission_release(self, cancellable.pointer)
+  g_permission_release(self, cancellable.getPointer)
 # proc release*(self: Permission, cancellable: Cancellable): bool {.inline.} =
 
 # g_permission_release_async
@@ -10435,7 +10435,7 @@ proc release*(self: Permission, cancellable: Cancellable): bool {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc g_permission_release_async(self: ptr TPermission, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_permission_release_async".}
 proc release_async*(self: Permission, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_permission_release_async(self, cancellable.pointer, callback, user_data)
+  g_permission_release_async(self, cancellable.getPointer, callback, user_data)
 # proc release_async*(self: Permission, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_permission_release_finish
@@ -10474,7 +10474,7 @@ proc propertyaction_new*(name: ustring, object_x: pointer, property_name: ustrin
 # 'ProxyAddress' 'TransferFull[TProxyAddress]' (diff., need sugar)
 proc g_proxy_address_new(inetaddr: ptr TInetAddress, port: uint16, protocol: ucstring, dest_hostname: ucstring, dest_port: uint16, username: ucstring, password: ucstring): TransferFull[TProxyAddress] {.cdecl, dynlib: lib, importc: "g_proxy_address_new".}
 proc proxyaddress_new*(inetaddr: InetAddress, port: uint16, protocol: ustring, dest_hostname: ustring, dest_port: uint16, username: ustring, password: ustring): ProxyAddress {.inline.} =
-  wrap(g_proxy_address_new(inetaddr.pointer, port, ucstring(protocol), ucstring(dest_hostname), dest_port, ucstring(username), ucstring(password)))
+  wrap(g_proxy_address_new(inetaddr.getPointer, port, ucstring(protocol), ucstring(dest_hostname), dest_port, ucstring(username), ucstring(password)))
 # proc proxyaddress_new*(inetaddr: InetAddress, port: uint16, protocol: ustring, dest_hostname: ustring, dest_port: uint16, username: ustring, password: ustring): ProxyAddress {.inline.} =
 
 # g_proxy_address_get_destination_hostname
@@ -10558,7 +10558,7 @@ template get_default*(klass_parameter: typedesc[Resolver]): Resolver =
 # 'ustring' 'ucstring' (diff., need sugar)
 proc g_resolver_lookup_by_address(self: ptr TResolver, address: ptr TInetAddress, cancellable: ptr TCancellable, error: ptr PGError=nil): ucstring {.cdecl, dynlib: lib, importc: "g_resolver_lookup_by_address".}
 proc lookup_by_address*(self: Resolver, address: InetAddress, cancellable: Cancellable): ustring {.inline.} =
-  ustring($(g_resolver_lookup_by_address(self, address.pointer, cancellable.pointer)))
+  ustring($(g_resolver_lookup_by_address(self, address.getPointer, cancellable.getPointer)))
 # proc lookup_by_address*(self: Resolver, address: InetAddress, cancellable: Cancellable): ustring {.inline.} =
 
 # g_resolver_lookup_by_address_async
@@ -10571,7 +10571,7 @@ proc lookup_by_address*(self: Resolver, address: InetAddress, cancellable: Cance
 # 'VOID_TODO' 'VOID_TODO'
 proc g_resolver_lookup_by_address_async(self: ptr TResolver, address: ptr TInetAddress, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_resolver_lookup_by_address_async".}
 proc lookup_by_address_async*(self: Resolver, address: InetAddress, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_resolver_lookup_by_address_async(self, address.pointer, cancellable.pointer, callback, user_data)
+  g_resolver_lookup_by_address_async(self, address.getPointer, cancellable.getPointer, callback, user_data)
 # proc lookup_by_address_async*(self: Resolver, address: InetAddress, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_resolver_lookup_by_address_finish
@@ -10594,7 +10594,7 @@ proc lookup_by_address_finish*(self: Resolver, result_x: AsyncResult): ustring {
 # 'ptr GLIST_TODO' 'ptr GLIST_TODO'
 proc g_resolver_lookup_by_name(self: ptr TResolver, hostname: ucstring, cancellable: ptr TCancellable, error: ptr PGError=nil): ptr GLIST_TODO {.cdecl, dynlib: lib, importc: "g_resolver_lookup_by_name".}
 proc lookup_by_name*(self: Resolver, hostname: ustring, cancellable: Cancellable): ptr GLIST_TODO {.inline.} =
-  g_resolver_lookup_by_name(self, ucstring(hostname), cancellable.pointer)
+  g_resolver_lookup_by_name(self, ucstring(hostname), cancellable.getPointer)
 # proc lookup_by_name*(self: Resolver, hostname: ustring, cancellable: Cancellable): ptr GLIST_TODO {.inline.} =
 
 # g_resolver_lookup_by_name_async
@@ -10607,7 +10607,7 @@ proc lookup_by_name*(self: Resolver, hostname: ustring, cancellable: Cancellable
 # 'VOID_TODO' 'VOID_TODO'
 proc g_resolver_lookup_by_name_async(self: ptr TResolver, hostname: ucstring, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_resolver_lookup_by_name_async".}
 proc lookup_by_name_async*(self: Resolver, hostname: ustring, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_resolver_lookup_by_name_async(self, ucstring(hostname), cancellable.pointer, callback, user_data)
+  g_resolver_lookup_by_name_async(self, ucstring(hostname), cancellable.getPointer, callback, user_data)
 # proc lookup_by_name_async*(self: Resolver, hostname: ustring, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_resolver_lookup_by_name_finish
@@ -10631,7 +10631,7 @@ proc lookup_by_name_finish*(self: Resolver, result_x: AsyncResult): ptr GLIST_TO
 # 'ptr GLIST_TODO' 'ptr GLIST_TODO'
 proc g_resolver_lookup_records(self: ptr TResolver, rrname: ucstring, record_type: ResolverRecordType, cancellable: ptr TCancellable, error: ptr PGError=nil): ptr GLIST_TODO {.cdecl, dynlib: lib, importc: "g_resolver_lookup_records".}
 proc lookup_records*(self: Resolver, rrname: ustring, record_type: ResolverRecordType, cancellable: Cancellable): ptr GLIST_TODO {.inline.} =
-  g_resolver_lookup_records(self, ucstring(rrname), record_type, cancellable.pointer)
+  g_resolver_lookup_records(self, ucstring(rrname), record_type, cancellable.getPointer)
 # proc lookup_records*(self: Resolver, rrname: ustring, record_type: ResolverRecordType, cancellable: Cancellable): ptr GLIST_TODO {.inline.} =
 
 # g_resolver_lookup_records_async
@@ -10645,7 +10645,7 @@ proc lookup_records*(self: Resolver, rrname: ustring, record_type: ResolverRecor
 # 'VOID_TODO' 'VOID_TODO'
 proc g_resolver_lookup_records_async(self: ptr TResolver, rrname: ucstring, record_type: ResolverRecordType, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_resolver_lookup_records_async".}
 proc lookup_records_async*(self: Resolver, rrname: ustring, record_type: ResolverRecordType, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_resolver_lookup_records_async(self, ucstring(rrname), record_type, cancellable.pointer, callback, user_data)
+  g_resolver_lookup_records_async(self, ucstring(rrname), record_type, cancellable.getPointer, callback, user_data)
 # proc lookup_records_async*(self: Resolver, rrname: ustring, record_type: ResolverRecordType, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_resolver_lookup_records_finish
@@ -10670,7 +10670,7 @@ proc lookup_records_finish*(self: Resolver, result_x: AsyncResult): ptr GLIST_TO
 # 'ptr GLIST_TODO' 'ptr GLIST_TODO'
 proc g_resolver_lookup_service(self: ptr TResolver, service: ucstring, protocol: ucstring, domain: ucstring, cancellable: ptr TCancellable, error: ptr PGError=nil): ptr GLIST_TODO {.cdecl, dynlib: lib, importc: "g_resolver_lookup_service".}
 proc lookup_service*(self: Resolver, service: ustring, protocol: ustring, domain: ustring, cancellable: Cancellable): ptr GLIST_TODO {.inline.} =
-  g_resolver_lookup_service(self, ucstring(service), ucstring(protocol), ucstring(domain), cancellable.pointer)
+  g_resolver_lookup_service(self, ucstring(service), ucstring(protocol), ucstring(domain), cancellable.getPointer)
 # proc lookup_service*(self: Resolver, service: ustring, protocol: ustring, domain: ustring, cancellable: Cancellable): ptr GLIST_TODO {.inline.} =
 
 # g_resolver_lookup_service_async
@@ -10685,7 +10685,7 @@ proc lookup_service*(self: Resolver, service: ustring, protocol: ustring, domain
 # 'VOID_TODO' 'VOID_TODO'
 proc g_resolver_lookup_service_async(self: ptr TResolver, service: ucstring, protocol: ucstring, domain: ucstring, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_resolver_lookup_service_async".}
 proc lookup_service_async*(self: Resolver, service: ustring, protocol: ustring, domain: ustring, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_resolver_lookup_service_async(self, ucstring(service), ucstring(protocol), ucstring(domain), cancellable.pointer, callback, user_data)
+  g_resolver_lookup_service_async(self, ucstring(service), ucstring(protocol), ucstring(domain), cancellable.getPointer, callback, user_data)
 # proc lookup_service_async*(self: Resolver, service: ustring, protocol: ustring, domain: ustring, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_resolver_lookup_service_finish
@@ -10807,7 +10807,7 @@ proc apply*(self: Settings) {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc g_settings_bind(self: ptr TSettings, key: ucstring, object_x: ptr GObject2.TObject, property: ucstring, flags: SSettingsBindFlags) {.cdecl, dynlib: lib, importc: "g_settings_bind".}
 proc bind_x*(self: Settings, key: ustring, object_x: GObject2.Object, property: ustring, flags: SSettingsBindFlags) {.inline.} =
-  g_settings_bind(self, ucstring(key), object_x.pointer, ucstring(property), flags)
+  g_settings_bind(self, ucstring(key), object_x.getPointer, ucstring(property), flags)
 # proc bind_x*(self: Settings, key: ustring, object_x: GObject2.Object, property: ustring, flags: SSettingsBindFlags) {.inline.} =
 
 # g_settings_bind_writable
@@ -10820,7 +10820,7 @@ proc bind_x*(self: Settings, key: ustring, object_x: GObject2.Object, property: 
 # 'VOID_TODO' 'VOID_TODO'
 proc g_settings_bind_writable(self: ptr TSettings, key: ucstring, object_x: ptr GObject2.TObject, property: ucstring, inverted: bool) {.cdecl, dynlib: lib, importc: "g_settings_bind_writable".}
 proc bind_writable*(self: Settings, key: ustring, object_x: GObject2.Object, property: ustring, inverted: bool) {.inline.} =
-  g_settings_bind_writable(self, ucstring(key), object_x.pointer, ucstring(property), inverted)
+  g_settings_bind_writable(self, ucstring(key), object_x.getPointer, ucstring(property), inverted)
 # proc bind_writable*(self: Settings, key: ustring, object_x: GObject2.Object, property: ustring, inverted: bool) {.inline.} =
 
 # g_settings_create_action
@@ -11203,7 +11203,7 @@ proc simpleactiongroup_new*(): SimpleActionGroup {.inline.} =
 # 'SimpleAsyncResult' 'TransferFull[TSimpleAsyncResult]' (diff., need sugar)
 proc g_simple_async_result_new(source_object: ptr GObject2.TObject, callback: pointer, user_data: pointer, source_tag: pointer): TransferFull[TSimpleAsyncResult] {.cdecl, dynlib: lib, importc: "g_simple_async_result_new".}
 proc simpleasyncresult_new*(source_object: GObject2.Object, callback: pointer, user_data: pointer, source_tag: pointer): SimpleAsyncResult {.inline.} =
-  wrap(g_simple_async_result_new(source_object.pointer, callback, user_data, source_tag))
+  wrap(g_simple_async_result_new(source_object.getPointer, callback, user_data, source_tag))
 # proc simpleasyncresult_new*(source_object: GObject2.Object, callback: pointer, user_data: pointer, source_tag: pointer): SimpleAsyncResult {.inline.} =
 
 # g_simple_async_result_new_from_error
@@ -11216,7 +11216,7 @@ proc simpleasyncresult_new*(source_object: GObject2.Object, callback: pointer, u
 # 'SimpleAsyncResult' 'TransferFull[TSimpleAsyncResult]' (diff., need sugar)
 proc g_simple_async_result_new_from_error(source_object: ptr GObject2.TObject, callback: pointer, user_data: pointer, error: ptr ERROR_TODO): TransferFull[TSimpleAsyncResult] {.cdecl, dynlib: lib, importc: "g_simple_async_result_new_from_error".}
 proc simpleasyncresult_new_from_error*(source_object: GObject2.Object, callback: pointer, user_data: pointer, error: ptr ERROR_TODO): SimpleAsyncResult {.inline.} =
-  wrap(g_simple_async_result_new_from_error(source_object.pointer, callback, user_data, error))
+  wrap(g_simple_async_result_new_from_error(source_object.getPointer, callback, user_data, error))
 # proc simpleasyncresult_new_from_error*(source_object: GObject2.Object, callback: pointer, user_data: pointer, error: ptr ERROR_TODO): SimpleAsyncResult {.inline.} =
 
 # g_simple_async_result_is_valid
@@ -11228,7 +11228,7 @@ proc simpleasyncresult_new_from_error*(source_object: GObject2.Object, callback:
 # 'bool' 'bool'
 proc g_simple_async_result_is_valid(result_x: ptr TAsyncResult, source: ptr GObject2.TObject, source_tag: pointer): bool {.cdecl, dynlib: lib, importc: "g_simple_async_result_is_valid".}
 template is_valid*(klass_parameter: typedesc[SimpleAsyncResult], result_x: AsyncResult, source: GObject2.Object, source_tag: pointer): bool =
-  g_simple_async_result_is_valid(unwrap(result_x), source.pointer, source_tag)
+  g_simple_async_result_is_valid(unwrap(result_x), source.getPointer, source_tag)
 # template is_valid*(klass_parameter: typedesc[SimpleAsyncResult], result_x: AsyncResult, source: GObject2.Object, source_tag: pointer): bool =
 
 # g_simple_async_result_complete
@@ -11284,7 +11284,7 @@ proc propagate_error*(self: SimpleAsyncResult): bool {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc g_simple_async_result_set_check_cancellable(self: ptr TSimpleAsyncResult, check_cancellable: ptr TCancellable) {.cdecl, dynlib: lib, importc: "g_simple_async_result_set_check_cancellable".}
 proc set_check_cancellable*(self: SimpleAsyncResult, check_cancellable: Cancellable) {.inline.} =
-  g_simple_async_result_set_check_cancellable(self, check_cancellable.pointer)
+  g_simple_async_result_set_check_cancellable(self, check_cancellable.getPointer)
 # proc set_check_cancellable*(self: SimpleAsyncResult, check_cancellable: Cancellable) {.inline.} =
 
 # g_simple_async_result_set_from_error
@@ -11411,7 +11411,7 @@ proc socket_new_from_fd*(fd: int32): Socket {.inline.} =
 # 'Socket' 'TransferFull[TSocket]' (diff., need sugar)
 proc g_socket_accept(self: ptr TSocket, cancellable: ptr TCancellable, error: ptr PGError=nil): TransferFull[TSocket] {.cdecl, dynlib: lib, importc: "g_socket_accept".}
 proc accept*(self: Socket, cancellable: Cancellable): Socket {.inline.} =
-  wrap(g_socket_accept(self, cancellable.pointer))
+  wrap(g_socket_accept(self, cancellable.getPointer))
 # proc accept*(self: Socket, cancellable: Cancellable): Socket {.inline.} =
 
 # g_socket_bind
@@ -11423,7 +11423,7 @@ proc accept*(self: Socket, cancellable: Cancellable): Socket {.inline.} =
 # 'bool' 'bool'
 proc g_socket_bind(self: ptr TSocket, address: ptr TSocketAddress, allow_reuse: bool, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_socket_bind".}
 proc bind_x*(self: Socket, address: SocketAddress, allow_reuse: bool): bool {.inline.} =
-  g_socket_bind(self, address.pointer, allow_reuse)
+  g_socket_bind(self, address.getPointer, allow_reuse)
 # proc bind_x*(self: Socket, address: SocketAddress, allow_reuse: bool): bool {.inline.} =
 
 # g_socket_check_connect_result
@@ -11466,7 +11466,7 @@ proc condition_check*(self: Socket, condition: GLib2.SIOCondition): GLib2.SIOCon
 # 'bool' 'bool'
 proc g_socket_condition_timed_wait(self: ptr TSocket, condition: GLib2.SIOCondition, timeout: int64, cancellable: ptr TCancellable, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_socket_condition_timed_wait".}
 proc condition_timed_wait*(self: Socket, condition: GLib2.SIOCondition, timeout: int64, cancellable: Cancellable): bool {.inline.} =
-  g_socket_condition_timed_wait(self, condition, timeout, cancellable.pointer)
+  g_socket_condition_timed_wait(self, condition, timeout, cancellable.getPointer)
 # proc condition_timed_wait*(self: Socket, condition: GLib2.SIOCondition, timeout: int64, cancellable: Cancellable): bool {.inline.} =
 
 # g_socket_condition_wait
@@ -11478,7 +11478,7 @@ proc condition_timed_wait*(self: Socket, condition: GLib2.SIOCondition, timeout:
 # 'bool' 'bool'
 proc g_socket_condition_wait(self: ptr TSocket, condition: GLib2.SIOCondition, cancellable: ptr TCancellable, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_socket_condition_wait".}
 proc condition_wait*(self: Socket, condition: GLib2.SIOCondition, cancellable: Cancellable): bool {.inline.} =
-  g_socket_condition_wait(self, condition, cancellable.pointer)
+  g_socket_condition_wait(self, condition, cancellable.getPointer)
 # proc condition_wait*(self: Socket, condition: GLib2.SIOCondition, cancellable: Cancellable): bool {.inline.} =
 
 # g_socket_connect
@@ -11490,7 +11490,7 @@ proc condition_wait*(self: Socket, condition: GLib2.SIOCondition, cancellable: C
 # 'bool' 'bool'
 proc g_socket_connect(self: ptr TSocket, address: ptr TSocketAddress, cancellable: ptr TCancellable, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_socket_connect".}
 proc connect*(self: Socket, address: SocketAddress, cancellable: Cancellable): bool {.inline.} =
-  g_socket_connect(self, address.pointer, cancellable.pointer)
+  g_socket_connect(self, address.getPointer, cancellable.getPointer)
 # proc connect*(self: Socket, address: SocketAddress, cancellable: Cancellable): bool {.inline.} =
 
 # g_socket_connection_factory_create_connection
@@ -11692,7 +11692,7 @@ proc is_connected*(self: Socket): bool {.inline.} =
 # 'bool' 'bool'
 proc g_socket_join_multicast_group(self: ptr TSocket, group: ptr TInetAddress, source_specific: bool, iface: ucstring, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_socket_join_multicast_group".}
 proc join_multicast_group*(self: Socket, group: InetAddress, source_specific: bool, iface: ustring): bool {.inline.} =
-  g_socket_join_multicast_group(self, group.pointer, source_specific, ucstring(iface))
+  g_socket_join_multicast_group(self, group.getPointer, source_specific, ucstring(iface))
 # proc join_multicast_group*(self: Socket, group: InetAddress, source_specific: bool, iface: ustring): bool {.inline.} =
 
 # g_socket_leave_multicast_group
@@ -11705,7 +11705,7 @@ proc join_multicast_group*(self: Socket, group: InetAddress, source_specific: bo
 # 'bool' 'bool'
 proc g_socket_leave_multicast_group(self: ptr TSocket, group: ptr TInetAddress, source_specific: bool, iface: ucstring, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_socket_leave_multicast_group".}
 proc leave_multicast_group*(self: Socket, group: InetAddress, source_specific: bool, iface: ustring): bool {.inline.} =
-  g_socket_leave_multicast_group(self, group.pointer, source_specific, ucstring(iface))
+  g_socket_leave_multicast_group(self, group.getPointer, source_specific, ucstring(iface))
 # proc leave_multicast_group*(self: Socket, group: InetAddress, source_specific: bool, iface: ustring): bool {.inline.} =
 
 # g_socket_listen
@@ -11728,7 +11728,7 @@ proc listen*(self: Socket): bool {.inline.} =
 # 'int32' 'int32'
 proc g_socket_receive(self: ptr TSocket, buffer: cstring, size: uint32, cancellable: ptr TCancellable, error: ptr PGError=nil): int32 {.cdecl, dynlib: lib, importc: "g_socket_receive".}
 proc receive*(self: Socket, buffer: string, cancellable: Cancellable): int32 {.inline.} =
-  g_socket_receive(self, cstring(buffer), buffer.len.uint32, cancellable.pointer)
+  g_socket_receive(self, cstring(buffer), buffer.len.uint32, cancellable.getPointer)
 # proc receive*(self: Socket, buffer: string, cancellable: Cancellable): int32 {.inline.} =
 
 # g_socket_receive_from
@@ -11742,7 +11742,7 @@ proc receive*(self: Socket, buffer: string, cancellable: Cancellable): int32 {.i
 # 'int32' 'int32'
 proc g_socket_receive_from(self: ptr TSocket, address: ptr TSocketAddress, buffer: cstring, size: uint32, cancellable: ptr TCancellable, error: ptr PGError=nil): int32 {.cdecl, dynlib: lib, importc: "g_socket_receive_from".}
 proc receive_from*(self: Socket, address: var SocketAddress, buffer: string, cancellable: Cancellable): int32 {.inline.} =
-  g_socket_receive_from(self, address.pointer, cstring(buffer), buffer.len.uint32, cancellable.pointer)
+  g_socket_receive_from(self, address.getPointer, cstring(buffer), buffer.len.uint32, cancellable.getPointer)
 # tuple-return
 # address: var SocketAddress
 # proc receive_from*(self: Socket, buffer: string, cancellable: Cancellable): int32 {.inline.} =
@@ -11761,7 +11761,7 @@ proc receive_from*(self: Socket, address: var SocketAddress, buffer: string, can
 # 'int32' 'int32'
 proc g_socket_receive_message(self: ptr TSocket, address: ptr TSocketAddress, vectors: openarray[TInputVector], num_vectors: int32, messages: openarray[ptr TSocketControlMessage], num_messages: ptr int32, flags: ptr int32, cancellable: ptr TCancellable, error: ptr PGError=nil): int32 {.cdecl, dynlib: lib, importc: "g_socket_receive_message".}
 proc receive_message*(self: Socket, address: var SocketAddress, vectors: var openarray[TInputVector], messages: var openarray[ptr TSocketControlMessage], num_messages: ptr int32, flags: ptr int32, cancellable: Cancellable): int32 {.inline.} =
-  g_socket_receive_message(self, address.pointer, vectors, vectors.len.int32, messages, num_messages, flags, cancellable.pointer)
+  g_socket_receive_message(self, address.getPointer, vectors, vectors.len.int32, messages, num_messages, flags, cancellable.getPointer)
 # tuple-return
 # address: var SocketAddress
 # proc receive_message*(self: Socket, vectors: var openarray[TInputVector], messages: var openarray[ptr TSocketControlMessage], num_messages: ptr int32, flags: ptr int32, cancellable: Cancellable): int32 {.inline.} =
@@ -11777,7 +11777,7 @@ proc receive_message*(self: Socket, address: var SocketAddress, vectors: var ope
 # 'int32' 'int32'
 proc g_socket_receive_with_blocking(self: ptr TSocket, buffer: cstring, size: uint32, blocking: bool, cancellable: ptr TCancellable, error: ptr PGError=nil): int32 {.cdecl, dynlib: lib, importc: "g_socket_receive_with_blocking".}
 proc receive_with_blocking*(self: Socket, buffer: string, blocking: bool, cancellable: Cancellable): int32 {.inline.} =
-  g_socket_receive_with_blocking(self, cstring(buffer), buffer.len.uint32, blocking, cancellable.pointer)
+  g_socket_receive_with_blocking(self, cstring(buffer), buffer.len.uint32, blocking, cancellable.getPointer)
 # proc receive_with_blocking*(self: Socket, buffer: string, blocking: bool, cancellable: Cancellable): int32 {.inline.} =
 
 # g_socket_send
@@ -11790,7 +11790,7 @@ proc receive_with_blocking*(self: Socket, buffer: string, blocking: bool, cancel
 # 'int32' 'int32'
 proc g_socket_send(self: ptr TSocket, buffer: cstring, size: uint32, cancellable: ptr TCancellable, error: ptr PGError=nil): int32 {.cdecl, dynlib: lib, importc: "g_socket_send".}
 proc send*(self: Socket, buffer: string, cancellable: Cancellable): int32 {.inline.} =
-  g_socket_send(self, cstring(buffer), buffer.len.uint32, cancellable.pointer)
+  g_socket_send(self, cstring(buffer), buffer.len.uint32, cancellable.getPointer)
 # proc send*(self: Socket, buffer: string, cancellable: Cancellable): int32 {.inline.} =
 
 # g_socket_send_message
@@ -11807,7 +11807,7 @@ proc send*(self: Socket, buffer: string, cancellable: Cancellable): int32 {.inli
 # 'int32' 'int32'
 proc g_socket_send_message(self: ptr TSocket, address: ptr TSocketAddress, vectors: openarray[TOutputVector], num_vectors: int32, messages: openarray[ptr TSocketControlMessage], num_messages: int32, flags: int32, cancellable: ptr TCancellable, error: ptr PGError=nil): int32 {.cdecl, dynlib: lib, importc: "g_socket_send_message".}
 proc send_message*(self: Socket, address: SocketAddress, vectors: var openarray[TOutputVector], messages: var openarray[ptr TSocketControlMessage], flags: int32, cancellable: Cancellable): int32 {.inline.} =
-  g_socket_send_message(self, address.pointer, vectors, vectors.len.int32, messages, messages.len.int32, flags, cancellable.pointer)
+  g_socket_send_message(self, address.getPointer, vectors, vectors.len.int32, messages, messages.len.int32, flags, cancellable.getPointer)
 # proc send_message*(self: Socket, address: SocketAddress, vectors: var openarray[TOutputVector], messages: var openarray[ptr TSocketControlMessage], flags: int32, cancellable: Cancellable): int32 {.inline.} =
 
 # g_socket_send_to
@@ -11821,7 +11821,7 @@ proc send_message*(self: Socket, address: SocketAddress, vectors: var openarray[
 # 'int32' 'int32'
 proc g_socket_send_to(self: ptr TSocket, address: ptr TSocketAddress, buffer: cstring, size: uint32, cancellable: ptr TCancellable, error: ptr PGError=nil): int32 {.cdecl, dynlib: lib, importc: "g_socket_send_to".}
 proc send_to*(self: Socket, address: SocketAddress, buffer: string, cancellable: Cancellable): int32 {.inline.} =
-  g_socket_send_to(self, address.pointer, cstring(buffer), buffer.len.uint32, cancellable.pointer)
+  g_socket_send_to(self, address.getPointer, cstring(buffer), buffer.len.uint32, cancellable.getPointer)
 # proc send_to*(self: Socket, address: SocketAddress, buffer: string, cancellable: Cancellable): int32 {.inline.} =
 
 # g_socket_send_with_blocking
@@ -11835,7 +11835,7 @@ proc send_to*(self: Socket, address: SocketAddress, buffer: string, cancellable:
 # 'int32' 'int32'
 proc g_socket_send_with_blocking(self: ptr TSocket, buffer: cstring, size: uint32, blocking: bool, cancellable: ptr TCancellable, error: ptr PGError=nil): int32 {.cdecl, dynlib: lib, importc: "g_socket_send_with_blocking".}
 proc send_with_blocking*(self: Socket, buffer: string, blocking: bool, cancellable: Cancellable): int32 {.inline.} =
-  g_socket_send_with_blocking(self, cstring(buffer), buffer.len.uint32, blocking, cancellable.pointer)
+  g_socket_send_with_blocking(self, cstring(buffer), buffer.len.uint32, blocking, cancellable.getPointer)
 # proc send_with_blocking*(self: Socket, buffer: string, blocking: bool, cancellable: Cancellable): int32 {.inline.} =
 
 # g_socket_set_blocking
@@ -12001,7 +12001,7 @@ proc to_native*(self: SocketAddress, dest: pointer, destlen: uint32): bool {.inl
 # 'SocketAddress' 'TransferFull[TSocketAddress]' (diff., need sugar)
 proc g_socket_address_enumerator_next(self: ptr TSocketAddressEnumerator, cancellable: ptr TCancellable, error: ptr PGError=nil): TransferFull[TSocketAddress] {.cdecl, dynlib: lib, importc: "g_socket_address_enumerator_next".}
 proc next*(self: SocketAddressEnumerator, cancellable: Cancellable): SocketAddress {.inline.} =
-  wrap(g_socket_address_enumerator_next(self, cancellable.pointer))
+  wrap(g_socket_address_enumerator_next(self, cancellable.getPointer))
 # proc next*(self: SocketAddressEnumerator, cancellable: Cancellable): SocketAddress {.inline.} =
 
 # g_socket_address_enumerator_next_async
@@ -12013,7 +12013,7 @@ proc next*(self: SocketAddressEnumerator, cancellable: Cancellable): SocketAddre
 # 'VOID_TODO' 'VOID_TODO'
 proc g_socket_address_enumerator_next_async(self: ptr TSocketAddressEnumerator, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_socket_address_enumerator_next_async".}
 proc next_async*(self: SocketAddressEnumerator, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_socket_address_enumerator_next_async(self, cancellable.pointer, callback, user_data)
+  g_socket_address_enumerator_next_async(self, cancellable.getPointer, callback, user_data)
 # proc next_async*(self: SocketAddressEnumerator, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_socket_address_enumerator_next_finish
@@ -12055,7 +12055,7 @@ proc add_application_proxy*(self: SocketClient, protocol: ustring) {.inline.} =
 # 'SocketConnection' 'TransferFull[TSocketConnection]' (diff., need sugar)
 proc g_socket_client_connect(self: ptr TSocketClient, connectable: ptr TSocketConnectable, cancellable: ptr TCancellable, error: ptr PGError=nil): TransferFull[TSocketConnection] {.cdecl, dynlib: lib, importc: "g_socket_client_connect".}
 proc connect*(self: SocketClient, connectable: SocketConnectable, cancellable: Cancellable): SocketConnection {.inline.} =
-  wrap(g_socket_client_connect(self, unwrap(connectable), cancellable.pointer))
+  wrap(g_socket_client_connect(self, unwrap(connectable), cancellable.getPointer))
 # proc connect*(self: SocketClient, connectable: SocketConnectable, cancellable: Cancellable): SocketConnection {.inline.} =
 
 # g_socket_client_connect_async
@@ -12068,7 +12068,7 @@ proc connect*(self: SocketClient, connectable: SocketConnectable, cancellable: C
 # 'VOID_TODO' 'VOID_TODO'
 proc g_socket_client_connect_async(self: ptr TSocketClient, connectable: ptr TSocketConnectable, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_socket_client_connect_async".}
 proc connect_async*(self: SocketClient, connectable: SocketConnectable, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_socket_client_connect_async(self, unwrap(connectable), cancellable.pointer, callback, user_data)
+  g_socket_client_connect_async(self, unwrap(connectable), cancellable.getPointer, callback, user_data)
 # proc connect_async*(self: SocketClient, connectable: SocketConnectable, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_socket_client_connect_finish
@@ -12092,7 +12092,7 @@ proc connect_finish*(self: SocketClient, result_x: AsyncResult): SocketConnectio
 # 'SocketConnection' 'TransferFull[TSocketConnection]' (diff., need sugar)
 proc g_socket_client_connect_to_host(self: ptr TSocketClient, host_and_port: ucstring, default_port: uint16, cancellable: ptr TCancellable, error: ptr PGError=nil): TransferFull[TSocketConnection] {.cdecl, dynlib: lib, importc: "g_socket_client_connect_to_host".}
 proc connect_to_host*(self: SocketClient, host_and_port: ustring, default_port: uint16, cancellable: Cancellable): SocketConnection {.inline.} =
-  wrap(g_socket_client_connect_to_host(self, ucstring(host_and_port), default_port, cancellable.pointer))
+  wrap(g_socket_client_connect_to_host(self, ucstring(host_and_port), default_port, cancellable.getPointer))
 # proc connect_to_host*(self: SocketClient, host_and_port: ustring, default_port: uint16, cancellable: Cancellable): SocketConnection {.inline.} =
 
 # g_socket_client_connect_to_host_async
@@ -12106,7 +12106,7 @@ proc connect_to_host*(self: SocketClient, host_and_port: ustring, default_port: 
 # 'VOID_TODO' 'VOID_TODO'
 proc g_socket_client_connect_to_host_async(self: ptr TSocketClient, host_and_port: ucstring, default_port: uint16, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_socket_client_connect_to_host_async".}
 proc connect_to_host_async*(self: SocketClient, host_and_port: ustring, default_port: uint16, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_socket_client_connect_to_host_async(self, ucstring(host_and_port), default_port, cancellable.pointer, callback, user_data)
+  g_socket_client_connect_to_host_async(self, ucstring(host_and_port), default_port, cancellable.getPointer, callback, user_data)
 # proc connect_to_host_async*(self: SocketClient, host_and_port: ustring, default_port: uint16, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_socket_client_connect_to_host_finish
@@ -12130,7 +12130,7 @@ proc connect_to_host_finish*(self: SocketClient, result_x: AsyncResult): SocketC
 # 'SocketConnection' 'TransferFull[TSocketConnection]' (diff., need sugar)
 proc g_socket_client_connect_to_service(self: ptr TSocketClient, domain: ucstring, service: ucstring, cancellable: ptr TCancellable, error: ptr PGError=nil): TransferFull[TSocketConnection] {.cdecl, dynlib: lib, importc: "g_socket_client_connect_to_service".}
 proc connect_to_service*(self: SocketClient, domain: ustring, service: ustring, cancellable: Cancellable): SocketConnection {.inline.} =
-  wrap(g_socket_client_connect_to_service(self, ucstring(domain), ucstring(service), cancellable.pointer))
+  wrap(g_socket_client_connect_to_service(self, ucstring(domain), ucstring(service), cancellable.getPointer))
 # proc connect_to_service*(self: SocketClient, domain: ustring, service: ustring, cancellable: Cancellable): SocketConnection {.inline.} =
 
 # g_socket_client_connect_to_service_async
@@ -12144,7 +12144,7 @@ proc connect_to_service*(self: SocketClient, domain: ustring, service: ustring, 
 # 'VOID_TODO' 'VOID_TODO'
 proc g_socket_client_connect_to_service_async(self: ptr TSocketClient, domain: ucstring, service: ucstring, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_socket_client_connect_to_service_async".}
 proc connect_to_service_async*(self: SocketClient, domain: ustring, service: ustring, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_socket_client_connect_to_service_async(self, ucstring(domain), ucstring(service), cancellable.pointer, callback, user_data)
+  g_socket_client_connect_to_service_async(self, ucstring(domain), ucstring(service), cancellable.getPointer, callback, user_data)
 # proc connect_to_service_async*(self: SocketClient, domain: ustring, service: ustring, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_socket_client_connect_to_service_finish
@@ -12168,7 +12168,7 @@ proc connect_to_service_finish*(self: SocketClient, result_x: AsyncResult): Sock
 # 'SocketConnection' 'TransferFull[TSocketConnection]' (diff., need sugar)
 proc g_socket_client_connect_to_uri(self: ptr TSocketClient, uri: ucstring, default_port: uint16, cancellable: ptr TCancellable, error: ptr PGError=nil): TransferFull[TSocketConnection] {.cdecl, dynlib: lib, importc: "g_socket_client_connect_to_uri".}
 proc connect_to_uri*(self: SocketClient, uri: ustring, default_port: uint16, cancellable: Cancellable): SocketConnection {.inline.} =
-  wrap(g_socket_client_connect_to_uri(self, ucstring(uri), default_port, cancellable.pointer))
+  wrap(g_socket_client_connect_to_uri(self, ucstring(uri), default_port, cancellable.getPointer))
 # proc connect_to_uri*(self: SocketClient, uri: ustring, default_port: uint16, cancellable: Cancellable): SocketConnection {.inline.} =
 
 # g_socket_client_connect_to_uri_async
@@ -12182,7 +12182,7 @@ proc connect_to_uri*(self: SocketClient, uri: ustring, default_port: uint16, can
 # 'VOID_TODO' 'VOID_TODO'
 proc g_socket_client_connect_to_uri_async(self: ptr TSocketClient, uri: ucstring, default_port: uint16, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_socket_client_connect_to_uri_async".}
 proc connect_to_uri_async*(self: SocketClient, uri: ustring, default_port: uint16, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_socket_client_connect_to_uri_async(self, ucstring(uri), default_port, cancellable.pointer, callback, user_data)
+  g_socket_client_connect_to_uri_async(self, ucstring(uri), default_port, cancellable.getPointer, callback, user_data)
 # proc connect_to_uri_async*(self: SocketClient, uri: ustring, default_port: uint16, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_socket_client_connect_to_uri_finish
@@ -12304,7 +12304,7 @@ proc set_family*(self: SocketClient, family: SocketFamily) {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc g_socket_client_set_local_address(self: ptr TSocketClient, address: ptr TSocketAddress) {.cdecl, dynlib: lib, importc: "g_socket_client_set_local_address".}
 proc set_local_address*(self: SocketClient, address: SocketAddress) {.inline.} =
-  g_socket_client_set_local_address(self, address.pointer)
+  g_socket_client_set_local_address(self, address.getPointer)
 # proc set_local_address*(self: SocketClient, address: SocketAddress) {.inline.} =
 
 # g_socket_client_set_protocol
@@ -12401,7 +12401,7 @@ template factory_register_type*(klass_parameter: typedesc[SocketConnection], g_t
 # 'bool' 'bool'
 proc g_socket_connection_connect(self: ptr TSocketConnection, address: ptr TSocketAddress, cancellable: ptr TCancellable, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_socket_connection_connect".}
 proc connect*(self: SocketConnection, address: SocketAddress, cancellable: Cancellable): bool {.inline.} =
-  g_socket_connection_connect(self, address.pointer, cancellable.pointer)
+  g_socket_connection_connect(self, address.getPointer, cancellable.getPointer)
 # proc connect*(self: SocketConnection, address: SocketAddress, cancellable: Cancellable): bool {.inline.} =
 
 # g_socket_connection_connect_async
@@ -12414,7 +12414,7 @@ proc connect*(self: SocketConnection, address: SocketAddress, cancellable: Cance
 # 'VOID_TODO' 'VOID_TODO'
 proc g_socket_connection_connect_async(self: ptr TSocketConnection, address: ptr TSocketAddress, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_socket_connection_connect_async".}
 proc connect_async*(self: SocketConnection, address: SocketAddress, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_socket_connection_connect_async(self, address.pointer, cancellable.pointer, callback, user_data)
+  g_socket_connection_connect_async(self, address.getPointer, cancellable.getPointer, callback, user_data)
 # proc connect_async*(self: SocketConnection, address: SocketAddress, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_socket_connection_connect_finish
@@ -12534,7 +12534,7 @@ proc socketlistener_new*(): SocketListener {.inline.} =
 # 'SocketConnection' 'TransferFull[TSocketConnection]' (diff., need sugar)
 proc g_socket_listener_accept(self: ptr TSocketListener, source_object: ptr GObject2.TObject, cancellable: ptr TCancellable, error: ptr PGError=nil): TransferFull[TSocketConnection] {.cdecl, dynlib: lib, importc: "g_socket_listener_accept".}
 proc accept*(self: SocketListener, source_object: var GObject2.Object, cancellable: Cancellable): SocketConnection {.inline.} =
-  wrap(g_socket_listener_accept(self, source_object.pointer, cancellable.pointer))
+  wrap(g_socket_listener_accept(self, source_object.getPointer, cancellable.getPointer))
 # tuple-return
 # source_object: var GObject2.Object
 # proc accept*(self: SocketListener, cancellable: Cancellable): SocketConnection {.inline.} =
@@ -12548,7 +12548,7 @@ proc accept*(self: SocketListener, source_object: var GObject2.Object, cancellab
 # 'VOID_TODO' 'VOID_TODO'
 proc g_socket_listener_accept_async(self: ptr TSocketListener, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_socket_listener_accept_async".}
 proc accept_async*(self: SocketListener, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_socket_listener_accept_async(self, cancellable.pointer, callback, user_data)
+  g_socket_listener_accept_async(self, cancellable.getPointer, callback, user_data)
 # proc accept_async*(self: SocketListener, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_socket_listener_accept_finish
@@ -12560,7 +12560,7 @@ proc accept_async*(self: SocketListener, cancellable: Cancellable, callback: poi
 # 'SocketConnection' 'TransferFull[TSocketConnection]' (diff., need sugar)
 proc g_socket_listener_accept_finish(self: ptr TSocketListener, result_x: ptr TAsyncResult, source_object: ptr GObject2.TObject, error: ptr PGError=nil): TransferFull[TSocketConnection] {.cdecl, dynlib: lib, importc: "g_socket_listener_accept_finish".}
 proc accept_finish*(self: SocketListener, result_x: AsyncResult, source_object: var GObject2.Object): SocketConnection {.inline.} =
-  wrap(g_socket_listener_accept_finish(self, unwrap(result_x), source_object.pointer))
+  wrap(g_socket_listener_accept_finish(self, unwrap(result_x), source_object.getPointer))
 # tuple-return
 # source_object: var GObject2.Object
 # proc accept_finish*(self: SocketListener, result_x: AsyncResult): SocketConnection {.inline.} =
@@ -12574,7 +12574,7 @@ proc accept_finish*(self: SocketListener, result_x: AsyncResult, source_object: 
 # 'Socket' 'TransferFull[TSocket]' (diff., need sugar)
 proc g_socket_listener_accept_socket(self: ptr TSocketListener, source_object: ptr GObject2.TObject, cancellable: ptr TCancellable, error: ptr PGError=nil): TransferFull[TSocket] {.cdecl, dynlib: lib, importc: "g_socket_listener_accept_socket".}
 proc accept_socket*(self: SocketListener, source_object: var GObject2.Object, cancellable: Cancellable): Socket {.inline.} =
-  wrap(g_socket_listener_accept_socket(self, source_object.pointer, cancellable.pointer))
+  wrap(g_socket_listener_accept_socket(self, source_object.getPointer, cancellable.getPointer))
 # tuple-return
 # source_object: var GObject2.Object
 # proc accept_socket*(self: SocketListener, cancellable: Cancellable): Socket {.inline.} =
@@ -12588,7 +12588,7 @@ proc accept_socket*(self: SocketListener, source_object: var GObject2.Object, ca
 # 'VOID_TODO' 'VOID_TODO'
 proc g_socket_listener_accept_socket_async(self: ptr TSocketListener, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_socket_listener_accept_socket_async".}
 proc accept_socket_async*(self: SocketListener, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_socket_listener_accept_socket_async(self, cancellable.pointer, callback, user_data)
+  g_socket_listener_accept_socket_async(self, cancellable.getPointer, callback, user_data)
 # proc accept_socket_async*(self: SocketListener, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_socket_listener_accept_socket_finish
@@ -12600,7 +12600,7 @@ proc accept_socket_async*(self: SocketListener, cancellable: Cancellable, callba
 # 'Socket' 'TransferFull[TSocket]' (diff., need sugar)
 proc g_socket_listener_accept_socket_finish(self: ptr TSocketListener, result_x: ptr TAsyncResult, source_object: ptr GObject2.TObject, error: ptr PGError=nil): TransferFull[TSocket] {.cdecl, dynlib: lib, importc: "g_socket_listener_accept_socket_finish".}
 proc accept_socket_finish*(self: SocketListener, result_x: AsyncResult, source_object: var GObject2.Object): Socket {.inline.} =
-  wrap(g_socket_listener_accept_socket_finish(self, unwrap(result_x), source_object.pointer))
+  wrap(g_socket_listener_accept_socket_finish(self, unwrap(result_x), source_object.getPointer))
 # tuple-return
 # source_object: var GObject2.Object
 # proc accept_socket_finish*(self: SocketListener, result_x: AsyncResult): Socket {.inline.} =
@@ -12617,7 +12617,7 @@ proc accept_socket_finish*(self: SocketListener, result_x: AsyncResult, source_o
 # 'bool' 'bool'
 proc g_socket_listener_add_address(self: ptr TSocketListener, address: ptr TSocketAddress, type_x: SocketType, protocol: SocketProtocol, source_object: ptr GObject2.TObject, effective_address: ptr TSocketAddress, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_socket_listener_add_address".}
 proc add_address*(self: SocketListener, address: SocketAddress, type_x: SocketType, protocol: SocketProtocol, source_object: GObject2.Object, effective_address: var SocketAddress): bool {.inline.} =
-  g_socket_listener_add_address(self, address.pointer, type_x, protocol, source_object.pointer, effective_address.pointer)
+  g_socket_listener_add_address(self, address.getPointer, type_x, protocol, source_object.getPointer, effective_address.getPointer)
 # tuple-return
 # effective_address: var SocketAddress
 # proc add_address*(self: SocketListener, address: SocketAddress, type_x: SocketType, protocol: SocketProtocol, source_object: GObject2.Object): bool {.inline.} =
@@ -12630,7 +12630,7 @@ proc add_address*(self: SocketListener, address: SocketAddress, type_x: SocketTy
 # 'uint16' 'uint16'
 proc g_socket_listener_add_any_inet_port(self: ptr TSocketListener, source_object: ptr GObject2.TObject, error: ptr PGError=nil): uint16 {.cdecl, dynlib: lib, importc: "g_socket_listener_add_any_inet_port".}
 proc add_any_inet_port*(self: SocketListener, source_object: GObject2.Object): uint16 {.inline.} =
-  g_socket_listener_add_any_inet_port(self, source_object.pointer)
+  g_socket_listener_add_any_inet_port(self, source_object.getPointer)
 # proc add_any_inet_port*(self: SocketListener, source_object: GObject2.Object): uint16 {.inline.} =
 
 # g_socket_listener_add_inet_port
@@ -12642,7 +12642,7 @@ proc add_any_inet_port*(self: SocketListener, source_object: GObject2.Object): u
 # 'bool' 'bool'
 proc g_socket_listener_add_inet_port(self: ptr TSocketListener, port: uint16, source_object: ptr GObject2.TObject, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_socket_listener_add_inet_port".}
 proc add_inet_port*(self: SocketListener, port: uint16, source_object: GObject2.Object): bool {.inline.} =
-  g_socket_listener_add_inet_port(self, port, source_object.pointer)
+  g_socket_listener_add_inet_port(self, port, source_object.getPointer)
 # proc add_inet_port*(self: SocketListener, port: uint16, source_object: GObject2.Object): bool {.inline.} =
 
 # g_socket_listener_add_socket
@@ -12654,7 +12654,7 @@ proc add_inet_port*(self: SocketListener, port: uint16, source_object: GObject2.
 # 'bool' 'bool'
 proc g_socket_listener_add_socket(self: ptr TSocketListener, socket: ptr TSocket, source_object: ptr GObject2.TObject, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_socket_listener_add_socket".}
 proc add_socket*(self: SocketListener, socket: Socket, source_object: GObject2.Object): bool {.inline.} =
-  g_socket_listener_add_socket(self, socket.pointer, source_object.pointer)
+  g_socket_listener_add_socket(self, socket.getPointer, source_object.getPointer)
 # proc add_socket*(self: SocketListener, socket: Socket, source_object: GObject2.Object): bool {.inline.} =
 
 # g_socket_listener_close
@@ -12735,7 +12735,7 @@ proc subprocess_new*(argv: uncheckedArray[ucstring], flags: SSubprocessFlags): S
 # 'bool' 'bool'
 proc g_subprocess_communicate(self: ptr TSubprocess, stdin_buf: ptr GLib2.TBytes, cancellable: ptr TCancellable, stdout_buf: ptr GLib2.TBytes, stderr_buf: ptr GLib2.TBytes, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_subprocess_communicate".}
 proc communicate*(self: Subprocess, stdin_buf: GLib2.TBytes, cancellable: Cancellable, stdout_buf: var GLib2.TBytes, stderr_buf: var GLib2.TBytes): bool {.inline.} =
-  g_subprocess_communicate(self, myUnsafeAddr(stdin_buf), cancellable.pointer, addr(stdout_buf), addr(stderr_buf))
+  g_subprocess_communicate(self, myUnsafeAddr(stdin_buf), cancellable.getPointer, addr(stdout_buf), addr(stderr_buf))
 # tuple-return
 # stdout_buf: var GLib2.TBytes
 # stderr_buf: var GLib2.TBytes
@@ -12751,7 +12751,7 @@ proc communicate*(self: Subprocess, stdin_buf: GLib2.TBytes, cancellable: Cancel
 # 'VOID_TODO' 'VOID_TODO'
 proc g_subprocess_communicate_async(self: ptr TSubprocess, stdin_buf: ptr GLib2.TBytes, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_subprocess_communicate_async".}
 proc communicate_async*(self: Subprocess, stdin_buf: GLib2.TBytes, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_subprocess_communicate_async(self, myUnsafeAddr(stdin_buf), cancellable.pointer, callback, user_data)
+  g_subprocess_communicate_async(self, myUnsafeAddr(stdin_buf), cancellable.getPointer, callback, user_data)
 # proc communicate_async*(self: Subprocess, stdin_buf: GLib2.TBytes, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_subprocess_communicate_finish
@@ -12781,7 +12781,7 @@ proc communicate_finish*(self: Subprocess, result_x: AsyncResult, stdout_buf: va
 # 'bool' 'bool'
 proc g_subprocess_communicate_utf8(self: ptr TSubprocess, stdin_buf: ucstring, cancellable: ptr TCancellable, stdout_buf: ptr ucstring, stderr_buf: ptr ucstring, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_subprocess_communicate_utf8".}
 proc communicate_utf8*(self: Subprocess, stdin_buf: ustring, cancellable: Cancellable, stdout_buf: var ucstring, stderr_buf: var ucstring): bool {.inline.} =
-  g_subprocess_communicate_utf8(self, ucstring(stdin_buf), cancellable.pointer, addr(stdout_buf), addr(stderr_buf))
+  g_subprocess_communicate_utf8(self, ucstring(stdin_buf), cancellable.getPointer, addr(stdout_buf), addr(stderr_buf))
 # tuple-return
 # stdout_buf: var ucstring
 # stderr_buf: var ucstring
@@ -12797,7 +12797,7 @@ proc communicate_utf8*(self: Subprocess, stdin_buf: ustring, cancellable: Cancel
 # 'VOID_TODO' 'VOID_TODO'
 proc g_subprocess_communicate_utf8_async(self: ptr TSubprocess, stdin_buf: ucstring, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_subprocess_communicate_utf8_async".}
 proc communicate_utf8_async*(self: Subprocess, stdin_buf: ustring, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_subprocess_communicate_utf8_async(self, ucstring(stdin_buf), cancellable.pointer, callback, user_data)
+  g_subprocess_communicate_utf8_async(self, ucstring(stdin_buf), cancellable.getPointer, callback, user_data)
 # proc communicate_utf8_async*(self: Subprocess, stdin_buf: ustring, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_subprocess_communicate_utf8_finish
@@ -12923,7 +12923,7 @@ proc get_term_sig*(self: Subprocess): int32 {.inline.} =
 # 'bool' 'bool'
 proc g_subprocess_wait(self: ptr TSubprocess, cancellable: ptr TCancellable, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_subprocess_wait".}
 proc wait*(self: Subprocess, cancellable: Cancellable): bool {.inline.} =
-  g_subprocess_wait(self, cancellable.pointer)
+  g_subprocess_wait(self, cancellable.getPointer)
 # proc wait*(self: Subprocess, cancellable: Cancellable): bool {.inline.} =
 
 # g_subprocess_wait_async
@@ -12935,7 +12935,7 @@ proc wait*(self: Subprocess, cancellable: Cancellable): bool {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc g_subprocess_wait_async(self: ptr TSubprocess, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_subprocess_wait_async".}
 proc wait_async*(self: Subprocess, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_subprocess_wait_async(self, cancellable.pointer, callback, user_data)
+  g_subprocess_wait_async(self, cancellable.getPointer, callback, user_data)
 # proc wait_async*(self: Subprocess, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_subprocess_wait_check
@@ -12946,7 +12946,7 @@ proc wait_async*(self: Subprocess, cancellable: Cancellable, callback: pointer, 
 # 'bool' 'bool'
 proc g_subprocess_wait_check(self: ptr TSubprocess, cancellable: ptr TCancellable, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_subprocess_wait_check".}
 proc wait_check*(self: Subprocess, cancellable: Cancellable): bool {.inline.} =
-  g_subprocess_wait_check(self, cancellable.pointer)
+  g_subprocess_wait_check(self, cancellable.getPointer)
 # proc wait_check*(self: Subprocess, cancellable: Cancellable): bool {.inline.} =
 
 # g_subprocess_wait_check_async
@@ -12958,7 +12958,7 @@ proc wait_check*(self: Subprocess, cancellable: Cancellable): bool {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc g_subprocess_wait_check_async(self: ptr TSubprocess, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_subprocess_wait_check_async".}
 proc wait_check_async*(self: Subprocess, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_subprocess_wait_check_async(self, cancellable.pointer, callback, user_data)
+  g_subprocess_wait_check_async(self, cancellable.getPointer, callback, user_data)
 # proc wait_check_async*(self: Subprocess, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_subprocess_wait_check_finish
@@ -13076,7 +13076,7 @@ proc unsetenv*(self: SubprocessLauncher, variable: ustring) {.inline.} =
 # 'Task' 'TransferFull[TTask]' (diff., need sugar)
 proc g_task_new(source_object: ptr GObject2.TObject, cancellable: ptr TCancellable, callback: pointer, callback_data: pointer): TransferFull[TTask] {.cdecl, dynlib: lib, importc: "g_task_new".}
 proc task_new*(source_object: GObject2.Object, cancellable: Cancellable, callback: pointer, callback_data: pointer): Task {.inline.} =
-  wrap(g_task_new(source_object.pointer, cancellable.pointer, callback, callback_data))
+  wrap(g_task_new(source_object.getPointer, cancellable.getPointer, callback, callback_data))
 # proc task_new*(source_object: GObject2.Object, cancellable: Cancellable, callback: pointer, callback_data: pointer): Task {.inline.} =
 
 # g_task_is_valid
@@ -13087,7 +13087,7 @@ proc task_new*(source_object: GObject2.Object, cancellable: Cancellable, callbac
 # 'bool' 'bool'
 proc g_task_is_valid(result_x: ptr TAsyncResult, source_object: ptr GObject2.TObject): bool {.cdecl, dynlib: lib, importc: "g_task_is_valid".}
 template is_valid*(klass_parameter: typedesc[Task], result_x: AsyncResult, source_object: GObject2.Object): bool =
-  g_task_is_valid(unwrap(result_x), source_object.pointer)
+  g_task_is_valid(unwrap(result_x), source_object.getPointer)
 # template is_valid*(klass_parameter: typedesc[Task], result_x: AsyncResult, source_object: GObject2.Object): bool =
 
 # g_task_report_error
@@ -13101,7 +13101,7 @@ template is_valid*(klass_parameter: typedesc[Task], result_x: AsyncResult, sourc
 # 'VOID_TODO' 'VOID_TODO'
 proc g_task_report_error(source_object: ptr GObject2.TObject, callback: pointer, callback_data: pointer, source_tag: pointer, error: ptr ERROR_TODO) {.cdecl, dynlib: lib, importc: "g_task_report_error".}
 template report_error*(klass_parameter: typedesc[Task], source_object: GObject2.Object, callback: pointer, callback_data: pointer, source_tag: pointer, error: ptr ERROR_TODO) =
-  g_task_report_error(source_object.pointer, callback, callback_data, source_tag, error)
+  g_task_report_error(source_object.getPointer, callback, callback_data, source_tag, error)
 # template report_error*(klass_parameter: typedesc[Task], source_object: GObject2.Object, callback: pointer, callback_data: pointer, source_tag: pointer, error: ptr ERROR_TODO) =
 
 # g_task_get_cancellable
@@ -13343,7 +13343,7 @@ proc set_graceful_disconnect*(self: TcpConnection, graceful_disconnect: bool) {.
 # 'TcpWrapperConnection' 'TransferFull[TTcpWrapperConnection]' (diff., need sugar)
 proc g_tcp_wrapper_connection_new(base_io_stream: ptr TIOStream, socket: ptr TSocket): TransferFull[TTcpWrapperConnection] {.cdecl, dynlib: lib, importc: "g_tcp_wrapper_connection_new".}
 proc tcpwrapperconnection_new*(base_io_stream: IOStream, socket: Socket): TcpWrapperConnection {.inline.} =
-  wrap(g_tcp_wrapper_connection_new(base_io_stream.pointer, socket.pointer))
+  wrap(g_tcp_wrapper_connection_new(base_io_stream.getPointer, socket.getPointer))
 # proc tcpwrapperconnection_new*(base_io_stream: IOStream, socket: Socket): TcpWrapperConnection {.inline.} =
 
 # g_tcp_wrapper_connection_get_base_io_stream
@@ -13561,7 +13561,7 @@ proc get_issuer*(self: TlsCertificate): TlsCertificate {.inline.} =
 # 'bool' 'bool'
 proc g_tls_certificate_is_same(self: ptr TTlsCertificate, cert_two: ptr TTlsCertificate): bool {.cdecl, dynlib: lib, importc: "g_tls_certificate_is_same".}
 proc is_same*(self: TlsCertificate, cert_two: TlsCertificate): bool {.inline.} =
-  g_tls_certificate_is_same(self, cert_two.pointer)
+  g_tls_certificate_is_same(self, cert_two.getPointer)
 # proc is_same*(self: TlsCertificate, cert_two: TlsCertificate): bool {.inline.} =
 
 # g_tls_certificate_verify
@@ -13572,7 +13572,7 @@ proc is_same*(self: TlsCertificate, cert_two: TlsCertificate): bool {.inline.} =
 # 'STlsCertificateFlags' 'STlsCertificateFlags'
 proc g_tls_certificate_verify(self: ptr TTlsCertificate, identity: ptr TSocketConnectable, trusted_ca: ptr TTlsCertificate): STlsCertificateFlags {.cdecl, dynlib: lib, importc: "g_tls_certificate_verify".}
 proc verify*(self: TlsCertificate, identity: SocketConnectable, trusted_ca: TlsCertificate): STlsCertificateFlags {.inline.} =
-  g_tls_certificate_verify(self, unwrap(identity), trusted_ca.pointer)
+  g_tls_certificate_verify(self, unwrap(identity), trusted_ca.getPointer)
 # proc verify*(self: TlsCertificate, identity: SocketConnectable, trusted_ca: TlsCertificate): STlsCertificateFlags {.inline.} =
 
 # g_tls_connection_emit_accept_certificate
@@ -13583,7 +13583,7 @@ proc verify*(self: TlsCertificate, identity: SocketConnectable, trusted_ca: TlsC
 # 'bool' 'bool'
 proc g_tls_connection_emit_accept_certificate(self: ptr TTlsConnection, peer_cert: ptr TTlsCertificate, errors: STlsCertificateFlags): bool {.cdecl, dynlib: lib, importc: "g_tls_connection_emit_accept_certificate".}
 proc emit_accept_certificate*(self: TlsConnection, peer_cert: TlsCertificate, errors: STlsCertificateFlags): bool {.inline.} =
-  g_tls_connection_emit_accept_certificate(self, peer_cert.pointer, errors)
+  g_tls_connection_emit_accept_certificate(self, peer_cert.getPointer, errors)
 # proc emit_accept_certificate*(self: TlsConnection, peer_cert: TlsCertificate, errors: STlsCertificateFlags): bool {.inline.} =
 
 # g_tls_connection_get_certificate
@@ -13659,7 +13659,7 @@ proc get_require_close_notify*(self: TlsConnection): bool {.inline.} =
 # 'bool' 'bool'
 proc g_tls_connection_handshake(self: ptr TTlsConnection, cancellable: ptr TCancellable, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "g_tls_connection_handshake".}
 proc handshake*(self: TlsConnection, cancellable: Cancellable): bool {.inline.} =
-  g_tls_connection_handshake(self, cancellable.pointer)
+  g_tls_connection_handshake(self, cancellable.getPointer)
 # proc handshake*(self: TlsConnection, cancellable: Cancellable): bool {.inline.} =
 
 # g_tls_connection_handshake_async
@@ -13672,7 +13672,7 @@ proc handshake*(self: TlsConnection, cancellable: Cancellable): bool {.inline.} 
 # 'VOID_TODO' 'VOID_TODO'
 proc g_tls_connection_handshake_async(self: ptr TTlsConnection, io_priority: int32, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_tls_connection_handshake_async".}
 proc handshake_async*(self: TlsConnection, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_tls_connection_handshake_async(self, io_priority, cancellable.pointer, callback, user_data)
+  g_tls_connection_handshake_async(self, io_priority, cancellable.getPointer, callback, user_data)
 # proc handshake_async*(self: TlsConnection, io_priority: int32, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_tls_connection_handshake_finish
@@ -13693,7 +13693,7 @@ proc handshake_finish*(self: TlsConnection, result_x: AsyncResult): bool {.inlin
 # 'VOID_TODO' 'VOID_TODO'
 proc g_tls_connection_set_certificate(self: ptr TTlsConnection, certificate: ptr TTlsCertificate) {.cdecl, dynlib: lib, importc: "g_tls_connection_set_certificate".}
 proc set_certificate*(self: TlsConnection, certificate: TlsCertificate) {.inline.} =
-  g_tls_connection_set_certificate(self, certificate.pointer)
+  g_tls_connection_set_certificate(self, certificate.getPointer)
 # proc set_certificate*(self: TlsConnection, certificate: TlsCertificate) {.inline.} =
 
 # g_tls_connection_set_database
@@ -13703,7 +13703,7 @@ proc set_certificate*(self: TlsConnection, certificate: TlsCertificate) {.inline
 # 'VOID_TODO' 'VOID_TODO'
 proc g_tls_connection_set_database(self: ptr TTlsConnection, database: ptr TTlsDatabase) {.cdecl, dynlib: lib, importc: "g_tls_connection_set_database".}
 proc set_database*(self: TlsConnection, database: TlsDatabase) {.inline.} =
-  g_tls_connection_set_database(self, database.pointer)
+  g_tls_connection_set_database(self, database.getPointer)
 # proc set_database*(self: TlsConnection, database: TlsDatabase) {.inline.} =
 
 # g_tls_connection_set_interaction
@@ -13713,7 +13713,7 @@ proc set_database*(self: TlsConnection, database: TlsDatabase) {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc g_tls_connection_set_interaction(self: ptr TTlsConnection, interaction: ptr TTlsInteraction) {.cdecl, dynlib: lib, importc: "g_tls_connection_set_interaction".}
 proc set_interaction*(self: TlsConnection, interaction: TlsInteraction) {.inline.} =
-  g_tls_connection_set_interaction(self, interaction.pointer)
+  g_tls_connection_set_interaction(self, interaction.getPointer)
 # proc set_interaction*(self: TlsConnection, interaction: TlsInteraction) {.inline.} =
 
 # g_tls_connection_set_rehandshake_mode
@@ -13745,7 +13745,7 @@ proc set_require_close_notify*(self: TlsConnection, require_close_notify: bool) 
 # 'ustring' 'ucstring' (diff., need sugar)
 proc g_tls_database_create_certificate_handle(self: ptr TTlsDatabase, certificate: ptr TTlsCertificate): ucstring {.cdecl, dynlib: lib, importc: "g_tls_database_create_certificate_handle".}
 proc create_certificate_handle*(self: TlsDatabase, certificate: TlsCertificate): ustring {.inline.} =
-  ustring($(g_tls_database_create_certificate_handle(self, certificate.pointer)))
+  ustring($(g_tls_database_create_certificate_handle(self, certificate.getPointer)))
 # proc create_certificate_handle*(self: TlsDatabase, certificate: TlsCertificate): ustring {.inline.} =
 
 # g_tls_database_lookup_certificate_for_handle
@@ -13759,7 +13759,7 @@ proc create_certificate_handle*(self: TlsDatabase, certificate: TlsCertificate):
 # 'TlsCertificate' 'TransferFull[TTlsCertificate]' (diff., need sugar)
 proc g_tls_database_lookup_certificate_for_handle(self: ptr TTlsDatabase, handle: ucstring, interaction: ptr TTlsInteraction, flags: TlsDatabaseLookupFlags, cancellable: ptr TCancellable, error: ptr PGError=nil): TransferFull[TTlsCertificate] {.cdecl, dynlib: lib, importc: "g_tls_database_lookup_certificate_for_handle".}
 proc lookup_certificate_for_handle*(self: TlsDatabase, handle: ustring, interaction: TlsInteraction, flags: TlsDatabaseLookupFlags, cancellable: Cancellable): TlsCertificate {.inline.} =
-  wrap(g_tls_database_lookup_certificate_for_handle(self, ucstring(handle), interaction.pointer, flags, cancellable.pointer))
+  wrap(g_tls_database_lookup_certificate_for_handle(self, ucstring(handle), interaction.getPointer, flags, cancellable.getPointer))
 # proc lookup_certificate_for_handle*(self: TlsDatabase, handle: ustring, interaction: TlsInteraction, flags: TlsDatabaseLookupFlags, cancellable: Cancellable): TlsCertificate {.inline.} =
 
 # g_tls_database_lookup_certificate_for_handle_async
@@ -13774,7 +13774,7 @@ proc lookup_certificate_for_handle*(self: TlsDatabase, handle: ustring, interact
 # 'VOID_TODO' 'VOID_TODO'
 proc g_tls_database_lookup_certificate_for_handle_async(self: ptr TTlsDatabase, handle: ucstring, interaction: ptr TTlsInteraction, flags: TlsDatabaseLookupFlags, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_tls_database_lookup_certificate_for_handle_async".}
 proc lookup_certificate_for_handle_async*(self: TlsDatabase, handle: ustring, interaction: TlsInteraction, flags: TlsDatabaseLookupFlags, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_tls_database_lookup_certificate_for_handle_async(self, ucstring(handle), interaction.pointer, flags, cancellable.pointer, callback, user_data)
+  g_tls_database_lookup_certificate_for_handle_async(self, ucstring(handle), interaction.getPointer, flags, cancellable.getPointer, callback, user_data)
 # proc lookup_certificate_for_handle_async*(self: TlsDatabase, handle: ustring, interaction: TlsInteraction, flags: TlsDatabaseLookupFlags, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_tls_database_lookup_certificate_for_handle_finish
@@ -13799,7 +13799,7 @@ proc lookup_certificate_for_handle_finish*(self: TlsDatabase, result_x: AsyncRes
 # 'TlsCertificate' 'TransferFull[TTlsCertificate]' (diff., need sugar)
 proc g_tls_database_lookup_certificate_issuer(self: ptr TTlsDatabase, certificate: ptr TTlsCertificate, interaction: ptr TTlsInteraction, flags: TlsDatabaseLookupFlags, cancellable: ptr TCancellable, error: ptr PGError=nil): TransferFull[TTlsCertificate] {.cdecl, dynlib: lib, importc: "g_tls_database_lookup_certificate_issuer".}
 proc lookup_certificate_issuer*(self: TlsDatabase, certificate: TlsCertificate, interaction: TlsInteraction, flags: TlsDatabaseLookupFlags, cancellable: Cancellable): TlsCertificate {.inline.} =
-  wrap(g_tls_database_lookup_certificate_issuer(self, certificate.pointer, interaction.pointer, flags, cancellable.pointer))
+  wrap(g_tls_database_lookup_certificate_issuer(self, certificate.getPointer, interaction.getPointer, flags, cancellable.getPointer))
 # proc lookup_certificate_issuer*(self: TlsDatabase, certificate: TlsCertificate, interaction: TlsInteraction, flags: TlsDatabaseLookupFlags, cancellable: Cancellable): TlsCertificate {.inline.} =
 
 # g_tls_database_lookup_certificate_issuer_async
@@ -13814,7 +13814,7 @@ proc lookup_certificate_issuer*(self: TlsDatabase, certificate: TlsCertificate, 
 # 'VOID_TODO' 'VOID_TODO'
 proc g_tls_database_lookup_certificate_issuer_async(self: ptr TTlsDatabase, certificate: ptr TTlsCertificate, interaction: ptr TTlsInteraction, flags: TlsDatabaseLookupFlags, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_tls_database_lookup_certificate_issuer_async".}
 proc lookup_certificate_issuer_async*(self: TlsDatabase, certificate: TlsCertificate, interaction: TlsInteraction, flags: TlsDatabaseLookupFlags, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_tls_database_lookup_certificate_issuer_async(self, certificate.pointer, interaction.pointer, flags, cancellable.pointer, callback, user_data)
+  g_tls_database_lookup_certificate_issuer_async(self, certificate.getPointer, interaction.getPointer, flags, cancellable.getPointer, callback, user_data)
 # proc lookup_certificate_issuer_async*(self: TlsDatabase, certificate: TlsCertificate, interaction: TlsInteraction, flags: TlsDatabaseLookupFlags, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_tls_database_lookup_certificate_issuer_finish
@@ -13839,7 +13839,7 @@ proc lookup_certificate_issuer_finish*(self: TlsDatabase, result_x: AsyncResult)
 # 'ptr GLIST_TODO' 'ptr GLIST_TODO'
 proc g_tls_database_lookup_certificates_issued_by(self: ptr TTlsDatabase, issuer_raw_dn: uncheckedArray[pointer], interaction: ptr TTlsInteraction, flags: TlsDatabaseLookupFlags, cancellable: ptr TCancellable, error: ptr PGError=nil): ptr GLIST_TODO {.cdecl, dynlib: lib, importc: "g_tls_database_lookup_certificates_issued_by".}
 proc lookup_certificates_issued_by*(self: TlsDatabase, issuer_raw_dn: uncheckedArray[pointer], interaction: TlsInteraction, flags: TlsDatabaseLookupFlags, cancellable: Cancellable): ptr GLIST_TODO {.inline.} =
-  g_tls_database_lookup_certificates_issued_by(self, issuer_raw_dn, interaction.pointer, flags, cancellable.pointer)
+  g_tls_database_lookup_certificates_issued_by(self, issuer_raw_dn, interaction.getPointer, flags, cancellable.getPointer)
 # proc lookup_certificates_issued_by*(self: TlsDatabase, issuer_raw_dn: uncheckedArray[pointer], interaction: TlsInteraction, flags: TlsDatabaseLookupFlags, cancellable: Cancellable): ptr GLIST_TODO {.inline.} =
 
 # g_tls_database_lookup_certificates_issued_by_async
@@ -13854,7 +13854,7 @@ proc lookup_certificates_issued_by*(self: TlsDatabase, issuer_raw_dn: uncheckedA
 # 'VOID_TODO' 'VOID_TODO'
 proc g_tls_database_lookup_certificates_issued_by_async(self: ptr TTlsDatabase, issuer_raw_dn: uncheckedArray[pointer], interaction: ptr TTlsInteraction, flags: TlsDatabaseLookupFlags, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_tls_database_lookup_certificates_issued_by_async".}
 proc lookup_certificates_issued_by_async*(self: TlsDatabase, issuer_raw_dn: uncheckedArray[pointer], interaction: TlsInteraction, flags: TlsDatabaseLookupFlags, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_tls_database_lookup_certificates_issued_by_async(self, issuer_raw_dn, interaction.pointer, flags, cancellable.pointer, callback, user_data)
+  g_tls_database_lookup_certificates_issued_by_async(self, issuer_raw_dn, interaction.getPointer, flags, cancellable.getPointer, callback, user_data)
 # proc lookup_certificates_issued_by_async*(self: TlsDatabase, issuer_raw_dn: uncheckedArray[pointer], interaction: TlsInteraction, flags: TlsDatabaseLookupFlags, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_tls_database_lookup_certificates_issued_by_finish
@@ -13881,7 +13881,7 @@ proc lookup_certificates_issued_by_finish*(self: TlsDatabase, result_x: AsyncRes
 # 'STlsCertificateFlags' 'STlsCertificateFlags'
 proc g_tls_database_verify_chain(self: ptr TTlsDatabase, chain: ptr TTlsCertificate, purpose: ucstring, identity: ptr TSocketConnectable, interaction: ptr TTlsInteraction, flags: STlsDatabaseVerifyFlags, cancellable: ptr TCancellable, error: ptr PGError=nil): STlsCertificateFlags {.cdecl, dynlib: lib, importc: "g_tls_database_verify_chain".}
 proc verify_chain*(self: TlsDatabase, chain: TlsCertificate, purpose: ustring, identity: SocketConnectable, interaction: TlsInteraction, flags: STlsDatabaseVerifyFlags, cancellable: Cancellable): STlsCertificateFlags {.inline.} =
-  g_tls_database_verify_chain(self, chain.pointer, ucstring(purpose), unwrap(identity), interaction.pointer, flags, cancellable.pointer)
+  g_tls_database_verify_chain(self, chain.getPointer, ucstring(purpose), unwrap(identity), interaction.getPointer, flags, cancellable.getPointer)
 # proc verify_chain*(self: TlsDatabase, chain: TlsCertificate, purpose: ustring, identity: SocketConnectable, interaction: TlsInteraction, flags: STlsDatabaseVerifyFlags, cancellable: Cancellable): STlsCertificateFlags {.inline.} =
 
 # g_tls_database_verify_chain_async
@@ -13898,7 +13898,7 @@ proc verify_chain*(self: TlsDatabase, chain: TlsCertificate, purpose: ustring, i
 # 'VOID_TODO' 'VOID_TODO'
 proc g_tls_database_verify_chain_async(self: ptr TTlsDatabase, chain: ptr TTlsCertificate, purpose: ucstring, identity: ptr TSocketConnectable, interaction: ptr TTlsInteraction, flags: STlsDatabaseVerifyFlags, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_tls_database_verify_chain_async".}
 proc verify_chain_async*(self: TlsDatabase, chain: TlsCertificate, purpose: ustring, identity: SocketConnectable, interaction: TlsInteraction, flags: STlsDatabaseVerifyFlags, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_tls_database_verify_chain_async(self, chain.pointer, ucstring(purpose), unwrap(identity), interaction.pointer, flags, cancellable.pointer, callback, user_data)
+  g_tls_database_verify_chain_async(self, chain.getPointer, ucstring(purpose), unwrap(identity), interaction.getPointer, flags, cancellable.getPointer, callback, user_data)
 # proc verify_chain_async*(self: TlsDatabase, chain: TlsCertificate, purpose: ustring, identity: SocketConnectable, interaction: TlsInteraction, flags: STlsDatabaseVerifyFlags, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_tls_database_verify_chain_finish
@@ -13921,7 +13921,7 @@ proc verify_chain_finish*(self: TlsDatabase, result_x: AsyncResult): STlsCertifi
 # 'TlsInteractionResult' 'TlsInteractionResult'
 proc g_tls_interaction_ask_password(self: ptr TTlsInteraction, password: ptr TTlsPassword, cancellable: ptr TCancellable, error: ptr PGError=nil): TlsInteractionResult {.cdecl, dynlib: lib, importc: "g_tls_interaction_ask_password".}
 proc ask_password*(self: TlsInteraction, password: TlsPassword, cancellable: Cancellable): TlsInteractionResult {.inline.} =
-  g_tls_interaction_ask_password(self, password.pointer, cancellable.pointer)
+  g_tls_interaction_ask_password(self, password.getPointer, cancellable.getPointer)
 # proc ask_password*(self: TlsInteraction, password: TlsPassword, cancellable: Cancellable): TlsInteractionResult {.inline.} =
 
 # g_tls_interaction_ask_password_async
@@ -13934,7 +13934,7 @@ proc ask_password*(self: TlsInteraction, password: TlsPassword, cancellable: Can
 # 'VOID_TODO' 'VOID_TODO'
 proc g_tls_interaction_ask_password_async(self: ptr TTlsInteraction, password: ptr TTlsPassword, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_tls_interaction_ask_password_async".}
 proc ask_password_async*(self: TlsInteraction, password: TlsPassword, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_tls_interaction_ask_password_async(self, password.pointer, cancellable.pointer, callback, user_data)
+  g_tls_interaction_ask_password_async(self, password.getPointer, cancellable.getPointer, callback, user_data)
 # proc ask_password_async*(self: TlsInteraction, password: TlsPassword, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_tls_interaction_ask_password_finish
@@ -13957,7 +13957,7 @@ proc ask_password_finish*(self: TlsInteraction, result_x: AsyncResult): TlsInter
 # 'TlsInteractionResult' 'TlsInteractionResult'
 proc g_tls_interaction_invoke_ask_password(self: ptr TTlsInteraction, password: ptr TTlsPassword, cancellable: ptr TCancellable, error: ptr PGError=nil): TlsInteractionResult {.cdecl, dynlib: lib, importc: "g_tls_interaction_invoke_ask_password".}
 proc invoke_ask_password*(self: TlsInteraction, password: TlsPassword, cancellable: Cancellable): TlsInteractionResult {.inline.} =
-  g_tls_interaction_invoke_ask_password(self, password.pointer, cancellable.pointer)
+  g_tls_interaction_invoke_ask_password(self, password.getPointer, cancellable.getPointer)
 # proc invoke_ask_password*(self: TlsInteraction, password: TlsPassword, cancellable: Cancellable): TlsInteractionResult {.inline.} =
 
 # g_tls_interaction_invoke_request_certificate
@@ -13970,7 +13970,7 @@ proc invoke_ask_password*(self: TlsInteraction, password: TlsPassword, cancellab
 # 'TlsInteractionResult' 'TlsInteractionResult'
 proc g_tls_interaction_invoke_request_certificate(self: ptr TTlsInteraction, connection: ptr TTlsConnection, flags: TlsCertificateRequestFlags, cancellable: ptr TCancellable, error: ptr PGError=nil): TlsInteractionResult {.cdecl, dynlib: lib, importc: "g_tls_interaction_invoke_request_certificate".}
 proc invoke_request_certificate*(self: TlsInteraction, connection: TlsConnection, flags: TlsCertificateRequestFlags, cancellable: Cancellable): TlsInteractionResult {.inline.} =
-  g_tls_interaction_invoke_request_certificate(self, connection.pointer, flags, cancellable.pointer)
+  g_tls_interaction_invoke_request_certificate(self, connection.getPointer, flags, cancellable.getPointer)
 # proc invoke_request_certificate*(self: TlsInteraction, connection: TlsConnection, flags: TlsCertificateRequestFlags, cancellable: Cancellable): TlsInteractionResult {.inline.} =
 
 # g_tls_interaction_request_certificate
@@ -13983,7 +13983,7 @@ proc invoke_request_certificate*(self: TlsInteraction, connection: TlsConnection
 # 'TlsInteractionResult' 'TlsInteractionResult'
 proc g_tls_interaction_request_certificate(self: ptr TTlsInteraction, connection: ptr TTlsConnection, flags: TlsCertificateRequestFlags, cancellable: ptr TCancellable, error: ptr PGError=nil): TlsInteractionResult {.cdecl, dynlib: lib, importc: "g_tls_interaction_request_certificate".}
 proc request_certificate*(self: TlsInteraction, connection: TlsConnection, flags: TlsCertificateRequestFlags, cancellable: Cancellable): TlsInteractionResult {.inline.} =
-  g_tls_interaction_request_certificate(self, connection.pointer, flags, cancellable.pointer)
+  g_tls_interaction_request_certificate(self, connection.getPointer, flags, cancellable.getPointer)
 # proc request_certificate*(self: TlsInteraction, connection: TlsConnection, flags: TlsCertificateRequestFlags, cancellable: Cancellable): TlsInteractionResult {.inline.} =
 
 # g_tls_interaction_request_certificate_async
@@ -13997,7 +13997,7 @@ proc request_certificate*(self: TlsInteraction, connection: TlsConnection, flags
 # 'VOID_TODO' 'VOID_TODO'
 proc g_tls_interaction_request_certificate_async(self: ptr TTlsInteraction, connection: ptr TTlsConnection, flags: TlsCertificateRequestFlags, cancellable: ptr TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "g_tls_interaction_request_certificate_async".}
 proc request_certificate_async*(self: TlsInteraction, connection: TlsConnection, flags: TlsCertificateRequestFlags, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
-  g_tls_interaction_request_certificate_async(self, connection.pointer, flags, cancellable.pointer, callback, user_data)
+  g_tls_interaction_request_certificate_async(self, connection.getPointer, flags, cancellable.getPointer, callback, user_data)
 # proc request_certificate_async*(self: TlsInteraction, connection: TlsConnection, flags: TlsCertificateRequestFlags, cancellable: Cancellable, callback: pointer, user_data: pointer) {.inline.} =
 
 # g_tls_interaction_request_certificate_finish
@@ -14323,7 +14323,7 @@ proc get_file_info*(self: ZlibCompressor): FileInfo {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc g_zlib_compressor_set_file_info(self: ptr TZlibCompressor, file_info: ptr TFileInfo) {.cdecl, dynlib: lib, importc: "g_zlib_compressor_set_file_info".}
 proc set_file_info*(self: ZlibCompressor, file_info: FileInfo) {.inline.} =
-  g_zlib_compressor_set_file_info(self, file_info.pointer)
+  g_zlib_compressor_set_file_info(self, file_info.getPointer)
 # proc set_file_info*(self: ZlibCompressor, file_info: FileInfo) {.inline.} =
 
 # g_zlib_decompressor_new
@@ -14345,6 +14345,68 @@ proc get_file_info*(self: ZlibDecompressor): FileInfo {.inline.} =
   wrap(g_zlib_decompressor_get_file_info(self))
 # proc get_file_info*(self: ZlibDecompressor): FileInfo {.inline.} =
 
+# object signals
+#------------------
+# AppInfoMonitor - changed - 
+declareSignal(AppInfoMonitor, TAppInfoMonitor, changed)
+# AppLaunchContext - launch-failed - object 
+# AppLaunchContext - launched - object p0 
+# Application - activate - 
+declareSignal(Application, TApplication, activate)
+# Application - command-line - command_line 
+# Application - handle-local-options - options 
+# Application - open - files n_files hint 
+# Application - shutdown - 
+declareSignal(Application, TApplication, shutdown)
+# Application - startup - 
+declareSignal(Application, TApplication, startup)
+# Cancellable - cancelled - 
+declareSignal(Cancellable, TCancellable, cancelled)
+# DBusAuthObserver - allow-mechanism - mechanism 
+# DBusAuthObserver - authorize-authenticated-peer - stream credentials 
+# DBusConnection - closed - remote_peer_vanished error 
+# DBusInterfaceSkeleton - g-authorize-method - invocation 
+# DBusObjectManagerClient - interface-proxy-properties-changed - object_proxy interface_proxy changed_properties invalidated_properties 
+# DBusObjectManagerClient - interface-proxy-signal - object_proxy interface_proxy sender_name signal_name parameters 
+# DBusObjectSkeleton - authorize-method - interface invocation 
+# DBusProxy - g-properties-changed - changed_properties invalidated_properties 
+# DBusProxy - g-signal - sender_name signal_name parameters 
+# DBusServer - new-connection - connection 
+# FileMonitor - changed - file other_file event_type 
+# FilenameCompleter - got-completion-data - 
+declareSignal(FilenameCompleter, TFilenameCompleter, got_completion_data)
+# MenuModel - items-changed - position removed added 
+# MountOperation - aborted - 
+declareSignal(MountOperation, TMountOperation, aborted)
+# MountOperation - ask-password - message default_user default_domain flags 
+# MountOperation - ask-question - message choices 
+# MountOperation - reply - result 
+# MountOperation - show-processes - message processes choices 
+# MountOperation - show-unmount-progress - message time_left bytes_left 
+# Resolver - reload - 
+declareSignal(Resolver, TResolver, reload)
+# Settings - change-event - keys n_keys 
+# Settings - changed - key 
+# Settings - writable-change-event - key 
+# Settings - writable-changed - key 
+# SimpleAction - activate - parameter 
+# SimpleAction - change-state - value 
+# SocketClient - event - event connectable connection 
+# SocketService - incoming - connection source_object 
+# ThreadedSocketService - run - connection source_object 
+# TlsConnection - accept-certificate - peer_cert errors 
+# VolumeMonitor - drive-changed - drive 
+# VolumeMonitor - drive-connected - drive 
+# VolumeMonitor - drive-disconnected - drive 
+# VolumeMonitor - drive-eject-button - drive 
+# VolumeMonitor - drive-stop-button - drive 
+# VolumeMonitor - mount-added - mount 
+# VolumeMonitor - mount-changed - mount 
+# VolumeMonitor - mount-pre-unmount - mount 
+# VolumeMonitor - mount-removed - mount 
+# VolumeMonitor - volume-added - volume 
+# VolumeMonitor - volume-changed - volume 
+# VolumeMonitor - volume-removed - volume 
   # struct methods
   #------------------
 # struct ActionEntry

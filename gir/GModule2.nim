@@ -58,6 +58,8 @@ proc g_module_error*(): ustring {.inline.} =
 proc g_module_supported*(): bool {.cdecl, dynlib: lib, importc: "g_module_supported".}
   # object methods
   #------------------
+# object signals
+#------------------
   # struct methods
   #------------------
 # struct Module

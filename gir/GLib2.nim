@@ -5304,6 +5304,8 @@ proc g_win32_locale_filename_from_utf8*(utf8filename: ustring): ustring {.inline
 
   # object methods
   #------------------
+# object signals
+#------------------
   # struct methods
   #------------------
 # struct Array

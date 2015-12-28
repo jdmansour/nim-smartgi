@@ -960,7 +960,7 @@ proc gdk_beep*() {.cdecl, dynlib: lib, importc: "gdk_beep".}
 # 'cairo1.TContext' 'ptr cairo1.TContext' (diff., need sugar)
 proc gdk_cairo_create(window: ptr TWindow): ptr cairo1.TContext {.cdecl, dynlib: lib, importc: "gdk_cairo_create".}
 proc gdk_cairo_create*(window: Window): cairo1.TContext {.inline.} =
-  (gdk_cairo_create(window.pointer))[]
+  (gdk_cairo_create(window.getPointer))[]
 # proc gdk_cairo_create*(window: Window): cairo1.TContext {.inline.} =
 
 # gdk_cairo_get_clip_rectangle
@@ -1015,7 +1015,7 @@ proc gdk_cairo_region_create_from_surface*(surface: cairo1.TSurface): cairo1.TRe
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_cairo_set_source_pixbuf(cr: ptr cairo1.TContext, pixbuf: ptr GdkPixbuf2.TPixbuf, pixbuf_x: float64, pixbuf_y: float64) {.cdecl, dynlib: lib, importc: "gdk_cairo_set_source_pixbuf".}
 proc gdk_cairo_set_source_pixbuf*(cr: cairo1.TContext, pixbuf: GdkPixbuf2.Pixbuf, pixbuf_x: float64, pixbuf_y: float64) {.inline.} =
-  gdk_cairo_set_source_pixbuf(myUnsafeAddr(cr), pixbuf.pointer, pixbuf_x, pixbuf_y)
+  gdk_cairo_set_source_pixbuf(myUnsafeAddr(cr), pixbuf.getPointer, pixbuf_x, pixbuf_y)
 # proc gdk_cairo_set_source_pixbuf*(cr: cairo1.TContext, pixbuf: GdkPixbuf2.Pixbuf, pixbuf_x: float64, pixbuf_y: float64) {.inline.} =
 
 # gdk_cairo_set_source_rgba
@@ -1037,7 +1037,7 @@ proc gdk_cairo_set_source_rgba*(cr: cairo1.TContext, rgba: TRGBA) {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_cairo_set_source_window(cr: ptr cairo1.TContext, window: ptr TWindow, x: float64, y: float64) {.cdecl, dynlib: lib, importc: "gdk_cairo_set_source_window".}
 proc gdk_cairo_set_source_window*(cr: cairo1.TContext, window: Window, x: float64, y: float64) {.inline.} =
-  gdk_cairo_set_source_window(myUnsafeAddr(cr), window.pointer, x, y)
+  gdk_cairo_set_source_window(myUnsafeAddr(cr), window.getPointer, x, y)
 # proc gdk_cairo_set_source_window*(cr: cairo1.TContext, window: Window, x: float64, y: float64) {.inline.} =
 
 # gdk_cairo_surface_create_from_pixbuf
@@ -1048,7 +1048,7 @@ proc gdk_cairo_set_source_window*(cr: cairo1.TContext, window: Window, x: float6
 # 'cairo1.TSurface' 'ptr cairo1.TSurface' (diff., need sugar)
 proc gdk_cairo_surface_create_from_pixbuf(pixbuf: ptr GdkPixbuf2.TPixbuf, scale: int32, for_window: ptr TWindow): ptr cairo1.TSurface {.cdecl, dynlib: lib, importc: "gdk_cairo_surface_create_from_pixbuf".}
 proc gdk_cairo_surface_create_from_pixbuf*(pixbuf: GdkPixbuf2.Pixbuf, scale: int32, for_window: Window): cairo1.TSurface {.inline.} =
-  (gdk_cairo_surface_create_from_pixbuf(pixbuf.pointer, scale, for_window.pointer))[]
+  (gdk_cairo_surface_create_from_pixbuf(pixbuf.getPointer, scale, for_window.getPointer))[]
 # proc gdk_cairo_surface_create_from_pixbuf*(pixbuf: GdkPixbuf2.Pixbuf, scale: int32, for_window: Window): cairo1.TSurface {.inline.} =
 
 # gdk_color_parse
@@ -1064,7 +1064,7 @@ proc gdk_disable_multidevice*() {.cdecl, dynlib: lib, importc: "gdk_disable_mult
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_drag_abort(context: ptr TDragContext, time_x: uint32) {.cdecl, dynlib: lib, importc: "gdk_drag_abort".}
 proc gdk_drag_abort*(context: DragContext, time_x: uint32) {.inline.} =
-  gdk_drag_abort(context.pointer, time_x)
+  gdk_drag_abort(context.getPointer, time_x)
 # proc gdk_drag_abort*(context: DragContext, time_x: uint32) {.inline.} =
 
 # gdk_drag_begin
@@ -1074,7 +1074,7 @@ proc gdk_drag_abort*(context: DragContext, time_x: uint32) {.inline.} =
 # 'DragContext' 'TransferFull[TDragContext]' (diff., need sugar)
 proc gdk_drag_begin(window: ptr TWindow, targets: ptr GLIST_TODO): TransferFull[TDragContext] {.cdecl, dynlib: lib, importc: "gdk_drag_begin".}
 proc gdk_drag_begin*(window: Window, targets: ptr GLIST_TODO): DragContext {.inline.} =
-  wrap(gdk_drag_begin(window.pointer, targets))
+  wrap(gdk_drag_begin(window.getPointer, targets))
 # proc gdk_drag_begin*(window: Window, targets: ptr GLIST_TODO): DragContext {.inline.} =
 
 # gdk_drag_begin_for_device
@@ -1085,7 +1085,7 @@ proc gdk_drag_begin*(window: Window, targets: ptr GLIST_TODO): DragContext {.inl
 # 'DragContext' 'TransferFull[TDragContext]' (diff., need sugar)
 proc gdk_drag_begin_for_device(window: ptr TWindow, device: ptr TDevice, targets: ptr GLIST_TODO): TransferFull[TDragContext] {.cdecl, dynlib: lib, importc: "gdk_drag_begin_for_device".}
 proc gdk_drag_begin_for_device*(window: Window, device: Device, targets: ptr GLIST_TODO): DragContext {.inline.} =
-  wrap(gdk_drag_begin_for_device(window.pointer, device.pointer, targets))
+  wrap(gdk_drag_begin_for_device(window.getPointer, device.getPointer, targets))
 # proc gdk_drag_begin_for_device*(window: Window, device: Device, targets: ptr GLIST_TODO): DragContext {.inline.} =
 
 # gdk_drag_drop
@@ -1095,7 +1095,7 @@ proc gdk_drag_begin_for_device*(window: Window, device: Device, targets: ptr GLI
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_drag_drop(context: ptr TDragContext, time_x: uint32) {.cdecl, dynlib: lib, importc: "gdk_drag_drop".}
 proc gdk_drag_drop*(context: DragContext, time_x: uint32) {.inline.} =
-  gdk_drag_drop(context.pointer, time_x)
+  gdk_drag_drop(context.getPointer, time_x)
 # proc gdk_drag_drop*(context: DragContext, time_x: uint32) {.inline.} =
 
 # gdk_drag_drop_succeeded
@@ -1104,7 +1104,7 @@ proc gdk_drag_drop*(context: DragContext, time_x: uint32) {.inline.} =
 # 'bool' 'bool'
 proc gdk_drag_drop_succeeded(context: ptr TDragContext): bool {.cdecl, dynlib: lib, importc: "gdk_drag_drop_succeeded".}
 proc gdk_drag_drop_succeeded*(context: DragContext): bool {.inline.} =
-  gdk_drag_drop_succeeded(context.pointer)
+  gdk_drag_drop_succeeded(context.getPointer)
 # proc gdk_drag_drop_succeeded*(context: DragContext): bool {.inline.} =
 
 # gdk_drag_find_window_for_screen
@@ -1119,7 +1119,7 @@ proc gdk_drag_drop_succeeded*(context: DragContext): bool {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_drag_find_window_for_screen(context: ptr TDragContext, drag_window: ptr TWindow, screen: ptr TScreen, x_root: int32, y_root: int32, dest_window: ptr TWindow, protocol: DragProtocol) {.cdecl, dynlib: lib, importc: "gdk_drag_find_window_for_screen".}
 proc gdk_drag_find_window_for_screen*(context: DragContext, drag_window: Window, screen: Screen, x_root: int32, y_root: int32, dest_window: var Window, protocol: DragProtocol) {.inline.} =
-  gdk_drag_find_window_for_screen(context.pointer, drag_window.pointer, screen.pointer, x_root, y_root, dest_window.pointer, protocol)
+  gdk_drag_find_window_for_screen(context.getPointer, drag_window.getPointer, screen.getPointer, x_root, y_root, dest_window.getPointer, protocol)
 # tuple-return
 # dest_window: var Window
 # protocol: DragProtocol
@@ -1131,7 +1131,7 @@ proc gdk_drag_find_window_for_screen*(context: DragContext, drag_window: Window,
 # 'TAtom' 'ptr TAtom' (diff., need sugar)
 proc gdk_drag_get_selection(context: ptr TDragContext): ptr TAtom {.cdecl, dynlib: lib, importc: "gdk_drag_get_selection".}
 proc gdk_drag_get_selection*(context: DragContext): TAtom {.inline.} =
-  (gdk_drag_get_selection(context.pointer))[]
+  (gdk_drag_get_selection(context.getPointer))[]
 # proc gdk_drag_get_selection*(context: DragContext): TAtom {.inline.} =
 
 # gdk_drag_motion
@@ -1147,7 +1147,7 @@ proc gdk_drag_get_selection*(context: DragContext): TAtom {.inline.} =
 # 'bool' 'bool'
 proc gdk_drag_motion(context: ptr TDragContext, dest_window: ptr TWindow, protocol: DragProtocol, x_root: int32, y_root: int32, suggested_action: SDragAction, possible_actions: SDragAction, time_x: uint32): bool {.cdecl, dynlib: lib, importc: "gdk_drag_motion".}
 proc gdk_drag_motion*(context: DragContext, dest_window: Window, protocol: DragProtocol, x_root: int32, y_root: int32, suggested_action: SDragAction, possible_actions: SDragAction, time_x: uint32): bool {.inline.} =
-  gdk_drag_motion(context.pointer, dest_window.pointer, protocol, x_root, y_root, suggested_action, possible_actions, time_x)
+  gdk_drag_motion(context.getPointer, dest_window.getPointer, protocol, x_root, y_root, suggested_action, possible_actions, time_x)
 # proc gdk_drag_motion*(context: DragContext, dest_window: Window, protocol: DragProtocol, x_root: int32, y_root: int32, suggested_action: SDragAction, possible_actions: SDragAction, time_x: uint32): bool {.inline.} =
 
 # gdk_drag_status
@@ -1158,7 +1158,7 @@ proc gdk_drag_motion*(context: DragContext, dest_window: Window, protocol: DragP
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_drag_status(context: ptr TDragContext, action: SDragAction, time_x: uint32) {.cdecl, dynlib: lib, importc: "gdk_drag_status".}
 proc gdk_drag_status*(context: DragContext, action: SDragAction, time_x: uint32) {.inline.} =
-  gdk_drag_status(context.pointer, action, time_x)
+  gdk_drag_status(context.getPointer, action, time_x)
 # proc gdk_drag_status*(context: DragContext, action: SDragAction, time_x: uint32) {.inline.} =
 
 # gdk_drop_finish
@@ -1169,7 +1169,7 @@ proc gdk_drag_status*(context: DragContext, action: SDragAction, time_x: uint32)
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_drop_finish(context: ptr TDragContext, success: bool, time_x: uint32) {.cdecl, dynlib: lib, importc: "gdk_drop_finish".}
 proc gdk_drop_finish*(context: DragContext, success: bool, time_x: uint32) {.inline.} =
-  gdk_drop_finish(context.pointer, success, time_x)
+  gdk_drop_finish(context.getPointer, success, time_x)
 # proc gdk_drop_finish*(context: DragContext, success: bool, time_x: uint32) {.inline.} =
 
 # gdk_drop_reply
@@ -1180,7 +1180,7 @@ proc gdk_drop_finish*(context: DragContext, success: bool, time_x: uint32) {.inl
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_drop_reply(context: ptr TDragContext, accepted: bool, time_x: uint32) {.cdecl, dynlib: lib, importc: "gdk_drop_reply".}
 proc gdk_drop_reply*(context: DragContext, accepted: bool, time_x: uint32) {.inline.} =
-  gdk_drop_reply(context.pointer, accepted, time_x)
+  gdk_drop_reply(context.getPointer, accepted, time_x)
 # proc gdk_drop_reply*(context: DragContext, accepted: bool, time_x: uint32) {.inline.} =
 
 # gdk_error_trap_pop
@@ -1410,7 +1410,7 @@ proc gdk_notify_startup_complete_with_id*(startup_id: ustring) {.inline.} =
 # 'Window' 'TransferNone[TWindow]' (diff., need sugar)
 proc gdk_offscreen_window_get_embedder(window: ptr TWindow): TransferNone[TWindow] {.cdecl, dynlib: lib, importc: "gdk_offscreen_window_get_embedder".}
 proc gdk_offscreen_window_get_embedder*(window: Window): Window {.inline.} =
-  wrap(gdk_offscreen_window_get_embedder(window.pointer))
+  wrap(gdk_offscreen_window_get_embedder(window.getPointer))
 # proc gdk_offscreen_window_get_embedder*(window: Window): Window {.inline.} =
 
 # gdk_offscreen_window_get_surface
@@ -1419,7 +1419,7 @@ proc gdk_offscreen_window_get_embedder*(window: Window): Window {.inline.} =
 # 'cairo1.TSurface' 'ptr cairo1.TSurface' (diff., need sugar)
 proc gdk_offscreen_window_get_surface(window: ptr TWindow): ptr cairo1.TSurface {.cdecl, dynlib: lib, importc: "gdk_offscreen_window_get_surface".}
 proc gdk_offscreen_window_get_surface*(window: Window): cairo1.TSurface {.inline.} =
-  (gdk_offscreen_window_get_surface(window.pointer))[]
+  (gdk_offscreen_window_get_surface(window.getPointer))[]
 # proc gdk_offscreen_window_get_surface*(window: Window): cairo1.TSurface {.inline.} =
 
 # gdk_offscreen_window_set_embedder
@@ -1429,7 +1429,7 @@ proc gdk_offscreen_window_get_surface*(window: Window): cairo1.TSurface {.inline
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_offscreen_window_set_embedder(window: ptr TWindow, embedder: ptr TWindow) {.cdecl, dynlib: lib, importc: "gdk_offscreen_window_set_embedder".}
 proc gdk_offscreen_window_set_embedder*(window: Window, embedder: Window) {.inline.} =
-  gdk_offscreen_window_set_embedder(window.pointer, embedder.pointer)
+  gdk_offscreen_window_set_embedder(window.getPointer, embedder.getPointer)
 # proc gdk_offscreen_window_set_embedder*(window: Window, embedder: Window) {.inline.} =
 
 # gdk_pango_context_get
@@ -1446,7 +1446,7 @@ proc gdk_pango_context_get*(): Pango1.Context {.inline.} =
 # 'Pango1.Context' 'TransferFull[Pango1.TContext]' (diff., need sugar)
 proc gdk_pango_context_get_for_screen(screen: ptr TScreen): TransferFull[Pango1.TContext] {.cdecl, dynlib: lib, importc: "gdk_pango_context_get_for_screen".}
 proc gdk_pango_context_get_for_screen*(screen: Screen): Pango1.Context {.inline.} =
-  wrap(gdk_pango_context_get_for_screen(screen.pointer))
+  wrap(gdk_pango_context_get_for_screen(screen.getPointer))
 # proc gdk_pango_context_get_for_screen*(screen: Screen): Pango1.Context {.inline.} =
 
 # gdk_parse_args
@@ -1482,7 +1482,7 @@ proc gdk_pixbuf_get_from_surface*(surface: cairo1.TSurface, src_x: int32, src_y:
 # 'GdkPixbuf2.Pixbuf' 'TransferFull[GdkPixbuf2.TPixbuf]' (diff., need sugar)
 proc gdk_pixbuf_get_from_window(window: ptr TWindow, src_x: int32, src_y: int32, width: int32, height: int32): TransferFull[GdkPixbuf2.TPixbuf] {.cdecl, dynlib: lib, importc: "gdk_pixbuf_get_from_window".}
 proc gdk_pixbuf_get_from_window*(window: Window, src_x: int32, src_y: int32, width: int32, height: int32): GdkPixbuf2.Pixbuf {.inline.} =
-  wrap(gdk_pixbuf_get_from_window(window.pointer, src_x, src_y, width, height))
+  wrap(gdk_pixbuf_get_from_window(window.getPointer, src_x, src_y, width, height))
 # proc gdk_pixbuf_get_from_window*(window: Window, src_x: int32, src_y: int32, width: int32, height: int32): GdkPixbuf2.Pixbuf {.inline.} =
 
 # gdk_pointer_grab
@@ -1502,7 +1502,7 @@ proc gdk_pre_parse_libgtk_only*() {.cdecl, dynlib: lib, importc: "gdk_pre_parse_
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_property_delete(window: ptr TWindow, property: ptr TAtom) {.cdecl, dynlib: lib, importc: "gdk_property_delete".}
 proc gdk_property_delete*(window: Window, property: TAtom) {.inline.} =
-  gdk_property_delete(window.pointer, myUnsafeAddr(property))
+  gdk_property_delete(window.getPointer, myUnsafeAddr(property))
 # proc gdk_property_delete*(window: Window, property: TAtom) {.inline.} =
 
 # gdk_property_get
@@ -1520,7 +1520,7 @@ proc gdk_property_delete*(window: Window, property: TAtom) {.inline.} =
 # 'bool' 'bool'
 proc gdk_property_get(window: ptr TWindow, property: ptr TAtom, type_x: ptr TAtom, offset: uint32, length: uint32, pdelete: int32, actual_property_type: ptr TAtom, actual_format: ptr int32, actual_length: ptr int32, data: cstring): bool {.cdecl, dynlib: lib, importc: "gdk_property_get".}
 proc gdk_property_get*(window: Window, property: TAtom, type_x: TAtom, offset: uint32, length: uint32, pdelete: int32, actual_property_type: var TAtom, actual_format: var int32, actual_length: var int32, data: string): bool {.inline.} =
-  gdk_property_get(window.pointer, myUnsafeAddr(property), myUnsafeAddr(type_x), offset, length, pdelete, addr(actual_property_type), addr(actual_format), addr(actual_length), cstring(data))
+  gdk_property_get(window.getPointer, myUnsafeAddr(property), myUnsafeAddr(type_x), offset, length, pdelete, addr(actual_property_type), addr(actual_format), addr(actual_length), cstring(data))
 # tuple-return
 # actual_property_type: var TAtom
 # actual_format: var int32
@@ -1593,7 +1593,7 @@ proc gdk_rectangle_union*(src1: cairo1.TRectangleInt, src2: cairo1.TRectangleInt
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_selection_convert(requestor: ptr TWindow, selection: ptr TAtom, target: ptr TAtom, time_x: uint32) {.cdecl, dynlib: lib, importc: "gdk_selection_convert".}
 proc gdk_selection_convert*(requestor: Window, selection: TAtom, target: TAtom, time_x: uint32) {.inline.} =
-  gdk_selection_convert(requestor.pointer, myUnsafeAddr(selection), myUnsafeAddr(target), time_x)
+  gdk_selection_convert(requestor.getPointer, myUnsafeAddr(selection), myUnsafeAddr(target), time_x)
 # proc gdk_selection_convert*(requestor: Window, selection: TAtom, target: TAtom, time_x: uint32) {.inline.} =
 
 # gdk_selection_owner_get
@@ -1612,7 +1612,7 @@ proc gdk_selection_owner_get*(selection: TAtom): Window {.inline.} =
 # 'Window' 'TransferNone[TWindow]' (diff., need sugar)
 proc gdk_selection_owner_get_for_display(display: ptr TDisplay, selection: ptr TAtom): TransferNone[TWindow] {.cdecl, dynlib: lib, importc: "gdk_selection_owner_get_for_display".}
 proc gdk_selection_owner_get_for_display*(display: Display, selection: TAtom): Window {.inline.} =
-  wrap(gdk_selection_owner_get_for_display(display.pointer, myUnsafeAddr(selection)))
+  wrap(gdk_selection_owner_get_for_display(display.getPointer, myUnsafeAddr(selection)))
 # proc gdk_selection_owner_get_for_display*(display: Display, selection: TAtom): Window {.inline.} =
 
 # gdk_selection_owner_set
@@ -1624,7 +1624,7 @@ proc gdk_selection_owner_get_for_display*(display: Display, selection: TAtom): W
 # 'bool' 'bool'
 proc gdk_selection_owner_set(owner: ptr TWindow, selection: ptr TAtom, time_x: uint32, send_event: bool): bool {.cdecl, dynlib: lib, importc: "gdk_selection_owner_set".}
 proc gdk_selection_owner_set*(owner: Window, selection: TAtom, time_x: uint32, send_event: bool): bool {.inline.} =
-  gdk_selection_owner_set(owner.pointer, myUnsafeAddr(selection), time_x, send_event)
+  gdk_selection_owner_set(owner.getPointer, myUnsafeAddr(selection), time_x, send_event)
 # proc gdk_selection_owner_set*(owner: Window, selection: TAtom, time_x: uint32, send_event: bool): bool {.inline.} =
 
 # gdk_selection_owner_set_for_display
@@ -1637,7 +1637,7 @@ proc gdk_selection_owner_set*(owner: Window, selection: TAtom, time_x: uint32, s
 # 'bool' 'bool'
 proc gdk_selection_owner_set_for_display(display: ptr TDisplay, owner: ptr TWindow, selection: ptr TAtom, time_x: uint32, send_event: bool): bool {.cdecl, dynlib: lib, importc: "gdk_selection_owner_set_for_display".}
 proc gdk_selection_owner_set_for_display*(display: Display, owner: Window, selection: TAtom, time_x: uint32, send_event: bool): bool {.inline.} =
-  gdk_selection_owner_set_for_display(display.pointer, owner.pointer, myUnsafeAddr(selection), time_x, send_event)
+  gdk_selection_owner_set_for_display(display.getPointer, owner.getPointer, myUnsafeAddr(selection), time_x, send_event)
 # proc gdk_selection_owner_set_for_display*(display: Display, owner: Window, selection: TAtom, time_x: uint32, send_event: bool): bool {.inline.} =
 
 # gdk_selection_send_notify
@@ -1650,7 +1650,7 @@ proc gdk_selection_owner_set_for_display*(display: Display, owner: Window, selec
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_selection_send_notify(requestor: ptr TWindow, selection: ptr TAtom, target: ptr TAtom, property: ptr TAtom, time_x: uint32) {.cdecl, dynlib: lib, importc: "gdk_selection_send_notify".}
 proc gdk_selection_send_notify*(requestor: Window, selection: TAtom, target: TAtom, property: TAtom, time_x: uint32) {.inline.} =
-  gdk_selection_send_notify(requestor.pointer, myUnsafeAddr(selection), myUnsafeAddr(target), myUnsafeAddr(property), time_x)
+  gdk_selection_send_notify(requestor.getPointer, myUnsafeAddr(selection), myUnsafeAddr(target), myUnsafeAddr(property), time_x)
 # proc gdk_selection_send_notify*(requestor: Window, selection: TAtom, target: TAtom, property: TAtom, time_x: uint32) {.inline.} =
 
 # gdk_selection_send_notify_for_display
@@ -1664,7 +1664,7 @@ proc gdk_selection_send_notify*(requestor: Window, selection: TAtom, target: TAt
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_selection_send_notify_for_display(display: ptr TDisplay, requestor: ptr TWindow, selection: ptr TAtom, target: ptr TAtom, property: ptr TAtom, time_x: uint32) {.cdecl, dynlib: lib, importc: "gdk_selection_send_notify_for_display".}
 proc gdk_selection_send_notify_for_display*(display: Display, requestor: Window, selection: TAtom, target: TAtom, property: TAtom, time_x: uint32) {.inline.} =
-  gdk_selection_send_notify_for_display(display.pointer, requestor.pointer, myUnsafeAddr(selection), myUnsafeAddr(target), myUnsafeAddr(property), time_x)
+  gdk_selection_send_notify_for_display(display.getPointer, requestor.getPointer, myUnsafeAddr(selection), myUnsafeAddr(target), myUnsafeAddr(property), time_x)
 # proc gdk_selection_send_notify_for_display*(display: Display, requestor: Window, selection: TAtom, target: TAtom, property: TAtom, time_x: uint32) {.inline.} =
 
 # gdk_set_allowed_backends
@@ -1713,7 +1713,7 @@ proc gdk_setting_get*(name: ustring, value: GObject2.TValue): bool {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_synthesize_window_state(window: ptr TWindow, unset_flags: SWindowState, set_flags: SWindowState) {.cdecl, dynlib: lib, importc: "gdk_synthesize_window_state".}
 proc gdk_synthesize_window_state*(window: Window, unset_flags: SWindowState, set_flags: SWindowState) {.inline.} =
-  gdk_synthesize_window_state(window.pointer, unset_flags, set_flags)
+  gdk_synthesize_window_state(window.getPointer, unset_flags, set_flags)
 # proc gdk_synthesize_window_state*(window: Window, unset_flags: SWindowState, set_flags: SWindowState) {.inline.} =
 
 # gdk_test_render_sync
@@ -1722,7 +1722,7 @@ proc gdk_synthesize_window_state*(window: Window, unset_flags: SWindowState, set
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_test_render_sync(window: ptr TWindow) {.cdecl, dynlib: lib, importc: "gdk_test_render_sync".}
 proc gdk_test_render_sync*(window: Window) {.inline.} =
-  gdk_test_render_sync(window.pointer)
+  gdk_test_render_sync(window.getPointer)
 # proc gdk_test_render_sync*(window: Window) {.inline.} =
 
 # gdk_test_simulate_button
@@ -1736,7 +1736,7 @@ proc gdk_test_render_sync*(window: Window) {.inline.} =
 # 'bool' 'bool'
 proc gdk_test_simulate_button(window: ptr TWindow, x: int32, y: int32, button: uint32, modifiers: SModifierType, button_pressrelease: EventType): bool {.cdecl, dynlib: lib, importc: "gdk_test_simulate_button".}
 proc gdk_test_simulate_button*(window: Window, x: int32, y: int32, button: uint32, modifiers: SModifierType, button_pressrelease: EventType): bool {.inline.} =
-  gdk_test_simulate_button(window.pointer, x, y, button, modifiers, button_pressrelease)
+  gdk_test_simulate_button(window.getPointer, x, y, button, modifiers, button_pressrelease)
 # proc gdk_test_simulate_button*(window: Window, x: int32, y: int32, button: uint32, modifiers: SModifierType, button_pressrelease: EventType): bool {.inline.} =
 
 # gdk_test_simulate_key
@@ -1750,7 +1750,7 @@ proc gdk_test_simulate_button*(window: Window, x: int32, y: int32, button: uint3
 # 'bool' 'bool'
 proc gdk_test_simulate_key(window: ptr TWindow, x: int32, y: int32, keyval: uint32, modifiers: SModifierType, key_pressrelease: EventType): bool {.cdecl, dynlib: lib, importc: "gdk_test_simulate_key".}
 proc gdk_test_simulate_key*(window: Window, x: int32, y: int32, keyval: uint32, modifiers: SModifierType, key_pressrelease: EventType): bool {.inline.} =
-  gdk_test_simulate_key(window.pointer, x, y, keyval, modifiers, key_pressrelease)
+  gdk_test_simulate_key(window.getPointer, x, y, keyval, modifiers, key_pressrelease)
 # proc gdk_test_simulate_key*(window: Window, x: int32, y: int32, keyval: uint32, modifiers: SModifierType, key_pressrelease: EventType): bool {.inline.} =
 
 # gdk_text_property_to_utf8_list_for_display
@@ -1764,7 +1764,7 @@ proc gdk_test_simulate_key*(window: Window, x: int32, y: int32, keyval: uint32, 
 # 'int32' 'int32'
 proc gdk_text_property_to_utf8_list_for_display(display: ptr TDisplay, encoding: ptr TAtom, format: int32, text: cstring, length: int32, list: uncheckedArray[ucstring]): int32 {.cdecl, dynlib: lib, importc: "gdk_text_property_to_utf8_list_for_display".}
 proc gdk_text_property_to_utf8_list_for_display*(display: Display, encoding: TAtom, format: int32, text: string, list: uncheckedArray[ucstring]): int32 {.inline.} =
-  gdk_text_property_to_utf8_list_for_display(display.pointer, myUnsafeAddr(encoding), format, cstring(text), text.len.int32, list)
+  gdk_text_property_to_utf8_list_for_display(display.getPointer, myUnsafeAddr(encoding), format, cstring(text), text.len.int32, list)
 # tuple-return
 # list: uncheckedArray[ucstring]
 # proc gdk_text_property_to_utf8_list_for_display*(display: Display, encoding: TAtom, format: int32, text: string): int32 {.inline.} =
@@ -1858,7 +1858,7 @@ proc set_icon_name*(self: AppLaunchContext, icon_name: ustring) {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_app_launch_context_set_screen(self: ptr TAppLaunchContext, screen: ptr TScreen) {.cdecl, dynlib: lib, importc: "gdk_app_launch_context_set_screen".}
 proc set_screen*(self: AppLaunchContext, screen: Screen) {.inline.} =
-  gdk_app_launch_context_set_screen(self, screen.pointer)
+  gdk_app_launch_context_set_screen(self, screen.getPointer)
 # proc set_screen*(self: AppLaunchContext, screen: Screen) {.inline.} =
 
 # gdk_app_launch_context_set_timestamp
@@ -1889,7 +1889,7 @@ proc cursor_new*(cursor_type: CursorType): Cursor {.inline.} =
 # 'Cursor' 'TransferFull[TCursor]' (diff., need sugar)
 proc gdk_cursor_new_for_display(display: ptr TDisplay, cursor_type: CursorType): TransferFull[TCursor] {.cdecl, dynlib: lib, importc: "gdk_cursor_new_for_display".}
 proc cursor_new_for_display*(display: Display, cursor_type: CursorType): Cursor {.inline.} =
-  wrap(gdk_cursor_new_for_display(display.pointer, cursor_type))
+  wrap(gdk_cursor_new_for_display(display.getPointer, cursor_type))
 # proc cursor_new_for_display*(display: Display, cursor_type: CursorType): Cursor {.inline.} =
 
 # gdk_cursor_new_from_name
@@ -1900,7 +1900,7 @@ proc cursor_new_for_display*(display: Display, cursor_type: CursorType): Cursor 
 # 'Cursor' 'TransferFull[TCursor]' (diff., need sugar)
 proc gdk_cursor_new_from_name(display: ptr TDisplay, name: ucstring): TransferFull[TCursor] {.cdecl, dynlib: lib, importc: "gdk_cursor_new_from_name".}
 proc cursor_new_from_name*(display: Display, name: ustring): Cursor {.inline.} =
-  wrap(gdk_cursor_new_from_name(display.pointer, ucstring(name)))
+  wrap(gdk_cursor_new_from_name(display.getPointer, ucstring(name)))
 # proc cursor_new_from_name*(display: Display, name: ustring): Cursor {.inline.} =
 
 # gdk_cursor_new_from_pixbuf
@@ -1913,7 +1913,7 @@ proc cursor_new_from_name*(display: Display, name: ustring): Cursor {.inline.} =
 # 'Cursor' 'TransferFull[TCursor]' (diff., need sugar)
 proc gdk_cursor_new_from_pixbuf(display: ptr TDisplay, pixbuf: ptr GdkPixbuf2.TPixbuf, x: int32, y: int32): TransferFull[TCursor] {.cdecl, dynlib: lib, importc: "gdk_cursor_new_from_pixbuf".}
 proc cursor_new_from_pixbuf*(display: Display, pixbuf: GdkPixbuf2.Pixbuf, x: int32, y: int32): Cursor {.inline.} =
-  wrap(gdk_cursor_new_from_pixbuf(display.pointer, pixbuf.pointer, x, y))
+  wrap(gdk_cursor_new_from_pixbuf(display.getPointer, pixbuf.getPointer, x, y))
 # proc cursor_new_from_pixbuf*(display: Display, pixbuf: GdkPixbuf2.Pixbuf, x: int32, y: int32): Cursor {.inline.} =
 
 # gdk_cursor_new_from_surface
@@ -1926,7 +1926,7 @@ proc cursor_new_from_pixbuf*(display: Display, pixbuf: GdkPixbuf2.Pixbuf, x: int
 # 'Cursor' 'TransferFull[TCursor]' (diff., need sugar)
 proc gdk_cursor_new_from_surface(display: ptr TDisplay, surface: ptr cairo1.TSurface, x: float64, y: float64): TransferFull[TCursor] {.cdecl, dynlib: lib, importc: "gdk_cursor_new_from_surface".}
 proc cursor_new_from_surface*(display: Display, surface: cairo1.TSurface, x: float64, y: float64): Cursor {.inline.} =
-  wrap(gdk_cursor_new_from_surface(display.pointer, myUnsafeAddr(surface), x, y))
+  wrap(gdk_cursor_new_from_surface(display.getPointer, myUnsafeAddr(surface), x, y))
 # proc cursor_new_from_surface*(display: Display, surface: cairo1.TSurface, x: float64, y: float64): Cursor {.inline.} =
 
 # gdk_cursor_get_cursor_type
@@ -1984,7 +1984,7 @@ proc get_surface*(self: Cursor, x_hot: var float64, y_hot: var float64): cairo1.
 # 'bool' 'bool'
 proc gdk_device_grab_info_libgtk_only(display: ptr TDisplay, device: ptr TDevice, grab_window: ptr TWindow, owner_events: ptr bool): bool {.cdecl, dynlib: lib, importc: "gdk_device_grab_info_libgtk_only".}
 template grab_info_libgtk_only*(klass_parameter: typedesc[Device], display: Display, device: Device, grab_window: var Window, owner_events: var bool): bool =
-  gdk_device_grab_info_libgtk_only(display.pointer, device.pointer, grab_window.pointer, addr(owner_events))
+  gdk_device_grab_info_libgtk_only(display.getPointer, device.getPointer, grab_window.getPointer, addr(owner_events))
 # tuple-return
 # grab_window: var Window
 # owner_events: var bool
@@ -2105,7 +2105,7 @@ proc get_name*(self: Device): ustring {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_device_get_position(self: ptr TDevice, screen: ptr TScreen, x: ptr int32, y: ptr int32) {.cdecl, dynlib: lib, importc: "gdk_device_get_position".}
 proc get_position*(self: Device, screen: var Screen, x: var int32, y: var int32) {.inline.} =
-  gdk_device_get_position(self, screen.pointer, addr(x), addr(y))
+  gdk_device_get_position(self, screen.getPointer, addr(x), addr(y))
 # tuple-return
 # screen: var Screen
 # x: var int32
@@ -2121,7 +2121,7 @@ proc get_position*(self: Device, screen: var Screen, x: var int32, y: var int32)
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_device_get_position_double(self: ptr TDevice, screen: ptr TScreen, x: ptr float64, y: ptr float64) {.cdecl, dynlib: lib, importc: "gdk_device_get_position_double".}
 proc get_position_double*(self: Device, screen: var Screen, x: var float64, y: var float64) {.inline.} =
-  gdk_device_get_position_double(self, screen.pointer, addr(x), addr(y))
+  gdk_device_get_position_double(self, screen.getPointer, addr(x), addr(y))
 # tuple-return
 # screen: var Screen
 # x: var float64
@@ -2177,7 +2177,7 @@ proc get_window_at_position_double*(self: Device, win_x: var float64, win_y: var
 # 'GrabStatus' 'GrabStatus'
 proc gdk_device_grab(self: ptr TDevice, window: ptr TWindow, grab_ownership: GrabOwnership, owner_events: bool, event_mask: SEventMask, cursor: ptr TCursor, time_x: uint32): GrabStatus {.cdecl, dynlib: lib, importc: "gdk_device_grab".}
 proc grab*(self: Device, window: Window, grab_ownership: GrabOwnership, owner_events: bool, event_mask: SEventMask, cursor: Cursor, time_x: uint32): GrabStatus {.inline.} =
-  gdk_device_grab(self, window.pointer, grab_ownership, owner_events, event_mask, cursor.pointer, time_x)
+  gdk_device_grab(self, window.getPointer, grab_ownership, owner_events, event_mask, cursor.getPointer, time_x)
 # proc grab*(self: Device, window: Window, grab_ownership: GrabOwnership, owner_events: bool, event_mask: SEventMask, cursor: Cursor, time_x: uint32): GrabStatus {.inline.} =
 
 # gdk_device_list_axes
@@ -2250,7 +2250,7 @@ proc ungrab*(self: Device, time_x: uint32) {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_device_warp(self: ptr TDevice, screen: ptr TScreen, x: int32, y: int32) {.cdecl, dynlib: lib, importc: "gdk_device_warp".}
 proc warp*(self: Device, screen: Screen, x: int32, y: int32) {.inline.} =
-  gdk_device_warp(self, screen.pointer, x, y)
+  gdk_device_warp(self, screen.getPointer, x, y)
 # proc warp*(self: Device, screen: Screen, x: int32, y: int32) {.inline.} =
 
 # gdk_device_manager_get_client_pointer
@@ -2334,7 +2334,7 @@ proc close*(self: Display) {.inline.} =
 # 'bool' 'bool'
 proc gdk_display_device_is_grabbed(self: ptr TDisplay, device: ptr TDevice): bool {.cdecl, dynlib: lib, importc: "gdk_display_device_is_grabbed".}
 proc device_is_grabbed*(self: Display, device: Device): bool {.inline.} =
-  gdk_display_device_is_grabbed(self, device.pointer)
+  gdk_display_device_is_grabbed(self, device.getPointer)
 # proc device_is_grabbed*(self: Display, device: Device): bool {.inline.} =
 
 # gdk_display_flush
@@ -2534,7 +2534,7 @@ proc set_double_click_time*(self: Display, msec: uint32) {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_display_store_clipboard(self: ptr TDisplay, clipboard_window: ptr TWindow, time_x: uint32, targets: openarray[ptr TAtom], n_targets: int32) {.cdecl, dynlib: lib, importc: "gdk_display_store_clipboard".}
 proc store_clipboard*(self: Display, clipboard_window: Window, time_x: uint32, targets: var openarray[ptr TAtom]) {.inline.} =
-  gdk_display_store_clipboard(self, clipboard_window.pointer, time_x, targets, targets.len.int32)
+  gdk_display_store_clipboard(self, clipboard_window.getPointer, time_x, targets, targets.len.int32)
 # proc store_clipboard*(self: Display, clipboard_window: Window, time_x: uint32, targets: var openarray[ptr TAtom]) {.inline.} =
 
 # gdk_display_supports_clipboard_persistence
@@ -2655,7 +2655,7 @@ proc open_display*(self: DisplayManager, name: ustring): Display {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_display_manager_set_default_display(self: ptr TDisplayManager, display: ptr TDisplay) {.cdecl, dynlib: lib, importc: "gdk_display_manager_set_default_display".}
 proc set_default_display*(self: DisplayManager, display: Display) {.inline.} =
-  gdk_display_manager_set_default_display(self, display.pointer)
+  gdk_display_manager_set_default_display(self, display.getPointer)
 # proc set_default_display*(self: DisplayManager, display: Display) {.inline.} =
 
 # gdk_drag_context_get_actions
@@ -2737,7 +2737,7 @@ proc list_targets*(self: DragContext): ptr GLIST_TODO {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_drag_context_set_device(self: ptr TDragContext, device: ptr TDevice) {.cdecl, dynlib: lib, importc: "gdk_drag_context_set_device".}
 proc set_device*(self: DragContext, device: Device) {.inline.} =
-  gdk_drag_context_set_device(self, device.pointer)
+  gdk_drag_context_set_device(self, device.getPointer)
 # proc set_device*(self: DragContext, device: Device) {.inline.} =
 
 # gdk_frame_clock_begin_updating
@@ -2842,7 +2842,7 @@ template get_default*(klass_parameter: typedesc[Keymap]): Keymap =
 # 'Keymap' 'TransferNone[TKeymap]' (diff., need sugar)
 proc gdk_keymap_get_for_display(display: ptr TDisplay): TransferNone[TKeymap] {.cdecl, dynlib: lib, importc: "gdk_keymap_get_for_display".}
 template get_for_display*(klass_parameter: typedesc[Keymap], display: Display): Keymap =
-  wrap(gdk_keymap_get_for_display(display.pointer))
+  wrap(gdk_keymap_get_for_display(display.getPointer))
 # template get_for_display*(klass_parameter: typedesc[Keymap], display: Display): Keymap =
 
 # gdk_keymap_add_virtual_modifiers
@@ -3091,7 +3091,7 @@ proc get_monitor_at_point*(self: Screen, x: int32, y: int32): int32 {.inline.} =
 # 'int32' 'int32'
 proc gdk_screen_get_monitor_at_window(self: ptr TScreen, window: ptr TWindow): int32 {.cdecl, dynlib: lib, importc: "gdk_screen_get_monitor_at_window".}
 proc get_monitor_at_window*(self: Screen, window: Window): int32 {.inline.} =
-  gdk_screen_get_monitor_at_window(self, window.pointer)
+  gdk_screen_get_monitor_at_window(self, window.getPointer)
 # proc get_monitor_at_window*(self: Screen, window: Window): int32 {.inline.} =
 
 # gdk_screen_get_monitor_geometry
@@ -3495,7 +3495,7 @@ proc get_visual_type*(self: Visual): VisualType {.inline.} =
 # 'Window' 'TransferFull[TWindow]' (diff., need sugar)
 proc gdk_window_new(parent: ptr TWindow, attributes: ptr TWindowAttr, attributes_mask: SWindowAttributesType): TransferFull[TWindow] {.cdecl, dynlib: lib, importc: "gdk_window_new".}
 proc window_new*(parent: Window, attributes: TWindowAttr, attributes_mask: SWindowAttributesType): Window {.inline.} =
-  wrap(gdk_window_new(parent.pointer, myUnsafeAddr(attributes), attributes_mask))
+  wrap(gdk_window_new(parent.getPointer, myUnsafeAddr(attributes), attributes_mask))
 # proc window_new*(parent: Window, attributes: TWindowAttr, attributes_mask: SWindowAttributesType): Window {.inline.} =
 
 # gdk_window_at_pointer
@@ -3570,7 +3570,7 @@ proc begin_move_drag*(self: Window, button: int32, root_x: int32, root_y: int32,
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_window_begin_move_drag_for_device(self: ptr TWindow, device: ptr TDevice, button: int32, root_x: int32, root_y: int32, timestamp: uint32) {.cdecl, dynlib: lib, importc: "gdk_window_begin_move_drag_for_device".}
 proc begin_move_drag_for_device*(self: Window, device: Device, button: int32, root_x: int32, root_y: int32, timestamp: uint32) {.inline.} =
-  gdk_window_begin_move_drag_for_device(self, device.pointer, button, root_x, root_y, timestamp)
+  gdk_window_begin_move_drag_for_device(self, device.getPointer, button, root_x, root_y, timestamp)
 # proc begin_move_drag_for_device*(self: Window, device: Device, button: int32, root_x: int32, root_y: int32, timestamp: uint32) {.inline.} =
 
 # gdk_window_begin_paint_rect
@@ -3619,7 +3619,7 @@ proc begin_resize_drag*(self: Window, edge: WindowEdge, button: int32, root_x: i
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_window_begin_resize_drag_for_device(self: ptr TWindow, edge: WindowEdge, device: ptr TDevice, button: int32, root_x: int32, root_y: int32, timestamp: uint32) {.cdecl, dynlib: lib, importc: "gdk_window_begin_resize_drag_for_device".}
 proc begin_resize_drag_for_device*(self: Window, edge: WindowEdge, device: Device, button: int32, root_x: int32, root_y: int32, timestamp: uint32) {.inline.} =
-  gdk_window_begin_resize_drag_for_device(self, edge, device.pointer, button, root_x, root_y, timestamp)
+  gdk_window_begin_resize_drag_for_device(self, edge, device.getPointer, button, root_x, root_y, timestamp)
 # proc begin_resize_drag_for_device*(self: Window, edge: WindowEdge, device: Device, button: int32, root_x: int32, root_y: int32, timestamp: uint32) {.inline.} =
 
 # gdk_window_configure_finished
@@ -3859,7 +3859,7 @@ proc get_decorations*(self: Window, decorations: SWMDecoration): bool {.inline.}
 # 'Cursor' 'TransferNone[TCursor]' (diff., need sugar)
 proc gdk_window_get_device_cursor(self: ptr TWindow, device: ptr TDevice): TransferNone[TCursor] {.cdecl, dynlib: lib, importc: "gdk_window_get_device_cursor".}
 proc get_device_cursor*(self: Window, device: Device): Cursor {.inline.} =
-  wrap(gdk_window_get_device_cursor(self, device.pointer))
+  wrap(gdk_window_get_device_cursor(self, device.getPointer))
 # proc get_device_cursor*(self: Window, device: Device): Cursor {.inline.} =
 
 # gdk_window_get_device_events
@@ -3869,7 +3869,7 @@ proc get_device_cursor*(self: Window, device: Device): Cursor {.inline.} =
 # 'SEventMask' 'SEventMask'
 proc gdk_window_get_device_events(self: ptr TWindow, device: ptr TDevice): SEventMask {.cdecl, dynlib: lib, importc: "gdk_window_get_device_events".}
 proc get_device_events*(self: Window, device: Device): SEventMask {.inline.} =
-  gdk_window_get_device_events(self, device.pointer)
+  gdk_window_get_device_events(self, device.getPointer)
 # proc get_device_events*(self: Window, device: Device): SEventMask {.inline.} =
 
 # gdk_window_get_device_position
@@ -3882,7 +3882,7 @@ proc get_device_events*(self: Window, device: Device): SEventMask {.inline.} =
 # 'Window' 'TransferNone[TWindow]' (diff., need sugar)
 proc gdk_window_get_device_position(self: ptr TWindow, device: ptr TDevice, x: ptr int32, y: ptr int32, mask: SModifierType): TransferNone[TWindow] {.cdecl, dynlib: lib, importc: "gdk_window_get_device_position".}
 proc get_device_position*(self: Window, device: Device, x: var int32, y: var int32, mask: SModifierType): Window {.inline.} =
-  wrap(gdk_window_get_device_position(self, device.pointer, addr(x), addr(y), mask))
+  wrap(gdk_window_get_device_position(self, device.getPointer, addr(x), addr(y), mask))
 # tuple-return
 # x: var int32
 # y: var int32
@@ -3899,7 +3899,7 @@ proc get_device_position*(self: Window, device: Device, x: var int32, y: var int
 # 'Window' 'TransferNone[TWindow]' (diff., need sugar)
 proc gdk_window_get_device_position_double(self: ptr TWindow, device: ptr TDevice, x: ptr float64, y: ptr float64, mask: SModifierType): TransferNone[TWindow] {.cdecl, dynlib: lib, importc: "gdk_window_get_device_position_double".}
 proc get_device_position_double*(self: Window, device: Device, x: var float64, y: var float64, mask: SModifierType): Window {.inline.} =
-  wrap(gdk_window_get_device_position_double(self, device.pointer, addr(x), addr(y), mask))
+  wrap(gdk_window_get_device_position_double(self, device.getPointer, addr(x), addr(y), mask))
 # tuple-return
 # x: var float64
 # y: var float64
@@ -3922,7 +3922,7 @@ proc get_display*(self: Window): Display {.inline.} =
 # 'DragProtocol' 'DragProtocol'
 proc gdk_window_get_drag_protocol(self: ptr TWindow, target: ptr TWindow): DragProtocol {.cdecl, dynlib: lib, importc: "gdk_window_get_drag_protocol".}
 proc get_drag_protocol*(self: Window, target: var Window): DragProtocol {.inline.} =
-  gdk_window_get_drag_protocol(self, target.pointer)
+  gdk_window_get_drag_protocol(self, target.getPointer)
 # tuple-return
 # target: var Window
 # proc get_drag_protocol*(self: Window): DragProtocol {.inline.} =
@@ -4473,7 +4473,7 @@ proc register_dnd*(self: Window) {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_window_reparent(self: ptr TWindow, new_parent: ptr TWindow, x: int32, y: int32) {.cdecl, dynlib: lib, importc: "gdk_window_reparent".}
 proc reparent*(self: Window, new_parent: Window, x: int32, y: int32) {.inline.} =
-  gdk_window_reparent(self, new_parent.pointer, x, y)
+  gdk_window_reparent(self, new_parent.getPointer, x, y)
 # proc reparent*(self: Window, new_parent: Window, x: int32, y: int32) {.inline.} =
 
 # gdk_window_resize
@@ -4495,7 +4495,7 @@ proc resize*(self: Window, width: int32, height: int32) {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_window_restack(self: ptr TWindow, sibling: ptr TWindow, above: bool) {.cdecl, dynlib: lib, importc: "gdk_window_restack".}
 proc restack*(self: Window, sibling: Window, above: bool) {.inline.} =
-  gdk_window_restack(self, sibling.pointer, above)
+  gdk_window_restack(self, sibling.getPointer, above)
 # proc restack*(self: Window, sibling: Window, above: bool) {.inline.} =
 
 # gdk_window_scroll
@@ -4576,7 +4576,7 @@ proc set_composited*(self: Window, composited: bool) {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_window_set_cursor(self: ptr TWindow, cursor: ptr TCursor) {.cdecl, dynlib: lib, importc: "gdk_window_set_cursor".}
 proc set_cursor*(self: Window, cursor: Cursor) {.inline.} =
-  gdk_window_set_cursor(self, cursor.pointer)
+  gdk_window_set_cursor(self, cursor.getPointer)
 # proc set_cursor*(self: Window, cursor: Cursor) {.inline.} =
 
 # gdk_window_set_decorations
@@ -4597,7 +4597,7 @@ proc set_decorations*(self: Window, decorations: SWMDecoration) {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_window_set_device_cursor(self: ptr TWindow, device: ptr TDevice, cursor: ptr TCursor) {.cdecl, dynlib: lib, importc: "gdk_window_set_device_cursor".}
 proc set_device_cursor*(self: Window, device: Device, cursor: Cursor) {.inline.} =
-  gdk_window_set_device_cursor(self, device.pointer, cursor.pointer)
+  gdk_window_set_device_cursor(self, device.getPointer, cursor.getPointer)
 # proc set_device_cursor*(self: Window, device: Device, cursor: Cursor) {.inline.} =
 
 # gdk_window_set_device_events
@@ -4608,7 +4608,7 @@ proc set_device_cursor*(self: Window, device: Device, cursor: Cursor) {.inline.}
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_window_set_device_events(self: ptr TWindow, device: ptr TDevice, event_mask: SEventMask) {.cdecl, dynlib: lib, importc: "gdk_window_set_device_events".}
 proc set_device_events*(self: Window, device: Device, event_mask: SEventMask) {.inline.} =
-  gdk_window_set_device_events(self, device.pointer, event_mask)
+  gdk_window_set_device_events(self, device.getPointer, event_mask)
 # proc set_device_events*(self: Window, device: Device, event_mask: SEventMask) {.inline.} =
 
 # gdk_window_set_event_compression
@@ -4679,7 +4679,7 @@ proc set_geometry_hints*(self: Window, geometry: TGeometry, geom_mask: SWindowHi
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_window_set_group(self: ptr TWindow, leader: ptr TWindow) {.cdecl, dynlib: lib, importc: "gdk_window_set_group".}
 proc set_group*(self: Window, leader: Window) {.inline.} =
-  gdk_window_set_group(self, leader.pointer)
+  gdk_window_set_group(self, leader.getPointer)
 # proc set_group*(self: Window, leader: Window) {.inline.} =
 
 # gdk_window_set_icon_list
@@ -4863,7 +4863,7 @@ proc set_title*(self: Window, title: ustring) {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_window_set_transient_for(self: ptr TWindow, parent: ptr TWindow) {.cdecl, dynlib: lib, importc: "gdk_window_set_transient_for".}
 proc set_transient_for*(self: Window, parent: Window) {.inline.} =
-  gdk_window_set_transient_for(self, parent.pointer)
+  gdk_window_set_transient_for(self, parent.getPointer)
 # proc set_transient_for*(self: Window, parent: Window) {.inline.} =
 
 # gdk_window_set_type_hint
@@ -4893,7 +4893,7 @@ proc set_urgency_hint*(self: Window, urgent: bool) {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_window_set_user_data(self: ptr TWindow, user_data: ptr GObject2.TObject) {.cdecl, dynlib: lib, importc: "gdk_window_set_user_data".}
 proc set_user_data*(self: Window, user_data: GObject2.Object) {.inline.} =
-  gdk_window_set_user_data(self, user_data.pointer)
+  gdk_window_set_user_data(self, user_data.getPointer)
 # proc set_user_data*(self: Window, user_data: GObject2.Object) {.inline.} =
 
 # gdk_window_shape_combine_region
@@ -4999,6 +4999,47 @@ proc withdraw*(self: Window) {.inline.} =
   gdk_window_withdraw(self)
 # proc withdraw*(self: Window) {.inline.} =
 
+# object signals
+#------------------
+# Device - changed - 
+declareSignal(Device, TDevice, changed)
+# DeviceManager - device-added - device 
+# DeviceManager - device-changed - device 
+# DeviceManager - device-removed - device 
+# Display - closed - is_error 
+# Display - opened - 
+declareSignal(Display, TDisplay, opened)
+# DisplayManager - display-opened - display 
+# FrameClock - after-paint - 
+declareSignal(FrameClock, TFrameClock, after_paint)
+# FrameClock - before-paint - 
+declareSignal(FrameClock, TFrameClock, before_paint)
+# FrameClock - flush-events - 
+declareSignal(FrameClock, TFrameClock, flush_events)
+# FrameClock - layout - 
+declareSignal(FrameClock, TFrameClock, layout)
+# FrameClock - paint - 
+declareSignal(FrameClock, TFrameClock, paint)
+# FrameClock - resume-events - 
+declareSignal(FrameClock, TFrameClock, resume_events)
+# FrameClock - update - 
+declareSignal(FrameClock, TFrameClock, update)
+# Keymap - direction-changed - 
+declareSignal(Keymap, TKeymap, direction_changed)
+# Keymap - keys-changed - 
+declareSignal(Keymap, TKeymap, keys_changed)
+# Keymap - state-changed - 
+declareSignal(Keymap, TKeymap, state_changed)
+# Screen - composited-changed - 
+declareSignal(Screen, TScreen, composited_changed)
+# Screen - monitors-changed - 
+declareSignal(Screen, TScreen, monitors_changed)
+# Screen - size-changed - 
+declareSignal(Screen, TScreen, size_changed)
+# Window - create-surface - width height 
+# Window - from-embedder - embedder_x embedder_y offscreen_x offscreen_y 
+# Window - pick-embedded-child - x y 
+# Window - to-embedder - offscreen_x offscreen_y embedder_x embedder_y 
   # struct methods
   #------------------
 # struct Atom

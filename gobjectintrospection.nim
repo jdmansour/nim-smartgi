@@ -73,9 +73,11 @@ type
   TGIFieldInfo = object of TGIBaseInfo
   GIFieldInfo* = ref GSmartPtr[TGIFieldInfo]
 
-
   TGICallableInfo = object of TGIBaseInfo
   GICallableInfo* = ref GSmartPtr[TGICallableInfo]
+
+  TGISignalInfo = object of TGICallableInfo
+  GISignalInfo* = ref GSmartPtr[TGISignalInfo]
 
   TGIFunctionInfo = object of TGICallableInfo
   GIFunctionInfo* = ref GSmartPtr[TGIFunctionInfo]
@@ -554,6 +556,15 @@ iterator methods*(info: GIObjectInfo): GIFunctionInfo =
   for i in 0 .. <n:
     yield g_object_info_get_method(info, i)
 
+
+proc g_object_info_get_n_signals (info: ptr TGIObjectInfo): cint  {.cdecl, dynlib: lib, importc: "g_object_info_get_n_signals".}
+proc g_object_info_get_signal(info: ptr TGIObjectInfo,
+                         n: cint): CustomCleanupPtr[TGISignalInfo] {.cdecl, dynlib: lib, importc: "g_object_info_get_signal".}
+
+iterator signals*(info: GIObjectInfo): GISignalInfo =
+  let n = g_object_info_get_n_signals(info)
+  for i in 0 .. <n:
+    yield g_object_info_get_signal(info, i)
 
 
 

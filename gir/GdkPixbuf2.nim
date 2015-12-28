@@ -314,7 +314,7 @@ proc pixbuf_new_from_resource_at_scale*(resource_path: ustring, width: int32, he
 # 'Pixbuf' 'TransferFull[TPixbuf]' (diff., need sugar)
 proc gdk_pixbuf_new_from_stream(stream: ptr Gio2.TInputStream, cancellable: ptr Gio2.TCancellable, error: ptr PGError=nil): TransferFull[TPixbuf] {.cdecl, dynlib: lib, importc: "gdk_pixbuf_new_from_stream".}
 proc pixbuf_new_from_stream*(stream: Gio2.InputStream, cancellable: Gio2.Cancellable): Pixbuf {.inline.} =
-  wrap(gdk_pixbuf_new_from_stream(stream.pointer, cancellable.pointer))
+  wrap(gdk_pixbuf_new_from_stream(stream.getPointer, cancellable.getPointer))
 # proc pixbuf_new_from_stream*(stream: Gio2.InputStream, cancellable: Gio2.Cancellable): Pixbuf {.inline.} =
 
 # gdk_pixbuf_new_from_stream_at_scale
@@ -329,7 +329,7 @@ proc pixbuf_new_from_stream*(stream: Gio2.InputStream, cancellable: Gio2.Cancell
 # 'Pixbuf' 'TransferFull[TPixbuf]' (diff., need sugar)
 proc gdk_pixbuf_new_from_stream_at_scale(stream: ptr Gio2.TInputStream, width: int32, height: int32, preserve_aspect_ratio: bool, cancellable: ptr Gio2.TCancellable, error: ptr PGError=nil): TransferFull[TPixbuf] {.cdecl, dynlib: lib, importc: "gdk_pixbuf_new_from_stream_at_scale".}
 proc pixbuf_new_from_stream_at_scale*(stream: Gio2.InputStream, width: int32, height: int32, preserve_aspect_ratio: bool, cancellable: Gio2.Cancellable): Pixbuf {.inline.} =
-  wrap(gdk_pixbuf_new_from_stream_at_scale(stream.pointer, width, height, preserve_aspect_ratio, cancellable.pointer))
+  wrap(gdk_pixbuf_new_from_stream_at_scale(stream.getPointer, width, height, preserve_aspect_ratio, cancellable.getPointer))
 # proc pixbuf_new_from_stream_at_scale*(stream: Gio2.InputStream, width: int32, height: int32, preserve_aspect_ratio: bool, cancellable: Gio2.Cancellable): Pixbuf {.inline.} =
 
 # gdk_pixbuf_new_from_stream_finish
@@ -381,7 +381,7 @@ template get_file_info*(klass_parameter: typedesc[Pixbuf], filename: ustring, wi
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_pixbuf_get_file_info_async(filename: ucstring, cancellable: ptr Gio2.TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "gdk_pixbuf_get_file_info_async".}
 template get_file_info_async*(klass_parameter: typedesc[Pixbuf], filename: ustring, cancellable: Gio2.Cancellable, callback: pointer, user_data: pointer) =
-  gdk_pixbuf_get_file_info_async(ucstring(filename), cancellable.pointer, callback, user_data)
+  gdk_pixbuf_get_file_info_async(ucstring(filename), cancellable.getPointer, callback, user_data)
 # template get_file_info_async*(klass_parameter: typedesc[Pixbuf], filename: ustring, cancellable: Gio2.Cancellable, callback: pointer, user_data: pointer) =
 
 # gdk_pixbuf_get_file_info_finish
@@ -419,7 +419,7 @@ template get_formats*(klass_parameter: typedesc[Pixbuf]): ptr GSLIST_TODO =
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_pixbuf_new_from_stream_async(stream: ptr Gio2.TInputStream, cancellable: ptr Gio2.TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "gdk_pixbuf_new_from_stream_async".}
 template new_from_stream_async*(klass_parameter: typedesc[Pixbuf], stream: Gio2.InputStream, cancellable: Gio2.Cancellable, callback: pointer, user_data: pointer) =
-  gdk_pixbuf_new_from_stream_async(stream.pointer, cancellable.pointer, callback, user_data)
+  gdk_pixbuf_new_from_stream_async(stream.getPointer, cancellable.getPointer, callback, user_data)
 # template new_from_stream_async*(klass_parameter: typedesc[Pixbuf], stream: Gio2.InputStream, cancellable: Gio2.Cancellable, callback: pointer, user_data: pointer) =
 
 # gdk_pixbuf_new_from_stream_at_scale_async
@@ -435,7 +435,7 @@ template new_from_stream_async*(klass_parameter: typedesc[Pixbuf], stream: Gio2.
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_pixbuf_new_from_stream_at_scale_async(stream: ptr Gio2.TInputStream, width: int32, height: int32, preserve_aspect_ratio: bool, cancellable: ptr Gio2.TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "gdk_pixbuf_new_from_stream_at_scale_async".}
 template new_from_stream_at_scale_async*(klass_parameter: typedesc[Pixbuf], stream: Gio2.InputStream, width: int32, height: int32, preserve_aspect_ratio: bool, cancellable: Gio2.Cancellable, callback: pointer, user_data: pointer) =
-  gdk_pixbuf_new_from_stream_at_scale_async(stream.pointer, width, height, preserve_aspect_ratio, cancellable.pointer, callback, user_data)
+  gdk_pixbuf_new_from_stream_at_scale_async(stream.getPointer, width, height, preserve_aspect_ratio, cancellable.getPointer, callback, user_data)
 # template new_from_stream_at_scale_async*(klass_parameter: typedesc[Pixbuf], stream: Gio2.InputStream, width: int32, height: int32, preserve_aspect_ratio: bool, cancellable: Gio2.Cancellable, callback: pointer, user_data: pointer) =
 
 # gdk_pixbuf_save_to_stream_finish
@@ -488,7 +488,7 @@ proc apply_embedded_orientation*(self: Pixbuf): Pixbuf {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_pixbuf_composite(self: ptr TPixbuf, dest: ptr TPixbuf, dest_x: int32, dest_y: int32, dest_width: int32, dest_height: int32, offset_x: float64, offset_y: float64, scale_x: float64, scale_y: float64, interp_type: InterpType, overall_alpha: int32) {.cdecl, dynlib: lib, importc: "gdk_pixbuf_composite".}
 proc composite*(self: Pixbuf, dest: Pixbuf, dest_x: int32, dest_y: int32, dest_width: int32, dest_height: int32, offset_x: float64, offset_y: float64, scale_x: float64, scale_y: float64, interp_type: InterpType, overall_alpha: int32) {.inline.} =
-  gdk_pixbuf_composite(self, dest.pointer, dest_x, dest_y, dest_width, dest_height, offset_x, offset_y, scale_x, scale_y, interp_type, overall_alpha)
+  gdk_pixbuf_composite(self, dest.getPointer, dest_x, dest_y, dest_width, dest_height, offset_x, offset_y, scale_x, scale_y, interp_type, overall_alpha)
 # proc composite*(self: Pixbuf, dest: Pixbuf, dest_x: int32, dest_y: int32, dest_width: int32, dest_height: int32, offset_x: float64, offset_y: float64, scale_x: float64, scale_y: float64, interp_type: InterpType, overall_alpha: int32) {.inline.} =
 
 # gdk_pixbuf_composite_color
@@ -513,7 +513,7 @@ proc composite*(self: Pixbuf, dest: Pixbuf, dest_x: int32, dest_y: int32, dest_w
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_pixbuf_composite_color(self: ptr TPixbuf, dest: ptr TPixbuf, dest_x: int32, dest_y: int32, dest_width: int32, dest_height: int32, offset_x: float64, offset_y: float64, scale_x: float64, scale_y: float64, interp_type: InterpType, overall_alpha: int32, check_x: int32, check_y: int32, check_size: int32, color1: uint32, color2: uint32) {.cdecl, dynlib: lib, importc: "gdk_pixbuf_composite_color".}
 proc composite_color*(self: Pixbuf, dest: Pixbuf, dest_x: int32, dest_y: int32, dest_width: int32, dest_height: int32, offset_x: float64, offset_y: float64, scale_x: float64, scale_y: float64, interp_type: InterpType, overall_alpha: int32, check_x: int32, check_y: int32, check_size: int32, color1: uint32, color2: uint32) {.inline.} =
-  gdk_pixbuf_composite_color(self, dest.pointer, dest_x, dest_y, dest_width, dest_height, offset_x, offset_y, scale_x, scale_y, interp_type, overall_alpha, check_x, check_y, check_size, color1, color2)
+  gdk_pixbuf_composite_color(self, dest.getPointer, dest_x, dest_y, dest_width, dest_height, offset_x, offset_y, scale_x, scale_y, interp_type, overall_alpha, check_x, check_y, check_size, color1, color2)
 # proc composite_color*(self: Pixbuf, dest: Pixbuf, dest_x: int32, dest_y: int32, dest_width: int32, dest_height: int32, offset_x: float64, offset_y: float64, scale_x: float64, scale_y: float64, interp_type: InterpType, overall_alpha: int32, check_x: int32, check_y: int32, check_size: int32, color1: uint32, color2: uint32) {.inline.} =
 
 # gdk_pixbuf_composite_color_simple
@@ -554,7 +554,7 @@ proc copy*(self: Pixbuf): Pixbuf {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_pixbuf_copy_area(self: ptr TPixbuf, src_x: int32, src_y: int32, width: int32, height: int32, dest_pixbuf: ptr TPixbuf, dest_x: int32, dest_y: int32) {.cdecl, dynlib: lib, importc: "gdk_pixbuf_copy_area".}
 proc copy_area*(self: Pixbuf, src_x: int32, src_y: int32, width: int32, height: int32, dest_pixbuf: Pixbuf, dest_x: int32, dest_y: int32) {.inline.} =
-  gdk_pixbuf_copy_area(self, src_x, src_y, width, height, dest_pixbuf.pointer, dest_x, dest_y)
+  gdk_pixbuf_copy_area(self, src_x, src_y, width, height, dest_pixbuf.getPointer, dest_x, dest_y)
 # proc copy_area*(self: Pixbuf, src_x: int32, src_y: int32, width: int32, height: int32, dest_pixbuf: Pixbuf, dest_x: int32, dest_y: int32) {.inline.} =
 
 # gdk_pixbuf_fill
@@ -730,7 +730,7 @@ proc rotate_simple*(self: Pixbuf, angle: PixbufRotation): Pixbuf {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_pixbuf_saturate_and_pixelate(self: ptr TPixbuf, dest: ptr TPixbuf, saturation: float32, pixelate: bool) {.cdecl, dynlib: lib, importc: "gdk_pixbuf_saturate_and_pixelate".}
 proc saturate_and_pixelate*(self: Pixbuf, dest: Pixbuf, saturation: float32, pixelate: bool) {.inline.} =
-  gdk_pixbuf_saturate_and_pixelate(self, dest.pointer, saturation, pixelate)
+  gdk_pixbuf_saturate_and_pixelate(self, dest.getPointer, saturation, pixelate)
 # proc saturate_and_pixelate*(self: Pixbuf, dest: Pixbuf, saturation: float32, pixelate: bool) {.inline.} =
 
 # gdk_pixbuf_save_to_bufferv
@@ -810,7 +810,7 @@ proc savev_utf8*(self: Pixbuf, filename: ustring, type_x: ustring, option_keys: 
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_pixbuf_scale(self: ptr TPixbuf, dest: ptr TPixbuf, dest_x: int32, dest_y: int32, dest_width: int32, dest_height: int32, offset_x: float64, offset_y: float64, scale_x: float64, scale_y: float64, interp_type: InterpType) {.cdecl, dynlib: lib, importc: "gdk_pixbuf_scale".}
 proc scale*(self: Pixbuf, dest: Pixbuf, dest_x: int32, dest_y: int32, dest_width: int32, dest_height: int32, offset_x: float64, offset_y: float64, scale_x: float64, scale_y: float64, interp_type: InterpType) {.inline.} =
-  gdk_pixbuf_scale(self, dest.pointer, dest_x, dest_y, dest_width, dest_height, offset_x, offset_y, scale_x, scale_y, interp_type)
+  gdk_pixbuf_scale(self, dest.getPointer, dest_x, dest_y, dest_width, dest_height, offset_x, offset_y, scale_x, scale_y, interp_type)
 # proc scale*(self: Pixbuf, dest: Pixbuf, dest_x: int32, dest_y: int32, dest_width: int32, dest_height: int32, offset_x: float64, offset_y: float64, scale_x: float64, scale_y: float64, interp_type: InterpType) {.inline.} =
 
 # gdk_pixbuf_scale_simple
@@ -867,7 +867,7 @@ proc pixbufanimation_new_from_resource*(resource_path: ustring): PixbufAnimation
 # 'PixbufAnimation' 'TransferFull[TPixbufAnimation]' (diff., need sugar)
 proc gdk_pixbuf_animation_new_from_stream(stream: ptr Gio2.TInputStream, cancellable: ptr Gio2.TCancellable, error: ptr PGError=nil): TransferFull[TPixbufAnimation] {.cdecl, dynlib: lib, importc: "gdk_pixbuf_animation_new_from_stream".}
 proc pixbufanimation_new_from_stream*(stream: Gio2.InputStream, cancellable: Gio2.Cancellable): PixbufAnimation {.inline.} =
-  wrap(gdk_pixbuf_animation_new_from_stream(stream.pointer, cancellable.pointer))
+  wrap(gdk_pixbuf_animation_new_from_stream(stream.getPointer, cancellable.getPointer))
 # proc pixbufanimation_new_from_stream*(stream: Gio2.InputStream, cancellable: Gio2.Cancellable): PixbufAnimation {.inline.} =
 
 # gdk_pixbuf_animation_new_from_stream_finish
@@ -891,7 +891,7 @@ proc pixbufanimation_new_from_stream_finish*(async_result: Gio2.AsyncResult): Pi
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_pixbuf_animation_new_from_stream_async(stream: ptr Gio2.TInputStream, cancellable: ptr Gio2.TCancellable, callback: pointer, user_data: pointer) {.cdecl, dynlib: lib, importc: "gdk_pixbuf_animation_new_from_stream_async".}
 template new_from_stream_async*(klass_parameter: typedesc[PixbufAnimation], stream: Gio2.InputStream, cancellable: Gio2.Cancellable, callback: pointer, user_data: pointer) =
-  gdk_pixbuf_animation_new_from_stream_async(stream.pointer, cancellable.pointer, callback, user_data)
+  gdk_pixbuf_animation_new_from_stream_async(stream.getPointer, cancellable.getPointer, callback, user_data)
 # template new_from_stream_async*(klass_parameter: typedesc[PixbufAnimation], stream: Gio2.InputStream, cancellable: Gio2.Cancellable, callback: pointer, user_data: pointer) =
 
 # gdk_pixbuf_animation_get_height
@@ -1098,7 +1098,7 @@ proc pixbufsimpleanim_new*(width: int32, height: int32, rate: float32): PixbufSi
 # 'VOID_TODO' 'VOID_TODO'
 proc gdk_pixbuf_simple_anim_add_frame(self: ptr TPixbufSimpleAnim, pixbuf: ptr TPixbuf) {.cdecl, dynlib: lib, importc: "gdk_pixbuf_simple_anim_add_frame".}
 proc add_frame*(self: PixbufSimpleAnim, pixbuf: Pixbuf) {.inline.} =
-  gdk_pixbuf_simple_anim_add_frame(self, pixbuf.pointer)
+  gdk_pixbuf_simple_anim_add_frame(self, pixbuf.getPointer)
 # proc add_frame*(self: PixbufSimpleAnim, pixbuf: Pixbuf) {.inline.} =
 
 # gdk_pixbuf_simple_anim_get_loop
@@ -1120,6 +1120,14 @@ proc set_loop*(self: PixbufSimpleAnim, loop: bool) {.inline.} =
   gdk_pixbuf_simple_anim_set_loop(self, loop)
 # proc set_loop*(self: PixbufSimpleAnim, loop: bool) {.inline.} =
 
+# object signals
+#------------------
+# PixbufLoader - area-prepared - 
+declareSignal(PixbufLoader, TPixbufLoader, area_prepared)
+# PixbufLoader - area-updated - x y width height 
+# PixbufLoader - closed - 
+declareSignal(PixbufLoader, TPixbufLoader, closed)
+# PixbufLoader - size-prepared - width height 
   # struct methods
   #------------------
 # struct PixbufFormat

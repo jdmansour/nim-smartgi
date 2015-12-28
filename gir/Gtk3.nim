@@ -34123,6 +34123,542 @@ proc remove_window*(self: WindowGroup, window: Window) {.inline.} =
   gtk_window_group_remove_window(self, window.getPointer)
 # proc remove_window*(self: WindowGroup, window: Window) {.inline.} =
 
+# object signals
+#------------------
+# AboutDialog - activate-link - uri 
+# AccelGroup - accel-activate - acceleratable keyval modifier 
+# AccelGroup - accel-changed - keyval modifier accel_closure 
+# AccelMap - changed - accel_path accel_key accel_mods 
+# Action - activate - 
+declareSignal(Action, TAction, activate)
+# ActionGroup - connect-proxy - action proxy 
+# ActionGroup - disconnect-proxy - action proxy 
+# ActionGroup - post-activate - action 
+# ActionGroup - pre-activate - action 
+# Adjustment - changed - 
+declareSignal(Adjustment, TAdjustment, changed)
+# Adjustment - value-changed - 
+declareSignal(Adjustment, TAdjustment, value_changed)
+# AppChooserButton - custom-item-activated - item_name 
+# AppChooserWidget - application-activated - application 
+# AppChooserWidget - application-selected - application 
+# AppChooserWidget - populate-popup - menu application 
+# Application - window-added - window 
+# Application - window-removed - window 
+# Assistant - apply - 
+declareSignal(Assistant, TAssistant, apply)
+# Assistant - cancel - 
+declareSignal(Assistant, TAssistant, cancel)
+# Assistant - close - 
+declareSignal(Assistant, TAssistant, close)
+# Assistant - escape - 
+declareSignal(Assistant, TAssistant, escape)
+# Assistant - prepare - page 
+# Button - activate - 
+declareSignal(Button, TButton, activate)
+# Button - clicked - 
+declareSignal(Button, TButton, clicked)
+# Button - enter - 
+declareSignal(Button, TButton, enter)
+# Button - leave - 
+declareSignal(Button, TButton, leave)
+# Button - pressed - 
+declareSignal(Button, TButton, pressed)
+# Button - released - 
+declareSignal(Button, TButton, released)
+# Calendar - day-selected - 
+declareSignal(Calendar, TCalendar, day_selected)
+# Calendar - day-selected-double-click - 
+declareSignal(Calendar, TCalendar, day_selected_double_click)
+# Calendar - month-changed - 
+declareSignal(Calendar, TCalendar, month_changed)
+# Calendar - next-month - 
+declareSignal(Calendar, TCalendar, next_month)
+# Calendar - next-year - 
+declareSignal(Calendar, TCalendar, next_year)
+# Calendar - prev-month - 
+declareSignal(Calendar, TCalendar, prev_month)
+# Calendar - prev-year - 
+declareSignal(Calendar, TCalendar, prev_year)
+# CellArea - add-editable - renderer editable cell_area path 
+# CellArea - apply-attributes - model iter is_expander is_expanded 
+# CellArea - focus-changed - renderer path 
+# CellArea - remove-editable - renderer editable 
+# CellRenderer - editing-canceled - 
+declareSignal(CellRenderer, TCellRenderer, editing_canceled)
+# CellRenderer - editing-started - editable path 
+# CellRendererAccel - accel-cleared - path_string 
+# CellRendererAccel - accel-edited - path_string accel_key accel_mods hardware_keycode 
+# CellRendererCombo - changed - path_string new_iter 
+# CellRendererText - edited - path new_text 
+# CellRendererToggle - toggled - path 
+# CheckMenuItem - toggled - 
+declareSignal(CheckMenuItem, TCheckMenuItem, toggled)
+# Clipboard - owner-change - event 
+# ColorButton - color-set - 
+declareSignal(ColorButton, TColorButton, color_set)
+# ColorSelection - color-changed - 
+declareSignal(ColorSelection, TColorSelection, color_changed)
+# ComboBox - changed - 
+declareSignal(ComboBox, TComboBox, changed)
+# ComboBox - format-entry-text - path 
+# ComboBox - move-active - scroll_type 
+# ComboBox - popdown - 
+declareSignal(ComboBox, TComboBox, popdown)
+# ComboBox - popup - 
+declareSignal(ComboBox, TComboBox, popup)
+# Container - add - object 
+# Container - check-resize - 
+declareSignal(Container, TContainer, check_resize)
+# Container - remove - object 
+# Container - set-focus-child - object 
+# CssProvider - parsing-error - section error 
+# Dialog - close - 
+declareSignal(Dialog, TDialog, close)
+# Dialog - response - response_id 
+# Entry - activate - 
+declareSignal(Entry, TEntry, activate)
+# Entry - backspace - 
+declareSignal(Entry, TEntry, backspace)
+# Entry - copy-clipboard - 
+declareSignal(Entry, TEntry, copy_clipboard)
+# Entry - cut-clipboard - 
+declareSignal(Entry, TEntry, cut_clipboard)
+# Entry - delete-from-cursor - type count 
+# Entry - icon-press - icon_pos event 
+# Entry - icon-release - icon_pos event 
+# Entry - insert-at-cursor - string 
+# Entry - move-cursor - step count extend_selection 
+# Entry - paste-clipboard - 
+declareSignal(Entry, TEntry, paste_clipboard)
+# Entry - populate-popup - popup 
+# Entry - preedit-changed - preedit 
+# Entry - toggle-overwrite - 
+declareSignal(Entry, TEntry, toggle_overwrite)
+# EntryBuffer - deleted-text - position n_chars 
+# EntryBuffer - inserted-text - position chars n_chars 
+# EntryCompletion - action-activated - index 
+# EntryCompletion - cursor-on-match - model iter 
+# EntryCompletion - insert-prefix - prefix 
+# EntryCompletion - match-selected - model iter 
+# EntryCompletion - no-matches - 
+declareSignal(EntryCompletion, TEntryCompletion, no_matches)
+# Expander - activate - 
+declareSignal(Expander, TExpander, activate)
+# FileChooserButton - file-set - 
+declareSignal(FileChooserButton, TFileChooserButton, file_set)
+# FileChooserWidget - desktop-folder - 
+declareSignal(FileChooserWidget, TFileChooserWidget, desktop_folder)
+# FileChooserWidget - down-folder - 
+declareSignal(FileChooserWidget, TFileChooserWidget, down_folder)
+# FileChooserWidget - home-folder - 
+declareSignal(FileChooserWidget, TFileChooserWidget, home_folder)
+# FileChooserWidget - location-popup - path 
+# FileChooserWidget - location-popup-on-paste - 
+declareSignal(FileChooserWidget, TFileChooserWidget, location_popup_on_paste)
+# FileChooserWidget - location-toggle-popup - 
+declareSignal(FileChooserWidget, TFileChooserWidget, location_toggle_popup)
+# FileChooserWidget - quick-bookmark - bookmark_index 
+# FileChooserWidget - recent-shortcut - 
+declareSignal(FileChooserWidget, TFileChooserWidget, recent_shortcut)
+# FileChooserWidget - search-shortcut - 
+declareSignal(FileChooserWidget, TFileChooserWidget, search_shortcut)
+# FileChooserWidget - show-hidden - 
+declareSignal(FileChooserWidget, TFileChooserWidget, show_hidden)
+# FileChooserWidget - up-folder - 
+declareSignal(FileChooserWidget, TFileChooserWidget, up_folder)
+# FlowBox - activate-cursor-child - 
+declareSignal(FlowBox, TFlowBox, activate_cursor_child)
+# FlowBox - child-activated - child 
+# FlowBox - move-cursor - step count 
+# FlowBox - select-all - 
+declareSignal(FlowBox, TFlowBox, select_all)
+# FlowBox - selected-children-changed - 
+declareSignal(FlowBox, TFlowBox, selected_children_changed)
+# FlowBox - toggle-cursor-child - 
+declareSignal(FlowBox, TFlowBox, toggle_cursor_child)
+# FlowBox - unselect-all - 
+declareSignal(FlowBox, TFlowBox, unselect_all)
+# FlowBoxChild - activate - 
+declareSignal(FlowBoxChild, TFlowBoxChild, activate)
+# FontButton - font-set - 
+declareSignal(FontButton, TFontButton, font_set)
+# Gesture - begin - sequence 
+# Gesture - cancel - sequence 
+# Gesture - end - sequence 
+# Gesture - sequence-state-changed - sequence state 
+# Gesture - update - sequence 
+# GestureDrag - drag-begin - start_x start_y 
+# GestureDrag - drag-end - offset_x offset_y 
+# GestureDrag - drag-update - offset_x offset_y 
+# GestureLongPress - cancelled - 
+declareSignal(GestureLongPress, TGestureLongPress, cancelled)
+# GestureLongPress - pressed - x y 
+# GestureMultiPress - pressed - n_press x y 
+# GestureMultiPress - released - n_press x y 
+# GestureMultiPress - stopped - 
+declareSignal(GestureMultiPress, TGestureMultiPress, stopped)
+# GesturePan - pan - direction offset 
+# GestureRotate - angle-changed - angle angle_delta 
+# GestureSwipe - swipe - velocity_x velocity_y 
+# GestureZoom - scale-changed - scale 
+# HSV - changed - 
+declareSignal(HSV, THSV, changed)
+# HSV - move - object 
+# HandleBox - child-attached - widget 
+# HandleBox - child-detached - widget 
+# IMContext - commit - str 
+# IMContext - delete-surrounding - offset n_chars 
+# IMContext - preedit-changed - 
+declareSignal(IMContext, TIMContext, preedit_changed)
+# IMContext - preedit-end - 
+declareSignal(IMContext, TIMContext, preedit_end)
+# IMContext - preedit-start - 
+declareSignal(IMContext, TIMContext, preedit_start)
+# IMContext - retrieve-surrounding - 
+declareSignal(IMContext, TIMContext, retrieve_surrounding)
+# IconTheme - changed - 
+declareSignal(IconTheme, TIconTheme, changed)
+# IconView - activate-cursor-item - 
+declareSignal(IconView, TIconView, activate_cursor_item)
+# IconView - item-activated - path 
+# IconView - move-cursor - step count 
+# IconView - select-all - 
+declareSignal(IconView, TIconView, select_all)
+# IconView - select-cursor-item - 
+declareSignal(IconView, TIconView, select_cursor_item)
+# IconView - selection-changed - 
+declareSignal(IconView, TIconView, selection_changed)
+# IconView - toggle-cursor-item - 
+declareSignal(IconView, TIconView, toggle_cursor_item)
+# IconView - unselect-all - 
+declareSignal(IconView, TIconView, unselect_all)
+# InfoBar - close - 
+declareSignal(InfoBar, TInfoBar, close)
+# InfoBar - response - response_id 
+# Label - activate-current-link - 
+declareSignal(Label, TLabel, activate_current_link)
+# Label - activate-link - uri 
+# Label - copy-clipboard - 
+declareSignal(Label, TLabel, copy_clipboard)
+# Label - move-cursor - step count extend_selection 
+# Label - populate-popup - menu 
+# LevelBar - offset-changed - name 
+# LinkButton - activate-link - 
+declareSignal(LinkButton, TLinkButton, activate_link)
+# ListBox - activate-cursor-row - 
+declareSignal(ListBox, TListBox, activate_cursor_row)
+# ListBox - move-cursor - object p0 
+# ListBox - row-activated - row 
+# ListBox - row-selected - row 
+# ListBox - select-all - 
+declareSignal(ListBox, TListBox, select_all)
+# ListBox - selected-rows-changed - 
+declareSignal(ListBox, TListBox, selected_rows_changed)
+# ListBox - toggle-cursor-row - 
+declareSignal(ListBox, TListBox, toggle_cursor_row)
+# ListBox - unselect-all - 
+declareSignal(ListBox, TListBox, unselect_all)
+# ListBoxRow - activate - 
+declareSignal(ListBoxRow, TListBoxRow, activate)
+# Menu - move-scroll - scroll_type 
+# MenuItem - activate - 
+declareSignal(MenuItem, TMenuItem, activate)
+# MenuItem - activate-item - 
+declareSignal(MenuItem, TMenuItem, activate_item)
+# MenuItem - deselect - 
+declareSignal(MenuItem, TMenuItem, deselect)
+# MenuItem - select - 
+declareSignal(MenuItem, TMenuItem, select)
+# MenuItem - toggle-size-allocate - object 
+# MenuItem - toggle-size-request - object 
+# MenuShell - activate-current - force_hide 
+# MenuShell - cancel - 
+declareSignal(MenuShell, TMenuShell, cancel)
+# MenuShell - cycle-focus - direction 
+# MenuShell - deactivate - 
+declareSignal(MenuShell, TMenuShell, deactivate)
+# MenuShell - insert - child position 
+# MenuShell - move-current - direction 
+# MenuShell - move-selected - distance 
+# MenuShell - selection-done - 
+declareSignal(MenuShell, TMenuShell, selection_done)
+# MenuToolButton - show-menu - 
+declareSignal(MenuToolButton, TMenuToolButton, show_menu)
+# Notebook - change-current-page - object 
+# Notebook - create-window - page x y 
+# Notebook - focus-tab - object 
+# Notebook - move-focus-out - object 
+# Notebook - page-added - child page_num 
+# Notebook - page-removed - child page_num 
+# Notebook - page-reordered - child page_num 
+# Notebook - reorder-tab - object p0 
+# Notebook - select-page - object 
+# Notebook - switch-page - page page_num 
+# Overlay - get-child-position - widget allocation 
+# Paned - accept-position - 
+declareSignal(Paned, TPaned, accept_position)
+# Paned - cancel-position - 
+declareSignal(Paned, TPaned, cancel_position)
+# Paned - cycle-child-focus - reversed 
+# Paned - cycle-handle-focus - reversed 
+# Paned - move-handle - scroll_type 
+# Paned - toggle-handle-focus - 
+declareSignal(Paned, TPaned, toggle_handle_focus)
+# PlacesSidebar - drag-action-ask - actions 
+# PlacesSidebar - drag-action-requested - context dest_file source_file_list 
+# PlacesSidebar - drag-perform-drop - dest_file source_file_list action 
+# PlacesSidebar - open-location - location open_flags 
+# PlacesSidebar - populate-popup - menu selected_item selected_volume 
+# PlacesSidebar - show-connect-to-server - 
+declareSignal(PlacesSidebar, TPlacesSidebar, show_connect_to_server)
+# PlacesSidebar - show-enter-location - 
+declareSignal(PlacesSidebar, TPlacesSidebar, show_enter_location)
+# PlacesSidebar - show-error-message - primary secondary 
+# Popover - closed - 
+declareSignal(Popover, TPopover, closed)
+# PrintOperation - begin-print - context 
+# PrintOperation - create-custom-widget - 
+declareSignal(PrintOperation, TPrintOperation, create_custom_widget)
+# PrintOperation - custom-widget-apply - widget 
+# PrintOperation - done - result 
+# PrintOperation - draw-page - context page_nr 
+# PrintOperation - end-print - context 
+# PrintOperation - paginate - context 
+# PrintOperation - preview - preview context parent 
+# PrintOperation - request-page-setup - context page_nr setup 
+# PrintOperation - status-changed - 
+declareSignal(PrintOperation, TPrintOperation, status_changed)
+# PrintOperation - update-custom-widget - widget setup settings 
+# RadioAction - changed - current 
+# RadioButton - group-changed - 
+declareSignal(RadioButton, TRadioButton, group_changed)
+# RadioMenuItem - group-changed - 
+declareSignal(RadioMenuItem, TRadioMenuItem, group_changed)
+# Range - adjust-bounds - value 
+# Range - change-value - scroll value 
+# Range - move-slider - step 
+# Range - value-changed - 
+declareSignal(Range, TRange, value_changed)
+# RecentManager - changed - 
+declareSignal(RecentManager, TRecentManager, changed)
+# Scale - format-value - value 
+# ScaleButton - popdown - 
+declareSignal(ScaleButton, TScaleButton, popdown)
+# ScaleButton - popup - 
+declareSignal(ScaleButton, TScaleButton, popup)
+# ScaleButton - value-changed - value 
+# ScrolledWindow - move-focus-out - direction_type 
+# ScrolledWindow - scroll-child - scroll horizontal 
+# SearchEntry - search-changed - 
+declareSignal(SearchEntry, TSearchEntry, search_changed)
+# SpinButton - change-value - scroll 
+# SpinButton - input - new_value 
+# SpinButton - output - 
+declareSignal(SpinButton, TSpinButton, output)
+# SpinButton - value-changed - 
+declareSignal(SpinButton, TSpinButton, value_changed)
+# SpinButton - wrapped - 
+declareSignal(SpinButton, TSpinButton, wrapped)
+# StatusIcon - activate - 
+declareSignal(StatusIcon, TStatusIcon, activate)
+# StatusIcon - button-press-event - event 
+# StatusIcon - button-release-event - event 
+# StatusIcon - popup-menu - button activate_time 
+# StatusIcon - query-tooltip - x y keyboard_mode tooltip 
+# StatusIcon - scroll-event - event 
+# StatusIcon - size-changed - size 
+# Statusbar - text-popped - context_id text 
+# Statusbar - text-pushed - context_id text 
+# Style - realize - 
+declareSignal(Style, TStyle, realize)
+# Style - unrealize - 
+declareSignal(Style, TStyle, unrealize)
+# StyleContext - changed - 
+declareSignal(StyleContext, TStyleContext, changed)
+# Switch - activate - 
+declareSignal(Switch, TSwitch, activate)
+# Switch - state-set - state 
+# TextBuffer - apply-tag - tag start end 
+# TextBuffer - begin-user-action - 
+declareSignal(TextBuffer, TTextBuffer, begin_user_action)
+# TextBuffer - changed - 
+declareSignal(TextBuffer, TTextBuffer, changed)
+# TextBuffer - delete-range - start end 
+# TextBuffer - end-user-action - 
+declareSignal(TextBuffer, TTextBuffer, end_user_action)
+# TextBuffer - insert-child-anchor - location anchor 
+# TextBuffer - insert-pixbuf - location pixbuf 
+# TextBuffer - insert-text - location text len 
+# TextBuffer - mark-deleted - mark 
+# TextBuffer - mark-set - location mark 
+# TextBuffer - modified-changed - 
+declareSignal(TextBuffer, TTextBuffer, modified_changed)
+# TextBuffer - paste-done - clipboard 
+# TextBuffer - remove-tag - tag start end 
+# TextTag - event - object event iter 
+# TextTagTable - tag-added - tag 
+# TextTagTable - tag-changed - tag size_changed 
+# TextTagTable - tag-removed - tag 
+# TextView - backspace - 
+declareSignal(TextView, TTextView, backspace)
+# TextView - copy-clipboard - 
+declareSignal(TextView, TTextView, copy_clipboard)
+# TextView - cut-clipboard - 
+declareSignal(TextView, TTextView, cut_clipboard)
+# TextView - delete-from-cursor - type count 
+# TextView - insert-at-cursor - string 
+# TextView - move-cursor - step count extend_selection 
+# TextView - move-viewport - step count 
+# TextView - paste-clipboard - 
+declareSignal(TextView, TTextView, paste_clipboard)
+# TextView - populate-popup - popup 
+# TextView - preedit-changed - preedit 
+# TextView - select-all - select 
+# TextView - set-anchor - 
+declareSignal(TextView, TTextView, set_anchor)
+# TextView - toggle-cursor-visible - 
+declareSignal(TextView, TTextView, toggle_cursor_visible)
+# TextView - toggle-overwrite - 
+declareSignal(TextView, TTextView, toggle_overwrite)
+# ToggleAction - toggled - 
+declareSignal(ToggleAction, TToggleAction, toggled)
+# ToggleButton - toggled - 
+declareSignal(ToggleButton, TToggleButton, toggled)
+# ToggleToolButton - toggled - 
+declareSignal(ToggleToolButton, TToggleToolButton, toggled)
+# ToolButton - clicked - 
+declareSignal(ToolButton, TToolButton, clicked)
+# ToolItem - create-menu-proxy - 
+declareSignal(ToolItem, TToolItem, create_menu_proxy)
+# ToolItem - toolbar-reconfigured - 
+declareSignal(ToolItem, TToolItem, toolbar_reconfigured)
+# Toolbar - focus-home-or-end - focus_home 
+# Toolbar - orientation-changed - orientation 
+# Toolbar - popup-context-menu - x y button 
+# Toolbar - style-changed - style 
+# TreeSelection - changed - 
+declareSignal(TreeSelection, TTreeSelection, changed)
+# TreeView - columns-changed - 
+declareSignal(TreeView, TTreeView, columns_changed)
+# TreeView - cursor-changed - 
+declareSignal(TreeView, TTreeView, cursor_changed)
+# TreeView - expand-collapse-cursor-row - object p0 p1 
+# TreeView - move-cursor - step direction 
+# TreeView - row-activated - path column 
+# TreeView - row-collapsed - iter path 
+# TreeView - row-expanded - iter path 
+# TreeView - select-all - 
+declareSignal(TreeView, TTreeView, select_all)
+# TreeView - select-cursor-parent - 
+declareSignal(TreeView, TTreeView, select_cursor_parent)
+# TreeView - select-cursor-row - object 
+# TreeView - start-interactive-search - 
+declareSignal(TreeView, TTreeView, start_interactive_search)
+# TreeView - test-collapse-row - iter path 
+# TreeView - test-expand-row - iter path 
+# TreeView - toggle-cursor-row - 
+declareSignal(TreeView, TTreeView, toggle_cursor_row)
+# TreeView - unselect-all - 
+declareSignal(TreeView, TTreeView, unselect_all)
+# TreeViewColumn - clicked - 
+declareSignal(TreeViewColumn, TTreeViewColumn, clicked)
+# UIManager - actions-changed - 
+declareSignal(UIManager, TUIManager, actions_changed)
+# UIManager - add-widget - widget 
+# UIManager - connect-proxy - action proxy 
+# UIManager - disconnect-proxy - action proxy 
+# UIManager - post-activate - action 
+# UIManager - pre-activate - action 
+# Widget - accel-closures-changed - 
+declareSignal(Widget, TWidget, accel_closures_changed)
+# Widget - button-press-event - event 
+# Widget - button-release-event - event 
+# Widget - can-activate-accel - signal_id 
+# Widget - child-notify - child_property 
+# Widget - composited-changed - 
+declareSignal(Widget, TWidget, composited_changed)
+# Widget - configure-event - event 
+# Widget - damage-event - event 
+# Widget - delete-event - event 
+# Widget - destroy - 
+declareSignal(Widget, TWidget, destroy)
+# Widget - destroy-event - event 
+# Widget - direction-changed - previous_direction 
+# Widget - drag-begin - context 
+# Widget - drag-data-delete - context 
+# Widget - drag-data-get - context data info time 
+# Widget - drag-data-received - context x y data info time 
+# Widget - drag-drop - context x y time 
+# Widget - drag-end - context 
+# Widget - drag-failed - context result 
+# Widget - drag-leave - context time 
+# Widget - drag-motion - context x y time 
+# Widget - draw - cr 
+# Widget - enter-notify-event - event 
+# Widget - event - event 
+# Widget - event-after - event 
+# Widget - focus - direction 
+# Widget - focus-in-event - event 
+# Widget - focus-out-event - event 
+# Widget - grab-broken-event - event 
+# Widget - grab-focus - 
+declareSignal(Widget, TWidget, grab_focus)
+# Widget - grab-notify - was_grabbed 
+# Widget - hide - 
+declareSignal(Widget, TWidget, hide)
+# Widget - hierarchy-changed - previous_toplevel 
+# Widget - key-press-event - event 
+# Widget - key-release-event - event 
+# Widget - keynav-failed - direction 
+# Widget - leave-notify-event - event 
+# Widget - map - 
+declareSignal(Widget, TWidget, map)
+# Widget - map-event - event 
+# Widget - mnemonic-activate - arg1 
+# Widget - motion-notify-event - event 
+# Widget - move-focus - direction 
+# Widget - parent-set - old_parent 
+# Widget - popup-menu - 
+declareSignal(Widget, TWidget, popup_menu)
+# Widget - property-notify-event - event 
+# Widget - proximity-in-event - event 
+# Widget - proximity-out-event - event 
+# Widget - query-tooltip - x y keyboard_mode tooltip 
+# Widget - realize - 
+declareSignal(Widget, TWidget, realize)
+# Widget - screen-changed - previous_screen 
+# Widget - scroll-event - event 
+# Widget - selection-clear-event - event 
+# Widget - selection-get - data info time 
+# Widget - selection-notify-event - event 
+# Widget - selection-received - data time 
+# Widget - selection-request-event - event 
+# Widget - show - 
+declareSignal(Widget, TWidget, show)
+# Widget - show-help - help_type 
+# Widget - size-allocate - allocation 
+# Widget - state-changed - state 
+# Widget - state-flags-changed - flags 
+# Widget - style-set - previous_style 
+# Widget - style-updated - 
+declareSignal(Widget, TWidget, style_updated)
+# Widget - touch-event - object 
+# Widget - unmap - 
+declareSignal(Widget, TWidget, unmap)
+# Widget - unmap-event - event 
+# Widget - unrealize - 
+declareSignal(Widget, TWidget, unrealize)
+# Widget - visibility-notify-event - event 
+# Widget - window-state-event - event 
+# Window - activate-default - 
+declareSignal(Window, TWindow, activate_default)
+# Window - activate-focus - 
+declareSignal(Window, TWindow, activate_focus)
+# Window - enable-debugging - toggle 
+# Window - keys-changed - 
+declareSignal(Window, TWindow, keys_changed)
+# Window - set-focus - object 
   # struct methods
   #------------------
 # struct AboutDialogClass

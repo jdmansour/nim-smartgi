@@ -71,6 +71,8 @@ converter unwrap[T](s: ref GSmartPtr[T]): ptr T = s.pointer
 proc cairo_image_surface_create*() {.cdecl, dynlib: lib, importc: "cairo_image_surface_create".}
   # object methods
   #------------------
+# object signals
+#------------------
   # struct methods
   #------------------
 # struct Context

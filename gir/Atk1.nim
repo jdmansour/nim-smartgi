@@ -1095,7 +1095,7 @@ proc atk_value_type_get_name*(value_type: ValueType): ustring {.inline.} =
 # 'Object' 'TransferNone[TObject]' (diff., need sugar)
 proc atk_gobject_accessible_for_object(obj: ptr GObject2.TObject): TransferNone[TObject] {.cdecl, dynlib: lib, importc: "atk_gobject_accessible_for_object".}
 template for_object*(klass_parameter: typedesc[GObjectAccessible], obj: GObject2.Object): Object =
-  wrap(atk_gobject_accessible_for_object(obj.pointer))
+  wrap(atk_gobject_accessible_for_object(obj.getPointer))
 # template for_object*(klass_parameter: typedesc[GObjectAccessible], obj: GObject2.Object): Object =
 
 # atk_gobject_accessible_get_object
@@ -1187,7 +1187,7 @@ proc is_valid*(self: Hyperlink): bool {.inline.} =
 # 'NoOpObject' 'TransferFull[TNoOpObject]' (diff., need sugar)
 proc atk_no_op_object_new(obj: ptr GObject2.TObject): TransferFull[TNoOpObject] {.cdecl, dynlib: lib, importc: "atk_no_op_object_new".}
 proc noopobject_new*(obj: GObject2.Object): NoOpObject {.inline.} =
-  wrap(atk_no_op_object_new(obj.pointer))
+  wrap(atk_no_op_object_new(obj.getPointer))
 # proc noopobject_new*(obj: GObject2.Object): NoOpObject {.inline.} =
 
 # atk_no_op_object_factory_new
@@ -1207,7 +1207,7 @@ proc noopobjectfactory_new*(): NoOpObjectFactory {.inline.} =
 # 'bool' 'bool'
 proc atk_object_add_relationship(self: ptr TObject, relationship: RelationType, target: ptr TObject): bool {.cdecl, dynlib: lib, importc: "atk_object_add_relationship".}
 proc add_relationship*(self: Object, relationship: RelationType, target: Object): bool {.inline.} =
-  atk_object_add_relationship(self, relationship, target.pointer)
+  atk_object_add_relationship(self, relationship, target.getPointer)
 # proc add_relationship*(self: Object, relationship: RelationType, target: Object): bool {.inline.} =
 
 # atk_object_get_attributes
@@ -1354,7 +1354,7 @@ proc ref_state_set*(self: Object): StateSet {.inline.} =
 # 'bool' 'bool'
 proc atk_object_remove_relationship(self: ptr TObject, relationship: RelationType, target: ptr TObject): bool {.cdecl, dynlib: lib, importc: "atk_object_remove_relationship".}
 proc remove_relationship*(self: Object, relationship: RelationType, target: Object): bool {.inline.} =
-  atk_object_remove_relationship(self, relationship, target.pointer)
+  atk_object_remove_relationship(self, relationship, target.getPointer)
 # proc remove_relationship*(self: Object, relationship: RelationType, target: Object): bool {.inline.} =
 
 # atk_object_set_description
@@ -1384,7 +1384,7 @@ proc set_name*(self: Object, name: ustring) {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc atk_object_set_parent(self: ptr TObject, parent: ptr TObject) {.cdecl, dynlib: lib, importc: "atk_object_set_parent".}
 proc set_parent*(self: Object, parent: Object) {.inline.} =
-  atk_object_set_parent(self, parent.pointer)
+  atk_object_set_parent(self, parent.getPointer)
 # proc set_parent*(self: Object, parent: Object) {.inline.} =
 
 # atk_object_set_role
@@ -1404,7 +1404,7 @@ proc set_role*(self: Object, role: Role) {.inline.} =
 # 'Object' 'TransferFull[TObject]' (diff., need sugar)
 proc atk_object_factory_create_accessible(self: ptr TObjectFactory, obj: ptr GObject2.TObject): TransferFull[TObject] {.cdecl, dynlib: lib, importc: "atk_object_factory_create_accessible".}
 proc create_accessible*(self: ObjectFactory, obj: GObject2.Object): Object {.inline.} =
-  wrap(atk_object_factory_create_accessible(self, obj.pointer))
+  wrap(atk_object_factory_create_accessible(self, obj.getPointer))
 # proc create_accessible*(self: ObjectFactory, obj: GObject2.Object): Object {.inline.} =
 
 # atk_object_factory_get_accessible_type
@@ -1493,7 +1493,7 @@ proc relation_new*(targets: var openarray[ptr TObject], relationship: RelationTy
 # 'VOID_TODO' 'VOID_TODO'
 proc atk_relation_add_target(self: ptr TRelation, target: ptr TObject) {.cdecl, dynlib: lib, importc: "atk_relation_add_target".}
 proc add_target*(self: Relation, target: Object) {.inline.} =
-  atk_relation_add_target(self, target.pointer)
+  atk_relation_add_target(self, target.getPointer)
 # proc add_target*(self: Relation, target: Object) {.inline.} =
 
 # atk_relation_get_relation_type
@@ -1521,7 +1521,7 @@ proc get_target*(self: Relation): zeroTerminatedArray[ptr TObject] {.inline.} =
 # 'bool' 'bool'
 proc atk_relation_remove_target(self: ptr TRelation, target: ptr TObject): bool {.cdecl, dynlib: lib, importc: "atk_relation_remove_target".}
 proc remove_target*(self: Relation, target: Object): bool {.inline.} =
-  atk_relation_remove_target(self, target.pointer)
+  atk_relation_remove_target(self, target.getPointer)
 # proc remove_target*(self: Relation, target: Object): bool {.inline.} =
 
 # atk_relation_set_new
@@ -1540,7 +1540,7 @@ proc relationset_new*(): RelationSet {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc atk_relation_set_add(self: ptr TRelationSet, relation: ptr TRelation) {.cdecl, dynlib: lib, importc: "atk_relation_set_add".}
 proc add*(self: RelationSet, relation: Relation) {.inline.} =
-  atk_relation_set_add(self, relation.pointer)
+  atk_relation_set_add(self, relation.getPointer)
 # proc add*(self: RelationSet, relation: Relation) {.inline.} =
 
 # atk_relation_set_add_relation_by_type
@@ -1551,7 +1551,7 @@ proc add*(self: RelationSet, relation: Relation) {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc atk_relation_set_add_relation_by_type(self: ptr TRelationSet, relationship: RelationType, target: ptr TObject) {.cdecl, dynlib: lib, importc: "atk_relation_set_add_relation_by_type".}
 proc add_relation_by_type*(self: RelationSet, relationship: RelationType, target: Object) {.inline.} =
-  atk_relation_set_add_relation_by_type(self, relationship, target.pointer)
+  atk_relation_set_add_relation_by_type(self, relationship, target.getPointer)
 # proc add_relation_by_type*(self: RelationSet, relationship: RelationType, target: Object) {.inline.} =
 
 # atk_relation_set_contains
@@ -1572,7 +1572,7 @@ proc contains*(self: RelationSet, relationship: RelationType): bool {.inline.} =
 # 'bool' 'bool'
 proc atk_relation_set_contains_target(self: ptr TRelationSet, relationship: RelationType, target: ptr TObject): bool {.cdecl, dynlib: lib, importc: "atk_relation_set_contains_target".}
 proc contains_target*(self: RelationSet, relationship: RelationType, target: Object): bool {.inline.} =
-  atk_relation_set_contains_target(self, relationship, target.pointer)
+  atk_relation_set_contains_target(self, relationship, target.getPointer)
 # proc contains_target*(self: RelationSet, relationship: RelationType, target: Object): bool {.inline.} =
 
 # atk_relation_set_get_n_relations
@@ -1611,7 +1611,7 @@ proc get_relation_by_type*(self: RelationSet, relationship: RelationType): Relat
 # 'VOID_TODO' 'VOID_TODO'
 proc atk_relation_set_remove(self: ptr TRelationSet, relation: ptr TRelation) {.cdecl, dynlib: lib, importc: "atk_relation_set_remove".}
 proc remove*(self: RelationSet, relation: Relation) {.inline.} =
-  atk_relation_set_remove(self, relation.pointer)
+  atk_relation_set_remove(self, relation.getPointer)
 # proc remove*(self: RelationSet, relation: Relation) {.inline.} =
 
 # atk_socket_new
@@ -1679,7 +1679,7 @@ proc add_states*(self: StateSet, types: var openarray[StateType]) {.inline.} =
 # 'StateSet' 'TransferFull[TStateSet]' (diff., need sugar)
 proc atk_state_set_and_sets(self: ptr TStateSet, compare_set: ptr TStateSet): TransferFull[TStateSet] {.cdecl, dynlib: lib, importc: "atk_state_set_and_sets".}
 proc and_sets*(self: StateSet, compare_set: StateSet): StateSet {.inline.} =
-  wrap(atk_state_set_and_sets(self, compare_set.pointer))
+  wrap(atk_state_set_and_sets(self, compare_set.getPointer))
 # proc and_sets*(self: StateSet, compare_set: StateSet): StateSet {.inline.} =
 
 # atk_state_set_clear_states
@@ -1728,7 +1728,7 @@ proc is_empty*(self: StateSet): bool {.inline.} =
 # 'StateSet' 'TransferFull[TStateSet]' (diff., need sugar)
 proc atk_state_set_or_sets(self: ptr TStateSet, compare_set: ptr TStateSet): TransferFull[TStateSet] {.cdecl, dynlib: lib, importc: "atk_state_set_or_sets".}
 proc or_sets*(self: StateSet, compare_set: StateSet): StateSet {.inline.} =
-  wrap(atk_state_set_or_sets(self, compare_set.pointer))
+  wrap(atk_state_set_or_sets(self, compare_set.getPointer))
 # proc or_sets*(self: StateSet, compare_set: StateSet): StateSet {.inline.} =
 
 # atk_state_set_remove_state
@@ -1748,9 +1748,20 @@ proc remove_state*(self: StateSet, type_x: StateType): bool {.inline.} =
 # 'StateSet' 'TransferFull[TStateSet]' (diff., need sugar)
 proc atk_state_set_xor_sets(self: ptr TStateSet, compare_set: ptr TStateSet): TransferFull[TStateSet] {.cdecl, dynlib: lib, importc: "atk_state_set_xor_sets".}
 proc xor_sets*(self: StateSet, compare_set: StateSet): StateSet {.inline.} =
-  wrap(atk_state_set_xor_sets(self, compare_set.pointer))
+  wrap(atk_state_set_xor_sets(self, compare_set.getPointer))
 # proc xor_sets*(self: StateSet, compare_set: StateSet): StateSet {.inline.} =
 
+# object signals
+#------------------
+# Hyperlink - link-activated - 
+declareSignal(Hyperlink, THyperlink, link_activated)
+# Object - active-descendant-changed - arg1 
+# Object - children-changed - arg1 arg2 
+# Object - focus-event - arg1 
+# Object - property-change - arg1 
+# Object - state-change - arg1 arg2 
+# Object - visible-data-changed - 
+declareSignal(Object, TObject, visible_data_changed)
   # struct methods
   #------------------
 # struct ActionIface

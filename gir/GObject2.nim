@@ -11,12 +11,12 @@ type
   #------------------
   # x
   # 
+  Object* = ref GSmartPtr[TObject]
   TObject* = object of TRoot
     # warning, first field is not of base class type !!!!!!!!!
     g_type_instance_gobjectobject: TTypeInstance
     ref_count_gobjectobject: uint32
     qdata_gobjectobject: ptr GLib2.TData
-  Object* = ref GSmartPtr[TObject]
 
   # x
   # 
@@ -1428,7 +1428,7 @@ proc g_param_type_register_static*(name: ustring, pspec_info: TParamSpecTypeInfo
 # 'bool' 'bool'
 proc g_param_value_convert(pspec: ptr TParamSpec, src_value: ptr TValue, dest_value: ptr TValue, strict_validation: bool): bool {.cdecl, dynlib: lib, importc: "g_param_value_convert".}
 proc g_param_value_convert*(pspec: ParamSpec, src_value: TValue, dest_value: TValue, strict_validation: bool): bool {.inline.} =
-  g_param_value_convert(pspec.pointer, myUnsafeAddr(src_value), myUnsafeAddr(dest_value), strict_validation)
+  g_param_value_convert(pspec.getPointer, myUnsafeAddr(src_value), myUnsafeAddr(dest_value), strict_validation)
 # proc g_param_value_convert*(pspec: ParamSpec, src_value: TValue, dest_value: TValue, strict_validation: bool): bool {.inline.} =
 
 # g_param_value_defaults
@@ -1438,7 +1438,7 @@ proc g_param_value_convert*(pspec: ParamSpec, src_value: TValue, dest_value: TVa
 # 'bool' 'bool'
 proc g_param_value_defaults(pspec: ptr TParamSpec, value: ptr TValue): bool {.cdecl, dynlib: lib, importc: "g_param_value_defaults".}
 proc g_param_value_defaults*(pspec: ParamSpec, value: TValue): bool {.inline.} =
-  g_param_value_defaults(pspec.pointer, myUnsafeAddr(value))
+  g_param_value_defaults(pspec.getPointer, myUnsafeAddr(value))
 # proc g_param_value_defaults*(pspec: ParamSpec, value: TValue): bool {.inline.} =
 
 # g_param_value_set_default
@@ -1448,7 +1448,7 @@ proc g_param_value_defaults*(pspec: ParamSpec, value: TValue): bool {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc g_param_value_set_default(pspec: ptr TParamSpec, value: ptr TValue) {.cdecl, dynlib: lib, importc: "g_param_value_set_default".}
 proc g_param_value_set_default*(pspec: ParamSpec, value: TValue) {.inline.} =
-  g_param_value_set_default(pspec.pointer, myUnsafeAddr(value))
+  g_param_value_set_default(pspec.getPointer, myUnsafeAddr(value))
 # proc g_param_value_set_default*(pspec: ParamSpec, value: TValue) {.inline.} =
 
 # g_param_value_validate
@@ -1458,7 +1458,7 @@ proc g_param_value_set_default*(pspec: ParamSpec, value: TValue) {.inline.} =
 # 'bool' 'bool'
 proc g_param_value_validate(pspec: ptr TParamSpec, value: ptr TValue): bool {.cdecl, dynlib: lib, importc: "g_param_value_validate".}
 proc g_param_value_validate*(pspec: ParamSpec, value: TValue): bool {.inline.} =
-  g_param_value_validate(pspec.pointer, myUnsafeAddr(value))
+  g_param_value_validate(pspec.getPointer, myUnsafeAddr(value))
 # proc g_param_value_validate*(pspec: ParamSpec, value: TValue): bool {.inline.} =
 
 # g_param_values_cmp
@@ -1469,7 +1469,7 @@ proc g_param_value_validate*(pspec: ParamSpec, value: TValue): bool {.inline.} =
 # 'int32' 'int32'
 proc g_param_values_cmp(pspec: ptr TParamSpec, value1: ptr TValue, value2: ptr TValue): int32 {.cdecl, dynlib: lib, importc: "g_param_values_cmp".}
 proc g_param_values_cmp*(pspec: ParamSpec, value1: TValue, value2: TValue): int32 {.inline.} =
-  g_param_values_cmp(pspec.pointer, myUnsafeAddr(value1), myUnsafeAddr(value2))
+  g_param_values_cmp(pspec.getPointer, myUnsafeAddr(value1), myUnsafeAddr(value2))
 # proc g_param_values_cmp*(pspec: ParamSpec, value1: TValue, value2: TValue): int32 {.inline.} =
 
 # g_pointer_type_register_static
@@ -1533,7 +1533,7 @@ proc g_signal_chain_from_overridden*(instance_and_params: uncheckedArray[TValue]
 # 'uint32' 'uint32'
 proc g_signal_connect_closure(instance: ptr TObject, detailed_signal: ucstring, closure: ptr TClosure, after: bool): uint32 {.cdecl, dynlib: lib, importc: "g_signal_connect_closure".}
 proc g_signal_connect_closure*(instance: Object, detailed_signal: ustring, closure: TClosure, after: bool): uint32 {.inline.} =
-  g_signal_connect_closure(instance.pointer, ucstring(detailed_signal), myUnsafeAddr(closure), after)
+  g_signal_connect_closure(instance.getPointer, ucstring(detailed_signal), myUnsafeAddr(closure), after)
 # proc g_signal_connect_closure*(instance: Object, detailed_signal: ustring, closure: TClosure, after: bool): uint32 {.inline.} =
 
 # g_signal_connect_closure_by_id
@@ -1546,7 +1546,7 @@ proc g_signal_connect_closure*(instance: Object, detailed_signal: ustring, closu
 # 'uint32' 'uint32'
 proc g_signal_connect_closure_by_id(instance: ptr TObject, signal_id: uint32, detail: uint32, closure: ptr TClosure, after: bool): uint32 {.cdecl, dynlib: lib, importc: "g_signal_connect_closure_by_id".}
 proc g_signal_connect_closure_by_id*(instance: Object, signal_id: uint32, detail: uint32, closure: TClosure, after: bool): uint32 {.inline.} =
-  g_signal_connect_closure_by_id(instance.pointer, signal_id, detail, myUnsafeAddr(closure), after)
+  g_signal_connect_closure_by_id(instance.getPointer, signal_id, detail, myUnsafeAddr(closure), after)
 # proc g_signal_connect_closure_by_id*(instance: Object, signal_id: uint32, detail: uint32, closure: TClosure, after: bool): uint32 {.inline.} =
 
 # g_signal_emitv
@@ -1567,7 +1567,7 @@ proc g_signal_emitv*(instance_and_params: uncheckedArray[TValue], signal_id: uin
 # 'TSignalInvocationHint' 'ptr TSignalInvocationHint' (diff., need sugar)
 proc g_signal_get_invocation_hint(instance: ptr TObject): ptr TSignalInvocationHint {.cdecl, dynlib: lib, importc: "g_signal_get_invocation_hint".}
 proc g_signal_get_invocation_hint*(instance: Object): TSignalInvocationHint {.inline.} =
-  (g_signal_get_invocation_hint(instance.pointer))[]
+  (g_signal_get_invocation_hint(instance.getPointer))[]
 # proc g_signal_get_invocation_hint*(instance: Object): TSignalInvocationHint {.inline.} =
 
 # g_signal_handler_block
@@ -1577,7 +1577,7 @@ proc g_signal_get_invocation_hint*(instance: Object): TSignalInvocationHint {.in
 # 'VOID_TODO' 'VOID_TODO'
 proc g_signal_handler_block(instance: ptr TObject, handler_id: uint32) {.cdecl, dynlib: lib, importc: "g_signal_handler_block".}
 proc g_signal_handler_block*(instance: Object, handler_id: uint32) {.inline.} =
-  g_signal_handler_block(instance.pointer, handler_id)
+  g_signal_handler_block(instance.getPointer, handler_id)
 # proc g_signal_handler_block*(instance: Object, handler_id: uint32) {.inline.} =
 
 # g_signal_handler_disconnect
@@ -1587,7 +1587,7 @@ proc g_signal_handler_block*(instance: Object, handler_id: uint32) {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc g_signal_handler_disconnect(instance: ptr TObject, handler_id: uint32) {.cdecl, dynlib: lib, importc: "g_signal_handler_disconnect".}
 proc g_signal_handler_disconnect*(instance: Object, handler_id: uint32) {.inline.} =
-  g_signal_handler_disconnect(instance.pointer, handler_id)
+  g_signal_handler_disconnect(instance.getPointer, handler_id)
 # proc g_signal_handler_disconnect*(instance: Object, handler_id: uint32) {.inline.} =
 
 # g_signal_handler_find
@@ -1602,7 +1602,7 @@ proc g_signal_handler_disconnect*(instance: Object, handler_id: uint32) {.inline
 # 'uint32' 'uint32'
 proc g_signal_handler_find(instance: ptr TObject, mask: SSignalMatchType, signal_id: uint32, detail: uint32, closure: ptr TClosure, func_x: pointer, data: pointer): uint32 {.cdecl, dynlib: lib, importc: "g_signal_handler_find".}
 proc g_signal_handler_find*(instance: Object, mask: SSignalMatchType, signal_id: uint32, detail: uint32, closure: TClosure, func_x: pointer, data: pointer): uint32 {.inline.} =
-  g_signal_handler_find(instance.pointer, mask, signal_id, detail, myUnsafeAddr(closure), func_x, data)
+  g_signal_handler_find(instance.getPointer, mask, signal_id, detail, myUnsafeAddr(closure), func_x, data)
 # proc g_signal_handler_find*(instance: Object, mask: SSignalMatchType, signal_id: uint32, detail: uint32, closure: TClosure, func_x: pointer, data: pointer): uint32 {.inline.} =
 
 # g_signal_handler_is_connected
@@ -1612,7 +1612,7 @@ proc g_signal_handler_find*(instance: Object, mask: SSignalMatchType, signal_id:
 # 'bool' 'bool'
 proc g_signal_handler_is_connected(instance: ptr TObject, handler_id: uint32): bool {.cdecl, dynlib: lib, importc: "g_signal_handler_is_connected".}
 proc g_signal_handler_is_connected*(instance: Object, handler_id: uint32): bool {.inline.} =
-  g_signal_handler_is_connected(instance.pointer, handler_id)
+  g_signal_handler_is_connected(instance.getPointer, handler_id)
 # proc g_signal_handler_is_connected*(instance: Object, handler_id: uint32): bool {.inline.} =
 
 # g_signal_handler_unblock
@@ -1622,7 +1622,7 @@ proc g_signal_handler_is_connected*(instance: Object, handler_id: uint32): bool 
 # 'VOID_TODO' 'VOID_TODO'
 proc g_signal_handler_unblock(instance: ptr TObject, handler_id: uint32) {.cdecl, dynlib: lib, importc: "g_signal_handler_unblock".}
 proc g_signal_handler_unblock*(instance: Object, handler_id: uint32) {.inline.} =
-  g_signal_handler_unblock(instance.pointer, handler_id)
+  g_signal_handler_unblock(instance.getPointer, handler_id)
 # proc g_signal_handler_unblock*(instance: Object, handler_id: uint32) {.inline.} =
 
 # g_signal_handlers_block_matched
@@ -1637,7 +1637,7 @@ proc g_signal_handler_unblock*(instance: Object, handler_id: uint32) {.inline.} 
 # 'uint32' 'uint32'
 proc g_signal_handlers_block_matched(instance: ptr TObject, mask: SSignalMatchType, signal_id: uint32, detail: uint32, closure: ptr TClosure, func_x: pointer, data: pointer): uint32 {.cdecl, dynlib: lib, importc: "g_signal_handlers_block_matched".}
 proc g_signal_handlers_block_matched*(instance: Object, mask: SSignalMatchType, signal_id: uint32, detail: uint32, closure: TClosure, func_x: pointer, data: pointer): uint32 {.inline.} =
-  g_signal_handlers_block_matched(instance.pointer, mask, signal_id, detail, myUnsafeAddr(closure), func_x, data)
+  g_signal_handlers_block_matched(instance.getPointer, mask, signal_id, detail, myUnsafeAddr(closure), func_x, data)
 # proc g_signal_handlers_block_matched*(instance: Object, mask: SSignalMatchType, signal_id: uint32, detail: uint32, closure: TClosure, func_x: pointer, data: pointer): uint32 {.inline.} =
 
 # g_signal_handlers_destroy
@@ -1646,7 +1646,7 @@ proc g_signal_handlers_block_matched*(instance: Object, mask: SSignalMatchType, 
 # 'VOID_TODO' 'VOID_TODO'
 proc g_signal_handlers_destroy(instance: ptr TObject) {.cdecl, dynlib: lib, importc: "g_signal_handlers_destroy".}
 proc g_signal_handlers_destroy*(instance: Object) {.inline.} =
-  g_signal_handlers_destroy(instance.pointer)
+  g_signal_handlers_destroy(instance.getPointer)
 # proc g_signal_handlers_destroy*(instance: Object) {.inline.} =
 
 # g_signal_handlers_disconnect_matched
@@ -1661,7 +1661,7 @@ proc g_signal_handlers_destroy*(instance: Object) {.inline.} =
 # 'uint32' 'uint32'
 proc g_signal_handlers_disconnect_matched(instance: ptr TObject, mask: SSignalMatchType, signal_id: uint32, detail: uint32, closure: ptr TClosure, func_x: pointer, data: pointer): uint32 {.cdecl, dynlib: lib, importc: "g_signal_handlers_disconnect_matched".}
 proc g_signal_handlers_disconnect_matched*(instance: Object, mask: SSignalMatchType, signal_id: uint32, detail: uint32, closure: TClosure, func_x: pointer, data: pointer): uint32 {.inline.} =
-  g_signal_handlers_disconnect_matched(instance.pointer, mask, signal_id, detail, myUnsafeAddr(closure), func_x, data)
+  g_signal_handlers_disconnect_matched(instance.getPointer, mask, signal_id, detail, myUnsafeAddr(closure), func_x, data)
 # proc g_signal_handlers_disconnect_matched*(instance: Object, mask: SSignalMatchType, signal_id: uint32, detail: uint32, closure: TClosure, func_x: pointer, data: pointer): uint32 {.inline.} =
 
 # g_signal_handlers_unblock_matched
@@ -1676,7 +1676,7 @@ proc g_signal_handlers_disconnect_matched*(instance: Object, mask: SSignalMatchT
 # 'uint32' 'uint32'
 proc g_signal_handlers_unblock_matched(instance: ptr TObject, mask: SSignalMatchType, signal_id: uint32, detail: uint32, closure: ptr TClosure, func_x: pointer, data: pointer): uint32 {.cdecl, dynlib: lib, importc: "g_signal_handlers_unblock_matched".}
 proc g_signal_handlers_unblock_matched*(instance: Object, mask: SSignalMatchType, signal_id: uint32, detail: uint32, closure: TClosure, func_x: pointer, data: pointer): uint32 {.inline.} =
-  g_signal_handlers_unblock_matched(instance.pointer, mask, signal_id, detail, myUnsafeAddr(closure), func_x, data)
+  g_signal_handlers_unblock_matched(instance.getPointer, mask, signal_id, detail, myUnsafeAddr(closure), func_x, data)
 # proc g_signal_handlers_unblock_matched*(instance: Object, mask: SSignalMatchType, signal_id: uint32, detail: uint32, closure: TClosure, func_x: pointer, data: pointer): uint32 {.inline.} =
 
 # g_signal_has_handler_pending
@@ -1688,7 +1688,7 @@ proc g_signal_handlers_unblock_matched*(instance: Object, mask: SSignalMatchType
 # 'bool' 'bool'
 proc g_signal_has_handler_pending(instance: ptr TObject, signal_id: uint32, detail: uint32, may_be_blocked: bool): bool {.cdecl, dynlib: lib, importc: "g_signal_has_handler_pending".}
 proc g_signal_has_handler_pending*(instance: Object, signal_id: uint32, detail: uint32, may_be_blocked: bool): bool {.inline.} =
-  g_signal_has_handler_pending(instance.pointer, signal_id, detail, may_be_blocked)
+  g_signal_has_handler_pending(instance.getPointer, signal_id, detail, may_be_blocked)
 # proc g_signal_has_handler_pending*(instance: Object, signal_id: uint32, detail: uint32, may_be_blocked: bool): bool {.inline.} =
 
 # g_signal_list_ids
@@ -1782,7 +1782,7 @@ proc g_signal_set_va_marshaller*(signal_id: uint32, instance_type: GType, va_mar
 # 'VOID_TODO' 'VOID_TODO'
 proc g_signal_stop_emission(instance: ptr TObject, signal_id: uint32, detail: uint32) {.cdecl, dynlib: lib, importc: "g_signal_stop_emission".}
 proc g_signal_stop_emission*(instance: Object, signal_id: uint32, detail: uint32) {.inline.} =
-  g_signal_stop_emission(instance.pointer, signal_id, detail)
+  g_signal_stop_emission(instance.getPointer, signal_id, detail)
 # proc g_signal_stop_emission*(instance: Object, signal_id: uint32, detail: uint32) {.inline.} =
 
 # g_signal_stop_emission_by_name
@@ -1792,7 +1792,7 @@ proc g_signal_stop_emission*(instance: Object, signal_id: uint32, detail: uint32
 # 'VOID_TODO' 'VOID_TODO'
 proc g_signal_stop_emission_by_name(instance: ptr TObject, detailed_signal: ucstring) {.cdecl, dynlib: lib, importc: "g_signal_stop_emission_by_name".}
 proc g_signal_stop_emission_by_name*(instance: Object, detailed_signal: ustring) {.inline.} =
-  g_signal_stop_emission_by_name(instance.pointer, ucstring(detailed_signal))
+  g_signal_stop_emission_by_name(instance.getPointer, ucstring(detailed_signal))
 # proc g_signal_stop_emission_by_name*(instance: Object, detailed_signal: ustring) {.inline.} =
 
 # g_signal_type_cclosure_new
@@ -2339,7 +2339,7 @@ template interface_find_property*(klass_parameter: typedesc[Object], g_iface: po
 # 'VOID_TODO' 'VOID_TODO'
 proc g_object_interface_install_property(g_iface: pointer, pspec: ptr TParamSpec) {.cdecl, dynlib: lib, importc: "g_object_interface_install_property".}
 template interface_install_property*(klass_parameter: typedesc[Object], g_iface: pointer, pspec: ParamSpec) =
-  g_object_interface_install_property(g_iface, pspec.pointer)
+  g_object_interface_install_property(g_iface, pspec.getPointer)
 # template interface_install_property*(klass_parameter: typedesc[Object], g_iface: pointer, pspec: ParamSpec) =
 
 # g_object_interface_list_properties
@@ -2365,7 +2365,7 @@ template interface_list_properties*(klass_parameter: typedesc[Object], g_iface: 
 # 'Binding' 'TransferNone[TBinding]' (diff., need sugar)
 proc g_object_bind_property(self: ptr TObject, source_property: ucstring, target: ptr TObject, target_property: ucstring, flags: SBindingFlags): TransferNone[TBinding] {.cdecl, dynlib: lib, importc: "g_object_bind_property".}
 proc bind_property*(self: Object, source_property: ustring, target: Object, target_property: ustring, flags: SBindingFlags): Binding {.inline.} =
-  wrap(g_object_bind_property(self, ucstring(source_property), target.pointer, ucstring(target_property), flags))
+  wrap(g_object_bind_property(self, ucstring(source_property), target.getPointer, ucstring(target_property), flags))
 # proc bind_property*(self: Object, source_property: ustring, target: Object, target_property: ustring, flags: SBindingFlags): Binding {.inline.} =
 
 # g_object_bind_property_with_closures
@@ -2380,7 +2380,7 @@ proc bind_property*(self: Object, source_property: ustring, target: Object, targ
 # 'Binding' 'TransferNone[TBinding]' (diff., need sugar)
 proc g_object_bind_property_with_closures(self: ptr TObject, source_property: ucstring, target: ptr TObject, target_property: ucstring, flags: SBindingFlags, transform_to: ptr TClosure, transform_from: ptr TClosure): TransferNone[TBinding] {.cdecl, dynlib: lib, importc: "g_object_bind_property_with_closures".}
 proc bind_property_full*(self: Object, source_property: ustring, target: Object, target_property: ustring, flags: SBindingFlags, transform_to: TClosure, transform_from: TClosure): Binding {.inline.} =
-  wrap(g_object_bind_property_with_closures(self, ucstring(source_property), target.pointer, ucstring(target_property), flags, myUnsafeAddr(transform_to), myUnsafeAddr(transform_from)))
+  wrap(g_object_bind_property_with_closures(self, ucstring(source_property), target.getPointer, ucstring(target_property), flags, myUnsafeAddr(transform_to), myUnsafeAddr(transform_from)))
 # proc bind_property_full*(self: Object, source_property: ustring, target: Object, target_property: ustring, flags: SBindingFlags, transform_to: TClosure, transform_from: TClosure): Binding {.inline.} =
 
 # g_object_force_floating
@@ -2458,7 +2458,7 @@ proc notify*(self: Object, property_name: ustring) {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc g_object_notify_by_pspec(self: ptr TObject, pspec: ptr TParamSpec) {.cdecl, dynlib: lib, importc: "g_object_notify_by_pspec".}
 proc notify_by_pspec*(self: Object, pspec: ParamSpec) {.inline.} =
-  g_object_notify_by_pspec(self, pspec.pointer)
+  g_object_notify_by_pspec(self, pspec.getPointer)
 # proc notify_by_pspec*(self: Object, pspec: ParamSpec) {.inline.} =
 
 # g_object_ref
@@ -2746,6 +2746,9 @@ proc use*(self: TypeModule): bool {.inline.} =
   g_type_module_use(self)
 # proc use*(self: TypeModule): bool {.inline.} =
 
+# object signals
+#------------------
+# Object - notify - pspec 
   # struct methods
   #------------------
 # struct CClosure
@@ -3126,7 +3129,7 @@ template marshal_generic*(klass_parameter: typedesc[CClosure], closure: TClosure
 # 'TClosure' 'ptr TClosure' (diff., need sugar)
 proc g_closure_new_object(sizeof_closure: uint32, object_x: ptr TObject): ptr TClosure {.cdecl, dynlib: lib, importc: "g_closure_new_object".}
 proc closure_new_object*(sizeof_closure: uint32, object_x: Object): TClosure {.inline.} =
-  (g_closure_new_object(sizeof_closure, object_x.pointer))[]
+  (g_closure_new_object(sizeof_closure, object_x.getPointer))[]
 # proc closure_new_object*(sizeof_closure: uint32, object_x: Object): TClosure {.inline.} =
 
 # g_closure_new_simple
@@ -3226,7 +3229,7 @@ proc install_properties*(self: ObjectClass, pspecs: var openarray[ptr TParamSpec
 # 'VOID_TODO' 'VOID_TODO'
 proc g_object_class_install_property(self: ptr TObjectClass, property_id: uint32, pspec: ptr TParamSpec) {.cdecl, dynlib: lib, importc: "g_object_class_install_property".}
 proc install_property*(self: ObjectClass, property_id: uint32, pspec: ParamSpec) {.inline.} =
-  g_object_class_install_property(self, property_id, pspec.pointer)
+  g_object_class_install_property(self, property_id, pspec.getPointer)
 # proc install_property*(self: ObjectClass, property_id: uint32, pspec: ParamSpec) {.inline.} =
 
 # g_object_class_list_properties
@@ -3263,7 +3266,7 @@ proc override_property*(self: ObjectClass, property_id: uint32, name: ustring) {
 # 'VOID_TODO' 'VOID_TODO'
 proc g_param_spec_pool_insert(self: ptr TParamSpecPool, pspec: ptr TParamSpec, owner_type: GType) {.cdecl, dynlib: lib, importc: "g_param_spec_pool_insert".}
 proc insert*(self: ParamSpecPool, pspec: ParamSpec, owner_type: GType) {.inline.} =
-  g_param_spec_pool_insert(self, pspec.pointer, owner_type)
+  g_param_spec_pool_insert(self, pspec.getPointer, owner_type)
 # proc insert*(self: ParamSpecPool, pspec: ParamSpec, owner_type: GType) {.inline.} =
 
 # g_param_spec_pool_list
@@ -3308,7 +3311,7 @@ proc lookup*(self: ParamSpecPool, param_name: ustring, owner_type: GType, walk_a
 # 'VOID_TODO' 'VOID_TODO'
 proc g_param_spec_pool_remove(self: ptr TParamSpecPool, pspec: ptr TParamSpec) {.cdecl, dynlib: lib, importc: "g_param_spec_pool_remove".}
 proc remove*(self: ParamSpecPool, pspec: ParamSpec) {.inline.} =
-  g_param_spec_pool_remove(self, pspec.pointer)
+  g_param_spec_pool_remove(self, pspec.getPointer)
 # proc remove*(self: ParamSpecPool, pspec: ParamSpec) {.inline.} =
 
 # g_param_spec_pool_new
@@ -3852,7 +3855,7 @@ proc set_long*(self: Value, v_long: int32) {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc g_value_set_object(self: ptr TValue, v_object: ptr TObject) {.cdecl, dynlib: lib, importc: "g_value_set_object".}
 proc set_object*(self: Value, v_object: Object) {.inline.} =
-  g_value_set_object(self, v_object.pointer)
+  g_value_set_object(self, v_object.getPointer)
 # proc set_object*(self: Value, v_object: Object) {.inline.} =
 
 # g_value_set_param
@@ -3862,7 +3865,7 @@ proc set_object*(self: Value, v_object: Object) {.inline.} =
 # 'VOID_TODO' 'VOID_TODO'
 proc g_value_set_param(self: ptr TValue, param: ptr TParamSpec) {.cdecl, dynlib: lib, importc: "g_value_set_param".}
 proc set_param*(self: Value, param: ParamSpec) {.inline.} =
-  g_value_set_param(self, param.pointer)
+  g_value_set_param(self, param.getPointer)
 # proc set_param*(self: Value, param: ParamSpec) {.inline.} =
 
 # g_value_set_pointer
