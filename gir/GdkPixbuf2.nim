@@ -163,9 +163,9 @@ proc gdk_pixbuf_error_quark*(): uint32 {.cdecl, dynlib: lib, importc: "gdk_pixbu
 # height 'int32' 'int32' IN
 # 'Pixbuf' 'TransferFull[TPixbuf]' (diff., need sugar)
 proc gdk_pixbuf_new(colorspace: Colorspace, has_alpha: bool, bits_per_sample: int32, width: int32, height: int32): TransferFull[TPixbuf] {.cdecl, dynlib: lib, importc: "gdk_pixbuf_new".}
-proc pixbuf_new*(colorspace: Colorspace, has_alpha: bool, bits_per_sample: int32, width: int32, height: int32): Pixbuf {.inline.} =
+proc new_pixbuf*(colorspace: Colorspace, has_alpha: bool, bits_per_sample: int32, width: int32, height: int32): Pixbuf {.inline.} =
   wrap(gdk_pixbuf_new(colorspace, has_alpha, bits_per_sample, width, height))
-# proc pixbuf_new*(colorspace: Colorspace, has_alpha: bool, bits_per_sample: int32, width: int32, height: int32): Pixbuf {.inline.} =
+# proc new_pixbuf*(colorspace: Colorspace, has_alpha: bool, bits_per_sample: int32, width: int32, height: int32): Pixbuf {.inline.} =
 
 # gdk_pixbuf_new_from_bytes
 # flags: {isConstructor} container: Pixbuf
@@ -179,9 +179,9 @@ proc pixbuf_new*(colorspace: Colorspace, has_alpha: bool, bits_per_sample: int32
 # rowstride 'int32' 'int32' IN
 # 'Pixbuf' 'TransferFull[TPixbuf]' (diff., need sugar)
 proc gdk_pixbuf_new_from_bytes(data: ptr GLib2.TBytes, colorspace: Colorspace, has_alpha: bool, bits_per_sample: int32, width: int32, height: int32, rowstride: int32): TransferFull[TPixbuf] {.cdecl, dynlib: lib, importc: "gdk_pixbuf_new_from_bytes".}
-proc pixbuf_new_from_bytes*(data: GLib2.TBytes, colorspace: Colorspace, has_alpha: bool, bits_per_sample: int32, width: int32, height: int32, rowstride: int32): Pixbuf {.inline.} =
+proc new_pixbuf_from_bytes*(data: GLib2.TBytes, colorspace: Colorspace, has_alpha: bool, bits_per_sample: int32, width: int32, height: int32, rowstride: int32): Pixbuf {.inline.} =
   wrap(gdk_pixbuf_new_from_bytes(myUnsafeAddr(data), colorspace, has_alpha, bits_per_sample, width, height, rowstride))
-# proc pixbuf_new_from_bytes*(data: GLib2.TBytes, colorspace: Colorspace, has_alpha: bool, bits_per_sample: int32, width: int32, height: int32, rowstride: int32): Pixbuf {.inline.} =
+# proc new_pixbuf_from_bytes*(data: GLib2.TBytes, colorspace: Colorspace, has_alpha: bool, bits_per_sample: int32, width: int32, height: int32, rowstride: int32): Pixbuf {.inline.} =
 
 # gdk_pixbuf_new_from_data
 # flags: {isConstructor} container: Pixbuf
@@ -197,9 +197,9 @@ proc pixbuf_new_from_bytes*(data: GLib2.TBytes, colorspace: Colorspace, has_alph
 # destroy_fn_data 'pointer' 'pointer' IN
 # 'Pixbuf' 'TransferFull[TPixbuf]' (diff., need sugar)
 proc gdk_pixbuf_new_from_data(data: cstring, colorspace: Colorspace, has_alpha: bool, bits_per_sample: int32, width: int32, height: int32, rowstride: int32, destroy_fn: pointer, destroy_fn_data: pointer): TransferFull[TPixbuf] {.cdecl, dynlib: lib, importc: "gdk_pixbuf_new_from_data".}
-proc pixbuf_new_from_data*(data: string, colorspace: Colorspace, has_alpha: bool, bits_per_sample: int32, width: int32, height: int32, rowstride: int32, destroy_fn: pointer, destroy_fn_data: pointer): Pixbuf {.inline.} =
+proc new_pixbuf_from_data*(data: string, colorspace: Colorspace, has_alpha: bool, bits_per_sample: int32, width: int32, height: int32, rowstride: int32, destroy_fn: pointer, destroy_fn_data: pointer): Pixbuf {.inline.} =
   wrap(gdk_pixbuf_new_from_data(cstring(data), colorspace, has_alpha, bits_per_sample, width, height, rowstride, destroy_fn, destroy_fn_data))
-# proc pixbuf_new_from_data*(data: string, colorspace: Colorspace, has_alpha: bool, bits_per_sample: int32, width: int32, height: int32, rowstride: int32, destroy_fn: pointer, destroy_fn_data: pointer): Pixbuf {.inline.} =
+# proc new_pixbuf_from_data*(data: string, colorspace: Colorspace, has_alpha: bool, bits_per_sample: int32, width: int32, height: int32, rowstride: int32, destroy_fn: pointer, destroy_fn_data: pointer): Pixbuf {.inline.} =
 
 # gdk_pixbuf_new_from_file
 # flags: {isConstructor, throws} container: Pixbuf
@@ -208,9 +208,9 @@ proc pixbuf_new_from_data*(data: string, colorspace: Colorspace, has_alpha: bool
 # filename 'ustring' 'ucstring' IN (diff., need sugar)
 # 'Pixbuf' 'TransferFull[TPixbuf]' (diff., need sugar)
 proc gdk_pixbuf_new_from_file(filename: ucstring, error: ptr PGError=nil): TransferFull[TPixbuf] {.cdecl, dynlib: lib, importc: "gdk_pixbuf_new_from_file".}
-proc pixbuf_new_from_file*(filename: ustring): Pixbuf {.inline.} =
+proc new_pixbuf_from_file*(filename: ustring): Pixbuf {.inline.} =
   wrap(gdk_pixbuf_new_from_file(ucstring(filename)))
-# proc pixbuf_new_from_file*(filename: ustring): Pixbuf {.inline.} =
+# proc new_pixbuf_from_file*(filename: ustring): Pixbuf {.inline.} =
 
 # gdk_pixbuf_new_from_file_at_scale
 # flags: {isConstructor, throws} container: Pixbuf
@@ -222,9 +222,9 @@ proc pixbuf_new_from_file*(filename: ustring): Pixbuf {.inline.} =
 # preserve_aspect_ratio 'bool' 'bool' IN
 # 'Pixbuf' 'TransferFull[TPixbuf]' (diff., need sugar)
 proc gdk_pixbuf_new_from_file_at_scale(filename: ucstring, width: int32, height: int32, preserve_aspect_ratio: bool, error: ptr PGError=nil): TransferFull[TPixbuf] {.cdecl, dynlib: lib, importc: "gdk_pixbuf_new_from_file_at_scale".}
-proc pixbuf_new_from_file_at_scale*(filename: ustring, width: int32, height: int32, preserve_aspect_ratio: bool): Pixbuf {.inline.} =
+proc new_pixbuf_from_file_at_scale*(filename: ustring, width: int32, height: int32, preserve_aspect_ratio: bool): Pixbuf {.inline.} =
   wrap(gdk_pixbuf_new_from_file_at_scale(ucstring(filename), width, height, preserve_aspect_ratio))
-# proc pixbuf_new_from_file_at_scale*(filename: ustring, width: int32, height: int32, preserve_aspect_ratio: bool): Pixbuf {.inline.} =
+# proc new_pixbuf_from_file_at_scale*(filename: ustring, width: int32, height: int32, preserve_aspect_ratio: bool): Pixbuf {.inline.} =
 
 # gdk_pixbuf_new_from_file_at_scale_utf8
 # flags: {isConstructor, throws} container: Pixbuf
@@ -236,9 +236,9 @@ proc pixbuf_new_from_file_at_scale*(filename: ustring, width: int32, height: int
 # preserve_aspect_ratio 'bool' 'bool' IN
 # 'Pixbuf' 'TransferFull[TPixbuf]' (diff., need sugar)
 proc gdk_pixbuf_new_from_file_at_scale_utf8(filename: ucstring, width: int32, height: int32, preserve_aspect_ratio: bool, error: ptr PGError=nil): TransferFull[TPixbuf] {.cdecl, dynlib: lib, importc: "gdk_pixbuf_new_from_file_at_scale_utf8".}
-proc pixbuf_new_from_file_at_scale_utf8*(filename: ustring, width: int32, height: int32, preserve_aspect_ratio: bool): Pixbuf {.inline.} =
+proc new_pixbuf_from_file_at_scale_utf8*(filename: ustring, width: int32, height: int32, preserve_aspect_ratio: bool): Pixbuf {.inline.} =
   wrap(gdk_pixbuf_new_from_file_at_scale_utf8(ucstring(filename), width, height, preserve_aspect_ratio))
-# proc pixbuf_new_from_file_at_scale_utf8*(filename: ustring, width: int32, height: int32, preserve_aspect_ratio: bool): Pixbuf {.inline.} =
+# proc new_pixbuf_from_file_at_scale_utf8*(filename: ustring, width: int32, height: int32, preserve_aspect_ratio: bool): Pixbuf {.inline.} =
 
 # gdk_pixbuf_new_from_file_at_size
 # flags: {isConstructor, throws} container: Pixbuf
@@ -249,9 +249,9 @@ proc pixbuf_new_from_file_at_scale_utf8*(filename: ustring, width: int32, height
 # height 'int32' 'int32' IN
 # 'Pixbuf' 'TransferFull[TPixbuf]' (diff., need sugar)
 proc gdk_pixbuf_new_from_file_at_size(filename: ucstring, width: int32, height: int32, error: ptr PGError=nil): TransferFull[TPixbuf] {.cdecl, dynlib: lib, importc: "gdk_pixbuf_new_from_file_at_size".}
-proc pixbuf_new_from_file_at_size*(filename: ustring, width: int32, height: int32): Pixbuf {.inline.} =
+proc new_pixbuf_from_file_at_size*(filename: ustring, width: int32, height: int32): Pixbuf {.inline.} =
   wrap(gdk_pixbuf_new_from_file_at_size(ucstring(filename), width, height))
-# proc pixbuf_new_from_file_at_size*(filename: ustring, width: int32, height: int32): Pixbuf {.inline.} =
+# proc new_pixbuf_from_file_at_size*(filename: ustring, width: int32, height: int32): Pixbuf {.inline.} =
 
 # gdk_pixbuf_new_from_file_at_size_utf8
 # flags: {isConstructor, throws} container: Pixbuf
@@ -262,9 +262,9 @@ proc pixbuf_new_from_file_at_size*(filename: ustring, width: int32, height: int3
 # height 'int32' 'int32' IN
 # 'Pixbuf' 'TransferFull[TPixbuf]' (diff., need sugar)
 proc gdk_pixbuf_new_from_file_at_size_utf8(filename: ucstring, width: int32, height: int32, error: ptr PGError=nil): TransferFull[TPixbuf] {.cdecl, dynlib: lib, importc: "gdk_pixbuf_new_from_file_at_size_utf8".}
-proc pixbuf_new_from_file_at_size_utf8*(filename: ustring, width: int32, height: int32): Pixbuf {.inline.} =
+proc new_pixbuf_from_file_at_size_utf8*(filename: ustring, width: int32, height: int32): Pixbuf {.inline.} =
   wrap(gdk_pixbuf_new_from_file_at_size_utf8(ucstring(filename), width, height))
-# proc pixbuf_new_from_file_at_size_utf8*(filename: ustring, width: int32, height: int32): Pixbuf {.inline.} =
+# proc new_pixbuf_from_file_at_size_utf8*(filename: ustring, width: int32, height: int32): Pixbuf {.inline.} =
 
 # gdk_pixbuf_new_from_file_utf8
 # flags: {isConstructor, throws} container: Pixbuf
@@ -273,9 +273,9 @@ proc pixbuf_new_from_file_at_size_utf8*(filename: ustring, width: int32, height:
 # filename 'ustring' 'ucstring' IN (diff., need sugar)
 # 'Pixbuf' 'TransferFull[TPixbuf]' (diff., need sugar)
 proc gdk_pixbuf_new_from_file_utf8(filename: ucstring, error: ptr PGError=nil): TransferFull[TPixbuf] {.cdecl, dynlib: lib, importc: "gdk_pixbuf_new_from_file_utf8".}
-proc pixbuf_new_from_file_utf8*(filename: ustring): Pixbuf {.inline.} =
+proc new_pixbuf_from_file_utf8*(filename: ustring): Pixbuf {.inline.} =
   wrap(gdk_pixbuf_new_from_file_utf8(ucstring(filename)))
-# proc pixbuf_new_from_file_utf8*(filename: ustring): Pixbuf {.inline.} =
+# proc new_pixbuf_from_file_utf8*(filename: ustring): Pixbuf {.inline.} =
 
 # gdk_pixbuf_new_from_inline
 # flags: {isConstructor, throws} container: Pixbuf (deprecated)
@@ -287,9 +287,9 @@ proc pixbuf_new_from_file_utf8*(filename: ustring): Pixbuf {.inline.} =
 # resource_path 'ustring' 'ucstring' IN (diff., need sugar)
 # 'Pixbuf' 'TransferFull[TPixbuf]' (diff., need sugar)
 proc gdk_pixbuf_new_from_resource(resource_path: ucstring, error: ptr PGError=nil): TransferFull[TPixbuf] {.cdecl, dynlib: lib, importc: "gdk_pixbuf_new_from_resource".}
-proc pixbuf_new_from_resource*(resource_path: ustring): Pixbuf {.inline.} =
+proc new_pixbuf_from_resource*(resource_path: ustring): Pixbuf {.inline.} =
   wrap(gdk_pixbuf_new_from_resource(ucstring(resource_path)))
-# proc pixbuf_new_from_resource*(resource_path: ustring): Pixbuf {.inline.} =
+# proc new_pixbuf_from_resource*(resource_path: ustring): Pixbuf {.inline.} =
 
 # gdk_pixbuf_new_from_resource_at_scale
 # flags: {isConstructor, throws} container: Pixbuf
@@ -301,9 +301,9 @@ proc pixbuf_new_from_resource*(resource_path: ustring): Pixbuf {.inline.} =
 # preserve_aspect_ratio 'bool' 'bool' IN
 # 'Pixbuf' 'TransferFull[TPixbuf]' (diff., need sugar)
 proc gdk_pixbuf_new_from_resource_at_scale(resource_path: ucstring, width: int32, height: int32, preserve_aspect_ratio: bool, error: ptr PGError=nil): TransferFull[TPixbuf] {.cdecl, dynlib: lib, importc: "gdk_pixbuf_new_from_resource_at_scale".}
-proc pixbuf_new_from_resource_at_scale*(resource_path: ustring, width: int32, height: int32, preserve_aspect_ratio: bool): Pixbuf {.inline.} =
+proc new_pixbuf_from_resource_at_scale*(resource_path: ustring, width: int32, height: int32, preserve_aspect_ratio: bool): Pixbuf {.inline.} =
   wrap(gdk_pixbuf_new_from_resource_at_scale(ucstring(resource_path), width, height, preserve_aspect_ratio))
-# proc pixbuf_new_from_resource_at_scale*(resource_path: ustring, width: int32, height: int32, preserve_aspect_ratio: bool): Pixbuf {.inline.} =
+# proc new_pixbuf_from_resource_at_scale*(resource_path: ustring, width: int32, height: int32, preserve_aspect_ratio: bool): Pixbuf {.inline.} =
 
 # gdk_pixbuf_new_from_stream
 # flags: {isConstructor, throws} container: Pixbuf
@@ -313,9 +313,9 @@ proc pixbuf_new_from_resource_at_scale*(resource_path: ustring, width: int32, he
 # cancellable 'Gio2.Cancellable' 'ptr Gio2.TCancellable' IN (diff., need sugar)
 # 'Pixbuf' 'TransferFull[TPixbuf]' (diff., need sugar)
 proc gdk_pixbuf_new_from_stream(stream: ptr Gio2.TInputStream, cancellable: ptr Gio2.TCancellable, error: ptr PGError=nil): TransferFull[TPixbuf] {.cdecl, dynlib: lib, importc: "gdk_pixbuf_new_from_stream".}
-proc pixbuf_new_from_stream*(stream: Gio2.InputStream, cancellable: Gio2.Cancellable): Pixbuf {.inline.} =
+proc new_pixbuf_from_stream*(stream: Gio2.InputStream, cancellable: Gio2.Cancellable): Pixbuf {.inline.} =
   wrap(gdk_pixbuf_new_from_stream(stream.getPointer, cancellable.getPointer))
-# proc pixbuf_new_from_stream*(stream: Gio2.InputStream, cancellable: Gio2.Cancellable): Pixbuf {.inline.} =
+# proc new_pixbuf_from_stream*(stream: Gio2.InputStream, cancellable: Gio2.Cancellable): Pixbuf {.inline.} =
 
 # gdk_pixbuf_new_from_stream_at_scale
 # flags: {isConstructor, throws} container: Pixbuf
@@ -328,9 +328,9 @@ proc pixbuf_new_from_stream*(stream: Gio2.InputStream, cancellable: Gio2.Cancell
 # cancellable 'Gio2.Cancellable' 'ptr Gio2.TCancellable' IN (diff., need sugar)
 # 'Pixbuf' 'TransferFull[TPixbuf]' (diff., need sugar)
 proc gdk_pixbuf_new_from_stream_at_scale(stream: ptr Gio2.TInputStream, width: int32, height: int32, preserve_aspect_ratio: bool, cancellable: ptr Gio2.TCancellable, error: ptr PGError=nil): TransferFull[TPixbuf] {.cdecl, dynlib: lib, importc: "gdk_pixbuf_new_from_stream_at_scale".}
-proc pixbuf_new_from_stream_at_scale*(stream: Gio2.InputStream, width: int32, height: int32, preserve_aspect_ratio: bool, cancellable: Gio2.Cancellable): Pixbuf {.inline.} =
+proc new_pixbuf_from_stream_at_scale*(stream: Gio2.InputStream, width: int32, height: int32, preserve_aspect_ratio: bool, cancellable: Gio2.Cancellable): Pixbuf {.inline.} =
   wrap(gdk_pixbuf_new_from_stream_at_scale(stream.getPointer, width, height, preserve_aspect_ratio, cancellable.getPointer))
-# proc pixbuf_new_from_stream_at_scale*(stream: Gio2.InputStream, width: int32, height: int32, preserve_aspect_ratio: bool, cancellable: Gio2.Cancellable): Pixbuf {.inline.} =
+# proc new_pixbuf_from_stream_at_scale*(stream: Gio2.InputStream, width: int32, height: int32, preserve_aspect_ratio: bool, cancellable: Gio2.Cancellable): Pixbuf {.inline.} =
 
 # gdk_pixbuf_new_from_stream_finish
 # flags: {isConstructor, throws} container: Pixbuf
@@ -339,9 +339,9 @@ proc pixbuf_new_from_stream_at_scale*(stream: Gio2.InputStream, width: int32, he
 # async_result 'Gio2.AsyncResult' 'ptr Gio2.TAsyncResult' IN (diff., need sugar)
 # 'Pixbuf' 'TransferFull[TPixbuf]' (diff., need sugar)
 proc gdk_pixbuf_new_from_stream_finish(async_result: ptr Gio2.TAsyncResult, error: ptr PGError=nil): TransferFull[TPixbuf] {.cdecl, dynlib: lib, importc: "gdk_pixbuf_new_from_stream_finish".}
-proc pixbuf_new_from_stream_finish*(async_result: Gio2.AsyncResult): Pixbuf {.inline.} =
+proc new_pixbuf_from_stream_finish*(async_result: Gio2.AsyncResult): Pixbuf {.inline.} =
   wrap(gdk_pixbuf_new_from_stream_finish(unwrap(async_result)))
-# proc pixbuf_new_from_stream_finish*(async_result: Gio2.AsyncResult): Pixbuf {.inline.} =
+# proc new_pixbuf_from_stream_finish*(async_result: Gio2.AsyncResult): Pixbuf {.inline.} =
 
 # gdk_pixbuf_new_from_xpm_data
 # flags: {isConstructor} container: Pixbuf
@@ -349,9 +349,9 @@ proc pixbuf_new_from_stream_finish*(async_result: Gio2.AsyncResult): Pixbuf {.in
 # data 'uncheckedArray[ucstring]' 'uncheckedArray[ucstring]' IN array zero-terminated
 # 'Pixbuf' 'TransferFull[TPixbuf]' (diff., need sugar)
 proc gdk_pixbuf_new_from_xpm_data(data: uncheckedArray[ucstring]): TransferFull[TPixbuf] {.cdecl, dynlib: lib, importc: "gdk_pixbuf_new_from_xpm_data".}
-proc pixbuf_new_from_xpm_data*(data: uncheckedArray[ucstring]): Pixbuf {.inline.} =
+proc new_pixbuf_from_xpm_data*(data: uncheckedArray[ucstring]): Pixbuf {.inline.} =
   wrap(gdk_pixbuf_new_from_xpm_data(data))
-# proc pixbuf_new_from_xpm_data*(data: uncheckedArray[ucstring]): Pixbuf {.inline.} =
+# proc new_pixbuf_from_xpm_data*(data: uncheckedArray[ucstring]): Pixbuf {.inline.} =
 
 # gdk_pixbuf_from_pixdata
 # flags: {throws} container: Pixbuf (deprecated)
@@ -832,9 +832,9 @@ proc scale_simple*(self: Pixbuf, dest_width: int32, dest_height: int32, interp_t
 # filename 'ustring' 'ucstring' IN (diff., need sugar)
 # 'PixbufAnimation' 'TransferFull[TPixbufAnimation]' (diff., need sugar)
 proc gdk_pixbuf_animation_new_from_file(filename: ucstring, error: ptr PGError=nil): TransferFull[TPixbufAnimation] {.cdecl, dynlib: lib, importc: "gdk_pixbuf_animation_new_from_file".}
-proc pixbufanimation_new_from_file*(filename: ustring): PixbufAnimation {.inline.} =
+proc new_pixbufanimation_from_file*(filename: ustring): PixbufAnimation {.inline.} =
   wrap(gdk_pixbuf_animation_new_from_file(ucstring(filename)))
-# proc pixbufanimation_new_from_file*(filename: ustring): PixbufAnimation {.inline.} =
+# proc new_pixbufanimation_from_file*(filename: ustring): PixbufAnimation {.inline.} =
 
 # gdk_pixbuf_animation_new_from_file_utf8
 # flags: {isConstructor, throws} container: PixbufAnimation
@@ -843,9 +843,9 @@ proc pixbufanimation_new_from_file*(filename: ustring): PixbufAnimation {.inline
 # filename 'ustring' 'ucstring' IN (diff., need sugar)
 # 'PixbufAnimation' 'TransferFull[TPixbufAnimation]' (diff., need sugar)
 proc gdk_pixbuf_animation_new_from_file_utf8(filename: ucstring, error: ptr PGError=nil): TransferFull[TPixbufAnimation] {.cdecl, dynlib: lib, importc: "gdk_pixbuf_animation_new_from_file_utf8".}
-proc pixbufanimation_new_from_file_utf8*(filename: ustring): PixbufAnimation {.inline.} =
+proc new_pixbufanimation_from_file_utf8*(filename: ustring): PixbufAnimation {.inline.} =
   wrap(gdk_pixbuf_animation_new_from_file_utf8(ucstring(filename)))
-# proc pixbufanimation_new_from_file_utf8*(filename: ustring): PixbufAnimation {.inline.} =
+# proc new_pixbufanimation_from_file_utf8*(filename: ustring): PixbufAnimation {.inline.} =
 
 # gdk_pixbuf_animation_new_from_resource
 # flags: {isConstructor, throws} container: PixbufAnimation
@@ -854,9 +854,9 @@ proc pixbufanimation_new_from_file_utf8*(filename: ustring): PixbufAnimation {.i
 # resource_path 'ustring' 'ucstring' IN (diff., need sugar)
 # 'PixbufAnimation' 'TransferFull[TPixbufAnimation]' (diff., need sugar)
 proc gdk_pixbuf_animation_new_from_resource(resource_path: ucstring, error: ptr PGError=nil): TransferFull[TPixbufAnimation] {.cdecl, dynlib: lib, importc: "gdk_pixbuf_animation_new_from_resource".}
-proc pixbufanimation_new_from_resource*(resource_path: ustring): PixbufAnimation {.inline.} =
+proc new_pixbufanimation_from_resource*(resource_path: ustring): PixbufAnimation {.inline.} =
   wrap(gdk_pixbuf_animation_new_from_resource(ucstring(resource_path)))
-# proc pixbufanimation_new_from_resource*(resource_path: ustring): PixbufAnimation {.inline.} =
+# proc new_pixbufanimation_from_resource*(resource_path: ustring): PixbufAnimation {.inline.} =
 
 # gdk_pixbuf_animation_new_from_stream
 # flags: {isConstructor, throws} container: PixbufAnimation
@@ -866,9 +866,9 @@ proc pixbufanimation_new_from_resource*(resource_path: ustring): PixbufAnimation
 # cancellable 'Gio2.Cancellable' 'ptr Gio2.TCancellable' IN (diff., need sugar)
 # 'PixbufAnimation' 'TransferFull[TPixbufAnimation]' (diff., need sugar)
 proc gdk_pixbuf_animation_new_from_stream(stream: ptr Gio2.TInputStream, cancellable: ptr Gio2.TCancellable, error: ptr PGError=nil): TransferFull[TPixbufAnimation] {.cdecl, dynlib: lib, importc: "gdk_pixbuf_animation_new_from_stream".}
-proc pixbufanimation_new_from_stream*(stream: Gio2.InputStream, cancellable: Gio2.Cancellable): PixbufAnimation {.inline.} =
+proc new_pixbufanimation_from_stream*(stream: Gio2.InputStream, cancellable: Gio2.Cancellable): PixbufAnimation {.inline.} =
   wrap(gdk_pixbuf_animation_new_from_stream(stream.getPointer, cancellable.getPointer))
-# proc pixbufanimation_new_from_stream*(stream: Gio2.InputStream, cancellable: Gio2.Cancellable): PixbufAnimation {.inline.} =
+# proc new_pixbufanimation_from_stream*(stream: Gio2.InputStream, cancellable: Gio2.Cancellable): PixbufAnimation {.inline.} =
 
 # gdk_pixbuf_animation_new_from_stream_finish
 # flags: {isConstructor, throws} container: PixbufAnimation
@@ -877,9 +877,9 @@ proc pixbufanimation_new_from_stream*(stream: Gio2.InputStream, cancellable: Gio
 # async_result 'Gio2.AsyncResult' 'ptr Gio2.TAsyncResult' IN (diff., need sugar)
 # 'PixbufAnimation' 'TransferFull[TPixbufAnimation]' (diff., need sugar)
 proc gdk_pixbuf_animation_new_from_stream_finish(async_result: ptr Gio2.TAsyncResult, error: ptr PGError=nil): TransferFull[TPixbufAnimation] {.cdecl, dynlib: lib, importc: "gdk_pixbuf_animation_new_from_stream_finish".}
-proc pixbufanimation_new_from_stream_finish*(async_result: Gio2.AsyncResult): PixbufAnimation {.inline.} =
+proc new_pixbufanimation_from_stream_finish*(async_result: Gio2.AsyncResult): PixbufAnimation {.inline.} =
   wrap(gdk_pixbuf_animation_new_from_stream_finish(unwrap(async_result)))
-# proc pixbufanimation_new_from_stream_finish*(async_result: Gio2.AsyncResult): PixbufAnimation {.inline.} =
+# proc new_pixbufanimation_from_stream_finish*(async_result: Gio2.AsyncResult): PixbufAnimation {.inline.} =
 
 # gdk_pixbuf_animation_new_from_stream_async
 # flags: {} container: PixbufAnimation
@@ -982,9 +982,9 @@ proc on_currently_loading_frame*(self: PixbufAnimationIter): bool {.inline.} =
 # need sugar: is static method
 # 'PixbufLoader' 'TransferFull[TPixbufLoader]' (diff., need sugar)
 proc gdk_pixbuf_loader_new(): TransferFull[TPixbufLoader] {.cdecl, dynlib: lib, importc: "gdk_pixbuf_loader_new".}
-proc pixbufloader_new*(): PixbufLoader {.inline.} =
+proc new_pixbufloader*(): PixbufLoader {.inline.} =
   wrap(gdk_pixbuf_loader_new())
-# proc pixbufloader_new*(): PixbufLoader {.inline.} =
+# proc new_pixbufloader*(): PixbufLoader {.inline.} =
 
 # gdk_pixbuf_loader_new_with_mime_type
 # flags: {isConstructor, throws} container: PixbufLoader
@@ -993,9 +993,9 @@ proc pixbufloader_new*(): PixbufLoader {.inline.} =
 # mime_type 'ustring' 'ucstring' IN (diff., need sugar)
 # 'PixbufLoader' 'TransferFull[TPixbufLoader]' (diff., need sugar)
 proc gdk_pixbuf_loader_new_with_mime_type(mime_type: ucstring, error: ptr PGError=nil): TransferFull[TPixbufLoader] {.cdecl, dynlib: lib, importc: "gdk_pixbuf_loader_new_with_mime_type".}
-proc pixbufloader_new_with_mime_type*(mime_type: ustring): PixbufLoader {.inline.} =
+proc new_pixbufloader_with_mime_type*(mime_type: ustring): PixbufLoader {.inline.} =
   wrap(gdk_pixbuf_loader_new_with_mime_type(ucstring(mime_type)))
-# proc pixbufloader_new_with_mime_type*(mime_type: ustring): PixbufLoader {.inline.} =
+# proc new_pixbufloader_with_mime_type*(mime_type: ustring): PixbufLoader {.inline.} =
 
 # gdk_pixbuf_loader_new_with_type
 # flags: {isConstructor, throws} container: PixbufLoader
@@ -1004,9 +1004,9 @@ proc pixbufloader_new_with_mime_type*(mime_type: ustring): PixbufLoader {.inline
 # image_type 'ustring' 'ucstring' IN (diff., need sugar)
 # 'PixbufLoader' 'TransferFull[TPixbufLoader]' (diff., need sugar)
 proc gdk_pixbuf_loader_new_with_type(image_type: ucstring, error: ptr PGError=nil): TransferFull[TPixbufLoader] {.cdecl, dynlib: lib, importc: "gdk_pixbuf_loader_new_with_type".}
-proc pixbufloader_new_with_type*(image_type: ustring): PixbufLoader {.inline.} =
+proc new_pixbufloader_with_type*(image_type: ustring): PixbufLoader {.inline.} =
   wrap(gdk_pixbuf_loader_new_with_type(ucstring(image_type)))
-# proc pixbufloader_new_with_type*(image_type: ustring): PixbufLoader {.inline.} =
+# proc new_pixbufloader_with_type*(image_type: ustring): PixbufLoader {.inline.} =
 
 # gdk_pixbuf_loader_close
 # flags: {isMethod, throws} container: PixbufLoader
@@ -1087,9 +1087,9 @@ proc write_bytes*(self: PixbufLoader, buffer: GLib2.TBytes): bool {.inline.} =
 # rate 'float32' 'float32' IN
 # 'PixbufSimpleAnim' 'TransferFull[TPixbufSimpleAnim]' (diff., need sugar)
 proc gdk_pixbuf_simple_anim_new(width: int32, height: int32, rate: float32): TransferFull[TPixbufSimpleAnim] {.cdecl, dynlib: lib, importc: "gdk_pixbuf_simple_anim_new".}
-proc pixbufsimpleanim_new*(width: int32, height: int32, rate: float32): PixbufSimpleAnim {.inline.} =
+proc new_pixbufsimpleanim*(width: int32, height: int32, rate: float32): PixbufSimpleAnim {.inline.} =
   wrap(gdk_pixbuf_simple_anim_new(width, height, rate))
-# proc pixbufsimpleanim_new*(width: int32, height: int32, rate: float32): PixbufSimpleAnim {.inline.} =
+# proc new_pixbufsimpleanim*(width: int32, height: int32, rate: float32): PixbufSimpleAnim {.inline.} =
 
 # gdk_pixbuf_simple_anim_add_frame
 # flags: {isMethod} container: PixbufSimpleAnim

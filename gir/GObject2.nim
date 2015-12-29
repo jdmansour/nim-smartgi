@@ -2305,9 +2305,9 @@ proc unbind*(self: Binding) {.inline.} =
 # parameters 'var openarray[TParameter]' 'openarray[TParameter]' IN (diff., need sugar) array lengthArg: 1
 # 'Object' 'TransferFull[TObject]' (diff., need sugar)
 proc g_object_newv(object_type: GType, n_parameters: uint32, parameters: openarray[TParameter]): TransferFull[TObject] {.cdecl, dynlib: lib, importc: "g_object_newv".}
-proc object_new*(object_type: GType, parameters: var openarray[TParameter]): Object {.inline.} =
+proc new_object*(object_type: GType, parameters: var openarray[TParameter]): Object {.inline.} =
   wrap(g_object_newv(object_type, parameters.len.uint32, parameters))
-# proc object_new*(object_type: GType, parameters: var openarray[TParameter]): Object {.inline.} =
+# proc new_object*(object_type: GType, parameters: var openarray[TParameter]): Object {.inline.} =
 
 # g_object_compat_control
 # flags: {} container: Object
@@ -3129,9 +3129,9 @@ template marshal_generic*(klass_parameter: typedesc[CClosure], closure: TClosure
 # object 'Object' 'ptr TObject' IN (diff., need sugar)
 # 'TClosure' 'ptr TClosure' (diff., need sugar)
 proc g_closure_new_object(sizeof_closure: uint32, object_x: ptr TObject): ptr TClosure {.cdecl, dynlib: lib, importc: "g_closure_new_object".}
-proc closure_new_object*(sizeof_closure: uint32, object_x: Object): TClosure {.inline.} =
+proc new_closure_object*(sizeof_closure: uint32, object_x: Object): TClosure {.inline.} =
   (g_closure_new_object(sizeof_closure, object_x.getPointer))[]
-# proc closure_new_object*(sizeof_closure: uint32, object_x: Object): TClosure {.inline.} =
+# proc new_closure_object*(sizeof_closure: uint32, object_x: Object): TClosure {.inline.} =
 
 # g_closure_new_simple
 # flags: {isConstructor} container: Closure
@@ -3140,9 +3140,9 @@ proc closure_new_object*(sizeof_closure: uint32, object_x: Object): TClosure {.i
 # data 'pointer' 'pointer' IN
 # 'TClosure' 'ptr TClosure' (diff., need sugar)
 proc g_closure_new_simple(sizeof_closure: uint32, data: pointer): ptr TClosure {.cdecl, dynlib: lib, importc: "g_closure_new_simple".}
-proc closure_new_simple*(sizeof_closure: uint32, data: pointer): TClosure {.inline.} =
+proc new_closure_simple*(sizeof_closure: uint32, data: pointer): TClosure {.inline.} =
   (g_closure_new_simple(sizeof_closure, data))[]
-# proc closure_new_simple*(sizeof_closure: uint32, data: pointer): TClosure {.inline.} =
+# proc new_closure_simple*(sizeof_closure: uint32, data: pointer): TClosure {.inline.} =
 
 # g_closure_invalidate
 # flags: {isMethod} container: Closure

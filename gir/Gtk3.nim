@@ -7907,9 +7907,9 @@ proc gtk_true*(): bool {.cdecl, dynlib: lib, importc: "gtk_true".}
 # need sugar: is static method
 # 'AboutDialog' 'TransferNone[TAboutDialog]' (diff., need sugar)
 proc gtk_about_dialog_new(): TransferNone[TAboutDialog] {.cdecl, dynlib: lib, importc: "gtk_about_dialog_new".}
-proc aboutdialog_new*(): AboutDialog {.inline.} =
+proc new_aboutdialog*(): AboutDialog {.inline.} =
   wrap(gtk_about_dialog_new())
-# proc aboutdialog_new*(): AboutDialog {.inline.} =
+# proc new_aboutdialog*(): AboutDialog {.inline.} =
 
 # gtk_about_dialog_add_credit_section
 # flags: {isMethod} container: AboutDialog
@@ -8212,9 +8212,9 @@ proc set_wrap_license*(self: AboutDialog, wrap_license: bool) {.inline.} =
 # need sugar: is static method
 # 'AccelGroup' 'TransferFull[TAccelGroup]' (diff., need sugar)
 proc gtk_accel_group_new(): TransferFull[TAccelGroup] {.cdecl, dynlib: lib, importc: "gtk_accel_group_new".}
-proc accelgroup_new*(): AccelGroup {.inline.} =
+proc new_accelgroup*(): AccelGroup {.inline.} =
   wrap(gtk_accel_group_new())
-# proc accelgroup_new*(): AccelGroup {.inline.} =
+# proc new_accelgroup*(): AccelGroup {.inline.} =
 
 # gtk_accel_group_from_accel_closure
 # flags: {} container: AccelGroup
@@ -8351,9 +8351,9 @@ proc unlock*(self: AccelGroup) {.inline.} =
 # string 'ustring' 'ucstring' IN (diff., need sugar)
 # 'AccelLabel' 'TransferNone[TAccelLabel]' (diff., need sugar)
 proc gtk_accel_label_new(string: ucstring): TransferNone[TAccelLabel] {.cdecl, dynlib: lib, importc: "gtk_accel_label_new".}
-proc accellabel_new*(string: ustring): AccelLabel {.inline.} =
+proc new_accellabel*(string: ustring): AccelLabel {.inline.} =
   wrap(gtk_accel_label_new(ucstring(string)))
-# proc accellabel_new*(string: ustring): AccelLabel {.inline.} =
+# proc new_accellabel*(string: ustring): AccelLabel {.inline.} =
 
 # gtk_accel_label_get_accel
 # flags: {isMethod} container: AccelLabel
@@ -8686,9 +8686,9 @@ proc set_widget*(self: Accessible, widget: Widget) {.inline.} =
 # need sugar: is static method
 # 'ActionBar' 'TransferNone[TActionBar]' (diff., need sugar)
 proc gtk_action_bar_new(): TransferNone[TActionBar] {.cdecl, dynlib: lib, importc: "gtk_action_bar_new".}
-proc actionbar_new*(): ActionBar {.inline.} =
+proc new_actionbar*(): ActionBar {.inline.} =
   wrap(gtk_action_bar_new())
-# proc actionbar_new*(): ActionBar {.inline.} =
+# proc new_actionbar*(): ActionBar {.inline.} =
 
 # gtk_action_bar_get_center_widget
 # flags: {isMethod} container: ActionBar
@@ -8772,9 +8772,9 @@ proc set_center_widget*(self: ActionBar, center_widget: Widget) {.inline.} =
 # page_size 'float64' 'float64' IN
 # 'Adjustment' 'TransferNone[TAdjustment]' (diff., need sugar)
 proc gtk_adjustment_new(value: float64, lower: float64, upper: float64, step_increment: float64, page_increment: float64, page_size: float64): TransferNone[TAdjustment] {.cdecl, dynlib: lib, importc: "gtk_adjustment_new".}
-proc adjustment_new*(value: float64, lower: float64, upper: float64, step_increment: float64, page_increment: float64, page_size: float64): Adjustment {.inline.} =
+proc new_adjustment*(value: float64, lower: float64, upper: float64, step_increment: float64, page_increment: float64, page_size: float64): Adjustment {.inline.} =
   wrap(gtk_adjustment_new(value, lower, upper, step_increment, page_increment, page_size))
-# proc adjustment_new*(value: float64, lower: float64, upper: float64, step_increment: float64, page_increment: float64, page_size: float64): Adjustment {.inline.} =
+# proc new_adjustment*(value: float64, lower: float64, upper: float64, step_increment: float64, page_increment: float64, page_size: float64): Adjustment {.inline.} =
 
 # gtk_adjustment_changed
 # flags: {isMethod} container: Adjustment
@@ -8957,9 +8957,9 @@ proc value_changed*(self: Adjustment) {.inline.} =
 # content_type 'ustring' 'ucstring' IN (diff., need sugar)
 # 'AppChooserButton' 'TransferNone[TAppChooserButton]' (diff., need sugar)
 proc gtk_app_chooser_button_new(content_type: ucstring): TransferNone[TAppChooserButton] {.cdecl, dynlib: lib, importc: "gtk_app_chooser_button_new".}
-proc appchooserbutton_new*(content_type: ustring): AppChooserButton {.inline.} =
+proc new_appchooserbutton*(content_type: ustring): AppChooserButton {.inline.} =
   wrap(gtk_app_chooser_button_new(ucstring(content_type)))
-# proc appchooserbutton_new*(content_type: ustring): AppChooserButton {.inline.} =
+# proc new_appchooserbutton*(content_type: ustring): AppChooserButton {.inline.} =
 
 # gtk_app_chooser_button_append_custom_item
 # flags: {isMethod} container: AppChooserButton
@@ -9057,9 +9057,9 @@ proc set_show_dialog_item*(self: AppChooserButton, setting: bool) {.inline.} =
 # file 'Gio2.File' 'ptr Gio2.TFile' IN (diff., need sugar)
 # 'AppChooserDialog' 'TransferNone[TAppChooserDialog]' (diff., need sugar)
 proc gtk_app_chooser_dialog_new(parent: ptr TWindow, flags: SDialogFlags, file: ptr Gio2.TFile): TransferNone[TAppChooserDialog] {.cdecl, dynlib: lib, importc: "gtk_app_chooser_dialog_new".}
-proc appchooserdialog_new*(parent: Window, flags: SDialogFlags, file: Gio2.File): AppChooserDialog {.inline.} =
+proc new_appchooserdialog*(parent: Window, flags: SDialogFlags, file: Gio2.File): AppChooserDialog {.inline.} =
   wrap(gtk_app_chooser_dialog_new(parent.getPointer, flags, unwrap(file)))
-# proc appchooserdialog_new*(parent: Window, flags: SDialogFlags, file: Gio2.File): AppChooserDialog {.inline.} =
+# proc new_appchooserdialog*(parent: Window, flags: SDialogFlags, file: Gio2.File): AppChooserDialog {.inline.} =
 
 # gtk_app_chooser_dialog_new_for_content_type
 # flags: {isConstructor} container: AppChooserDialog
@@ -9069,9 +9069,9 @@ proc appchooserdialog_new*(parent: Window, flags: SDialogFlags, file: Gio2.File)
 # content_type 'ustring' 'ucstring' IN (diff., need sugar)
 # 'AppChooserDialog' 'TransferNone[TAppChooserDialog]' (diff., need sugar)
 proc gtk_app_chooser_dialog_new_for_content_type(parent: ptr TWindow, flags: SDialogFlags, content_type: ucstring): TransferNone[TAppChooserDialog] {.cdecl, dynlib: lib, importc: "gtk_app_chooser_dialog_new_for_content_type".}
-proc appchooserdialog_new_for_content_type*(parent: Window, flags: SDialogFlags, content_type: ustring): AppChooserDialog {.inline.} =
+proc new_appchooserdialog_for_content_type*(parent: Window, flags: SDialogFlags, content_type: ustring): AppChooserDialog {.inline.} =
   wrap(gtk_app_chooser_dialog_new_for_content_type(parent.getPointer, flags, ucstring(content_type)))
-# proc appchooserdialog_new_for_content_type*(parent: Window, flags: SDialogFlags, content_type: ustring): AppChooserDialog {.inline.} =
+# proc new_appchooserdialog_for_content_type*(parent: Window, flags: SDialogFlags, content_type: ustring): AppChooserDialog {.inline.} =
 
 # gtk_app_chooser_dialog_get_heading
 # flags: {isMethod} container: AppChooserDialog
@@ -9107,9 +9107,9 @@ proc set_heading*(self: AppChooserDialog, heading: ustring) {.inline.} =
 # content_type 'ustring' 'ucstring' IN (diff., need sugar)
 # 'AppChooserWidget' 'TransferNone[TAppChooserWidget]' (diff., need sugar)
 proc gtk_app_chooser_widget_new(content_type: ucstring): TransferNone[TAppChooserWidget] {.cdecl, dynlib: lib, importc: "gtk_app_chooser_widget_new".}
-proc appchooserwidget_new*(content_type: ustring): AppChooserWidget {.inline.} =
+proc new_appchooserwidget*(content_type: ustring): AppChooserWidget {.inline.} =
   wrap(gtk_app_chooser_widget_new(ucstring(content_type)))
-# proc appchooserwidget_new*(content_type: ustring): AppChooserWidget {.inline.} =
+# proc new_appchooserwidget*(content_type: ustring): AppChooserWidget {.inline.} =
 
 # gtk_app_chooser_widget_get_default_text
 # flags: {isMethod} container: AppChooserWidget
@@ -9232,9 +9232,9 @@ proc set_show_recommended*(self: AppChooserWidget, setting: bool) {.inline.} =
 # flags 'Gio2.SApplicationFlags' 'Gio2.SApplicationFlags' IN
 # 'Application' 'TransferFull[TApplication]' (diff., need sugar)
 proc gtk_application_new(application_id: ucstring, flags: Gio2.SApplicationFlags): TransferFull[TApplication] {.cdecl, dynlib: lib, importc: "gtk_application_new".}
-proc application_new*(application_id: ustring, flags: Gio2.SApplicationFlags): Application {.inline.} =
+proc new_application*(application_id: ustring, flags: Gio2.SApplicationFlags): Application {.inline.} =
   wrap(gtk_application_new(ucstring(application_id), flags))
-# proc application_new*(application_id: ustring, flags: Gio2.SApplicationFlags): Application {.inline.} =
+# proc new_application*(application_id: ustring, flags: Gio2.SApplicationFlags): Application {.inline.} =
 
 # gtk_application_add_accelerator
 # flags: {isMethod} container: Application (deprecated)
@@ -9423,9 +9423,9 @@ proc uninhibit*(self: Application, cookie: uint32) {.inline.} =
 # application 'Application' 'ptr TApplication' IN (diff., need sugar)
 # 'ApplicationWindow' 'TransferNone[TApplicationWindow]' (diff., need sugar)
 proc gtk_application_window_new(application: ptr TApplication): TransferNone[TApplicationWindow] {.cdecl, dynlib: lib, importc: "gtk_application_window_new".}
-proc applicationwindow_new*(application: Application): ApplicationWindow {.inline.} =
+proc new_applicationwindow*(application: Application): ApplicationWindow {.inline.} =
   wrap(gtk_application_window_new(application.getPointer))
-# proc applicationwindow_new*(application: Application): ApplicationWindow {.inline.} =
+# proc new_applicationwindow*(application: Application): ApplicationWindow {.inline.} =
 
 # gtk_application_window_get_id
 # flags: {isMethod} container: ApplicationWindow
@@ -9469,9 +9469,9 @@ proc set_show_menubar*(self: ApplicationWindow, show_menubar: bool) {.inline.} =
 # obey_child 'bool' 'bool' IN
 # 'AspectFrame' 'TransferNone[TAspectFrame]' (diff., need sugar)
 proc gtk_aspect_frame_new(label: ucstring, xalign: float32, yalign: float32, ratio: float32, obey_child: bool): TransferNone[TAspectFrame] {.cdecl, dynlib: lib, importc: "gtk_aspect_frame_new".}
-proc aspectframe_new*(label: ustring, xalign: float32, yalign: float32, ratio: float32, obey_child: bool): AspectFrame {.inline.} =
+proc new_aspectframe*(label: ustring, xalign: float32, yalign: float32, ratio: float32, obey_child: bool): AspectFrame {.inline.} =
   wrap(gtk_aspect_frame_new(ucstring(label), xalign, yalign, ratio, obey_child))
-# proc aspectframe_new*(label: ustring, xalign: float32, yalign: float32, ratio: float32, obey_child: bool): AspectFrame {.inline.} =
+# proc new_aspectframe*(label: ustring, xalign: float32, yalign: float32, ratio: float32, obey_child: bool): AspectFrame {.inline.} =
 
 # gtk_aspect_frame_set
 # flags: {isMethod} container: AspectFrame
@@ -9491,9 +9491,9 @@ proc set*(self: AspectFrame, xalign: float32, yalign: float32, ratio: float32, o
 # need sugar: is static method
 # 'Assistant' 'TransferNone[TAssistant]' (diff., need sugar)
 proc gtk_assistant_new(): TransferNone[TAssistant] {.cdecl, dynlib: lib, importc: "gtk_assistant_new".}
-proc assistant_new*(): Assistant {.inline.} =
+proc new_assistant*(): Assistant {.inline.} =
   wrap(gtk_assistant_new())
-# proc assistant_new*(): Assistant {.inline.} =
+# proc new_assistant*(): Assistant {.inline.} =
 
 # gtk_assistant_add_action_widget
 # flags: {isMethod} container: Assistant
@@ -9729,9 +9729,9 @@ proc get_child*(self: Bin): Widget {.inline.} =
 # spacing 'int32' 'int32' IN
 # 'Box' 'TransferNone[TBox]' (diff., need sugar)
 proc gtk_box_new(orientation: Orientation, spacing: int32): TransferNone[TBox] {.cdecl, dynlib: lib, importc: "gtk_box_new".}
-proc box_new*(orientation: Orientation, spacing: int32): Box {.inline.} =
+proc new_box*(orientation: Orientation, spacing: int32): Box {.inline.} =
   wrap(gtk_box_new(orientation, spacing))
-# proc box_new*(orientation: Orientation, spacing: int32): Box {.inline.} =
+# proc new_box*(orientation: Orientation, spacing: int32): Box {.inline.} =
 
 # gtk_box_get_baseline_position
 # flags: {isMethod} container: Box
@@ -9884,9 +9884,9 @@ proc set_spacing*(self: Box, spacing: int32) {.inline.} =
 # need sugar: is static method
 # 'Builder' 'TransferFull[TBuilder]' (diff., need sugar)
 proc gtk_builder_new(): TransferFull[TBuilder] {.cdecl, dynlib: lib, importc: "gtk_builder_new".}
-proc builder_new*(): Builder {.inline.} =
+proc new_builder*(): Builder {.inline.} =
   wrap(gtk_builder_new())
-# proc builder_new*(): Builder {.inline.} =
+# proc new_builder*(): Builder {.inline.} =
 
 # gtk_builder_new_from_file
 # flags: {isConstructor} container: Builder
@@ -9894,9 +9894,9 @@ proc builder_new*(): Builder {.inline.} =
 # filename 'ustring' 'ucstring' IN (diff., need sugar)
 # 'Builder' 'TransferFull[TBuilder]' (diff., need sugar)
 proc gtk_builder_new_from_file(filename: ucstring): TransferFull[TBuilder] {.cdecl, dynlib: lib, importc: "gtk_builder_new_from_file".}
-proc builder_new_from_file*(filename: ustring): Builder {.inline.} =
+proc new_builder_from_file*(filename: ustring): Builder {.inline.} =
   wrap(gtk_builder_new_from_file(ucstring(filename)))
-# proc builder_new_from_file*(filename: ustring): Builder {.inline.} =
+# proc new_builder_from_file*(filename: ustring): Builder {.inline.} =
 
 # gtk_builder_new_from_resource
 # flags: {isConstructor} container: Builder
@@ -9904,9 +9904,9 @@ proc builder_new_from_file*(filename: ustring): Builder {.inline.} =
 # resource_path 'ustring' 'ucstring' IN (diff., need sugar)
 # 'Builder' 'TransferFull[TBuilder]' (diff., need sugar)
 proc gtk_builder_new_from_resource(resource_path: ucstring): TransferFull[TBuilder] {.cdecl, dynlib: lib, importc: "gtk_builder_new_from_resource".}
-proc builder_new_from_resource*(resource_path: ustring): Builder {.inline.} =
+proc new_builder_from_resource*(resource_path: ustring): Builder {.inline.} =
   wrap(gtk_builder_new_from_resource(ucstring(resource_path)))
-# proc builder_new_from_resource*(resource_path: ustring): Builder {.inline.} =
+# proc new_builder_from_resource*(resource_path: ustring): Builder {.inline.} =
 
 # gtk_builder_new_from_string
 # flags: {isConstructor} container: Builder
@@ -9915,9 +9915,9 @@ proc builder_new_from_resource*(resource_path: ustring): Builder {.inline.} =
 # length 'int32' 'int32' IN
 # 'Builder' 'TransferFull[TBuilder]' (diff., need sugar)
 proc gtk_builder_new_from_string(string: ucstring, length: int32): TransferFull[TBuilder] {.cdecl, dynlib: lib, importc: "gtk_builder_new_from_string".}
-proc builder_new_from_string*(string: ustring, length: int32): Builder {.inline.} =
+proc new_builder_from_string*(string: ustring, length: int32): Builder {.inline.} =
   wrap(gtk_builder_new_from_string(ucstring(string), length))
-# proc builder_new_from_string*(string: ustring, length: int32): Builder {.inline.} =
+# proc new_builder_from_string*(string: ustring, length: int32): Builder {.inline.} =
 
 # gtk_builder_add_callback_symbol
 # flags: {isMethod} container: Builder
@@ -10135,9 +10135,9 @@ proc value_from_string_type*(self: Builder, type_x: GType, string: ustring, valu
 # need sugar: is static method
 # 'Button' 'TransferNone[TButton]' (diff., need sugar)
 proc gtk_button_new(): TransferNone[TButton] {.cdecl, dynlib: lib, importc: "gtk_button_new".}
-proc button_new*(): Button {.inline.} =
+proc new_button*(): Button {.inline.} =
   wrap(gtk_button_new())
-# proc button_new*(): Button {.inline.} =
+# proc new_button*(): Button {.inline.} =
 
 # gtk_button_new_from_icon_name
 # flags: {isConstructor} container: Button
@@ -10146,9 +10146,9 @@ proc button_new*(): Button {.inline.} =
 # size 'int32' 'int32' IN
 # 'Button' 'TransferNone[TButton]' (diff., need sugar)
 proc gtk_button_new_from_icon_name(icon_name: ucstring, size: int32): TransferNone[TButton] {.cdecl, dynlib: lib, importc: "gtk_button_new_from_icon_name".}
-proc button_new_from_icon_name*(icon_name: ustring, size: int32): Button {.inline.} =
+proc new_button_from_icon_name*(icon_name: ustring, size: int32): Button {.inline.} =
   wrap(gtk_button_new_from_icon_name(ucstring(icon_name), size))
-# proc button_new_from_icon_name*(icon_name: ustring, size: int32): Button {.inline.} =
+# proc new_button_from_icon_name*(icon_name: ustring, size: int32): Button {.inline.} =
 
 # gtk_button_new_from_stock
 # flags: {isConstructor} container: Button (deprecated)
@@ -10158,9 +10158,9 @@ proc button_new_from_icon_name*(icon_name: ustring, size: int32): Button {.inlin
 # label 'ustring' 'ucstring' IN (diff., need sugar)
 # 'Button' 'TransferNone[TButton]' (diff., need sugar)
 proc gtk_button_new_with_label(label: ucstring): TransferNone[TButton] {.cdecl, dynlib: lib, importc: "gtk_button_new_with_label".}
-proc button_new_with_label*(label: ustring): Button {.inline.} =
+proc new_button_with_label*(label: ustring): Button {.inline.} =
   wrap(gtk_button_new_with_label(ucstring(label)))
-# proc button_new_with_label*(label: ustring): Button {.inline.} =
+# proc new_button_with_label*(label: ustring): Button {.inline.} =
 
 # gtk_button_new_with_mnemonic
 # flags: {isConstructor} container: Button
@@ -10168,9 +10168,9 @@ proc button_new_with_label*(label: ustring): Button {.inline.} =
 # label 'ustring' 'ucstring' IN (diff., need sugar)
 # 'Button' 'TransferNone[TButton]' (diff., need sugar)
 proc gtk_button_new_with_mnemonic(label: ucstring): TransferNone[TButton] {.cdecl, dynlib: lib, importc: "gtk_button_new_with_mnemonic".}
-proc button_new_with_mnemonic*(label: ustring): Button {.inline.} =
+proc new_button_with_mnemonic*(label: ustring): Button {.inline.} =
   wrap(gtk_button_new_with_mnemonic(ucstring(label)))
-# proc button_new_with_mnemonic*(label: ustring): Button {.inline.} =
+# proc new_button_with_mnemonic*(label: ustring): Button {.inline.} =
 
 # gtk_button_clicked
 # flags: {isMethod} container: Button
@@ -10345,9 +10345,9 @@ proc set_use_underline*(self: Button, use_underline: bool) {.inline.} =
 # orientation 'Orientation' 'Orientation' IN
 # 'ButtonBox' 'TransferNone[TButtonBox]' (diff., need sugar)
 proc gtk_button_box_new(orientation: Orientation): TransferNone[TButtonBox] {.cdecl, dynlib: lib, importc: "gtk_button_box_new".}
-proc buttonbox_new*(orientation: Orientation): ButtonBox {.inline.} =
+proc new_buttonbox*(orientation: Orientation): ButtonBox {.inline.} =
   wrap(gtk_button_box_new(orientation))
-# proc buttonbox_new*(orientation: Orientation): ButtonBox {.inline.} =
+# proc new_buttonbox*(orientation: Orientation): ButtonBox {.inline.} =
 
 # gtk_button_box_get_child_non_homogeneous
 # flags: {isMethod} container: ButtonBox
@@ -10415,9 +10415,9 @@ proc set_layout*(self: ButtonBox, layout_style: ButtonBoxStyle) {.inline.} =
 # need sugar: is static method
 # 'Calendar' 'TransferNone[TCalendar]' (diff., need sugar)
 proc gtk_calendar_new(): TransferNone[TCalendar] {.cdecl, dynlib: lib, importc: "gtk_calendar_new".}
-proc calendar_new*(): Calendar {.inline.} =
+proc new_calendar*(): Calendar {.inline.} =
   wrap(gtk_calendar_new())
-# proc calendar_new*(): Calendar {.inline.} =
+# proc new_calendar*(): Calendar {.inline.} =
 
 # gtk_calendar_clear_marks
 # flags: {isMethod} container: Calendar
@@ -11041,9 +11041,9 @@ proc stop_editing*(self: CellArea, canceled: bool) {.inline.} =
 # need sugar: is static method
 # 'CellAreaBox' 'TransferNone[TCellAreaBox]' (diff., need sugar)
 proc gtk_cell_area_box_new(): TransferNone[TCellAreaBox] {.cdecl, dynlib: lib, importc: "gtk_cell_area_box_new".}
-proc cellareabox_new*(): CellAreaBox {.inline.} =
+proc new_cellareabox*(): CellAreaBox {.inline.} =
   wrap(gtk_cell_area_box_new())
-# proc cellareabox_new*(): CellAreaBox {.inline.} =
+# proc new_cellareabox*(): CellAreaBox {.inline.} =
 
 # gtk_cell_area_box_get_spacing
 # flags: {isMethod} container: CellAreaBox
@@ -11508,63 +11508,63 @@ proc stop_editing*(self: CellRenderer, canceled: bool) {.inline.} =
 # need sugar: is static method
 # 'CellRendererAccel' 'TransferNone[TCellRendererAccel]' (diff., need sugar)
 proc gtk_cell_renderer_accel_new(): TransferNone[TCellRendererAccel] {.cdecl, dynlib: lib, importc: "gtk_cell_renderer_accel_new".}
-proc cellrendereraccel_new*(): CellRendererAccel {.inline.} =
+proc new_cellrendereraccel*(): CellRendererAccel {.inline.} =
   wrap(gtk_cell_renderer_accel_new())
-# proc cellrendereraccel_new*(): CellRendererAccel {.inline.} =
+# proc new_cellrendereraccel*(): CellRendererAccel {.inline.} =
 
 # gtk_cell_renderer_combo_new
 # flags: {isConstructor} container: CellRendererCombo
 # need sugar: is static method
 # 'CellRendererCombo' 'TransferNone[TCellRendererCombo]' (diff., need sugar)
 proc gtk_cell_renderer_combo_new(): TransferNone[TCellRendererCombo] {.cdecl, dynlib: lib, importc: "gtk_cell_renderer_combo_new".}
-proc cellrenderercombo_new*(): CellRendererCombo {.inline.} =
+proc new_cellrenderercombo*(): CellRendererCombo {.inline.} =
   wrap(gtk_cell_renderer_combo_new())
-# proc cellrenderercombo_new*(): CellRendererCombo {.inline.} =
+# proc new_cellrenderercombo*(): CellRendererCombo {.inline.} =
 
 # gtk_cell_renderer_pixbuf_new
 # flags: {isConstructor} container: CellRendererPixbuf
 # need sugar: is static method
 # 'CellRendererPixbuf' 'TransferNone[TCellRendererPixbuf]' (diff., need sugar)
 proc gtk_cell_renderer_pixbuf_new(): TransferNone[TCellRendererPixbuf] {.cdecl, dynlib: lib, importc: "gtk_cell_renderer_pixbuf_new".}
-proc cellrendererpixbuf_new*(): CellRendererPixbuf {.inline.} =
+proc new_cellrendererpixbuf*(): CellRendererPixbuf {.inline.} =
   wrap(gtk_cell_renderer_pixbuf_new())
-# proc cellrendererpixbuf_new*(): CellRendererPixbuf {.inline.} =
+# proc new_cellrendererpixbuf*(): CellRendererPixbuf {.inline.} =
 
 # gtk_cell_renderer_progress_new
 # flags: {isConstructor} container: CellRendererProgress
 # need sugar: is static method
 # 'CellRendererProgress' 'TransferNone[TCellRendererProgress]' (diff., need sugar)
 proc gtk_cell_renderer_progress_new(): TransferNone[TCellRendererProgress] {.cdecl, dynlib: lib, importc: "gtk_cell_renderer_progress_new".}
-proc cellrendererprogress_new*(): CellRendererProgress {.inline.} =
+proc new_cellrendererprogress*(): CellRendererProgress {.inline.} =
   wrap(gtk_cell_renderer_progress_new())
-# proc cellrendererprogress_new*(): CellRendererProgress {.inline.} =
+# proc new_cellrendererprogress*(): CellRendererProgress {.inline.} =
 
 # gtk_cell_renderer_spin_new
 # flags: {isConstructor} container: CellRendererSpin
 # need sugar: is static method
 # 'CellRendererSpin' 'TransferNone[TCellRendererSpin]' (diff., need sugar)
 proc gtk_cell_renderer_spin_new(): TransferNone[TCellRendererSpin] {.cdecl, dynlib: lib, importc: "gtk_cell_renderer_spin_new".}
-proc cellrendererspin_new*(): CellRendererSpin {.inline.} =
+proc new_cellrendererspin*(): CellRendererSpin {.inline.} =
   wrap(gtk_cell_renderer_spin_new())
-# proc cellrendererspin_new*(): CellRendererSpin {.inline.} =
+# proc new_cellrendererspin*(): CellRendererSpin {.inline.} =
 
 # gtk_cell_renderer_spinner_new
 # flags: {isConstructor} container: CellRendererSpinner
 # need sugar: is static method
 # 'CellRendererSpinner' 'TransferNone[TCellRendererSpinner]' (diff., need sugar)
 proc gtk_cell_renderer_spinner_new(): TransferNone[TCellRendererSpinner] {.cdecl, dynlib: lib, importc: "gtk_cell_renderer_spinner_new".}
-proc cellrendererspinner_new*(): CellRendererSpinner {.inline.} =
+proc new_cellrendererspinner*(): CellRendererSpinner {.inline.} =
   wrap(gtk_cell_renderer_spinner_new())
-# proc cellrendererspinner_new*(): CellRendererSpinner {.inline.} =
+# proc new_cellrendererspinner*(): CellRendererSpinner {.inline.} =
 
 # gtk_cell_renderer_text_new
 # flags: {isConstructor} container: CellRendererText
 # need sugar: is static method
 # 'CellRendererText' 'TransferNone[TCellRendererText]' (diff., need sugar)
 proc gtk_cell_renderer_text_new(): TransferNone[TCellRendererText] {.cdecl, dynlib: lib, importc: "gtk_cell_renderer_text_new".}
-proc cellrenderertext_new*(): CellRendererText {.inline.} =
+proc new_cellrenderertext*(): CellRendererText {.inline.} =
   wrap(gtk_cell_renderer_text_new())
-# proc cellrenderertext_new*(): CellRendererText {.inline.} =
+# proc new_cellrenderertext*(): CellRendererText {.inline.} =
 
 # gtk_cell_renderer_text_set_fixed_height_from_font
 # flags: {isMethod} container: CellRendererText
@@ -11581,9 +11581,9 @@ proc set_fixed_height_from_font*(self: CellRendererText, number_of_rows: int32) 
 # need sugar: is static method
 # 'CellRendererToggle' 'TransferNone[TCellRendererToggle]' (diff., need sugar)
 proc gtk_cell_renderer_toggle_new(): TransferNone[TCellRendererToggle] {.cdecl, dynlib: lib, importc: "gtk_cell_renderer_toggle_new".}
-proc cellrenderertoggle_new*(): CellRendererToggle {.inline.} =
+proc new_cellrenderertoggle*(): CellRendererToggle {.inline.} =
   wrap(gtk_cell_renderer_toggle_new())
-# proc cellrenderertoggle_new*(): CellRendererToggle {.inline.} =
+# proc new_cellrenderertoggle*(): CellRendererToggle {.inline.} =
 
 # gtk_cell_renderer_toggle_get_activatable
 # flags: {isMethod} container: CellRendererToggle
@@ -11647,9 +11647,9 @@ proc set_radio*(self: CellRendererToggle, radio: bool) {.inline.} =
 # need sugar: is static method
 # 'CellView' 'TransferNone[TCellView]' (diff., need sugar)
 proc gtk_cell_view_new(): TransferNone[TCellView] {.cdecl, dynlib: lib, importc: "gtk_cell_view_new".}
-proc cellview_new*(): CellView {.inline.} =
+proc new_cellview*(): CellView {.inline.} =
   wrap(gtk_cell_view_new())
-# proc cellview_new*(): CellView {.inline.} =
+# proc new_cellview*(): CellView {.inline.} =
 
 # gtk_cell_view_new_with_context
 # flags: {isConstructor} container: CellView
@@ -11658,9 +11658,9 @@ proc cellview_new*(): CellView {.inline.} =
 # context 'CellAreaContext' 'ptr TCellAreaContext' IN (diff., need sugar)
 # 'CellView' 'TransferNone[TCellView]' (diff., need sugar)
 proc gtk_cell_view_new_with_context(area: ptr TCellArea, context: ptr TCellAreaContext): TransferNone[TCellView] {.cdecl, dynlib: lib, importc: "gtk_cell_view_new_with_context".}
-proc cellview_new_with_context*(area: CellArea, context: CellAreaContext): CellView {.inline.} =
+proc new_cellview_with_context*(area: CellArea, context: CellAreaContext): CellView {.inline.} =
   wrap(gtk_cell_view_new_with_context(area.getPointer, context.getPointer))
-# proc cellview_new_with_context*(area: CellArea, context: CellAreaContext): CellView {.inline.} =
+# proc new_cellview_with_context*(area: CellArea, context: CellAreaContext): CellView {.inline.} =
 
 # gtk_cell_view_new_with_markup
 # flags: {isConstructor} container: CellView
@@ -11668,9 +11668,9 @@ proc cellview_new_with_context*(area: CellArea, context: CellAreaContext): CellV
 # markup 'ustring' 'ucstring' IN (diff., need sugar)
 # 'CellView' 'TransferNone[TCellView]' (diff., need sugar)
 proc gtk_cell_view_new_with_markup(markup: ucstring): TransferNone[TCellView] {.cdecl, dynlib: lib, importc: "gtk_cell_view_new_with_markup".}
-proc cellview_new_with_markup*(markup: ustring): CellView {.inline.} =
+proc new_cellview_with_markup*(markup: ustring): CellView {.inline.} =
   wrap(gtk_cell_view_new_with_markup(ucstring(markup)))
-# proc cellview_new_with_markup*(markup: ustring): CellView {.inline.} =
+# proc new_cellview_with_markup*(markup: ustring): CellView {.inline.} =
 
 # gtk_cell_view_new_with_pixbuf
 # flags: {isConstructor} container: CellView
@@ -11678,9 +11678,9 @@ proc cellview_new_with_markup*(markup: ustring): CellView {.inline.} =
 # pixbuf 'GdkPixbuf2.Pixbuf' 'ptr GdkPixbuf2.TPixbuf' IN (diff., need sugar)
 # 'CellView' 'TransferNone[TCellView]' (diff., need sugar)
 proc gtk_cell_view_new_with_pixbuf(pixbuf: ptr GdkPixbuf2.TPixbuf): TransferNone[TCellView] {.cdecl, dynlib: lib, importc: "gtk_cell_view_new_with_pixbuf".}
-proc cellview_new_with_pixbuf*(pixbuf: GdkPixbuf2.Pixbuf): CellView {.inline.} =
+proc new_cellview_with_pixbuf*(pixbuf: GdkPixbuf2.Pixbuf): CellView {.inline.} =
   wrap(gtk_cell_view_new_with_pixbuf(pixbuf.getPointer))
-# proc cellview_new_with_pixbuf*(pixbuf: GdkPixbuf2.Pixbuf): CellView {.inline.} =
+# proc new_cellview_with_pixbuf*(pixbuf: GdkPixbuf2.Pixbuf): CellView {.inline.} =
 
 # gtk_cell_view_new_with_text
 # flags: {isConstructor} container: CellView
@@ -11688,9 +11688,9 @@ proc cellview_new_with_pixbuf*(pixbuf: GdkPixbuf2.Pixbuf): CellView {.inline.} =
 # text 'ustring' 'ucstring' IN (diff., need sugar)
 # 'CellView' 'TransferNone[TCellView]' (diff., need sugar)
 proc gtk_cell_view_new_with_text(text: ucstring): TransferNone[TCellView] {.cdecl, dynlib: lib, importc: "gtk_cell_view_new_with_text".}
-proc cellview_new_with_text*(text: ustring): CellView {.inline.} =
+proc new_cellview_with_text*(text: ustring): CellView {.inline.} =
   wrap(gtk_cell_view_new_with_text(ucstring(text)))
-# proc cellview_new_with_text*(text: ustring): CellView {.inline.} =
+# proc new_cellview_with_text*(text: ustring): CellView {.inline.} =
 
 # gtk_cell_view_get_displayed_row
 # flags: {isMethod} container: CellView
@@ -11787,9 +11787,9 @@ proc set_model*(self: CellView, model: TreeModel) {.inline.} =
 # need sugar: is static method
 # 'CheckButton' 'TransferNone[TCheckButton]' (diff., need sugar)
 proc gtk_check_button_new(): TransferNone[TCheckButton] {.cdecl, dynlib: lib, importc: "gtk_check_button_new".}
-proc checkbutton_new*(): CheckButton {.inline.} =
+proc new_checkbutton*(): CheckButton {.inline.} =
   wrap(gtk_check_button_new())
-# proc checkbutton_new*(): CheckButton {.inline.} =
+# proc new_checkbutton*(): CheckButton {.inline.} =
 
 # gtk_check_button_new_with_label
 # flags: {isConstructor} container: CheckButton
@@ -11797,9 +11797,9 @@ proc checkbutton_new*(): CheckButton {.inline.} =
 # label 'ustring' 'ucstring' IN (diff., need sugar)
 # 'CheckButton' 'TransferNone[TCheckButton]' (diff., need sugar)
 proc gtk_check_button_new_with_label(label: ucstring): TransferNone[TCheckButton] {.cdecl, dynlib: lib, importc: "gtk_check_button_new_with_label".}
-proc checkbutton_new_with_label*(label: ustring): CheckButton {.inline.} =
+proc new_checkbutton_with_label*(label: ustring): CheckButton {.inline.} =
   wrap(gtk_check_button_new_with_label(ucstring(label)))
-# proc checkbutton_new_with_label*(label: ustring): CheckButton {.inline.} =
+# proc new_checkbutton_with_label*(label: ustring): CheckButton {.inline.} =
 
 # gtk_check_button_new_with_mnemonic
 # flags: {isConstructor} container: CheckButton
@@ -11807,18 +11807,18 @@ proc checkbutton_new_with_label*(label: ustring): CheckButton {.inline.} =
 # label 'ustring' 'ucstring' IN (diff., need sugar)
 # 'CheckButton' 'TransferNone[TCheckButton]' (diff., need sugar)
 proc gtk_check_button_new_with_mnemonic(label: ucstring): TransferNone[TCheckButton] {.cdecl, dynlib: lib, importc: "gtk_check_button_new_with_mnemonic".}
-proc checkbutton_new_with_mnemonic*(label: ustring): CheckButton {.inline.} =
+proc new_checkbutton_with_mnemonic*(label: ustring): CheckButton {.inline.} =
   wrap(gtk_check_button_new_with_mnemonic(ucstring(label)))
-# proc checkbutton_new_with_mnemonic*(label: ustring): CheckButton {.inline.} =
+# proc new_checkbutton_with_mnemonic*(label: ustring): CheckButton {.inline.} =
 
 # gtk_check_menu_item_new
 # flags: {isConstructor} container: CheckMenuItem
 # need sugar: is static method
 # 'CheckMenuItem' 'TransferNone[TCheckMenuItem]' (diff., need sugar)
 proc gtk_check_menu_item_new(): TransferNone[TCheckMenuItem] {.cdecl, dynlib: lib, importc: "gtk_check_menu_item_new".}
-proc checkmenuitem_new*(): CheckMenuItem {.inline.} =
+proc new_checkmenuitem*(): CheckMenuItem {.inline.} =
   wrap(gtk_check_menu_item_new())
-# proc checkmenuitem_new*(): CheckMenuItem {.inline.} =
+# proc new_checkmenuitem*(): CheckMenuItem {.inline.} =
 
 # gtk_check_menu_item_new_with_label
 # flags: {isConstructor} container: CheckMenuItem
@@ -11826,9 +11826,9 @@ proc checkmenuitem_new*(): CheckMenuItem {.inline.} =
 # label 'ustring' 'ucstring' IN (diff., need sugar)
 # 'CheckMenuItem' 'TransferNone[TCheckMenuItem]' (diff., need sugar)
 proc gtk_check_menu_item_new_with_label(label: ucstring): TransferNone[TCheckMenuItem] {.cdecl, dynlib: lib, importc: "gtk_check_menu_item_new_with_label".}
-proc checkmenuitem_new_with_label*(label: ustring): CheckMenuItem {.inline.} =
+proc new_checkmenuitem_with_label*(label: ustring): CheckMenuItem {.inline.} =
   wrap(gtk_check_menu_item_new_with_label(ucstring(label)))
-# proc checkmenuitem_new_with_label*(label: ustring): CheckMenuItem {.inline.} =
+# proc new_checkmenuitem_with_label*(label: ustring): CheckMenuItem {.inline.} =
 
 # gtk_check_menu_item_new_with_mnemonic
 # flags: {isConstructor} container: CheckMenuItem
@@ -11836,9 +11836,9 @@ proc checkmenuitem_new_with_label*(label: ustring): CheckMenuItem {.inline.} =
 # label 'ustring' 'ucstring' IN (diff., need sugar)
 # 'CheckMenuItem' 'TransferNone[TCheckMenuItem]' (diff., need sugar)
 proc gtk_check_menu_item_new_with_mnemonic(label: ucstring): TransferNone[TCheckMenuItem] {.cdecl, dynlib: lib, importc: "gtk_check_menu_item_new_with_mnemonic".}
-proc checkmenuitem_new_with_mnemonic*(label: ustring): CheckMenuItem {.inline.} =
+proc new_checkmenuitem_with_mnemonic*(label: ustring): CheckMenuItem {.inline.} =
   wrap(gtk_check_menu_item_new_with_mnemonic(ucstring(label)))
-# proc checkmenuitem_new_with_mnemonic*(label: ustring): CheckMenuItem {.inline.} =
+# proc new_checkmenuitem_with_mnemonic*(label: ustring): CheckMenuItem {.inline.} =
 
 # gtk_check_menu_item_get_active
 # flags: {isMethod} container: CheckMenuItem
@@ -12181,9 +12181,9 @@ proc wait_is_uris_available*(self: Clipboard): bool {.inline.} =
 # need sugar: is static method
 # 'ColorButton' 'TransferNone[TColorButton]' (diff., need sugar)
 proc gtk_color_button_new(): TransferNone[TColorButton] {.cdecl, dynlib: lib, importc: "gtk_color_button_new".}
-proc colorbutton_new*(): ColorButton {.inline.} =
+proc new_colorbutton*(): ColorButton {.inline.} =
   wrap(gtk_color_button_new())
-# proc colorbutton_new*(): ColorButton {.inline.} =
+# proc new_colorbutton*(): ColorButton {.inline.} =
 
 # gtk_color_button_new_with_color
 # flags: {isConstructor} container: ColorButton (deprecated)
@@ -12193,9 +12193,9 @@ proc colorbutton_new*(): ColorButton {.inline.} =
 # rgba 'Gdk3.TRGBA' 'ptr Gdk3.TRGBA' IN (diff., need sugar)
 # 'ColorButton' 'TransferNone[TColorButton]' (diff., need sugar)
 proc gtk_color_button_new_with_rgba(rgba: ptr Gdk3.TRGBA): TransferNone[TColorButton] {.cdecl, dynlib: lib, importc: "gtk_color_button_new_with_rgba".}
-proc colorbutton_new_with_rgba*(rgba: Gdk3.TRGBA): ColorButton {.inline.} =
+proc new_colorbutton_with_rgba*(rgba: Gdk3.TRGBA): ColorButton {.inline.} =
   wrap(gtk_color_button_new_with_rgba(myUnsafeAddr(rgba)))
-# proc colorbutton_new_with_rgba*(rgba: Gdk3.TRGBA): ColorButton {.inline.} =
+# proc new_colorbutton_with_rgba*(rgba: Gdk3.TRGBA): ColorButton {.inline.} =
 
 # gtk_color_button_get_alpha
 # flags: {isMethod} container: ColorButton (deprecated)
@@ -12235,27 +12235,27 @@ proc set_title*(self: ColorButton, title: ustring) {.inline.} =
 # parent 'Window' 'ptr TWindow' IN (diff., need sugar)
 # 'ColorChooserDialog' 'TransferNone[TColorChooserDialog]' (diff., need sugar)
 proc gtk_color_chooser_dialog_new(title: ucstring, parent: ptr TWindow): TransferNone[TColorChooserDialog] {.cdecl, dynlib: lib, importc: "gtk_color_chooser_dialog_new".}
-proc colorchooserdialog_new*(title: ustring, parent: Window): ColorChooserDialog {.inline.} =
+proc new_colorchooserdialog*(title: ustring, parent: Window): ColorChooserDialog {.inline.} =
   wrap(gtk_color_chooser_dialog_new(ucstring(title), parent.getPointer))
-# proc colorchooserdialog_new*(title: ustring, parent: Window): ColorChooserDialog {.inline.} =
+# proc new_colorchooserdialog*(title: ustring, parent: Window): ColorChooserDialog {.inline.} =
 
 # gtk_color_chooser_widget_new
 # flags: {isConstructor} container: ColorChooserWidget
 # need sugar: is static method
 # 'ColorChooserWidget' 'TransferNone[TColorChooserWidget]' (diff., need sugar)
 proc gtk_color_chooser_widget_new(): TransferNone[TColorChooserWidget] {.cdecl, dynlib: lib, importc: "gtk_color_chooser_widget_new".}
-proc colorchooserwidget_new*(): ColorChooserWidget {.inline.} =
+proc new_colorchooserwidget*(): ColorChooserWidget {.inline.} =
   wrap(gtk_color_chooser_widget_new())
-# proc colorchooserwidget_new*(): ColorChooserWidget {.inline.} =
+# proc new_colorchooserwidget*(): ColorChooserWidget {.inline.} =
 
 # gtk_color_selection_new
 # flags: {isConstructor} container: ColorSelection
 # need sugar: is static method
 # 'ColorSelection' 'TransferNone[TColorSelection]' (diff., need sugar)
 proc gtk_color_selection_new(): TransferNone[TColorSelection] {.cdecl, dynlib: lib, importc: "gtk_color_selection_new".}
-proc colorselection_new*(): ColorSelection {.inline.} =
+proc new_colorselection*(): ColorSelection {.inline.} =
   wrap(gtk_color_selection_new())
-# proc colorselection_new*(): ColorSelection {.inline.} =
+# proc new_colorselection*(): ColorSelection {.inline.} =
 
 # gtk_color_selection_palette_from_string
 # flags: {} container: ColorSelection
@@ -12426,9 +12426,9 @@ proc set_previous_rgba*(self: ColorSelection, rgba: Gdk3.TRGBA) {.inline.} =
 # title 'ustring' 'ucstring' IN (diff., need sugar)
 # 'ColorSelectionDialog' 'TransferNone[TColorSelectionDialog]' (diff., need sugar)
 proc gtk_color_selection_dialog_new(title: ucstring): TransferNone[TColorSelectionDialog] {.cdecl, dynlib: lib, importc: "gtk_color_selection_dialog_new".}
-proc colorselectiondialog_new*(title: ustring): ColorSelectionDialog {.inline.} =
+proc new_colorselectiondialog*(title: ustring): ColorSelectionDialog {.inline.} =
   wrap(gtk_color_selection_dialog_new(ucstring(title)))
-# proc colorselectiondialog_new*(title: ustring): ColorSelectionDialog {.inline.} =
+# proc new_colorselectiondialog*(title: ustring): ColorSelectionDialog {.inline.} =
 
 # gtk_color_selection_dialog_get_color_selection
 # flags: {isMethod} container: ColorSelectionDialog
@@ -12444,9 +12444,9 @@ proc get_color_selection*(self: ColorSelectionDialog): Widget {.inline.} =
 # need sugar: is static method
 # 'ComboBox' 'TransferNone[TComboBox]' (diff., need sugar)
 proc gtk_combo_box_new(): TransferNone[TComboBox] {.cdecl, dynlib: lib, importc: "gtk_combo_box_new".}
-proc combobox_new*(): ComboBox {.inline.} =
+proc new_combobox*(): ComboBox {.inline.} =
   wrap(gtk_combo_box_new())
-# proc combobox_new*(): ComboBox {.inline.} =
+# proc new_combobox*(): ComboBox {.inline.} =
 
 # gtk_combo_box_new_with_area
 # flags: {isConstructor} container: ComboBox
@@ -12454,9 +12454,9 @@ proc combobox_new*(): ComboBox {.inline.} =
 # area 'CellArea' 'ptr TCellArea' IN (diff., need sugar)
 # 'ComboBox' 'TransferNone[TComboBox]' (diff., need sugar)
 proc gtk_combo_box_new_with_area(area: ptr TCellArea): TransferNone[TComboBox] {.cdecl, dynlib: lib, importc: "gtk_combo_box_new_with_area".}
-proc combobox_new_with_area*(area: CellArea): ComboBox {.inline.} =
+proc new_combobox_with_area*(area: CellArea): ComboBox {.inline.} =
   wrap(gtk_combo_box_new_with_area(area.getPointer))
-# proc combobox_new_with_area*(area: CellArea): ComboBox {.inline.} =
+# proc new_combobox_with_area*(area: CellArea): ComboBox {.inline.} =
 
 # gtk_combo_box_new_with_area_and_entry
 # flags: {isConstructor} container: ComboBox
@@ -12464,18 +12464,18 @@ proc combobox_new_with_area*(area: CellArea): ComboBox {.inline.} =
 # area 'CellArea' 'ptr TCellArea' IN (diff., need sugar)
 # 'ComboBox' 'TransferNone[TComboBox]' (diff., need sugar)
 proc gtk_combo_box_new_with_area_and_entry(area: ptr TCellArea): TransferNone[TComboBox] {.cdecl, dynlib: lib, importc: "gtk_combo_box_new_with_area_and_entry".}
-proc combobox_new_with_area_and_entry*(area: CellArea): ComboBox {.inline.} =
+proc new_combobox_with_area_and_entry*(area: CellArea): ComboBox {.inline.} =
   wrap(gtk_combo_box_new_with_area_and_entry(area.getPointer))
-# proc combobox_new_with_area_and_entry*(area: CellArea): ComboBox {.inline.} =
+# proc new_combobox_with_area_and_entry*(area: CellArea): ComboBox {.inline.} =
 
 # gtk_combo_box_new_with_entry
 # flags: {isConstructor} container: ComboBox
 # need sugar: is static method
 # 'ComboBox' 'TransferNone[TComboBox]' (diff., need sugar)
 proc gtk_combo_box_new_with_entry(): TransferNone[TComboBox] {.cdecl, dynlib: lib, importc: "gtk_combo_box_new_with_entry".}
-proc combobox_new_with_entry*(): ComboBox {.inline.} =
+proc new_combobox_with_entry*(): ComboBox {.inline.} =
   wrap(gtk_combo_box_new_with_entry())
-# proc combobox_new_with_entry*(): ComboBox {.inline.} =
+# proc new_combobox_with_entry*(): ComboBox {.inline.} =
 
 # gtk_combo_box_new_with_model
 # flags: {isConstructor} container: ComboBox
@@ -12483,9 +12483,9 @@ proc combobox_new_with_entry*(): ComboBox {.inline.} =
 # model 'TreeModel' 'ptr TTreeModel' IN (diff., need sugar)
 # 'ComboBox' 'TransferNone[TComboBox]' (diff., need sugar)
 proc gtk_combo_box_new_with_model(model: ptr TTreeModel): TransferNone[TComboBox] {.cdecl, dynlib: lib, importc: "gtk_combo_box_new_with_model".}
-proc combobox_new_with_model*(model: TreeModel): ComboBox {.inline.} =
+proc new_combobox_with_model*(model: TreeModel): ComboBox {.inline.} =
   wrap(gtk_combo_box_new_with_model(unwrap(model)))
-# proc combobox_new_with_model*(model: TreeModel): ComboBox {.inline.} =
+# proc new_combobox_with_model*(model: TreeModel): ComboBox {.inline.} =
 
 # gtk_combo_box_new_with_model_and_entry
 # flags: {isConstructor} container: ComboBox
@@ -12493,9 +12493,9 @@ proc combobox_new_with_model*(model: TreeModel): ComboBox {.inline.} =
 # model 'TreeModel' 'ptr TTreeModel' IN (diff., need sugar)
 # 'ComboBox' 'TransferNone[TComboBox]' (diff., need sugar)
 proc gtk_combo_box_new_with_model_and_entry(model: ptr TTreeModel): TransferNone[TComboBox] {.cdecl, dynlib: lib, importc: "gtk_combo_box_new_with_model_and_entry".}
-proc combobox_new_with_model_and_entry*(model: TreeModel): ComboBox {.inline.} =
+proc new_combobox_with_model_and_entry*(model: TreeModel): ComboBox {.inline.} =
   wrap(gtk_combo_box_new_with_model_and_entry(unwrap(model)))
-# proc combobox_new_with_model_and_entry*(model: TreeModel): ComboBox {.inline.} =
+# proc new_combobox_with_model_and_entry*(model: TreeModel): ComboBox {.inline.} =
 
 # gtk_combo_box_get_active
 # flags: {isMethod} container: ComboBox
@@ -12799,18 +12799,18 @@ proc set_wrap_width*(self: ComboBox, width: int32) {.inline.} =
 # need sugar: is static method
 # 'ComboBoxText' 'TransferNone[TComboBoxText]' (diff., need sugar)
 proc gtk_combo_box_text_new(): TransferNone[TComboBoxText] {.cdecl, dynlib: lib, importc: "gtk_combo_box_text_new".}
-proc comboboxtext_new*(): ComboBoxText {.inline.} =
+proc new_comboboxtext*(): ComboBoxText {.inline.} =
   wrap(gtk_combo_box_text_new())
-# proc comboboxtext_new*(): ComboBoxText {.inline.} =
+# proc new_comboboxtext*(): ComboBoxText {.inline.} =
 
 # gtk_combo_box_text_new_with_entry
 # flags: {isConstructor} container: ComboBoxText
 # need sugar: is static method
 # 'ComboBoxText' 'TransferNone[TComboBoxText]' (diff., need sugar)
 proc gtk_combo_box_text_new_with_entry(): TransferNone[TComboBoxText] {.cdecl, dynlib: lib, importc: "gtk_combo_box_text_new_with_entry".}
-proc comboboxtext_new_with_entry*(): ComboBoxText {.inline.} =
+proc new_comboboxtext_with_entry*(): ComboBoxText {.inline.} =
   wrap(gtk_combo_box_text_new_with_entry())
-# proc comboboxtext_new_with_entry*(): ComboBoxText {.inline.} =
+# proc new_comboboxtext_with_entry*(): ComboBoxText {.inline.} =
 
 # gtk_combo_box_text_append
 # flags: {isMethod} container: ComboBoxText
@@ -13150,9 +13150,9 @@ proc unset_focus_chain*(self: Container) {.inline.} =
 # need sugar: is static method
 # 'ContainerCellAccessible' 'TransferFull[TContainerCellAccessible]' (diff., need sugar)
 proc gtk_container_cell_accessible_new(): TransferFull[TContainerCellAccessible] {.cdecl, dynlib: lib, importc: "gtk_container_cell_accessible_new".}
-proc containercellaccessible_new*(): ContainerCellAccessible {.inline.} =
+proc new_containercellaccessible*(): ContainerCellAccessible {.inline.} =
   wrap(gtk_container_cell_accessible_new())
-# proc containercellaccessible_new*(): ContainerCellAccessible {.inline.} =
+# proc new_containercellaccessible*(): ContainerCellAccessible {.inline.} =
 
 # gtk_container_cell_accessible_add_child
 # flags: {isMethod} container: ContainerCellAccessible
@@ -13188,9 +13188,9 @@ proc remove_child*(self: ContainerCellAccessible, child: CellAccessible) {.inlin
 # need sugar: is static method
 # 'CssProvider' 'TransferFull[TCssProvider]' (diff., need sugar)
 proc gtk_css_provider_new(): TransferFull[TCssProvider] {.cdecl, dynlib: lib, importc: "gtk_css_provider_new".}
-proc cssprovider_new*(): CssProvider {.inline.} =
+proc new_cssprovider*(): CssProvider {.inline.} =
   wrap(gtk_css_provider_new())
-# proc cssprovider_new*(): CssProvider {.inline.} =
+# proc new_cssprovider*(): CssProvider {.inline.} =
 
 # gtk_css_provider_get_default
 # flags: {} container: CssProvider
@@ -13260,9 +13260,9 @@ proc to_string*(self: CssProvider): ustring {.inline.} =
 # need sugar: is static method
 # 'Dialog' 'TransferNone[TDialog]' (diff., need sugar)
 proc gtk_dialog_new(): TransferNone[TDialog] {.cdecl, dynlib: lib, importc: "gtk_dialog_new".}
-proc dialog_new*(): Dialog {.inline.} =
+proc new_dialog*(): Dialog {.inline.} =
   wrap(gtk_dialog_new())
-# proc dialog_new*(): Dialog {.inline.} =
+# proc new_dialog*(): Dialog {.inline.} =
 
 # gtk_dialog_add_action_widget
 # flags: {isMethod} container: Dialog
@@ -13373,18 +13373,18 @@ proc set_response_sensitive*(self: Dialog, response_id: int32, setting: bool) {.
 # need sugar: is static method
 # 'DrawingArea' 'TransferNone[TDrawingArea]' (diff., need sugar)
 proc gtk_drawing_area_new(): TransferNone[TDrawingArea] {.cdecl, dynlib: lib, importc: "gtk_drawing_area_new".}
-proc drawingarea_new*(): DrawingArea {.inline.} =
+proc new_drawingarea*(): DrawingArea {.inline.} =
   wrap(gtk_drawing_area_new())
-# proc drawingarea_new*(): DrawingArea {.inline.} =
+# proc new_drawingarea*(): DrawingArea {.inline.} =
 
 # gtk_entry_new
 # flags: {isConstructor} container: Entry
 # need sugar: is static method
 # 'Entry' 'TransferNone[TEntry]' (diff., need sugar)
 proc gtk_entry_new(): TransferNone[TEntry] {.cdecl, dynlib: lib, importc: "gtk_entry_new".}
-proc entry_new*(): Entry {.inline.} =
+proc new_entry*(): Entry {.inline.} =
   wrap(gtk_entry_new())
-# proc entry_new*(): Entry {.inline.} =
+# proc new_entry*(): Entry {.inline.} =
 
 # gtk_entry_new_with_buffer
 # flags: {isConstructor} container: Entry
@@ -13392,9 +13392,9 @@ proc entry_new*(): Entry {.inline.} =
 # buffer 'EntryBuffer' 'ptr TEntryBuffer' IN (diff., need sugar)
 # 'Entry' 'TransferNone[TEntry]' (diff., need sugar)
 proc gtk_entry_new_with_buffer(buffer: ptr TEntryBuffer): TransferNone[TEntry] {.cdecl, dynlib: lib, importc: "gtk_entry_new_with_buffer".}
-proc entry_new_with_buffer*(buffer: EntryBuffer): Entry {.inline.} =
+proc new_entry_with_buffer*(buffer: EntryBuffer): Entry {.inline.} =
   wrap(gtk_entry_new_with_buffer(buffer.getPointer))
-# proc entry_new_with_buffer*(buffer: EntryBuffer): Entry {.inline.} =
+# proc new_entry_with_buffer*(buffer: EntryBuffer): Entry {.inline.} =
 
 # gtk_entry_get_activates_default
 # flags: {isMethod} container: Entry
@@ -14094,9 +14094,9 @@ proc unset_invisible_char*(self: Entry) {.inline.} =
 # n_initial_chars 'int32' 'int32' IN
 # 'EntryBuffer' 'TransferFull[TEntryBuffer]' (diff., need sugar)
 proc gtk_entry_buffer_new(initial_chars: ucstring, n_initial_chars: int32): TransferFull[TEntryBuffer] {.cdecl, dynlib: lib, importc: "gtk_entry_buffer_new".}
-proc entrybuffer_new*(initial_chars: ustring, n_initial_chars: int32): EntryBuffer {.inline.} =
+proc new_entrybuffer*(initial_chars: ustring, n_initial_chars: int32): EntryBuffer {.inline.} =
   wrap(gtk_entry_buffer_new(ucstring(initial_chars), n_initial_chars))
-# proc entrybuffer_new*(initial_chars: ustring, n_initial_chars: int32): EntryBuffer {.inline.} =
+# proc new_entrybuffer*(initial_chars: ustring, n_initial_chars: int32): EntryBuffer {.inline.} =
 
 # gtk_entry_buffer_delete_text
 # flags: {isMethod} container: EntryBuffer
@@ -14206,9 +14206,9 @@ proc set_text*(self: EntryBuffer, chars: ustring, n_chars: int32) {.inline.} =
 # need sugar: is static method
 # 'EntryCompletion' 'TransferFull[TEntryCompletion]' (diff., need sugar)
 proc gtk_entry_completion_new(): TransferFull[TEntryCompletion] {.cdecl, dynlib: lib, importc: "gtk_entry_completion_new".}
-proc entrycompletion_new*(): EntryCompletion {.inline.} =
+proc new_entrycompletion*(): EntryCompletion {.inline.} =
   wrap(gtk_entry_completion_new())
-# proc entrycompletion_new*(): EntryCompletion {.inline.} =
+# proc new_entrycompletion*(): EntryCompletion {.inline.} =
 
 # gtk_entry_completion_new_with_area
 # flags: {isConstructor} container: EntryCompletion
@@ -14216,9 +14216,9 @@ proc entrycompletion_new*(): EntryCompletion {.inline.} =
 # area 'CellArea' 'ptr TCellArea' IN (diff., need sugar)
 # 'EntryCompletion' 'TransferFull[TEntryCompletion]' (diff., need sugar)
 proc gtk_entry_completion_new_with_area(area: ptr TCellArea): TransferFull[TEntryCompletion] {.cdecl, dynlib: lib, importc: "gtk_entry_completion_new_with_area".}
-proc entrycompletion_new_with_area*(area: CellArea): EntryCompletion {.inline.} =
+proc new_entrycompletion_with_area*(area: CellArea): EntryCompletion {.inline.} =
   wrap(gtk_entry_completion_new_with_area(area.getPointer))
-# proc entrycompletion_new_with_area*(area: CellArea): EntryCompletion {.inline.} =
+# proc new_entrycompletion_with_area*(area: CellArea): EntryCompletion {.inline.} =
 
 # gtk_entry_completion_complete
 # flags: {isMethod} container: EntryCompletion
@@ -14467,9 +14467,9 @@ proc set_text_column*(self: EntryCompletion, column: int32) {.inline.} =
 # need sugar: is static method
 # 'EventBox' 'TransferNone[TEventBox]' (diff., need sugar)
 proc gtk_event_box_new(): TransferNone[TEventBox] {.cdecl, dynlib: lib, importc: "gtk_event_box_new".}
-proc eventbox_new*(): EventBox {.inline.} =
+proc new_eventbox*(): EventBox {.inline.} =
   wrap(gtk_event_box_new())
-# proc eventbox_new*(): EventBox {.inline.} =
+# proc new_eventbox*(): EventBox {.inline.} =
 
 # gtk_event_box_get_above_child
 # flags: {isMethod} container: EventBox
@@ -14562,9 +14562,9 @@ proc set_propagation_phase*(self: EventController, phase: PropagationPhase) {.in
 # label 'ustring' 'ucstring' IN (diff., need sugar)
 # 'Expander' 'TransferNone[TExpander]' (diff., need sugar)
 proc gtk_expander_new(label: ucstring): TransferNone[TExpander] {.cdecl, dynlib: lib, importc: "gtk_expander_new".}
-proc expander_new*(label: ustring): Expander {.inline.} =
+proc new_expander*(label: ustring): Expander {.inline.} =
   wrap(gtk_expander_new(ucstring(label)))
-# proc expander_new*(label: ustring): Expander {.inline.} =
+# proc new_expander*(label: ustring): Expander {.inline.} =
 
 # gtk_expander_new_with_mnemonic
 # flags: {isConstructor} container: Expander
@@ -14572,9 +14572,9 @@ proc expander_new*(label: ustring): Expander {.inline.} =
 # label 'ustring' 'ucstring' IN (diff., need sugar)
 # 'Expander' 'TransferNone[TExpander]' (diff., need sugar)
 proc gtk_expander_new_with_mnemonic(label: ucstring): TransferNone[TExpander] {.cdecl, dynlib: lib, importc: "gtk_expander_new_with_mnemonic".}
-proc expander_new_with_mnemonic*(label: ustring): Expander {.inline.} =
+proc new_expander_with_mnemonic*(label: ustring): Expander {.inline.} =
   wrap(gtk_expander_new_with_mnemonic(ucstring(label)))
-# proc expander_new_with_mnemonic*(label: ustring): Expander {.inline.} =
+# proc new_expander_with_mnemonic*(label: ustring): Expander {.inline.} =
 
 # gtk_expander_get_expanded
 # flags: {isMethod} container: Expander
@@ -14735,9 +14735,9 @@ proc set_use_underline*(self: Expander, use_underline: bool) {.inline.} =
 # action 'FileChooserAction' 'FileChooserAction' IN
 # 'FileChooserButton' 'TransferNone[TFileChooserButton]' (diff., need sugar)
 proc gtk_file_chooser_button_new(title: ucstring, action: FileChooserAction): TransferNone[TFileChooserButton] {.cdecl, dynlib: lib, importc: "gtk_file_chooser_button_new".}
-proc filechooserbutton_new*(title: ustring, action: FileChooserAction): FileChooserButton {.inline.} =
+proc new_filechooserbutton*(title: ustring, action: FileChooserAction): FileChooserButton {.inline.} =
   wrap(gtk_file_chooser_button_new(ucstring(title), action))
-# proc filechooserbutton_new*(title: ustring, action: FileChooserAction): FileChooserButton {.inline.} =
+# proc new_filechooserbutton*(title: ustring, action: FileChooserAction): FileChooserButton {.inline.} =
 
 # gtk_file_chooser_button_new_with_dialog
 # flags: {isConstructor} container: FileChooserButton
@@ -14745,9 +14745,9 @@ proc filechooserbutton_new*(title: ustring, action: FileChooserAction): FileChoo
 # dialog 'Dialog' 'ptr TDialog' IN (diff., need sugar)
 # 'FileChooserButton' 'TransferNone[TFileChooserButton]' (diff., need sugar)
 proc gtk_file_chooser_button_new_with_dialog(dialog: ptr TDialog): TransferNone[TFileChooserButton] {.cdecl, dynlib: lib, importc: "gtk_file_chooser_button_new_with_dialog".}
-proc filechooserbutton_new_with_dialog*(dialog: Dialog): FileChooserButton {.inline.} =
+proc new_filechooserbutton_with_dialog*(dialog: Dialog): FileChooserButton {.inline.} =
   wrap(gtk_file_chooser_button_new_with_dialog(dialog.getPointer))
-# proc filechooserbutton_new_with_dialog*(dialog: Dialog): FileChooserButton {.inline.} =
+# proc new_filechooserbutton_with_dialog*(dialog: Dialog): FileChooserButton {.inline.} =
 
 # gtk_file_chooser_button_get_focus_on_click
 # flags: {isMethod} container: FileChooserButton
@@ -14812,18 +14812,18 @@ proc set_width_chars*(self: FileChooserButton, n_chars: int32) {.inline.} =
 # action 'FileChooserAction' 'FileChooserAction' IN
 # 'FileChooserWidget' 'TransferNone[TFileChooserWidget]' (diff., need sugar)
 proc gtk_file_chooser_widget_new(action: FileChooserAction): TransferNone[TFileChooserWidget] {.cdecl, dynlib: lib, importc: "gtk_file_chooser_widget_new".}
-proc filechooserwidget_new*(action: FileChooserAction): FileChooserWidget {.inline.} =
+proc new_filechooserwidget*(action: FileChooserAction): FileChooserWidget {.inline.} =
   wrap(gtk_file_chooser_widget_new(action))
-# proc filechooserwidget_new*(action: FileChooserAction): FileChooserWidget {.inline.} =
+# proc new_filechooserwidget*(action: FileChooserAction): FileChooserWidget {.inline.} =
 
 # gtk_file_filter_new
 # flags: {isConstructor} container: FileFilter
 # need sugar: is static method
 # 'FileFilter' 'TransferNone[TFileFilter]' (diff., need sugar)
 proc gtk_file_filter_new(): TransferNone[TFileFilter] {.cdecl, dynlib: lib, importc: "gtk_file_filter_new".}
-proc filefilter_new*(): FileFilter {.inline.} =
+proc new_filefilter*(): FileFilter {.inline.} =
   wrap(gtk_file_filter_new())
-# proc filefilter_new*(): FileFilter {.inline.} =
+# proc new_filefilter*(): FileFilter {.inline.} =
 
 # gtk_file_filter_add_custom
 # flags: {isMethod} container: FileFilter
@@ -14910,9 +14910,9 @@ proc set_name*(self: FileFilter, name: ustring) {.inline.} =
 # need sugar: is static method
 # 'Fixed' 'TransferNone[TFixed]' (diff., need sugar)
 proc gtk_fixed_new(): TransferNone[TFixed] {.cdecl, dynlib: lib, importc: "gtk_fixed_new".}
-proc fixed_new*(): Fixed {.inline.} =
+proc new_fixed*(): Fixed {.inline.} =
   wrap(gtk_fixed_new())
-# proc fixed_new*(): Fixed {.inline.} =
+# proc new_fixed*(): Fixed {.inline.} =
 
 # gtk_fixed_move
 # flags: {isMethod} container: Fixed
@@ -14943,9 +14943,9 @@ proc put*(self: Fixed, widget: Widget, x: int32, y: int32) {.inline.} =
 # need sugar: is static method
 # 'FlowBox' 'TransferNone[TFlowBox]' (diff., need sugar)
 proc gtk_flow_box_new(): TransferNone[TFlowBox] {.cdecl, dynlib: lib, importc: "gtk_flow_box_new".}
-proc flowbox_new*(): FlowBox {.inline.} =
+proc new_flowbox*(): FlowBox {.inline.} =
   wrap(gtk_flow_box_new())
-# proc flowbox_new*(): FlowBox {.inline.} =
+# proc new_flowbox*(): FlowBox {.inline.} =
 
 # gtk_flow_box_get_activate_on_single_click
 # flags: {isMethod} container: FlowBox
@@ -15226,9 +15226,9 @@ proc unselect_child*(self: FlowBox, child: FlowBoxChild) {.inline.} =
 # need sugar: is static method
 # 'FlowBoxChild' 'TransferNone[TFlowBoxChild]' (diff., need sugar)
 proc gtk_flow_box_child_new(): TransferNone[TFlowBoxChild] {.cdecl, dynlib: lib, importc: "gtk_flow_box_child_new".}
-proc flowboxchild_new*(): FlowBoxChild {.inline.} =
+proc new_flowboxchild*(): FlowBoxChild {.inline.} =
   wrap(gtk_flow_box_child_new())
-# proc flowboxchild_new*(): FlowBoxChild {.inline.} =
+# proc new_flowboxchild*(): FlowBoxChild {.inline.} =
 
 # gtk_flow_box_child_changed
 # flags: {isMethod} container: FlowBoxChild
@@ -15262,9 +15262,9 @@ proc is_selected*(self: FlowBoxChild): bool {.inline.} =
 # need sugar: is static method
 # 'FontButton' 'TransferNone[TFontButton]' (diff., need sugar)
 proc gtk_font_button_new(): TransferNone[TFontButton] {.cdecl, dynlib: lib, importc: "gtk_font_button_new".}
-proc fontbutton_new*(): FontButton {.inline.} =
+proc new_fontbutton*(): FontButton {.inline.} =
   wrap(gtk_font_button_new())
-# proc fontbutton_new*(): FontButton {.inline.} =
+# proc new_fontbutton*(): FontButton {.inline.} =
 
 # gtk_font_button_new_with_font
 # flags: {isConstructor} container: FontButton
@@ -15272,9 +15272,9 @@ proc fontbutton_new*(): FontButton {.inline.} =
 # fontname 'ustring' 'ucstring' IN (diff., need sugar)
 # 'FontButton' 'TransferNone[TFontButton]' (diff., need sugar)
 proc gtk_font_button_new_with_font(fontname: ucstring): TransferNone[TFontButton] {.cdecl, dynlib: lib, importc: "gtk_font_button_new_with_font".}
-proc fontbutton_new_with_font*(fontname: ustring): FontButton {.inline.} =
+proc new_fontbutton_with_font*(fontname: ustring): FontButton {.inline.} =
   wrap(gtk_font_button_new_with_font(ucstring(fontname)))
-# proc fontbutton_new_with_font*(fontname: ustring): FontButton {.inline.} =
+# proc new_fontbutton_with_font*(fontname: ustring): FontButton {.inline.} =
 
 # gtk_font_button_get_font_name
 # flags: {isMethod} container: FontButton
@@ -15397,18 +15397,18 @@ proc set_use_size*(self: FontButton, use_size: bool) {.inline.} =
 # parent 'Window' 'ptr TWindow' IN (diff., need sugar)
 # 'FontChooserDialog' 'TransferNone[TFontChooserDialog]' (diff., need sugar)
 proc gtk_font_chooser_dialog_new(title: ucstring, parent: ptr TWindow): TransferNone[TFontChooserDialog] {.cdecl, dynlib: lib, importc: "gtk_font_chooser_dialog_new".}
-proc fontchooserdialog_new*(title: ustring, parent: Window): FontChooserDialog {.inline.} =
+proc new_fontchooserdialog*(title: ustring, parent: Window): FontChooserDialog {.inline.} =
   wrap(gtk_font_chooser_dialog_new(ucstring(title), parent.getPointer))
-# proc fontchooserdialog_new*(title: ustring, parent: Window): FontChooserDialog {.inline.} =
+# proc new_fontchooserdialog*(title: ustring, parent: Window): FontChooserDialog {.inline.} =
 
 # gtk_font_chooser_widget_new
 # flags: {isConstructor} container: FontChooserWidget
 # need sugar: is static method
 # 'FontChooserWidget' 'TransferNone[TFontChooserWidget]' (diff., need sugar)
 proc gtk_font_chooser_widget_new(): TransferNone[TFontChooserWidget] {.cdecl, dynlib: lib, importc: "gtk_font_chooser_widget_new".}
-proc fontchooserwidget_new*(): FontChooserWidget {.inline.} =
+proc new_fontchooserwidget*(): FontChooserWidget {.inline.} =
   wrap(gtk_font_chooser_widget_new())
-# proc fontchooserwidget_new*(): FontChooserWidget {.inline.} =
+# proc new_fontchooserwidget*(): FontChooserWidget {.inline.} =
 
 # gtk_font_selection_new
 # flags: {isConstructor} container: FontSelection (deprecated)
@@ -15458,9 +15458,9 @@ proc fontchooserwidget_new*(): FontChooserWidget {.inline.} =
 # label 'ustring' 'ucstring' IN (diff., need sugar)
 # 'Frame' 'TransferNone[TFrame]' (diff., need sugar)
 proc gtk_frame_new(label: ucstring): TransferNone[TFrame] {.cdecl, dynlib: lib, importc: "gtk_frame_new".}
-proc frame_new*(label: ustring): Frame {.inline.} =
+proc new_frame*(label: ustring): Frame {.inline.} =
   wrap(gtk_frame_new(ucstring(label)))
-# proc frame_new*(label: ustring): Frame {.inline.} =
+# proc new_frame*(label: ustring): Frame {.inline.} =
 
 # gtk_frame_get_label
 # flags: {isMethod} container: Frame
@@ -15744,9 +15744,9 @@ proc ungroup*(self: Gesture) {.inline.} =
 # widget 'Widget' 'ptr TWidget' IN (diff., need sugar)
 # 'GestureDrag' 'TransferFull[TGestureDrag]' (diff., need sugar)
 proc gtk_gesture_drag_new(widget: ptr TWidget): TransferFull[TGestureDrag] {.cdecl, dynlib: lib, importc: "gtk_gesture_drag_new".}
-proc gesturedrag_new*(widget: Widget): GestureDrag {.inline.} =
+proc new_gesturedrag*(widget: Widget): GestureDrag {.inline.} =
   wrap(gtk_gesture_drag_new(widget.getPointer))
-# proc gesturedrag_new*(widget: Widget): GestureDrag {.inline.} =
+# proc new_gesturedrag*(widget: Widget): GestureDrag {.inline.} =
 
 # gtk_gesture_drag_get_offset
 # flags: {isMethod} container: GestureDrag
@@ -15782,9 +15782,9 @@ proc get_start_point*(self: GestureDrag, x: var float64, y: var float64): bool {
 # widget 'Widget' 'ptr TWidget' IN (diff., need sugar)
 # 'GestureLongPress' 'TransferFull[TGestureLongPress]' (diff., need sugar)
 proc gtk_gesture_long_press_new(widget: ptr TWidget): TransferFull[TGestureLongPress] {.cdecl, dynlib: lib, importc: "gtk_gesture_long_press_new".}
-proc gesturelongpress_new*(widget: Widget): GestureLongPress {.inline.} =
+proc new_gesturelongpress*(widget: Widget): GestureLongPress {.inline.} =
   wrap(gtk_gesture_long_press_new(widget.getPointer))
-# proc gesturelongpress_new*(widget: Widget): GestureLongPress {.inline.} =
+# proc new_gesturelongpress*(widget: Widget): GestureLongPress {.inline.} =
 
 # gtk_gesture_multi_press_new
 # flags: {isConstructor} container: GestureMultiPress
@@ -15792,9 +15792,9 @@ proc gesturelongpress_new*(widget: Widget): GestureLongPress {.inline.} =
 # widget 'Widget' 'ptr TWidget' IN (diff., need sugar)
 # 'GestureMultiPress' 'TransferFull[TGestureMultiPress]' (diff., need sugar)
 proc gtk_gesture_multi_press_new(widget: ptr TWidget): TransferFull[TGestureMultiPress] {.cdecl, dynlib: lib, importc: "gtk_gesture_multi_press_new".}
-proc gesturemultipress_new*(widget: Widget): GestureMultiPress {.inline.} =
+proc new_gesturemultipress*(widget: Widget): GestureMultiPress {.inline.} =
   wrap(gtk_gesture_multi_press_new(widget.getPointer))
-# proc gesturemultipress_new*(widget: Widget): GestureMultiPress {.inline.} =
+# proc new_gesturemultipress*(widget: Widget): GestureMultiPress {.inline.} =
 
 # gtk_gesture_multi_press_get_area
 # flags: {isMethod} container: GestureMultiPress
@@ -15825,9 +15825,9 @@ proc set_area*(self: GestureMultiPress, rect: cairo1.TRectangleInt) {.inline.} =
 # orientation 'Orientation' 'Orientation' IN
 # 'GesturePan' 'TransferFull[TGesturePan]' (diff., need sugar)
 proc gtk_gesture_pan_new(widget: ptr TWidget, orientation: Orientation): TransferFull[TGesturePan] {.cdecl, dynlib: lib, importc: "gtk_gesture_pan_new".}
-proc gesturepan_new*(widget: Widget, orientation: Orientation): GesturePan {.inline.} =
+proc new_gesturepan*(widget: Widget, orientation: Orientation): GesturePan {.inline.} =
   wrap(gtk_gesture_pan_new(widget.getPointer, orientation))
-# proc gesturepan_new*(widget: Widget, orientation: Orientation): GesturePan {.inline.} =
+# proc new_gesturepan*(widget: Widget, orientation: Orientation): GesturePan {.inline.} =
 
 # gtk_gesture_pan_get_orientation
 # flags: {isMethod} container: GesturePan
@@ -15854,9 +15854,9 @@ proc set_orientation*(self: GesturePan, orientation: Orientation) {.inline.} =
 # widget 'Widget' 'ptr TWidget' IN (diff., need sugar)
 # 'GestureRotate' 'TransferFull[TGestureRotate]' (diff., need sugar)
 proc gtk_gesture_rotate_new(widget: ptr TWidget): TransferFull[TGestureRotate] {.cdecl, dynlib: lib, importc: "gtk_gesture_rotate_new".}
-proc gesturerotate_new*(widget: Widget): GestureRotate {.inline.} =
+proc new_gesturerotate*(widget: Widget): GestureRotate {.inline.} =
   wrap(gtk_gesture_rotate_new(widget.getPointer))
-# proc gesturerotate_new*(widget: Widget): GestureRotate {.inline.} =
+# proc new_gesturerotate*(widget: Widget): GestureRotate {.inline.} =
 
 # gtk_gesture_rotate_get_angle_delta
 # flags: {isMethod} container: GestureRotate
@@ -15948,9 +15948,9 @@ proc set_touch_only*(self: GestureSingle, touch_only: bool) {.inline.} =
 # widget 'Widget' 'ptr TWidget' IN (diff., need sugar)
 # 'GestureSwipe' 'TransferFull[TGestureSwipe]' (diff., need sugar)
 proc gtk_gesture_swipe_new(widget: ptr TWidget): TransferFull[TGestureSwipe] {.cdecl, dynlib: lib, importc: "gtk_gesture_swipe_new".}
-proc gestureswipe_new*(widget: Widget): GestureSwipe {.inline.} =
+proc new_gestureswipe*(widget: Widget): GestureSwipe {.inline.} =
   wrap(gtk_gesture_swipe_new(widget.getPointer))
-# proc gestureswipe_new*(widget: Widget): GestureSwipe {.inline.} =
+# proc new_gestureswipe*(widget: Widget): GestureSwipe {.inline.} =
 
 # gtk_gesture_swipe_get_velocity
 # flags: {isMethod} container: GestureSwipe
@@ -15972,9 +15972,9 @@ proc get_velocity*(self: GestureSwipe, velocity_x: var float64, velocity_y: var 
 # widget 'Widget' 'ptr TWidget' IN (diff., need sugar)
 # 'GestureZoom' 'TransferFull[TGestureZoom]' (diff., need sugar)
 proc gtk_gesture_zoom_new(widget: ptr TWidget): TransferFull[TGestureZoom] {.cdecl, dynlib: lib, importc: "gtk_gesture_zoom_new".}
-proc gesturezoom_new*(widget: Widget): GestureZoom {.inline.} =
+proc new_gesturezoom*(widget: Widget): GestureZoom {.inline.} =
   wrap(gtk_gesture_zoom_new(widget.getPointer))
-# proc gesturezoom_new*(widget: Widget): GestureZoom {.inline.} =
+# proc new_gesturezoom*(widget: Widget): GestureZoom {.inline.} =
 
 # gtk_gesture_zoom_get_scale_delta
 # flags: {isMethod} container: GestureZoom
@@ -15990,9 +15990,9 @@ proc get_scale_delta*(self: GestureZoom): float64 {.inline.} =
 # need sugar: is static method
 # 'Grid' 'TransferNone[TGrid]' (diff., need sugar)
 proc gtk_grid_new(): TransferNone[TGrid] {.cdecl, dynlib: lib, importc: "gtk_grid_new".}
-proc grid_new*(): Grid {.inline.} =
+proc new_grid*(): Grid {.inline.} =
   wrap(gtk_grid_new())
-# proc grid_new*(): Grid {.inline.} =
+# proc new_grid*(): Grid {.inline.} =
 
 # gtk_grid_attach
 # flags: {isMethod} container: Grid
@@ -16211,9 +16211,9 @@ proc set_row_spacing*(self: Grid, spacing: uint32) {.inline.} =
 # need sugar: is static method
 # 'HSV' 'TransferNone[THSV]' (diff., need sugar)
 proc gtk_hsv_new(): TransferNone[THSV] {.cdecl, dynlib: lib, importc: "gtk_hsv_new".}
-proc hsv_new*(): HSV {.inline.} =
+proc new_hsv*(): HSV {.inline.} =
   wrap(gtk_hsv_new())
-# proc hsv_new*(): HSV {.inline.} =
+# proc new_hsv*(): HSV {.inline.} =
 
 # gtk_hsv_to_rgb
 # flags: {} container: HSV
@@ -16325,9 +16325,9 @@ proc set_metrics*(self: HSV, size: int32, ring_width: int32) {.inline.} =
 # need sugar: is static method
 # 'HeaderBar' 'TransferNone[THeaderBar]' (diff., need sugar)
 proc gtk_header_bar_new(): TransferNone[THeaderBar] {.cdecl, dynlib: lib, importc: "gtk_header_bar_new".}
-proc headerbar_new*(): HeaderBar {.inline.} =
+proc new_headerbar*(): HeaderBar {.inline.} =
   wrap(gtk_header_bar_new())
-# proc headerbar_new*(): HeaderBar {.inline.} =
+# proc new_headerbar*(): HeaderBar {.inline.} =
 
 # gtk_header_bar_get_custom_title
 # flags: {isMethod} container: HeaderBar
@@ -16588,18 +16588,18 @@ proc set_use_preedit*(self: IMContext, use_preedit: bool) {.inline.} =
 # need sugar: is static method
 # 'IMContextSimple' 'TransferFull[TIMContextSimple]' (diff., need sugar)
 proc gtk_im_context_simple_new(): TransferFull[TIMContextSimple] {.cdecl, dynlib: lib, importc: "gtk_im_context_simple_new".}
-proc imcontextsimple_new*(): IMContextSimple {.inline.} =
+proc new_imcontextsimple*(): IMContextSimple {.inline.} =
   wrap(gtk_im_context_simple_new())
-# proc imcontextsimple_new*(): IMContextSimple {.inline.} =
+# proc new_imcontextsimple*(): IMContextSimple {.inline.} =
 
 # gtk_im_multicontext_new
 # flags: {isConstructor} container: IMMulticontext
 # need sugar: is static method
 # 'IMMulticontext' 'TransferFull[TIMMulticontext]' (diff., need sugar)
 proc gtk_im_multicontext_new(): TransferFull[TIMMulticontext] {.cdecl, dynlib: lib, importc: "gtk_im_multicontext_new".}
-proc immulticontext_new*(): IMMulticontext {.inline.} =
+proc new_immulticontext*(): IMMulticontext {.inline.} =
   wrap(gtk_im_multicontext_new())
-# proc immulticontext_new*(): IMMulticontext {.inline.} =
+# proc new_immulticontext*(): IMMulticontext {.inline.} =
 
 # gtk_im_multicontext_append_menuitems
 # flags: {isMethod} container: IMMulticontext (deprecated)
@@ -16641,9 +16641,9 @@ proc set_context_id*(self: IMMulticontext, context_id: ustring) {.inline.} =
 # pixbuf 'GdkPixbuf2.Pixbuf' 'ptr GdkPixbuf2.TPixbuf' IN (diff., need sugar)
 # 'IconInfo' 'TransferFull[TIconInfo]' (diff., need sugar)
 proc gtk_icon_info_new_for_pixbuf(icon_theme: ptr TIconTheme, pixbuf: ptr GdkPixbuf2.TPixbuf): TransferFull[TIconInfo] {.cdecl, dynlib: lib, importc: "gtk_icon_info_new_for_pixbuf".}
-proc iconinfo_new_for_pixbuf*(icon_theme: IconTheme, pixbuf: GdkPixbuf2.Pixbuf): IconInfo {.inline.} =
+proc new_iconinfo_for_pixbuf*(icon_theme: IconTheme, pixbuf: GdkPixbuf2.Pixbuf): IconInfo {.inline.} =
   wrap(gtk_icon_info_new_for_pixbuf(icon_theme.getPointer, pixbuf.getPointer))
-# proc iconinfo_new_for_pixbuf*(icon_theme: IconTheme, pixbuf: GdkPixbuf2.Pixbuf): IconInfo {.inline.} =
+# proc new_iconinfo_for_pixbuf*(icon_theme: IconTheme, pixbuf: GdkPixbuf2.Pixbuf): IconInfo {.inline.} =
 
 # gtk_icon_info_get_attach_points
 # flags: {isMethod} container: IconInfo (deprecated)
@@ -16831,9 +16831,9 @@ proc load_symbolic_for_context_finish*(self: IconInfo, res: Gio2.AsyncResult, wa
 # need sugar: is static method
 # 'IconTheme' 'TransferFull[TIconTheme]' (diff., need sugar)
 proc gtk_icon_theme_new(): TransferFull[TIconTheme] {.cdecl, dynlib: lib, importc: "gtk_icon_theme_new".}
-proc icontheme_new*(): IconTheme {.inline.} =
+proc new_icontheme*(): IconTheme {.inline.} =
   wrap(gtk_icon_theme_new())
-# proc icontheme_new*(): IconTheme {.inline.} =
+# proc new_icontheme*(): IconTheme {.inline.} =
 
 # gtk_icon_theme_add_builtin_icon
 # flags: {} container: IconTheme (deprecated)
@@ -17110,9 +17110,9 @@ proc set_search_path*(self: IconTheme, path: var openarray[cstring]) {.inline.} 
 # need sugar: is static method
 # 'IconView' 'TransferNone[TIconView]' (diff., need sugar)
 proc gtk_icon_view_new(): TransferNone[TIconView] {.cdecl, dynlib: lib, importc: "gtk_icon_view_new".}
-proc iconview_new*(): IconView {.inline.} =
+proc new_iconview*(): IconView {.inline.} =
   wrap(gtk_icon_view_new())
-# proc iconview_new*(): IconView {.inline.} =
+# proc new_iconview*(): IconView {.inline.} =
 
 # gtk_icon_view_new_with_area
 # flags: {isConstructor} container: IconView
@@ -17120,9 +17120,9 @@ proc iconview_new*(): IconView {.inline.} =
 # area 'CellArea' 'ptr TCellArea' IN (diff., need sugar)
 # 'IconView' 'TransferNone[TIconView]' (diff., need sugar)
 proc gtk_icon_view_new_with_area(area: ptr TCellArea): TransferNone[TIconView] {.cdecl, dynlib: lib, importc: "gtk_icon_view_new_with_area".}
-proc iconview_new_with_area*(area: CellArea): IconView {.inline.} =
+proc new_iconview_with_area*(area: CellArea): IconView {.inline.} =
   wrap(gtk_icon_view_new_with_area(area.getPointer))
-# proc iconview_new_with_area*(area: CellArea): IconView {.inline.} =
+# proc new_iconview_with_area*(area: CellArea): IconView {.inline.} =
 
 # gtk_icon_view_new_with_model
 # flags: {isConstructor} container: IconView
@@ -17130,9 +17130,9 @@ proc iconview_new_with_area*(area: CellArea): IconView {.inline.} =
 # model 'TreeModel' 'ptr TTreeModel' IN (diff., need sugar)
 # 'IconView' 'TransferNone[TIconView]' (diff., need sugar)
 proc gtk_icon_view_new_with_model(model: ptr TTreeModel): TransferNone[TIconView] {.cdecl, dynlib: lib, importc: "gtk_icon_view_new_with_model".}
-proc iconview_new_with_model*(model: TreeModel): IconView {.inline.} =
+proc new_iconview_with_model*(model: TreeModel): IconView {.inline.} =
   wrap(gtk_icon_view_new_with_model(unwrap(model)))
-# proc iconview_new_with_model*(model: TreeModel): IconView {.inline.} =
+# proc new_iconview_with_model*(model: TreeModel): IconView {.inline.} =
 
 # gtk_icon_view_convert_widget_to_bin_window_coords
 # flags: {isMethod} container: IconView
@@ -17787,9 +17787,9 @@ proc unset_model_drag_source*(self: IconView) {.inline.} =
 # need sugar: is static method
 # 'Image' 'TransferNone[TImage]' (diff., need sugar)
 proc gtk_image_new(): TransferNone[TImage] {.cdecl, dynlib: lib, importc: "gtk_image_new".}
-proc image_new*(): Image {.inline.} =
+proc new_image*(): Image {.inline.} =
   wrap(gtk_image_new())
-# proc image_new*(): Image {.inline.} =
+# proc new_image*(): Image {.inline.} =
 
 # gtk_image_new_from_animation
 # flags: {isConstructor} container: Image
@@ -17797,9 +17797,9 @@ proc image_new*(): Image {.inline.} =
 # animation 'GdkPixbuf2.PixbufAnimation' 'ptr GdkPixbuf2.TPixbufAnimation' IN (diff., need sugar)
 # 'Image' 'TransferNone[TImage]' (diff., need sugar)
 proc gtk_image_new_from_animation(animation: ptr GdkPixbuf2.TPixbufAnimation): TransferNone[TImage] {.cdecl, dynlib: lib, importc: "gtk_image_new_from_animation".}
-proc image_new_from_animation*(animation: GdkPixbuf2.PixbufAnimation): Image {.inline.} =
+proc new_image_from_animation*(animation: GdkPixbuf2.PixbufAnimation): Image {.inline.} =
   wrap(gtk_image_new_from_animation(animation.getPointer))
-# proc image_new_from_animation*(animation: GdkPixbuf2.PixbufAnimation): Image {.inline.} =
+# proc new_image_from_animation*(animation: GdkPixbuf2.PixbufAnimation): Image {.inline.} =
 
 # gtk_image_new_from_file
 # flags: {isConstructor} container: Image
@@ -17807,9 +17807,9 @@ proc image_new_from_animation*(animation: GdkPixbuf2.PixbufAnimation): Image {.i
 # filename 'string' 'cstring' IN (diff., need sugar)
 # 'Image' 'TransferNone[TImage]' (diff., need sugar)
 proc gtk_image_new_from_file(filename: cstring): TransferNone[TImage] {.cdecl, dynlib: lib, importc: "gtk_image_new_from_file".}
-proc image_new_from_file*(filename: string): Image {.inline.} =
+proc new_image_from_file*(filename: string): Image {.inline.} =
   wrap(gtk_image_new_from_file(cstring(filename)))
-# proc image_new_from_file*(filename: string): Image {.inline.} =
+# proc new_image_from_file*(filename: string): Image {.inline.} =
 
 # gtk_image_new_from_gicon
 # flags: {isConstructor} container: Image
@@ -17818,9 +17818,9 @@ proc image_new_from_file*(filename: string): Image {.inline.} =
 # size 'int32' 'int32' IN
 # 'Image' 'TransferNone[TImage]' (diff., need sugar)
 proc gtk_image_new_from_gicon(icon: ptr Gio2.TIcon, size: int32): TransferNone[TImage] {.cdecl, dynlib: lib, importc: "gtk_image_new_from_gicon".}
-proc image_new_from_gicon*(icon: Gio2.Icon, size: int32): Image {.inline.} =
+proc new_image_from_gicon*(icon: Gio2.Icon, size: int32): Image {.inline.} =
   wrap(gtk_image_new_from_gicon(unwrap(icon), size))
-# proc image_new_from_gicon*(icon: Gio2.Icon, size: int32): Image {.inline.} =
+# proc new_image_from_gicon*(icon: Gio2.Icon, size: int32): Image {.inline.} =
 
 # gtk_image_new_from_icon_name
 # flags: {isConstructor} container: Image
@@ -17829,9 +17829,9 @@ proc image_new_from_gicon*(icon: Gio2.Icon, size: int32): Image {.inline.} =
 # size 'int32' 'int32' IN
 # 'Image' 'TransferNone[TImage]' (diff., need sugar)
 proc gtk_image_new_from_icon_name(icon_name: ucstring, size: int32): TransferNone[TImage] {.cdecl, dynlib: lib, importc: "gtk_image_new_from_icon_name".}
-proc image_new_from_icon_name*(icon_name: ustring, size: int32): Image {.inline.} =
+proc new_image_from_icon_name*(icon_name: ustring, size: int32): Image {.inline.} =
   wrap(gtk_image_new_from_icon_name(ucstring(icon_name), size))
-# proc image_new_from_icon_name*(icon_name: ustring, size: int32): Image {.inline.} =
+# proc new_image_from_icon_name*(icon_name: ustring, size: int32): Image {.inline.} =
 
 # gtk_image_new_from_icon_set
 # flags: {isConstructor} container: Image (deprecated)
@@ -17841,9 +17841,9 @@ proc image_new_from_icon_name*(icon_name: ustring, size: int32): Image {.inline.
 # pixbuf 'GdkPixbuf2.Pixbuf' 'ptr GdkPixbuf2.TPixbuf' IN (diff., need sugar)
 # 'Image' 'TransferNone[TImage]' (diff., need sugar)
 proc gtk_image_new_from_pixbuf(pixbuf: ptr GdkPixbuf2.TPixbuf): TransferNone[TImage] {.cdecl, dynlib: lib, importc: "gtk_image_new_from_pixbuf".}
-proc image_new_from_pixbuf*(pixbuf: GdkPixbuf2.Pixbuf): Image {.inline.} =
+proc new_image_from_pixbuf*(pixbuf: GdkPixbuf2.Pixbuf): Image {.inline.} =
   wrap(gtk_image_new_from_pixbuf(pixbuf.getPointer))
-# proc image_new_from_pixbuf*(pixbuf: GdkPixbuf2.Pixbuf): Image {.inline.} =
+# proc new_image_from_pixbuf*(pixbuf: GdkPixbuf2.Pixbuf): Image {.inline.} =
 
 # gtk_image_new_from_resource
 # flags: {isConstructor} container: Image
@@ -17851,9 +17851,9 @@ proc image_new_from_pixbuf*(pixbuf: GdkPixbuf2.Pixbuf): Image {.inline.} =
 # resource_path 'ustring' 'ucstring' IN (diff., need sugar)
 # 'Image' 'TransferNone[TImage]' (diff., need sugar)
 proc gtk_image_new_from_resource(resource_path: ucstring): TransferNone[TImage] {.cdecl, dynlib: lib, importc: "gtk_image_new_from_resource".}
-proc image_new_from_resource*(resource_path: ustring): Image {.inline.} =
+proc new_image_from_resource*(resource_path: ustring): Image {.inline.} =
   wrap(gtk_image_new_from_resource(ucstring(resource_path)))
-# proc image_new_from_resource*(resource_path: ustring): Image {.inline.} =
+# proc new_image_from_resource*(resource_path: ustring): Image {.inline.} =
 
 # gtk_image_new_from_stock
 # flags: {isConstructor} container: Image (deprecated)
@@ -17863,9 +17863,9 @@ proc image_new_from_resource*(resource_path: ustring): Image {.inline.} =
 # surface 'cairo1.TSurface' 'ptr cairo1.TSurface' IN (diff., need sugar)
 # 'Image' 'TransferNone[TImage]' (diff., need sugar)
 proc gtk_image_new_from_surface(surface: ptr cairo1.TSurface): TransferNone[TImage] {.cdecl, dynlib: lib, importc: "gtk_image_new_from_surface".}
-proc image_new_from_surface*(surface: cairo1.TSurface): Image {.inline.} =
+proc new_image_from_surface*(surface: cairo1.TSurface): Image {.inline.} =
   wrap(gtk_image_new_from_surface(myUnsafeAddr(surface)))
-# proc image_new_from_surface*(surface: cairo1.TSurface): Image {.inline.} =
+# proc new_image_from_surface*(surface: cairo1.TSurface): Image {.inline.} =
 
 # gtk_image_clear
 # flags: {isMethod} container: Image
@@ -18057,9 +18057,9 @@ proc set_pixel_size*(self: Image, pixel_size: int32) {.inline.} =
 # need sugar: is static method
 # 'InfoBar' 'TransferNone[TInfoBar]' (diff., need sugar)
 proc gtk_info_bar_new(): TransferNone[TInfoBar] {.cdecl, dynlib: lib, importc: "gtk_info_bar_new".}
-proc infobar_new*(): InfoBar {.inline.} =
+proc new_infobar*(): InfoBar {.inline.} =
   wrap(gtk_info_bar_new())
-# proc infobar_new*(): InfoBar {.inline.} =
+# proc new_infobar*(): InfoBar {.inline.} =
 
 # gtk_info_bar_add_action_widget
 # flags: {isMethod} container: InfoBar
@@ -18175,9 +18175,9 @@ proc set_show_close_button*(self: InfoBar, setting: bool) {.inline.} =
 # need sugar: is static method
 # 'Invisible' 'TransferNone[TInvisible]' (diff., need sugar)
 proc gtk_invisible_new(): TransferNone[TInvisible] {.cdecl, dynlib: lib, importc: "gtk_invisible_new".}
-proc invisible_new*(): Invisible {.inline.} =
+proc new_invisible*(): Invisible {.inline.} =
   wrap(gtk_invisible_new())
-# proc invisible_new*(): Invisible {.inline.} =
+# proc new_invisible*(): Invisible {.inline.} =
 
 # gtk_invisible_new_for_screen
 # flags: {isConstructor} container: Invisible
@@ -18185,9 +18185,9 @@ proc invisible_new*(): Invisible {.inline.} =
 # screen 'Gdk3.Screen' 'ptr Gdk3.TScreen' IN (diff., need sugar)
 # 'Invisible' 'TransferNone[TInvisible]' (diff., need sugar)
 proc gtk_invisible_new_for_screen(screen: ptr Gdk3.TScreen): TransferNone[TInvisible] {.cdecl, dynlib: lib, importc: "gtk_invisible_new_for_screen".}
-proc invisible_new_for_screen*(screen: Gdk3.Screen): Invisible {.inline.} =
+proc new_invisible_for_screen*(screen: Gdk3.Screen): Invisible {.inline.} =
   wrap(gtk_invisible_new_for_screen(screen.getPointer))
-# proc invisible_new_for_screen*(screen: Gdk3.Screen): Invisible {.inline.} =
+# proc new_invisible_for_screen*(screen: Gdk3.Screen): Invisible {.inline.} =
 
 # gtk_invisible_get_screen
 # flags: {isMethod} container: Invisible
@@ -18214,9 +18214,9 @@ proc set_screen*(self: Invisible, screen: Gdk3.Screen) {.inline.} =
 # str 'ustring' 'ucstring' IN (diff., need sugar)
 # 'Label' 'TransferNone[TLabel]' (diff., need sugar)
 proc gtk_label_new(str: ucstring): TransferNone[TLabel] {.cdecl, dynlib: lib, importc: "gtk_label_new".}
-proc label_new*(str: ustring): Label {.inline.} =
+proc new_label*(str: ustring): Label {.inline.} =
   wrap(gtk_label_new(ucstring(str)))
-# proc label_new*(str: ustring): Label {.inline.} =
+# proc new_label*(str: ustring): Label {.inline.} =
 
 # gtk_label_new_with_mnemonic
 # flags: {isConstructor} container: Label
@@ -18224,9 +18224,9 @@ proc label_new*(str: ustring): Label {.inline.} =
 # str 'ustring' 'ucstring' IN (diff., need sugar)
 # 'Label' 'TransferNone[TLabel]' (diff., need sugar)
 proc gtk_label_new_with_mnemonic(str: ucstring): TransferNone[TLabel] {.cdecl, dynlib: lib, importc: "gtk_label_new_with_mnemonic".}
-proc label_new_with_mnemonic*(str: ustring): Label {.inline.} =
+proc new_label_with_mnemonic*(str: ustring): Label {.inline.} =
   wrap(gtk_label_new_with_mnemonic(ucstring(str)))
-# proc label_new_with_mnemonic*(str: ustring): Label {.inline.} =
+# proc new_label_with_mnemonic*(str: ustring): Label {.inline.} =
 
 # gtk_label_get_angle
 # flags: {isMethod} container: Label
@@ -18664,9 +18664,9 @@ proc set_width_chars*(self: Label, n_chars: int32) {.inline.} =
 # vadjustment 'Adjustment' 'ptr TAdjustment' IN (diff., need sugar)
 # 'Layout' 'TransferNone[TLayout]' (diff., need sugar)
 proc gtk_layout_new(hadjustment: ptr TAdjustment, vadjustment: ptr TAdjustment): TransferNone[TLayout] {.cdecl, dynlib: lib, importc: "gtk_layout_new".}
-proc layout_new*(hadjustment: Adjustment, vadjustment: Adjustment): Layout {.inline.} =
+proc new_layout*(hadjustment: Adjustment, vadjustment: Adjustment): Layout {.inline.} =
   wrap(gtk_layout_new(hadjustment.getPointer, vadjustment.getPointer))
-# proc layout_new*(hadjustment: Adjustment, vadjustment: Adjustment): Layout {.inline.} =
+# proc new_layout*(hadjustment: Adjustment, vadjustment: Adjustment): Layout {.inline.} =
 
 # gtk_layout_get_bin_window
 # flags: {isMethod} container: Layout
@@ -18739,9 +18739,9 @@ proc set_size*(self: Layout, width: uint32, height: uint32) {.inline.} =
 # need sugar: is static method
 # 'LevelBar' 'TransferNone[TLevelBar]' (diff., need sugar)
 proc gtk_level_bar_new(): TransferNone[TLevelBar] {.cdecl, dynlib: lib, importc: "gtk_level_bar_new".}
-proc levelbar_new*(): LevelBar {.inline.} =
+proc new_levelbar*(): LevelBar {.inline.} =
   wrap(gtk_level_bar_new())
-# proc levelbar_new*(): LevelBar {.inline.} =
+# proc new_levelbar*(): LevelBar {.inline.} =
 
 # gtk_level_bar_new_for_interval
 # flags: {isConstructor} container: LevelBar
@@ -18750,9 +18750,9 @@ proc levelbar_new*(): LevelBar {.inline.} =
 # max_value 'float64' 'float64' IN
 # 'LevelBar' 'TransferNone[TLevelBar]' (diff., need sugar)
 proc gtk_level_bar_new_for_interval(min_value: float64, max_value: float64): TransferNone[TLevelBar] {.cdecl, dynlib: lib, importc: "gtk_level_bar_new_for_interval".}
-proc levelbar_new_for_interval*(min_value: float64, max_value: float64): LevelBar {.inline.} =
+proc new_levelbar_for_interval*(min_value: float64, max_value: float64): LevelBar {.inline.} =
   wrap(gtk_level_bar_new_for_interval(min_value, max_value))
-# proc levelbar_new_for_interval*(min_value: float64, max_value: float64): LevelBar {.inline.} =
+# proc new_levelbar_for_interval*(min_value: float64, max_value: float64): LevelBar {.inline.} =
 
 # gtk_level_bar_add_offset_value
 # flags: {isMethod} container: LevelBar
@@ -18889,9 +18889,9 @@ proc set_value*(self: LevelBar, value: float64) {.inline.} =
 # uri 'ustring' 'ucstring' IN (diff., need sugar)
 # 'LinkButton' 'TransferNone[TLinkButton]' (diff., need sugar)
 proc gtk_link_button_new(uri: ucstring): TransferNone[TLinkButton] {.cdecl, dynlib: lib, importc: "gtk_link_button_new".}
-proc linkbutton_new*(uri: ustring): LinkButton {.inline.} =
+proc new_linkbutton*(uri: ustring): LinkButton {.inline.} =
   wrap(gtk_link_button_new(ucstring(uri)))
-# proc linkbutton_new*(uri: ustring): LinkButton {.inline.} =
+# proc new_linkbutton*(uri: ustring): LinkButton {.inline.} =
 
 # gtk_link_button_new_with_label
 # flags: {isConstructor} container: LinkButton
@@ -18900,9 +18900,9 @@ proc linkbutton_new*(uri: ustring): LinkButton {.inline.} =
 # label 'ustring' 'ucstring' IN (diff., need sugar)
 # 'LinkButton' 'TransferNone[TLinkButton]' (diff., need sugar)
 proc gtk_link_button_new_with_label(uri: ucstring, label: ucstring): TransferNone[TLinkButton] {.cdecl, dynlib: lib, importc: "gtk_link_button_new_with_label".}
-proc linkbutton_new_with_label*(uri: ustring, label: ustring): LinkButton {.inline.} =
+proc new_linkbutton_with_label*(uri: ustring, label: ustring): LinkButton {.inline.} =
   wrap(gtk_link_button_new_with_label(ucstring(uri), ucstring(label)))
-# proc linkbutton_new_with_label*(uri: ustring, label: ustring): LinkButton {.inline.} =
+# proc new_linkbutton_with_label*(uri: ustring, label: ustring): LinkButton {.inline.} =
 
 # gtk_link_button_get_uri
 # flags: {isMethod} container: LinkButton
@@ -18947,9 +18947,9 @@ proc set_visited*(self: LinkButton, visited: bool) {.inline.} =
 # need sugar: is static method
 # 'ListBox' 'TransferNone[TListBox]' (diff., need sugar)
 proc gtk_list_box_new(): TransferNone[TListBox] {.cdecl, dynlib: lib, importc: "gtk_list_box_new".}
-proc listbox_new*(): ListBox {.inline.} =
+proc new_listbox*(): ListBox {.inline.} =
   wrap(gtk_list_box_new())
-# proc listbox_new*(): ListBox {.inline.} =
+# proc new_listbox*(): ListBox {.inline.} =
 
 # gtk_list_box_drag_highlight_row
 # flags: {isMethod} container: ListBox
@@ -19213,9 +19213,9 @@ proc unselect_row*(self: ListBox, row: ListBoxRow) {.inline.} =
 # need sugar: is static method
 # 'ListBoxRow' 'TransferNone[TListBoxRow]' (diff., need sugar)
 proc gtk_list_box_row_new(): TransferNone[TListBoxRow] {.cdecl, dynlib: lib, importc: "gtk_list_box_row_new".}
-proc listboxrow_new*(): ListBoxRow {.inline.} =
+proc new_listboxrow*(): ListBoxRow {.inline.} =
   wrap(gtk_list_box_row_new())
-# proc listboxrow_new*(): ListBoxRow {.inline.} =
+# proc new_listboxrow*(): ListBoxRow {.inline.} =
 
 # gtk_list_box_row_changed
 # flags: {isMethod} container: ListBoxRow
@@ -19308,9 +19308,9 @@ proc set_selectable*(self: ListBoxRow, selectable: bool) {.inline.} =
 # types 'var openarray[GType]' 'openarray[GType]' IN (diff., need sugar) array lengthArg: 0
 # 'ListStore' 'TransferFull[TListStore]' (diff., need sugar)
 proc gtk_list_store_newv(n_columns: int32, types: openarray[GType]): TransferFull[TListStore] {.cdecl, dynlib: lib, importc: "gtk_list_store_newv".}
-proc liststore_new*(types: var openarray[GType]): ListStore {.inline.} =
+proc new_liststore*(types: var openarray[GType]): ListStore {.inline.} =
   wrap(gtk_list_store_newv(types.len.int32, types))
-# proc liststore_new*(types: var openarray[GType]): ListStore {.inline.} =
+# proc new_liststore*(types: var openarray[GType]): ListStore {.inline.} =
 
 # gtk_list_store_append
 # flags: {isMethod} container: ListStore
@@ -19505,9 +19505,9 @@ proc swap*(self: ListStore, a: TTreeIter, b: TTreeIter) {.inline.} =
 # permission 'Gio2.Permission' 'ptr Gio2.TPermission' IN (diff., need sugar)
 # 'LockButton' 'TransferNone[TLockButton]' (diff., need sugar)
 proc gtk_lock_button_new(permission: ptr Gio2.TPermission): TransferNone[TLockButton] {.cdecl, dynlib: lib, importc: "gtk_lock_button_new".}
-proc lockbutton_new*(permission: Gio2.Permission): LockButton {.inline.} =
+proc new_lockbutton*(permission: Gio2.Permission): LockButton {.inline.} =
   wrap(gtk_lock_button_new(permission.getPointer))
-# proc lockbutton_new*(permission: Gio2.Permission): LockButton {.inline.} =
+# proc new_lockbutton*(permission: Gio2.Permission): LockButton {.inline.} =
 
 # gtk_lock_button_get_permission
 # flags: {isMethod} container: LockButton
@@ -19533,9 +19533,9 @@ proc set_permission*(self: LockButton, permission: Gio2.Permission) {.inline.} =
 # need sugar: is static method
 # 'Menu' 'TransferNone[TMenu]' (diff., need sugar)
 proc gtk_menu_new(): TransferNone[TMenu] {.cdecl, dynlib: lib, importc: "gtk_menu_new".}
-proc menu_new*(): Menu {.inline.} =
+proc new_menu*(): Menu {.inline.} =
   wrap(gtk_menu_new())
-# proc menu_new*(): Menu {.inline.} =
+# proc new_menu*(): Menu {.inline.} =
 
 # gtk_menu_new_from_model
 # flags: {isConstructor} container: Menu
@@ -19543,9 +19543,9 @@ proc menu_new*(): Menu {.inline.} =
 # model 'Gio2.MenuModel' 'ptr Gio2.TMenuModel' IN (diff., need sugar)
 # 'Menu' 'TransferNone[TMenu]' (diff., need sugar)
 proc gtk_menu_new_from_model(model: ptr Gio2.TMenuModel): TransferNone[TMenu] {.cdecl, dynlib: lib, importc: "gtk_menu_new_from_model".}
-proc menu_new_from_model*(model: Gio2.MenuModel): Menu {.inline.} =
+proc new_menu_from_model*(model: Gio2.MenuModel): Menu {.inline.} =
   wrap(gtk_menu_new_from_model(model.getPointer))
-# proc menu_new_from_model*(model: Gio2.MenuModel): Menu {.inline.} =
+# proc new_menu_from_model*(model: Gio2.MenuModel): Menu {.inline.} =
 
 # gtk_menu_get_for_attach_widget
 # flags: {} container: Menu
@@ -19779,9 +19779,9 @@ proc set_screen*(self: Menu, screen: Gdk3.Screen) {.inline.} =
 # need sugar: is static method
 # 'MenuBar' 'TransferNone[TMenuBar]' (diff., need sugar)
 proc gtk_menu_bar_new(): TransferNone[TMenuBar] {.cdecl, dynlib: lib, importc: "gtk_menu_bar_new".}
-proc menubar_new*(): MenuBar {.inline.} =
+proc new_menubar*(): MenuBar {.inline.} =
   wrap(gtk_menu_bar_new())
-# proc menubar_new*(): MenuBar {.inline.} =
+# proc new_menubar*(): MenuBar {.inline.} =
 
 # gtk_menu_bar_new_from_model
 # flags: {isConstructor} container: MenuBar
@@ -19789,9 +19789,9 @@ proc menubar_new*(): MenuBar {.inline.} =
 # model 'Gio2.MenuModel' 'ptr Gio2.TMenuModel' IN (diff., need sugar)
 # 'MenuBar' 'TransferNone[TMenuBar]' (diff., need sugar)
 proc gtk_menu_bar_new_from_model(model: ptr Gio2.TMenuModel): TransferNone[TMenuBar] {.cdecl, dynlib: lib, importc: "gtk_menu_bar_new_from_model".}
-proc menubar_new_from_model*(model: Gio2.MenuModel): MenuBar {.inline.} =
+proc new_menubar_from_model*(model: Gio2.MenuModel): MenuBar {.inline.} =
   wrap(gtk_menu_bar_new_from_model(model.getPointer))
-# proc menubar_new_from_model*(model: Gio2.MenuModel): MenuBar {.inline.} =
+# proc new_menubar_from_model*(model: Gio2.MenuModel): MenuBar {.inline.} =
 
 # gtk_menu_bar_get_child_pack_direction
 # flags: {isMethod} container: MenuBar
@@ -19836,9 +19836,9 @@ proc set_pack_direction*(self: MenuBar, pack_dir: PackDirection) {.inline.} =
 # need sugar: is static method
 # 'MenuButton' 'TransferNone[TMenuButton]' (diff., need sugar)
 proc gtk_menu_button_new(): TransferNone[TMenuButton] {.cdecl, dynlib: lib, importc: "gtk_menu_button_new".}
-proc menubutton_new*(): MenuButton {.inline.} =
+proc new_menubutton*(): MenuButton {.inline.} =
   wrap(gtk_menu_button_new())
-# proc menubutton_new*(): MenuButton {.inline.} =
+# proc new_menubutton*(): MenuButton {.inline.} =
 
 # gtk_menu_button_get_align_widget
 # flags: {isMethod} container: MenuButton
@@ -19959,9 +19959,9 @@ proc set_use_popover*(self: MenuButton, use_popover: bool) {.inline.} =
 # need sugar: is static method
 # 'MenuItem' 'TransferNone[TMenuItem]' (diff., need sugar)
 proc gtk_menu_item_new(): TransferNone[TMenuItem] {.cdecl, dynlib: lib, importc: "gtk_menu_item_new".}
-proc menuitem_new*(): MenuItem {.inline.} =
+proc new_menuitem*(): MenuItem {.inline.} =
   wrap(gtk_menu_item_new())
-# proc menuitem_new*(): MenuItem {.inline.} =
+# proc new_menuitem*(): MenuItem {.inline.} =
 
 # gtk_menu_item_new_with_label
 # flags: {isConstructor} container: MenuItem
@@ -19969,9 +19969,9 @@ proc menuitem_new*(): MenuItem {.inline.} =
 # label 'ustring' 'ucstring' IN (diff., need sugar)
 # 'MenuItem' 'TransferNone[TMenuItem]' (diff., need sugar)
 proc gtk_menu_item_new_with_label(label: ucstring): TransferNone[TMenuItem] {.cdecl, dynlib: lib, importc: "gtk_menu_item_new_with_label".}
-proc menuitem_new_with_label*(label: ustring): MenuItem {.inline.} =
+proc new_menuitem_with_label*(label: ustring): MenuItem {.inline.} =
   wrap(gtk_menu_item_new_with_label(ucstring(label)))
-# proc menuitem_new_with_label*(label: ustring): MenuItem {.inline.} =
+# proc new_menuitem_with_label*(label: ustring): MenuItem {.inline.} =
 
 # gtk_menu_item_new_with_mnemonic
 # flags: {isConstructor} container: MenuItem
@@ -19979,9 +19979,9 @@ proc menuitem_new_with_label*(label: ustring): MenuItem {.inline.} =
 # label 'ustring' 'ucstring' IN (diff., need sugar)
 # 'MenuItem' 'TransferNone[TMenuItem]' (diff., need sugar)
 proc gtk_menu_item_new_with_mnemonic(label: ucstring): TransferNone[TMenuItem] {.cdecl, dynlib: lib, importc: "gtk_menu_item_new_with_mnemonic".}
-proc menuitem_new_with_mnemonic*(label: ustring): MenuItem {.inline.} =
+proc new_menuitem_with_mnemonic*(label: ustring): MenuItem {.inline.} =
   wrap(gtk_menu_item_new_with_mnemonic(ucstring(label)))
-# proc menuitem_new_with_mnemonic*(label: ustring): MenuItem {.inline.} =
+# proc new_menuitem_with_mnemonic*(label: ustring): MenuItem {.inline.} =
 
 # gtk_menu_item_activate
 # flags: {isMethod} container: MenuItem
@@ -20274,9 +20274,9 @@ proc set_take_focus*(self: MenuShell, take_focus: bool) {.inline.} =
 # label 'ustring' 'ucstring' IN (diff., need sugar)
 # 'MenuToolButton' 'TransferNone[TMenuToolButton]' (diff., need sugar)
 proc gtk_menu_tool_button_new(icon_widget: ptr TWidget, label: ucstring): TransferNone[TMenuToolButton] {.cdecl, dynlib: lib, importc: "gtk_menu_tool_button_new".}
-proc menutoolbutton_new*(icon_widget: Widget, label: ustring): MenuToolButton {.inline.} =
+proc new_menutoolbutton*(icon_widget: Widget, label: ustring): MenuToolButton {.inline.} =
   wrap(gtk_menu_tool_button_new(icon_widget.getPointer, ucstring(label)))
-# proc menutoolbutton_new*(icon_widget: Widget, label: ustring): MenuToolButton {.inline.} =
+# proc new_menutoolbutton*(icon_widget: Widget, label: ustring): MenuToolButton {.inline.} =
 
 # gtk_menu_tool_button_new_from_stock
 # flags: {isConstructor} container: MenuToolButton (deprecated)
@@ -20356,9 +20356,9 @@ proc set_markup*(self: MessageDialog, str: ustring) {.inline.} =
 # parent 'Window' 'ptr TWindow' IN (diff., need sugar)
 # 'MountOperation' 'TransferFull[TMountOperation]' (diff., need sugar)
 proc gtk_mount_operation_new(parent: ptr TWindow): TransferFull[TMountOperation] {.cdecl, dynlib: lib, importc: "gtk_mount_operation_new".}
-proc mountoperation_new*(parent: Window): MountOperation {.inline.} =
+proc new_mountoperation*(parent: Window): MountOperation {.inline.} =
   wrap(gtk_mount_operation_new(parent.getPointer))
-# proc mountoperation_new*(parent: Window): MountOperation {.inline.} =
+# proc new_mountoperation*(parent: Window): MountOperation {.inline.} =
 
 # gtk_mount_operation_get_parent
 # flags: {isMethod} container: MountOperation
@@ -20412,9 +20412,9 @@ proc set_screen*(self: MountOperation, screen: Gdk3.Screen) {.inline.} =
 # need sugar: is static method
 # 'Notebook' 'TransferNone[TNotebook]' (diff., need sugar)
 proc gtk_notebook_new(): TransferNone[TNotebook] {.cdecl, dynlib: lib, importc: "gtk_notebook_new".}
-proc notebook_new*(): Notebook {.inline.} =
+proc new_notebook*(): Notebook {.inline.} =
   wrap(gtk_notebook_new())
-# proc notebook_new*(): Notebook {.inline.} =
+# proc new_notebook*(): Notebook {.inline.} =
 
 # gtk_notebook_append_page
 # flags: {isMethod} container: Notebook
@@ -20845,9 +20845,9 @@ proc set_tab_reorderable*(self: Notebook, child: Widget, reorderable: bool) {.in
 # child 'Widget' 'ptr TWidget' IN (diff., need sugar)
 # 'NotebookPageAccessible' 'TransferFull[TNotebookPageAccessible]' (diff., need sugar)
 proc gtk_notebook_page_accessible_new(notebook: ptr TNotebookAccessible, child: ptr TWidget): TransferFull[TNotebookPageAccessible] {.cdecl, dynlib: lib, importc: "gtk_notebook_page_accessible_new".}
-proc notebookpageaccessible_new*(notebook: NotebookAccessible, child: Widget): NotebookPageAccessible {.inline.} =
+proc new_notebookpageaccessible*(notebook: NotebookAccessible, child: Widget): NotebookPageAccessible {.inline.} =
   wrap(gtk_notebook_page_accessible_new(notebook.getPointer, child.getPointer))
-# proc notebookpageaccessible_new*(notebook: NotebookAccessible, child: Widget): NotebookPageAccessible {.inline.} =
+# proc new_notebookpageaccessible*(notebook: NotebookAccessible, child: Widget): NotebookPageAccessible {.inline.} =
 
 # gtk_notebook_page_accessible_invalidate
 # flags: {isMethod} container: NotebookPageAccessible
@@ -20887,9 +20887,9 @@ proc invalidate*(self: NotebookPageAccessible) {.inline.} =
 # need sugar: is static method
 # 'OffscreenWindow' 'TransferNone[TOffscreenWindow]' (diff., need sugar)
 proc gtk_offscreen_window_new(): TransferNone[TOffscreenWindow] {.cdecl, dynlib: lib, importc: "gtk_offscreen_window_new".}
-proc offscreenwindow_new*(): OffscreenWindow {.inline.} =
+proc new_offscreenwindow*(): OffscreenWindow {.inline.} =
   wrap(gtk_offscreen_window_new())
-# proc offscreenwindow_new*(): OffscreenWindow {.inline.} =
+# proc new_offscreenwindow*(): OffscreenWindow {.inline.} =
 
 # gtk_offscreen_window_get_pixbuf
 # flags: {isMethod} container: OffscreenWindow
@@ -20914,9 +20914,9 @@ proc get_surface*(self: OffscreenWindow): cairo1.TSurface {.inline.} =
 # need sugar: is static method
 # 'Overlay' 'TransferNone[TOverlay]' (diff., need sugar)
 proc gtk_overlay_new(): TransferNone[TOverlay] {.cdecl, dynlib: lib, importc: "gtk_overlay_new".}
-proc overlay_new*(): Overlay {.inline.} =
+proc new_overlay*(): Overlay {.inline.} =
   wrap(gtk_overlay_new())
-# proc overlay_new*(): Overlay {.inline.} =
+# proc new_overlay*(): Overlay {.inline.} =
 
 # gtk_overlay_add_overlay
 # flags: {isMethod} container: Overlay
@@ -20933,9 +20933,9 @@ proc add_overlay*(self: Overlay, widget: Widget) {.inline.} =
 # need sugar: is static method
 # 'PageSetup' 'TransferFull[TPageSetup]' (diff., need sugar)
 proc gtk_page_setup_new(): TransferFull[TPageSetup] {.cdecl, dynlib: lib, importc: "gtk_page_setup_new".}
-proc pagesetup_new*(): PageSetup {.inline.} =
+proc new_pagesetup*(): PageSetup {.inline.} =
   wrap(gtk_page_setup_new())
-# proc pagesetup_new*(): PageSetup {.inline.} =
+# proc new_pagesetup*(): PageSetup {.inline.} =
 
 # gtk_page_setup_new_from_file
 # flags: {isConstructor, throws} container: PageSetup
@@ -20944,9 +20944,9 @@ proc pagesetup_new*(): PageSetup {.inline.} =
 # file_name 'string' 'cstring' IN (diff., need sugar)
 # 'PageSetup' 'TransferFull[TPageSetup]' (diff., need sugar)
 proc gtk_page_setup_new_from_file(file_name: cstring, error: ptr PGError=nil): TransferFull[TPageSetup] {.cdecl, dynlib: lib, importc: "gtk_page_setup_new_from_file".}
-proc pagesetup_new_from_file*(file_name: string): PageSetup {.inline.} =
+proc new_pagesetup_from_file*(file_name: string): PageSetup {.inline.} =
   wrap(gtk_page_setup_new_from_file(cstring(file_name)))
-# proc pagesetup_new_from_file*(file_name: string): PageSetup {.inline.} =
+# proc new_pagesetup_from_file*(file_name: string): PageSetup {.inline.} =
 
 # gtk_page_setup_new_from_key_file
 # flags: {isConstructor, throws} container: PageSetup
@@ -20956,9 +20956,9 @@ proc pagesetup_new_from_file*(file_name: string): PageSetup {.inline.} =
 # group_name 'ustring' 'ucstring' IN (diff., need sugar)
 # 'PageSetup' 'TransferFull[TPageSetup]' (diff., need sugar)
 proc gtk_page_setup_new_from_key_file(key_file: ptr GLib2.TKeyFile, group_name: ucstring, error: ptr PGError=nil): TransferFull[TPageSetup] {.cdecl, dynlib: lib, importc: "gtk_page_setup_new_from_key_file".}
-proc pagesetup_new_from_key_file*(key_file: GLib2.TKeyFile, group_name: ustring): PageSetup {.inline.} =
+proc new_pagesetup_from_key_file*(key_file: GLib2.TKeyFile, group_name: ustring): PageSetup {.inline.} =
   wrap(gtk_page_setup_new_from_key_file(myUnsafeAddr(key_file), ucstring(group_name)))
-# proc pagesetup_new_from_key_file*(key_file: GLib2.TKeyFile, group_name: ustring): PageSetup {.inline.} =
+# proc new_pagesetup_from_key_file*(key_file: GLib2.TKeyFile, group_name: ustring): PageSetup {.inline.} =
 
 # gtk_page_setup_copy
 # flags: {isMethod} container: PageSetup
@@ -21192,9 +21192,9 @@ proc to_key_file*(self: PageSetup, key_file: GLib2.TKeyFile, group_name: ustring
 # orientation 'Orientation' 'Orientation' IN
 # 'Paned' 'TransferNone[TPaned]' (diff., need sugar)
 proc gtk_paned_new(orientation: Orientation): TransferNone[TPaned] {.cdecl, dynlib: lib, importc: "gtk_paned_new".}
-proc paned_new*(orientation: Orientation): Paned {.inline.} =
+proc new_paned*(orientation: Orientation): Paned {.inline.} =
   wrap(gtk_paned_new(orientation))
-# proc paned_new*(orientation: Orientation): Paned {.inline.} =
+# proc new_paned*(orientation: Orientation): Paned {.inline.} =
 
 # gtk_paned_add1
 # flags: {isMethod} container: Paned
@@ -21291,9 +21291,9 @@ proc set_position*(self: Paned, position: int32) {.inline.} =
 # need sugar: is static method
 # 'PlacesSidebar' 'TransferNone[TPlacesSidebar]' (diff., need sugar)
 proc gtk_places_sidebar_new(): TransferNone[TPlacesSidebar] {.cdecl, dynlib: lib, importc: "gtk_places_sidebar_new".}
-proc placessidebar_new*(): PlacesSidebar {.inline.} =
+proc new_placessidebar*(): PlacesSidebar {.inline.} =
   wrap(gtk_places_sidebar_new())
-# proc placessidebar_new*(): PlacesSidebar {.inline.} =
+# proc new_placessidebar*(): PlacesSidebar {.inline.} =
 
 # gtk_places_sidebar_add_shortcut
 # flags: {isMethod} container: PlacesSidebar
@@ -21454,9 +21454,9 @@ proc set_show_enter_location*(self: PlacesSidebar, show_enter_location: bool) {.
 # relative_to 'Widget' 'ptr TWidget' IN (diff., need sugar)
 # 'Popover' 'TransferNone[TPopover]' (diff., need sugar)
 proc gtk_popover_new(relative_to: ptr TWidget): TransferNone[TPopover] {.cdecl, dynlib: lib, importc: "gtk_popover_new".}
-proc popover_new*(relative_to: Widget): Popover {.inline.} =
+proc new_popover*(relative_to: Widget): Popover {.inline.} =
   wrap(gtk_popover_new(relative_to.getPointer))
-# proc popover_new*(relative_to: Widget): Popover {.inline.} =
+# proc new_popover*(relative_to: Widget): Popover {.inline.} =
 
 # gtk_popover_new_from_model
 # flags: {isConstructor} container: Popover
@@ -21465,9 +21465,9 @@ proc popover_new*(relative_to: Widget): Popover {.inline.} =
 # model 'Gio2.MenuModel' 'ptr Gio2.TMenuModel' IN (diff., need sugar)
 # 'Popover' 'TransferNone[TPopover]' (diff., need sugar)
 proc gtk_popover_new_from_model(relative_to: ptr TWidget, model: ptr Gio2.TMenuModel): TransferNone[TPopover] {.cdecl, dynlib: lib, importc: "gtk_popover_new_from_model".}
-proc popover_new_from_model*(relative_to: Widget, model: Gio2.MenuModel): Popover {.inline.} =
+proc new_popover_from_model*(relative_to: Widget, model: Gio2.MenuModel): Popover {.inline.} =
   wrap(gtk_popover_new_from_model(relative_to.getPointer, model.getPointer))
-# proc popover_new_from_model*(relative_to: Widget, model: Gio2.MenuModel): Popover {.inline.} =
+# proc new_popover_from_model*(relative_to: Widget, model: Gio2.MenuModel): Popover {.inline.} =
 
 # gtk_popover_bind_model
 # flags: {isMethod} container: Popover
@@ -21675,9 +21675,9 @@ proc set_cairo_context*(self: PrintContext, cr: cairo1.TContext, dpi_x: float64,
 # need sugar: is static method
 # 'PrintOperation' 'TransferFull[TPrintOperation]' (diff., need sugar)
 proc gtk_print_operation_new(): TransferFull[TPrintOperation] {.cdecl, dynlib: lib, importc: "gtk_print_operation_new".}
-proc printoperation_new*(): PrintOperation {.inline.} =
+proc new_printoperation*(): PrintOperation {.inline.} =
   wrap(gtk_print_operation_new())
-# proc printoperation_new*(): PrintOperation {.inline.} =
+# proc new_printoperation*(): PrintOperation {.inline.} =
 
 # gtk_print_operation_cancel
 # flags: {isMethod} container: PrintOperation
@@ -21964,9 +21964,9 @@ proc set_use_full_page*(self: PrintOperation, full_page: bool) {.inline.} =
 # need sugar: is static method
 # 'PrintSettings' 'TransferFull[TPrintSettings]' (diff., need sugar)
 proc gtk_print_settings_new(): TransferFull[TPrintSettings] {.cdecl, dynlib: lib, importc: "gtk_print_settings_new".}
-proc printsettings_new*(): PrintSettings {.inline.} =
+proc new_printsettings*(): PrintSettings {.inline.} =
   wrap(gtk_print_settings_new())
-# proc printsettings_new*(): PrintSettings {.inline.} =
+# proc new_printsettings*(): PrintSettings {.inline.} =
 
 # gtk_print_settings_new_from_file
 # flags: {isConstructor, throws} container: PrintSettings
@@ -21975,9 +21975,9 @@ proc printsettings_new*(): PrintSettings {.inline.} =
 # file_name 'string' 'cstring' IN (diff., need sugar)
 # 'PrintSettings' 'TransferFull[TPrintSettings]' (diff., need sugar)
 proc gtk_print_settings_new_from_file(file_name: cstring, error: ptr PGError=nil): TransferFull[TPrintSettings] {.cdecl, dynlib: lib, importc: "gtk_print_settings_new_from_file".}
-proc printsettings_new_from_file*(file_name: string): PrintSettings {.inline.} =
+proc new_printsettings_from_file*(file_name: string): PrintSettings {.inline.} =
   wrap(gtk_print_settings_new_from_file(cstring(file_name)))
-# proc printsettings_new_from_file*(file_name: string): PrintSettings {.inline.} =
+# proc new_printsettings_from_file*(file_name: string): PrintSettings {.inline.} =
 
 # gtk_print_settings_new_from_key_file
 # flags: {isConstructor, throws} container: PrintSettings
@@ -21987,9 +21987,9 @@ proc printsettings_new_from_file*(file_name: string): PrintSettings {.inline.} =
 # group_name 'ustring' 'ucstring' IN (diff., need sugar)
 # 'PrintSettings' 'TransferFull[TPrintSettings]' (diff., need sugar)
 proc gtk_print_settings_new_from_key_file(key_file: ptr GLib2.TKeyFile, group_name: ucstring, error: ptr PGError=nil): TransferFull[TPrintSettings] {.cdecl, dynlib: lib, importc: "gtk_print_settings_new_from_key_file".}
-proc printsettings_new_from_key_file*(key_file: GLib2.TKeyFile, group_name: ustring): PrintSettings {.inline.} =
+proc new_printsettings_from_key_file*(key_file: GLib2.TKeyFile, group_name: ustring): PrintSettings {.inline.} =
   wrap(gtk_print_settings_new_from_key_file(myUnsafeAddr(key_file), ucstring(group_name)))
-# proc printsettings_new_from_key_file*(key_file: GLib2.TKeyFile, group_name: ustring): PrintSettings {.inline.} =
+# proc new_printsettings_from_key_file*(key_file: GLib2.TKeyFile, group_name: ustring): PrintSettings {.inline.} =
 
 # gtk_print_settings_copy
 # flags: {isMethod} container: PrintSettings
@@ -22703,9 +22703,9 @@ proc unset*(self: PrintSettings, key: ustring) {.inline.} =
 # need sugar: is static method
 # 'ProgressBar' 'TransferNone[TProgressBar]' (diff., need sugar)
 proc gtk_progress_bar_new(): TransferNone[TProgressBar] {.cdecl, dynlib: lib, importc: "gtk_progress_bar_new".}
-proc progressbar_new*(): ProgressBar {.inline.} =
+proc new_progressbar*(): ProgressBar {.inline.} =
   wrap(gtk_progress_bar_new())
-# proc progressbar_new*(): ProgressBar {.inline.} =
+# proc new_progressbar*(): ProgressBar {.inline.} =
 
 # gtk_progress_bar_get_ellipsize
 # flags: {isMethod} container: ProgressBar
@@ -22848,9 +22848,9 @@ proc set_text*(self: ProgressBar, text: ustring) {.inline.} =
 # group 'ptr GSLIST_TODO' 'ptr GSLIST_TODO' IN
 # 'RadioButton' 'TransferNone[TRadioButton]' (diff., need sugar)
 proc gtk_radio_button_new(group: ptr GSLIST_TODO): TransferNone[TRadioButton] {.cdecl, dynlib: lib, importc: "gtk_radio_button_new".}
-proc radiobutton_new*(group: ptr GSLIST_TODO): RadioButton {.inline.} =
+proc new_radiobutton*(group: ptr GSLIST_TODO): RadioButton {.inline.} =
   wrap(gtk_radio_button_new(group))
-# proc radiobutton_new*(group: ptr GSLIST_TODO): RadioButton {.inline.} =
+# proc new_radiobutton*(group: ptr GSLIST_TODO): RadioButton {.inline.} =
 
 # gtk_radio_button_new_from_widget
 # flags: {isConstructor} container: RadioButton
@@ -22858,9 +22858,9 @@ proc radiobutton_new*(group: ptr GSLIST_TODO): RadioButton {.inline.} =
 # radio_group_member 'RadioButton' 'ptr TRadioButton' IN (diff., need sugar)
 # 'RadioButton' 'TransferNone[TRadioButton]' (diff., need sugar)
 proc gtk_radio_button_new_from_widget(radio_group_member: ptr TRadioButton): TransferNone[TRadioButton] {.cdecl, dynlib: lib, importc: "gtk_radio_button_new_from_widget".}
-proc radiobutton_new_from_widget*(radio_group_member: RadioButton): RadioButton {.inline.} =
+proc new_radiobutton_from_widget*(radio_group_member: RadioButton): RadioButton {.inline.} =
   wrap(gtk_radio_button_new_from_widget(radio_group_member.getPointer))
-# proc radiobutton_new_from_widget*(radio_group_member: RadioButton): RadioButton {.inline.} =
+# proc new_radiobutton_from_widget*(radio_group_member: RadioButton): RadioButton {.inline.} =
 
 # gtk_radio_button_new_with_label
 # flags: {isConstructor} container: RadioButton
@@ -22869,9 +22869,9 @@ proc radiobutton_new_from_widget*(radio_group_member: RadioButton): RadioButton 
 # label 'ustring' 'ucstring' IN (diff., need sugar)
 # 'RadioButton' 'TransferNone[TRadioButton]' (diff., need sugar)
 proc gtk_radio_button_new_with_label(group: ptr GSLIST_TODO, label: ucstring): TransferNone[TRadioButton] {.cdecl, dynlib: lib, importc: "gtk_radio_button_new_with_label".}
-proc radiobutton_new_with_label*(group: ptr GSLIST_TODO, label: ustring): RadioButton {.inline.} =
+proc new_radiobutton_with_label*(group: ptr GSLIST_TODO, label: ustring): RadioButton {.inline.} =
   wrap(gtk_radio_button_new_with_label(group, ucstring(label)))
-# proc radiobutton_new_with_label*(group: ptr GSLIST_TODO, label: ustring): RadioButton {.inline.} =
+# proc new_radiobutton_with_label*(group: ptr GSLIST_TODO, label: ustring): RadioButton {.inline.} =
 
 # gtk_radio_button_new_with_label_from_widget
 # flags: {isConstructor} container: RadioButton
@@ -22880,9 +22880,9 @@ proc radiobutton_new_with_label*(group: ptr GSLIST_TODO, label: ustring): RadioB
 # label 'ustring' 'ucstring' IN (diff., need sugar)
 # 'RadioButton' 'TransferNone[TRadioButton]' (diff., need sugar)
 proc gtk_radio_button_new_with_label_from_widget(radio_group_member: ptr TRadioButton, label: ucstring): TransferNone[TRadioButton] {.cdecl, dynlib: lib, importc: "gtk_radio_button_new_with_label_from_widget".}
-proc radiobutton_new_with_label_from_widget*(radio_group_member: RadioButton, label: ustring): RadioButton {.inline.} =
+proc new_radiobutton_with_label_from_widget*(radio_group_member: RadioButton, label: ustring): RadioButton {.inline.} =
   wrap(gtk_radio_button_new_with_label_from_widget(radio_group_member.getPointer, ucstring(label)))
-# proc radiobutton_new_with_label_from_widget*(radio_group_member: RadioButton, label: ustring): RadioButton {.inline.} =
+# proc new_radiobutton_with_label_from_widget*(radio_group_member: RadioButton, label: ustring): RadioButton {.inline.} =
 
 # gtk_radio_button_new_with_mnemonic
 # flags: {isConstructor} container: RadioButton
@@ -22891,9 +22891,9 @@ proc radiobutton_new_with_label_from_widget*(radio_group_member: RadioButton, la
 # label 'ustring' 'ucstring' IN (diff., need sugar)
 # 'RadioButton' 'TransferNone[TRadioButton]' (diff., need sugar)
 proc gtk_radio_button_new_with_mnemonic(group: ptr GSLIST_TODO, label: ucstring): TransferNone[TRadioButton] {.cdecl, dynlib: lib, importc: "gtk_radio_button_new_with_mnemonic".}
-proc radiobutton_new_with_mnemonic*(group: ptr GSLIST_TODO, label: ustring): RadioButton {.inline.} =
+proc new_radiobutton_with_mnemonic*(group: ptr GSLIST_TODO, label: ustring): RadioButton {.inline.} =
   wrap(gtk_radio_button_new_with_mnemonic(group, ucstring(label)))
-# proc radiobutton_new_with_mnemonic*(group: ptr GSLIST_TODO, label: ustring): RadioButton {.inline.} =
+# proc new_radiobutton_with_mnemonic*(group: ptr GSLIST_TODO, label: ustring): RadioButton {.inline.} =
 
 # gtk_radio_button_new_with_mnemonic_from_widget
 # flags: {isConstructor} container: RadioButton
@@ -22902,9 +22902,9 @@ proc radiobutton_new_with_mnemonic*(group: ptr GSLIST_TODO, label: ustring): Rad
 # label 'ustring' 'ucstring' IN (diff., need sugar)
 # 'RadioButton' 'TransferNone[TRadioButton]' (diff., need sugar)
 proc gtk_radio_button_new_with_mnemonic_from_widget(radio_group_member: ptr TRadioButton, label: ucstring): TransferNone[TRadioButton] {.cdecl, dynlib: lib, importc: "gtk_radio_button_new_with_mnemonic_from_widget".}
-proc radiobutton_new_with_mnemonic_from_widget*(radio_group_member: RadioButton, label: ustring): RadioButton {.inline.} =
+proc new_radiobutton_with_mnemonic_from_widget*(radio_group_member: RadioButton, label: ustring): RadioButton {.inline.} =
   wrap(gtk_radio_button_new_with_mnemonic_from_widget(radio_group_member.getPointer, ucstring(label)))
-# proc radiobutton_new_with_mnemonic_from_widget*(radio_group_member: RadioButton, label: ustring): RadioButton {.inline.} =
+# proc new_radiobutton_with_mnemonic_from_widget*(radio_group_member: RadioButton, label: ustring): RadioButton {.inline.} =
 
 # gtk_radio_button_get_group
 # flags: {isMethod} container: RadioButton
@@ -22941,9 +22941,9 @@ proc set_group*(self: RadioButton, group: ptr GSLIST_TODO) {.inline.} =
 # group 'ptr GSLIST_TODO' 'ptr GSLIST_TODO' IN
 # 'RadioMenuItem' 'TransferNone[TRadioMenuItem]' (diff., need sugar)
 proc gtk_radio_menu_item_new(group: ptr GSLIST_TODO): TransferNone[TRadioMenuItem] {.cdecl, dynlib: lib, importc: "gtk_radio_menu_item_new".}
-proc radiomenuitem_new*(group: ptr GSLIST_TODO): RadioMenuItem {.inline.} =
+proc new_radiomenuitem*(group: ptr GSLIST_TODO): RadioMenuItem {.inline.} =
   wrap(gtk_radio_menu_item_new(group))
-# proc radiomenuitem_new*(group: ptr GSLIST_TODO): RadioMenuItem {.inline.} =
+# proc new_radiomenuitem*(group: ptr GSLIST_TODO): RadioMenuItem {.inline.} =
 
 # gtk_radio_menu_item_new_from_widget
 # flags: {isConstructor} container: RadioMenuItem
@@ -22951,9 +22951,9 @@ proc radiomenuitem_new*(group: ptr GSLIST_TODO): RadioMenuItem {.inline.} =
 # group 'RadioMenuItem' 'ptr TRadioMenuItem' IN (diff., need sugar)
 # 'RadioMenuItem' 'TransferNone[TRadioMenuItem]' (diff., need sugar)
 proc gtk_radio_menu_item_new_from_widget(group: ptr TRadioMenuItem): TransferNone[TRadioMenuItem] {.cdecl, dynlib: lib, importc: "gtk_radio_menu_item_new_from_widget".}
-proc radiomenuitem_new_from_widget*(group: RadioMenuItem): RadioMenuItem {.inline.} =
+proc new_radiomenuitem_from_widget*(group: RadioMenuItem): RadioMenuItem {.inline.} =
   wrap(gtk_radio_menu_item_new_from_widget(group.getPointer))
-# proc radiomenuitem_new_from_widget*(group: RadioMenuItem): RadioMenuItem {.inline.} =
+# proc new_radiomenuitem_from_widget*(group: RadioMenuItem): RadioMenuItem {.inline.} =
 
 # gtk_radio_menu_item_new_with_label
 # flags: {isConstructor} container: RadioMenuItem
@@ -22962,9 +22962,9 @@ proc radiomenuitem_new_from_widget*(group: RadioMenuItem): RadioMenuItem {.inlin
 # label 'ustring' 'ucstring' IN (diff., need sugar)
 # 'RadioMenuItem' 'TransferNone[TRadioMenuItem]' (diff., need sugar)
 proc gtk_radio_menu_item_new_with_label(group: ptr GSLIST_TODO, label: ucstring): TransferNone[TRadioMenuItem] {.cdecl, dynlib: lib, importc: "gtk_radio_menu_item_new_with_label".}
-proc radiomenuitem_new_with_label*(group: ptr GSLIST_TODO, label: ustring): RadioMenuItem {.inline.} =
+proc new_radiomenuitem_with_label*(group: ptr GSLIST_TODO, label: ustring): RadioMenuItem {.inline.} =
   wrap(gtk_radio_menu_item_new_with_label(group, ucstring(label)))
-# proc radiomenuitem_new_with_label*(group: ptr GSLIST_TODO, label: ustring): RadioMenuItem {.inline.} =
+# proc new_radiomenuitem_with_label*(group: ptr GSLIST_TODO, label: ustring): RadioMenuItem {.inline.} =
 
 # gtk_radio_menu_item_new_with_label_from_widget
 # flags: {isConstructor} container: RadioMenuItem
@@ -22973,9 +22973,9 @@ proc radiomenuitem_new_with_label*(group: ptr GSLIST_TODO, label: ustring): Radi
 # label 'ustring' 'ucstring' IN (diff., need sugar)
 # 'RadioMenuItem' 'TransferNone[TRadioMenuItem]' (diff., need sugar)
 proc gtk_radio_menu_item_new_with_label_from_widget(group: ptr TRadioMenuItem, label: ucstring): TransferNone[TRadioMenuItem] {.cdecl, dynlib: lib, importc: "gtk_radio_menu_item_new_with_label_from_widget".}
-proc radiomenuitem_new_with_label_from_widget*(group: RadioMenuItem, label: ustring): RadioMenuItem {.inline.} =
+proc new_radiomenuitem_with_label_from_widget*(group: RadioMenuItem, label: ustring): RadioMenuItem {.inline.} =
   wrap(gtk_radio_menu_item_new_with_label_from_widget(group.getPointer, ucstring(label)))
-# proc radiomenuitem_new_with_label_from_widget*(group: RadioMenuItem, label: ustring): RadioMenuItem {.inline.} =
+# proc new_radiomenuitem_with_label_from_widget*(group: RadioMenuItem, label: ustring): RadioMenuItem {.inline.} =
 
 # gtk_radio_menu_item_new_with_mnemonic
 # flags: {isConstructor} container: RadioMenuItem
@@ -22984,9 +22984,9 @@ proc radiomenuitem_new_with_label_from_widget*(group: RadioMenuItem, label: ustr
 # label 'ustring' 'ucstring' IN (diff., need sugar)
 # 'RadioMenuItem' 'TransferNone[TRadioMenuItem]' (diff., need sugar)
 proc gtk_radio_menu_item_new_with_mnemonic(group: ptr GSLIST_TODO, label: ucstring): TransferNone[TRadioMenuItem] {.cdecl, dynlib: lib, importc: "gtk_radio_menu_item_new_with_mnemonic".}
-proc radiomenuitem_new_with_mnemonic*(group: ptr GSLIST_TODO, label: ustring): RadioMenuItem {.inline.} =
+proc new_radiomenuitem_with_mnemonic*(group: ptr GSLIST_TODO, label: ustring): RadioMenuItem {.inline.} =
   wrap(gtk_radio_menu_item_new_with_mnemonic(group, ucstring(label)))
-# proc radiomenuitem_new_with_mnemonic*(group: ptr GSLIST_TODO, label: ustring): RadioMenuItem {.inline.} =
+# proc new_radiomenuitem_with_mnemonic*(group: ptr GSLIST_TODO, label: ustring): RadioMenuItem {.inline.} =
 
 # gtk_radio_menu_item_new_with_mnemonic_from_widget
 # flags: {isConstructor} container: RadioMenuItem
@@ -22995,9 +22995,9 @@ proc radiomenuitem_new_with_mnemonic*(group: ptr GSLIST_TODO, label: ustring): R
 # label 'ustring' 'ucstring' IN (diff., need sugar)
 # 'RadioMenuItem' 'TransferNone[TRadioMenuItem]' (diff., need sugar)
 proc gtk_radio_menu_item_new_with_mnemonic_from_widget(group: ptr TRadioMenuItem, label: ucstring): TransferNone[TRadioMenuItem] {.cdecl, dynlib: lib, importc: "gtk_radio_menu_item_new_with_mnemonic_from_widget".}
-proc radiomenuitem_new_with_mnemonic_from_widget*(group: RadioMenuItem, label: ustring): RadioMenuItem {.inline.} =
+proc new_radiomenuitem_with_mnemonic_from_widget*(group: RadioMenuItem, label: ustring): RadioMenuItem {.inline.} =
   wrap(gtk_radio_menu_item_new_with_mnemonic_from_widget(group.getPointer, ucstring(label)))
-# proc radiomenuitem_new_with_mnemonic_from_widget*(group: RadioMenuItem, label: ustring): RadioMenuItem {.inline.} =
+# proc new_radiomenuitem_with_mnemonic_from_widget*(group: RadioMenuItem, label: ustring): RadioMenuItem {.inline.} =
 
 # gtk_radio_menu_item_get_group
 # flags: {isMethod} container: RadioMenuItem
@@ -23024,9 +23024,9 @@ proc set_group*(self: RadioMenuItem, group: ptr GSLIST_TODO) {.inline.} =
 # group 'ptr GSLIST_TODO' 'ptr GSLIST_TODO' IN
 # 'RadioToolButton' 'TransferNone[TRadioToolButton]' (diff., need sugar)
 proc gtk_radio_tool_button_new(group: ptr GSLIST_TODO): TransferNone[TRadioToolButton] {.cdecl, dynlib: lib, importc: "gtk_radio_tool_button_new".}
-proc radiotoolbutton_new*(group: ptr GSLIST_TODO): RadioToolButton {.inline.} =
+proc new_radiotoolbutton*(group: ptr GSLIST_TODO): RadioToolButton {.inline.} =
   wrap(gtk_radio_tool_button_new(group))
-# proc radiotoolbutton_new*(group: ptr GSLIST_TODO): RadioToolButton {.inline.} =
+# proc new_radiotoolbutton*(group: ptr GSLIST_TODO): RadioToolButton {.inline.} =
 
 # gtk_radio_tool_button_new_from_stock
 # flags: {isConstructor} container: RadioToolButton (deprecated)
@@ -23036,9 +23036,9 @@ proc radiotoolbutton_new*(group: ptr GSLIST_TODO): RadioToolButton {.inline.} =
 # group 'RadioToolButton' 'ptr TRadioToolButton' IN (diff., need sugar)
 # 'RadioToolButton' 'TransferNone[TRadioToolButton]' (diff., need sugar)
 proc gtk_radio_tool_button_new_from_widget(group: ptr TRadioToolButton): TransferNone[TRadioToolButton] {.cdecl, dynlib: lib, importc: "gtk_radio_tool_button_new_from_widget".}
-proc radiotoolbutton_new_from_widget*(group: RadioToolButton): RadioToolButton {.inline.} =
+proc new_radiotoolbutton_from_widget*(group: RadioToolButton): RadioToolButton {.inline.} =
   wrap(gtk_radio_tool_button_new_from_widget(group.getPointer))
-# proc radiotoolbutton_new_from_widget*(group: RadioToolButton): RadioToolButton {.inline.} =
+# proc new_radiotoolbutton_from_widget*(group: RadioToolButton): RadioToolButton {.inline.} =
 
 # gtk_radio_tool_button_new_with_stock_from_widget
 # flags: {isConstructor} container: RadioToolButton (deprecated)
@@ -23354,9 +23354,9 @@ proc set_value*(self: Range, value: float64) {.inline.} =
 # need sugar: is static method
 # 'RecentChooserMenu' 'TransferNone[TRecentChooserMenu]' (diff., need sugar)
 proc gtk_recent_chooser_menu_new(): TransferNone[TRecentChooserMenu] {.cdecl, dynlib: lib, importc: "gtk_recent_chooser_menu_new".}
-proc recentchoosermenu_new*(): RecentChooserMenu {.inline.} =
+proc new_recentchoosermenu*(): RecentChooserMenu {.inline.} =
   wrap(gtk_recent_chooser_menu_new())
-# proc recentchoosermenu_new*(): RecentChooserMenu {.inline.} =
+# proc new_recentchoosermenu*(): RecentChooserMenu {.inline.} =
 
 # gtk_recent_chooser_menu_new_for_manager
 # flags: {isConstructor} container: RecentChooserMenu
@@ -23364,9 +23364,9 @@ proc recentchoosermenu_new*(): RecentChooserMenu {.inline.} =
 # manager 'RecentManager' 'ptr TRecentManager' IN (diff., need sugar)
 # 'RecentChooserMenu' 'TransferNone[TRecentChooserMenu]' (diff., need sugar)
 proc gtk_recent_chooser_menu_new_for_manager(manager: ptr TRecentManager): TransferNone[TRecentChooserMenu] {.cdecl, dynlib: lib, importc: "gtk_recent_chooser_menu_new_for_manager".}
-proc recentchoosermenu_new_for_manager*(manager: RecentManager): RecentChooserMenu {.inline.} =
+proc new_recentchoosermenu_for_manager*(manager: RecentManager): RecentChooserMenu {.inline.} =
   wrap(gtk_recent_chooser_menu_new_for_manager(manager.getPointer))
-# proc recentchoosermenu_new_for_manager*(manager: RecentManager): RecentChooserMenu {.inline.} =
+# proc new_recentchoosermenu_for_manager*(manager: RecentManager): RecentChooserMenu {.inline.} =
 
 # gtk_recent_chooser_menu_get_show_numbers
 # flags: {isMethod} container: RecentChooserMenu
@@ -23392,9 +23392,9 @@ proc set_show_numbers*(self: RecentChooserMenu, show_numbers: bool) {.inline.} =
 # need sugar: is static method
 # 'RecentChooserWidget' 'TransferNone[TRecentChooserWidget]' (diff., need sugar)
 proc gtk_recent_chooser_widget_new(): TransferNone[TRecentChooserWidget] {.cdecl, dynlib: lib, importc: "gtk_recent_chooser_widget_new".}
-proc recentchooserwidget_new*(): RecentChooserWidget {.inline.} =
+proc new_recentchooserwidget*(): RecentChooserWidget {.inline.} =
   wrap(gtk_recent_chooser_widget_new())
-# proc recentchooserwidget_new*(): RecentChooserWidget {.inline.} =
+# proc new_recentchooserwidget*(): RecentChooserWidget {.inline.} =
 
 # gtk_recent_chooser_widget_new_for_manager
 # flags: {isConstructor} container: RecentChooserWidget
@@ -23402,18 +23402,18 @@ proc recentchooserwidget_new*(): RecentChooserWidget {.inline.} =
 # manager 'RecentManager' 'ptr TRecentManager' IN (diff., need sugar)
 # 'RecentChooserWidget' 'TransferNone[TRecentChooserWidget]' (diff., need sugar)
 proc gtk_recent_chooser_widget_new_for_manager(manager: ptr TRecentManager): TransferNone[TRecentChooserWidget] {.cdecl, dynlib: lib, importc: "gtk_recent_chooser_widget_new_for_manager".}
-proc recentchooserwidget_new_for_manager*(manager: RecentManager): RecentChooserWidget {.inline.} =
+proc new_recentchooserwidget_for_manager*(manager: RecentManager): RecentChooserWidget {.inline.} =
   wrap(gtk_recent_chooser_widget_new_for_manager(manager.getPointer))
-# proc recentchooserwidget_new_for_manager*(manager: RecentManager): RecentChooserWidget {.inline.} =
+# proc new_recentchooserwidget_for_manager*(manager: RecentManager): RecentChooserWidget {.inline.} =
 
 # gtk_recent_filter_new
 # flags: {isConstructor} container: RecentFilter
 # need sugar: is static method
 # 'RecentFilter' 'TransferNone[TRecentFilter]' (diff., need sugar)
 proc gtk_recent_filter_new(): TransferNone[TRecentFilter] {.cdecl, dynlib: lib, importc: "gtk_recent_filter_new".}
-proc recentfilter_new*(): RecentFilter {.inline.} =
+proc new_recentfilter*(): RecentFilter {.inline.} =
   wrap(gtk_recent_filter_new())
-# proc recentfilter_new*(): RecentFilter {.inline.} =
+# proc new_recentfilter*(): RecentFilter {.inline.} =
 
 # gtk_recent_filter_add_age
 # flags: {isMethod} container: RecentFilter
@@ -23530,9 +23530,9 @@ proc set_name*(self: RecentFilter, name: ustring) {.inline.} =
 # need sugar: is static method
 # 'RecentManager' 'TransferFull[TRecentManager]' (diff., need sugar)
 proc gtk_recent_manager_new(): TransferFull[TRecentManager] {.cdecl, dynlib: lib, importc: "gtk_recent_manager_new".}
-proc recentmanager_new*(): RecentManager {.inline.} =
+proc new_recentmanager*(): RecentManager {.inline.} =
   wrap(gtk_recent_manager_new())
-# proc recentmanager_new*(): RecentManager {.inline.} =
+# proc new_recentmanager*(): RecentManager {.inline.} =
 
 # gtk_recent_manager_get_default
 # flags: {} container: RecentManager
@@ -23633,18 +23633,18 @@ proc remove_item*(self: RecentManager, uri: ustring): bool {.inline.} =
 # renderer 'CellRenderer' 'ptr TCellRenderer' IN (diff., need sugar)
 # 'RendererCellAccessible' 'TransferFull[TRendererCellAccessible]' (diff., need sugar)
 proc gtk_renderer_cell_accessible_new(renderer: ptr TCellRenderer): TransferFull[TRendererCellAccessible] {.cdecl, dynlib: lib, importc: "gtk_renderer_cell_accessible_new".}
-proc renderercellaccessible_new*(renderer: CellRenderer): RendererCellAccessible {.inline.} =
+proc new_renderercellaccessible*(renderer: CellRenderer): RendererCellAccessible {.inline.} =
   wrap(gtk_renderer_cell_accessible_new(renderer.getPointer))
-# proc renderercellaccessible_new*(renderer: CellRenderer): RendererCellAccessible {.inline.} =
+# proc new_renderercellaccessible*(renderer: CellRenderer): RendererCellAccessible {.inline.} =
 
 # gtk_revealer_new
 # flags: {isConstructor} container: Revealer
 # need sugar: is static method
 # 'Revealer' 'TransferNone[TRevealer]' (diff., need sugar)
 proc gtk_revealer_new(): TransferNone[TRevealer] {.cdecl, dynlib: lib, importc: "gtk_revealer_new".}
-proc revealer_new*(): Revealer {.inline.} =
+proc new_revealer*(): Revealer {.inline.} =
   wrap(gtk_revealer_new())
-# proc revealer_new*(): Revealer {.inline.} =
+# proc new_revealer*(): Revealer {.inline.} =
 
 # gtk_revealer_get_child_revealed
 # flags: {isMethod} container: Revealer
@@ -23719,9 +23719,9 @@ proc set_transition_type*(self: Revealer, transition: RevealerTransitionType) {.
 # adjustment 'Adjustment' 'ptr TAdjustment' IN (diff., need sugar)
 # 'Scale' 'TransferNone[TScale]' (diff., need sugar)
 proc gtk_scale_new(orientation: Orientation, adjustment: ptr TAdjustment): TransferNone[TScale] {.cdecl, dynlib: lib, importc: "gtk_scale_new".}
-proc scale_new*(orientation: Orientation, adjustment: Adjustment): Scale {.inline.} =
+proc new_scale*(orientation: Orientation, adjustment: Adjustment): Scale {.inline.} =
   wrap(gtk_scale_new(orientation, adjustment.getPointer))
-# proc scale_new*(orientation: Orientation, adjustment: Adjustment): Scale {.inline.} =
+# proc new_scale*(orientation: Orientation, adjustment: Adjustment): Scale {.inline.} =
 
 # gtk_scale_new_with_range
 # flags: {isConstructor} container: Scale
@@ -23732,9 +23732,9 @@ proc scale_new*(orientation: Orientation, adjustment: Adjustment): Scale {.inlin
 # step 'float64' 'float64' IN
 # 'Scale' 'TransferNone[TScale]' (diff., need sugar)
 proc gtk_scale_new_with_range(orientation: Orientation, min: float64, max: float64, step: float64): TransferNone[TScale] {.cdecl, dynlib: lib, importc: "gtk_scale_new_with_range".}
-proc scale_new_with_range*(orientation: Orientation, min: float64, max: float64, step: float64): Scale {.inline.} =
+proc new_scale_with_range*(orientation: Orientation, min: float64, max: float64, step: float64): Scale {.inline.} =
   wrap(gtk_scale_new_with_range(orientation, min, max, step))
-# proc scale_new_with_range*(orientation: Orientation, min: float64, max: float64, step: float64): Scale {.inline.} =
+# proc new_scale_with_range*(orientation: Orientation, min: float64, max: float64, step: float64): Scale {.inline.} =
 
 # gtk_scale_add_mark
 # flags: {isMethod} container: Scale
@@ -23866,9 +23866,9 @@ proc set_value_pos*(self: Scale, pos: PositionType) {.inline.} =
 # icons 'uncheckedArray[ucstring]' 'uncheckedArray[ucstring]' IN array zero-terminated
 # 'ScaleButton' 'TransferNone[TScaleButton]' (diff., need sugar)
 proc gtk_scale_button_new(size: int32, min: float64, max: float64, step: float64, icons: uncheckedArray[ucstring]): TransferNone[TScaleButton] {.cdecl, dynlib: lib, importc: "gtk_scale_button_new".}
-proc scalebutton_new*(size: int32, min: float64, max: float64, step: float64, icons: uncheckedArray[ucstring]): ScaleButton {.inline.} =
+proc new_scalebutton*(size: int32, min: float64, max: float64, step: float64, icons: uncheckedArray[ucstring]): ScaleButton {.inline.} =
   wrap(gtk_scale_button_new(size, min, max, step, icons))
-# proc scalebutton_new*(size: int32, min: float64, max: float64, step: float64, icons: uncheckedArray[ucstring]): ScaleButton {.inline.} =
+# proc new_scalebutton*(size: int32, min: float64, max: float64, step: float64, icons: uncheckedArray[ucstring]): ScaleButton {.inline.} =
 
 # gtk_scale_button_get_adjustment
 # flags: {isMethod} container: ScaleButton
@@ -23952,9 +23952,9 @@ proc set_value*(self: ScaleButton, value: float64) {.inline.} =
 # adjustment 'Adjustment' 'ptr TAdjustment' IN (diff., need sugar)
 # 'Scrollbar' 'TransferNone[TScrollbar]' (diff., need sugar)
 proc gtk_scrollbar_new(orientation: Orientation, adjustment: ptr TAdjustment): TransferNone[TScrollbar] {.cdecl, dynlib: lib, importc: "gtk_scrollbar_new".}
-proc scrollbar_new*(orientation: Orientation, adjustment: Adjustment): Scrollbar {.inline.} =
+proc new_scrollbar*(orientation: Orientation, adjustment: Adjustment): Scrollbar {.inline.} =
   wrap(gtk_scrollbar_new(orientation, adjustment.getPointer))
-# proc scrollbar_new*(orientation: Orientation, adjustment: Adjustment): Scrollbar {.inline.} =
+# proc new_scrollbar*(orientation: Orientation, adjustment: Adjustment): Scrollbar {.inline.} =
 
 # gtk_scrolled_window_new
 # flags: {isConstructor} container: ScrolledWindow
@@ -23963,9 +23963,9 @@ proc scrollbar_new*(orientation: Orientation, adjustment: Adjustment): Scrollbar
 # vadjustment 'Adjustment' 'ptr TAdjustment' IN (diff., need sugar)
 # 'ScrolledWindow' 'TransferNone[TScrolledWindow]' (diff., need sugar)
 proc gtk_scrolled_window_new(hadjustment: ptr TAdjustment, vadjustment: ptr TAdjustment): TransferNone[TScrolledWindow] {.cdecl, dynlib: lib, importc: "gtk_scrolled_window_new".}
-proc scrolledwindow_new*(hadjustment: Adjustment, vadjustment: Adjustment): ScrolledWindow {.inline.} =
+proc new_scrolledwindow*(hadjustment: Adjustment, vadjustment: Adjustment): ScrolledWindow {.inline.} =
   wrap(gtk_scrolled_window_new(hadjustment.getPointer, vadjustment.getPointer))
-# proc scrolledwindow_new*(hadjustment: Adjustment, vadjustment: Adjustment): ScrolledWindow {.inline.} =
+# proc new_scrolledwindow*(hadjustment: Adjustment, vadjustment: Adjustment): ScrolledWindow {.inline.} =
 
 # gtk_scrolled_window_add_with_viewport
 # flags: {isMethod} container: ScrolledWindow (deprecated)
@@ -24178,9 +24178,9 @@ proc unset_placement*(self: ScrolledWindow) {.inline.} =
 # need sugar: is static method
 # 'SearchBar' 'TransferNone[TSearchBar]' (diff., need sugar)
 proc gtk_search_bar_new(): TransferNone[TSearchBar] {.cdecl, dynlib: lib, importc: "gtk_search_bar_new".}
-proc searchbar_new*(): SearchBar {.inline.} =
+proc new_searchbar*(): SearchBar {.inline.} =
   wrap(gtk_search_bar_new())
-# proc searchbar_new*(): SearchBar {.inline.} =
+# proc new_searchbar*(): SearchBar {.inline.} =
 
 # gtk_search_bar_connect_entry
 # flags: {isMethod} container: SearchBar
@@ -24245,9 +24245,9 @@ proc set_show_close_button*(self: SearchBar, visible: bool) {.inline.} =
 # need sugar: is static method
 # 'SearchEntry' 'TransferNone[TSearchEntry]' (diff., need sugar)
 proc gtk_search_entry_new(): TransferNone[TSearchEntry] {.cdecl, dynlib: lib, importc: "gtk_search_entry_new".}
-proc searchentry_new*(): SearchEntry {.inline.} =
+proc new_searchentry*(): SearchEntry {.inline.} =
   wrap(gtk_search_entry_new())
-# proc searchentry_new*(): SearchEntry {.inline.} =
+# proc new_searchentry*(): SearchEntry {.inline.} =
 
 # gtk_separator_new
 # flags: {isConstructor} container: Separator
@@ -24255,27 +24255,27 @@ proc searchentry_new*(): SearchEntry {.inline.} =
 # orientation 'Orientation' 'Orientation' IN
 # 'Separator' 'TransferNone[TSeparator]' (diff., need sugar)
 proc gtk_separator_new(orientation: Orientation): TransferNone[TSeparator] {.cdecl, dynlib: lib, importc: "gtk_separator_new".}
-proc separator_new*(orientation: Orientation): Separator {.inline.} =
+proc new_separator*(orientation: Orientation): Separator {.inline.} =
   wrap(gtk_separator_new(orientation))
-# proc separator_new*(orientation: Orientation): Separator {.inline.} =
+# proc new_separator*(orientation: Orientation): Separator {.inline.} =
 
 # gtk_separator_menu_item_new
 # flags: {isConstructor} container: SeparatorMenuItem
 # need sugar: is static method
 # 'SeparatorMenuItem' 'TransferNone[TSeparatorMenuItem]' (diff., need sugar)
 proc gtk_separator_menu_item_new(): TransferNone[TSeparatorMenuItem] {.cdecl, dynlib: lib, importc: "gtk_separator_menu_item_new".}
-proc separatormenuitem_new*(): SeparatorMenuItem {.inline.} =
+proc new_separatormenuitem*(): SeparatorMenuItem {.inline.} =
   wrap(gtk_separator_menu_item_new())
-# proc separatormenuitem_new*(): SeparatorMenuItem {.inline.} =
+# proc new_separatormenuitem*(): SeparatorMenuItem {.inline.} =
 
 # gtk_separator_tool_item_new
 # flags: {isConstructor} container: SeparatorToolItem
 # need sugar: is static method
 # 'SeparatorToolItem' 'TransferNone[TSeparatorToolItem]' (diff., need sugar)
 proc gtk_separator_tool_item_new(): TransferNone[TSeparatorToolItem] {.cdecl, dynlib: lib, importc: "gtk_separator_tool_item_new".}
-proc separatortoolitem_new*(): SeparatorToolItem {.inline.} =
+proc new_separatortoolitem*(): SeparatorToolItem {.inline.} =
   wrap(gtk_separator_tool_item_new())
-# proc separatortoolitem_new*(): SeparatorToolItem {.inline.} =
+# proc new_separatortoolitem*(): SeparatorToolItem {.inline.} =
 
 # gtk_separator_tool_item_get_draw
 # flags: {isMethod} container: SeparatorToolItem
@@ -24389,9 +24389,9 @@ proc set_string_property*(self: Settings, name: ustring, v_string: ustring, orig
 # mode 'SizeGroupMode' 'SizeGroupMode' IN
 # 'SizeGroup' 'TransferFull[TSizeGroup]' (diff., need sugar)
 proc gtk_size_group_new(mode: SizeGroupMode): TransferFull[TSizeGroup] {.cdecl, dynlib: lib, importc: "gtk_size_group_new".}
-proc sizegroup_new*(mode: SizeGroupMode): SizeGroup {.inline.} =
+proc new_sizegroup*(mode: SizeGroupMode): SizeGroup {.inline.} =
   wrap(gtk_size_group_new(mode))
-# proc sizegroup_new*(mode: SizeGroupMode): SizeGroup {.inline.} =
+# proc new_sizegroup*(mode: SizeGroupMode): SizeGroup {.inline.} =
 
 # gtk_size_group_add_widget
 # flags: {isMethod} container: SizeGroup
@@ -24468,9 +24468,9 @@ proc set_mode*(self: SizeGroup, mode: SizeGroupMode) {.inline.} =
 # digits 'uint32' 'uint32' IN
 # 'SpinButton' 'TransferNone[TSpinButton]' (diff., need sugar)
 proc gtk_spin_button_new(adjustment: ptr TAdjustment, climb_rate: float64, digits: uint32): TransferNone[TSpinButton] {.cdecl, dynlib: lib, importc: "gtk_spin_button_new".}
-proc spinbutton_new*(adjustment: Adjustment, climb_rate: float64, digits: uint32): SpinButton {.inline.} =
+proc new_spinbutton*(adjustment: Adjustment, climb_rate: float64, digits: uint32): SpinButton {.inline.} =
   wrap(gtk_spin_button_new(adjustment.getPointer, climb_rate, digits))
-# proc spinbutton_new*(adjustment: Adjustment, climb_rate: float64, digits: uint32): SpinButton {.inline.} =
+# proc new_spinbutton*(adjustment: Adjustment, climb_rate: float64, digits: uint32): SpinButton {.inline.} =
 
 # gtk_spin_button_new_with_range
 # flags: {isConstructor} container: SpinButton
@@ -24480,9 +24480,9 @@ proc spinbutton_new*(adjustment: Adjustment, climb_rate: float64, digits: uint32
 # step 'float64' 'float64' IN
 # 'SpinButton' 'TransferNone[TSpinButton]' (diff., need sugar)
 proc gtk_spin_button_new_with_range(min: float64, max: float64, step: float64): TransferNone[TSpinButton] {.cdecl, dynlib: lib, importc: "gtk_spin_button_new_with_range".}
-proc spinbutton_new_with_range*(min: float64, max: float64, step: float64): SpinButton {.inline.} =
+proc new_spinbutton_with_range*(min: float64, max: float64, step: float64): SpinButton {.inline.} =
   wrap(gtk_spin_button_new_with_range(min, max, step))
-# proc spinbutton_new_with_range*(min: float64, max: float64, step: float64): SpinButton {.inline.} =
+# proc new_spinbutton_with_range*(min: float64, max: float64, step: float64): SpinButton {.inline.} =
 
 # gtk_spin_button_configure
 # flags: {isMethod} container: SpinButton
@@ -24713,9 +24713,9 @@ proc update*(self: SpinButton) {.inline.} =
 # need sugar: is static method
 # 'Spinner' 'TransferNone[TSpinner]' (diff., need sugar)
 proc gtk_spinner_new(): TransferNone[TSpinner] {.cdecl, dynlib: lib, importc: "gtk_spinner_new".}
-proc spinner_new*(): Spinner {.inline.} =
+proc new_spinner*(): Spinner {.inline.} =
   wrap(gtk_spinner_new())
-# proc spinner_new*(): Spinner {.inline.} =
+# proc new_spinner*(): Spinner {.inline.} =
 
 # gtk_spinner_start
 # flags: {isMethod} container: Spinner
@@ -24740,9 +24740,9 @@ proc stop*(self: Spinner) {.inline.} =
 # need sugar: is static method
 # 'Stack' 'TransferNone[TStack]' (diff., need sugar)
 proc gtk_stack_new(): TransferNone[TStack] {.cdecl, dynlib: lib, importc: "gtk_stack_new".}
-proc stack_new*(): Stack {.inline.} =
+proc new_stack*(): Stack {.inline.} =
   wrap(gtk_stack_new())
-# proc stack_new*(): Stack {.inline.} =
+# proc new_stack*(): Stack {.inline.} =
 
 # gtk_stack_add_named
 # flags: {isMethod} container: Stack
@@ -24897,9 +24897,9 @@ proc set_visible_child_name*(self: Stack, name: ustring) {.inline.} =
 # need sugar: is static method
 # 'StackSwitcher' 'TransferNone[TStackSwitcher]' (diff., need sugar)
 proc gtk_stack_switcher_new(): TransferNone[TStackSwitcher] {.cdecl, dynlib: lib, importc: "gtk_stack_switcher_new".}
-proc stackswitcher_new*(): StackSwitcher {.inline.} =
+proc new_stackswitcher*(): StackSwitcher {.inline.} =
   wrap(gtk_stack_switcher_new())
-# proc stackswitcher_new*(): StackSwitcher {.inline.} =
+# proc new_stackswitcher*(): StackSwitcher {.inline.} =
 
 # gtk_stack_switcher_get_stack
 # flags: {isMethod} container: StackSwitcher
@@ -24993,9 +24993,9 @@ proc set_stack*(self: StackSwitcher, stack: Stack) {.inline.} =
 # need sugar: is static method
 # 'Statusbar' 'TransferNone[TStatusbar]' (diff., need sugar)
 proc gtk_statusbar_new(): TransferNone[TStatusbar] {.cdecl, dynlib: lib, importc: "gtk_statusbar_new".}
-proc statusbar_new*(): Statusbar {.inline.} =
+proc new_statusbar*(): Statusbar {.inline.} =
   wrap(gtk_statusbar_new())
-# proc statusbar_new*(): Statusbar {.inline.} =
+# proc new_statusbar*(): Statusbar {.inline.} =
 
 # gtk_statusbar_get_context_id
 # flags: {isMethod} container: Statusbar
@@ -25102,9 +25102,9 @@ proc has_context*(self: Style): bool {.inline.} =
 # need sugar: is static method
 # 'StyleContext' 'TransferFull[TStyleContext]' (diff., need sugar)
 proc gtk_style_context_new(): TransferFull[TStyleContext] {.cdecl, dynlib: lib, importc: "gtk_style_context_new".}
-proc stylecontext_new*(): StyleContext {.inline.} =
+proc new_stylecontext*(): StyleContext {.inline.} =
   wrap(gtk_style_context_new())
-# proc stylecontext_new*(): StyleContext {.inline.} =
+# proc new_stylecontext*(): StyleContext {.inline.} =
 
 # gtk_style_context_add_provider_for_screen
 # flags: {} container: StyleContext
@@ -25521,9 +25521,9 @@ proc set_state*(self: StyleContext, flags: SStateFlags) {.inline.} =
 # need sugar: is static method
 # 'StyleProperties' 'TransferFull[TStyleProperties]' (diff., need sugar)
 proc gtk_style_properties_new(): TransferFull[TStyleProperties] {.cdecl, dynlib: lib, importc: "gtk_style_properties_new".}
-proc styleproperties_new*(): StyleProperties {.inline.} =
+proc new_styleproperties*(): StyleProperties {.inline.} =
   wrap(gtk_style_properties_new())
-# proc styleproperties_new*(): StyleProperties {.inline.} =
+# proc new_styleproperties*(): StyleProperties {.inline.} =
 
 # gtk_style_properties_clear
 # flags: {isMethod} container: StyleProperties
@@ -25591,9 +25591,9 @@ proc unset_property*(self: StyleProperties, property: ustring, state: SStateFlag
 # need sugar: is static method
 # 'Switch' 'TransferNone[TSwitch]' (diff., need sugar)
 proc gtk_switch_new(): TransferNone[TSwitch] {.cdecl, dynlib: lib, importc: "gtk_switch_new".}
-proc switch_new*(): Switch {.inline.} =
+proc new_switch*(): Switch {.inline.} =
   wrap(gtk_switch_new())
-# proc switch_new*(): Switch {.inline.} =
+# proc new_switch*(): Switch {.inline.} =
 
 # gtk_switch_get_active
 # flags: {isMethod} container: Switch
@@ -25671,9 +25671,9 @@ proc set_state*(self: Switch, state: bool) {.inline.} =
 # table 'TextTagTable' 'ptr TTextTagTable' IN (diff., need sugar)
 # 'TextBuffer' 'TransferFull[TTextBuffer]' (diff., need sugar)
 proc gtk_text_buffer_new(table: ptr TTextTagTable): TransferFull[TTextBuffer] {.cdecl, dynlib: lib, importc: "gtk_text_buffer_new".}
-proc textbuffer_new*(table: TextTagTable): TextBuffer {.inline.} =
+proc new_textbuffer*(table: TextTagTable): TextBuffer {.inline.} =
   wrap(gtk_text_buffer_new(table.getPointer))
-# proc textbuffer_new*(table: TextTagTable): TextBuffer {.inline.} =
+# proc new_textbuffer*(table: TextTagTable): TextBuffer {.inline.} =
 
 # gtk_text_buffer_add_mark
 # flags: {isMethod} container: TextBuffer
@@ -26457,9 +26457,9 @@ proc unregister_serialize_format*(self: TextBuffer, format: Gdk3.TAtom) {.inline
 # need sugar: is static method
 # 'TextChildAnchor' 'TransferFull[TTextChildAnchor]' (diff., need sugar)
 proc gtk_text_child_anchor_new(): TransferFull[TTextChildAnchor] {.cdecl, dynlib: lib, importc: "gtk_text_child_anchor_new".}
-proc textchildanchor_new*(): TextChildAnchor {.inline.} =
+proc new_textchildanchor*(): TextChildAnchor {.inline.} =
   wrap(gtk_text_child_anchor_new())
-# proc textchildanchor_new*(): TextChildAnchor {.inline.} =
+# proc new_textchildanchor*(): TextChildAnchor {.inline.} =
 
 # gtk_text_child_anchor_get_deleted
 # flags: {isMethod} container: TextChildAnchor
@@ -26486,9 +26486,9 @@ proc get_widgets*(self: TextChildAnchor): ptr GLIST_TODO {.inline.} =
 # left_gravity 'bool' 'bool' IN
 # 'TextMark' 'TransferFull[TTextMark]' (diff., need sugar)
 proc gtk_text_mark_new(name: ucstring, left_gravity: bool): TransferFull[TTextMark] {.cdecl, dynlib: lib, importc: "gtk_text_mark_new".}
-proc textmark_new*(name: ustring, left_gravity: bool): TextMark {.inline.} =
+proc new_textmark*(name: ustring, left_gravity: bool): TextMark {.inline.} =
   wrap(gtk_text_mark_new(ucstring(name), left_gravity))
-# proc textmark_new*(name: ustring, left_gravity: bool): TextMark {.inline.} =
+# proc new_textmark*(name: ustring, left_gravity: bool): TextMark {.inline.} =
 
 # gtk_text_mark_get_buffer
 # flags: {isMethod} container: TextMark
@@ -26551,9 +26551,9 @@ proc set_visible*(self: TextMark, setting: bool) {.inline.} =
 # name 'ustring' 'ucstring' IN (diff., need sugar)
 # 'TextTag' 'TransferFull[TTextTag]' (diff., need sugar)
 proc gtk_text_tag_new(name: ucstring): TransferFull[TTextTag] {.cdecl, dynlib: lib, importc: "gtk_text_tag_new".}
-proc texttag_new*(name: ustring): TextTag {.inline.} =
+proc new_texttag*(name: ustring): TextTag {.inline.} =
   wrap(gtk_text_tag_new(ucstring(name)))
-# proc texttag_new*(name: ustring): TextTag {.inline.} =
+# proc new_texttag*(name: ustring): TextTag {.inline.} =
 
 # gtk_text_tag_event
 # flags: {isMethod} container: TextTag
@@ -26591,9 +26591,9 @@ proc set_priority*(self: TextTag, priority: int32) {.inline.} =
 # need sugar: is static method
 # 'TextTagTable' 'TransferFull[TTextTagTable]' (diff., need sugar)
 proc gtk_text_tag_table_new(): TransferFull[TTextTagTable] {.cdecl, dynlib: lib, importc: "gtk_text_tag_table_new".}
-proc texttagtable_new*(): TextTagTable {.inline.} =
+proc new_texttagtable*(): TextTagTable {.inline.} =
   wrap(gtk_text_tag_table_new())
-# proc texttagtable_new*(): TextTagTable {.inline.} =
+# proc new_texttagtable*(): TextTagTable {.inline.} =
 
 # gtk_text_tag_table_add
 # flags: {isMethod} container: TextTagTable
@@ -26650,9 +26650,9 @@ proc remove*(self: TextTagTable, tag: TextTag) {.inline.} =
 # need sugar: is static method
 # 'TextView' 'TransferNone[TTextView]' (diff., need sugar)
 proc gtk_text_view_new(): TransferNone[TTextView] {.cdecl, dynlib: lib, importc: "gtk_text_view_new".}
-proc textview_new*(): TextView {.inline.} =
+proc new_textview*(): TextView {.inline.} =
   wrap(gtk_text_view_new())
-# proc textview_new*(): TextView {.inline.} =
+# proc new_textview*(): TextView {.inline.} =
 
 # gtk_text_view_new_with_buffer
 # flags: {isConstructor} container: TextView
@@ -26660,9 +26660,9 @@ proc textview_new*(): TextView {.inline.} =
 # buffer 'TextBuffer' 'ptr TTextBuffer' IN (diff., need sugar)
 # 'TextView' 'TransferNone[TTextView]' (diff., need sugar)
 proc gtk_text_view_new_with_buffer(buffer: ptr TTextBuffer): TransferNone[TTextView] {.cdecl, dynlib: lib, importc: "gtk_text_view_new_with_buffer".}
-proc textview_new_with_buffer*(buffer: TextBuffer): TextView {.inline.} =
+proc new_textview_with_buffer*(buffer: TextBuffer): TextView {.inline.} =
   wrap(gtk_text_view_new_with_buffer(buffer.getPointer))
-# proc textview_new_with_buffer*(buffer: TextBuffer): TextView {.inline.} =
+# proc new_textview_with_buffer*(buffer: TextBuffer): TextView {.inline.} =
 
 # gtk_text_view_add_child_at_anchor
 # flags: {isMethod} container: TextView
@@ -27384,9 +27384,9 @@ proc window_to_buffer_coords*(self: TextView, win: TextWindowType, window_x: int
 # need sugar: is static method
 # 'ToggleButton' 'TransferNone[TToggleButton]' (diff., need sugar)
 proc gtk_toggle_button_new(): TransferNone[TToggleButton] {.cdecl, dynlib: lib, importc: "gtk_toggle_button_new".}
-proc togglebutton_new*(): ToggleButton {.inline.} =
+proc new_togglebutton*(): ToggleButton {.inline.} =
   wrap(gtk_toggle_button_new())
-# proc togglebutton_new*(): ToggleButton {.inline.} =
+# proc new_togglebutton*(): ToggleButton {.inline.} =
 
 # gtk_toggle_button_new_with_label
 # flags: {isConstructor} container: ToggleButton
@@ -27394,9 +27394,9 @@ proc togglebutton_new*(): ToggleButton {.inline.} =
 # label 'ustring' 'ucstring' IN (diff., need sugar)
 # 'ToggleButton' 'TransferNone[TToggleButton]' (diff., need sugar)
 proc gtk_toggle_button_new_with_label(label: ucstring): TransferNone[TToggleButton] {.cdecl, dynlib: lib, importc: "gtk_toggle_button_new_with_label".}
-proc togglebutton_new_with_label*(label: ustring): ToggleButton {.inline.} =
+proc new_togglebutton_with_label*(label: ustring): ToggleButton {.inline.} =
   wrap(gtk_toggle_button_new_with_label(ucstring(label)))
-# proc togglebutton_new_with_label*(label: ustring): ToggleButton {.inline.} =
+# proc new_togglebutton_with_label*(label: ustring): ToggleButton {.inline.} =
 
 # gtk_toggle_button_new_with_mnemonic
 # flags: {isConstructor} container: ToggleButton
@@ -27404,9 +27404,9 @@ proc togglebutton_new_with_label*(label: ustring): ToggleButton {.inline.} =
 # label 'ustring' 'ucstring' IN (diff., need sugar)
 # 'ToggleButton' 'TransferNone[TToggleButton]' (diff., need sugar)
 proc gtk_toggle_button_new_with_mnemonic(label: ucstring): TransferNone[TToggleButton] {.cdecl, dynlib: lib, importc: "gtk_toggle_button_new_with_mnemonic".}
-proc togglebutton_new_with_mnemonic*(label: ustring): ToggleButton {.inline.} =
+proc new_togglebutton_with_mnemonic*(label: ustring): ToggleButton {.inline.} =
   wrap(gtk_toggle_button_new_with_mnemonic(ucstring(label)))
-# proc togglebutton_new_with_mnemonic*(label: ustring): ToggleButton {.inline.} =
+# proc new_togglebutton_with_mnemonic*(label: ustring): ToggleButton {.inline.} =
 
 # gtk_toggle_button_get_active
 # flags: {isMethod} container: ToggleButton
@@ -27479,9 +27479,9 @@ proc toggled*(self: ToggleButton) {.inline.} =
 # need sugar: is static method
 # 'ToggleToolButton' 'TransferNone[TToggleToolButton]' (diff., need sugar)
 proc gtk_toggle_tool_button_new(): TransferNone[TToggleToolButton] {.cdecl, dynlib: lib, importc: "gtk_toggle_tool_button_new".}
-proc toggletoolbutton_new*(): ToggleToolButton {.inline.} =
+proc new_toggletoolbutton*(): ToggleToolButton {.inline.} =
   wrap(gtk_toggle_tool_button_new())
-# proc toggletoolbutton_new*(): ToggleToolButton {.inline.} =
+# proc new_toggletoolbutton*(): ToggleToolButton {.inline.} =
 
 # gtk_toggle_tool_button_new_from_stock
 # flags: {isConstructor} container: ToggleToolButton (deprecated)
@@ -27511,9 +27511,9 @@ proc set_active*(self: ToggleToolButton, is_active: bool) {.inline.} =
 # label 'ustring' 'ucstring' IN (diff., need sugar)
 # 'ToolButton' 'TransferNone[TToolButton]' (diff., need sugar)
 proc gtk_tool_button_new(icon_widget: ptr TWidget, label: ucstring): TransferNone[TToolButton] {.cdecl, dynlib: lib, importc: "gtk_tool_button_new".}
-proc toolbutton_new*(icon_widget: Widget, label: ustring): ToolButton {.inline.} =
+proc new_toolbutton*(icon_widget: Widget, label: ustring): ToolButton {.inline.} =
   wrap(gtk_tool_button_new(icon_widget.getPointer, ucstring(label)))
-# proc toolbutton_new*(icon_widget: Widget, label: ustring): ToolButton {.inline.} =
+# proc new_toolbutton*(icon_widget: Widget, label: ustring): ToolButton {.inline.} =
 
 # gtk_tool_button_new_from_stock
 # flags: {isConstructor} container: ToolButton (deprecated)
@@ -27621,9 +27621,9 @@ proc set_use_underline*(self: ToolButton, use_underline: bool) {.inline.} =
 # need sugar: is static method
 # 'ToolItem' 'TransferNone[TToolItem]' (diff., need sugar)
 proc gtk_tool_item_new(): TransferNone[TToolItem] {.cdecl, dynlib: lib, importc: "gtk_tool_item_new".}
-proc toolitem_new*(): ToolItem {.inline.} =
+proc new_toolitem*(): ToolItem {.inline.} =
   wrap(gtk_tool_item_new())
-# proc toolitem_new*(): ToolItem {.inline.} =
+# proc new_toolitem*(): ToolItem {.inline.} =
 
 # gtk_tool_item_get_ellipsize_mode
 # flags: {isMethod} container: ToolItem
@@ -27885,9 +27885,9 @@ proc toolbar_reconfigured*(self: ToolItem) {.inline.} =
 # label 'ustring' 'ucstring' IN (diff., need sugar)
 # 'ToolItemGroup' 'TransferNone[TToolItemGroup]' (diff., need sugar)
 proc gtk_tool_item_group_new(label: ucstring): TransferNone[TToolItemGroup] {.cdecl, dynlib: lib, importc: "gtk_tool_item_group_new".}
-proc toolitemgroup_new*(label: ustring): ToolItemGroup {.inline.} =
+proc new_toolitemgroup*(label: ustring): ToolItemGroup {.inline.} =
   wrap(gtk_tool_item_group_new(ucstring(label)))
-# proc toolitemgroup_new*(label: ustring): ToolItemGroup {.inline.} =
+# proc new_toolitemgroup*(label: ustring): ToolItemGroup {.inline.} =
 
 # gtk_tool_item_group_get_collapsed
 # flags: {isMethod} container: ToolItemGroup
@@ -28051,9 +28051,9 @@ proc set_label_widget*(self: ToolItemGroup, label_widget: Widget) {.inline.} =
 # need sugar: is static method
 # 'ToolPalette' 'TransferNone[TToolPalette]' (diff., need sugar)
 proc gtk_tool_palette_new(): TransferNone[TToolPalette] {.cdecl, dynlib: lib, importc: "gtk_tool_palette_new".}
-proc toolpalette_new*(): ToolPalette {.inline.} =
+proc new_toolpalette*(): ToolPalette {.inline.} =
   wrap(gtk_tool_palette_new())
-# proc toolpalette_new*(): ToolPalette {.inline.} =
+# proc new_toolpalette*(): ToolPalette {.inline.} =
 
 # gtk_tool_palette_get_drag_target_group
 # flags: {} container: ToolPalette
@@ -28256,9 +28256,9 @@ proc unset_style*(self: ToolPalette) {.inline.} =
 # need sugar: is static method
 # 'Toolbar' 'TransferNone[TToolbar]' (diff., need sugar)
 proc gtk_toolbar_new(): TransferNone[TToolbar] {.cdecl, dynlib: lib, importc: "gtk_toolbar_new".}
-proc toolbar_new*(): Toolbar {.inline.} =
+proc new_toolbar*(): Toolbar {.inline.} =
   wrap(gtk_toolbar_new())
-# proc toolbar_new*(): Toolbar {.inline.} =
+# proc new_toolbar*(): Toolbar {.inline.} =
 
 # gtk_toolbar_get_drop_index
 # flags: {isMethod} container: Toolbar
@@ -28884,9 +28884,9 @@ proc unselect_range*(self: TreeSelection, start_path: TTreePath, end_path: TTree
 # types 'var openarray[GType]' 'openarray[GType]' IN (diff., need sugar) array lengthArg: 0
 # 'TreeStore' 'TransferFull[TTreeStore]' (diff., need sugar)
 proc gtk_tree_store_newv(n_columns: int32, types: openarray[GType]): TransferFull[TTreeStore] {.cdecl, dynlib: lib, importc: "gtk_tree_store_newv".}
-proc treestore_new*(types: var openarray[GType]): TreeStore {.inline.} =
+proc new_treestore*(types: var openarray[GType]): TreeStore {.inline.} =
   wrap(gtk_tree_store_newv(types.len.int32, types))
-# proc treestore_new*(types: var openarray[GType]): TreeStore {.inline.} =
+# proc new_treestore*(types: var openarray[GType]): TreeStore {.inline.} =
 
 # gtk_tree_store_append
 # flags: {isMethod} container: TreeStore
@@ -29097,9 +29097,9 @@ proc swap*(self: TreeStore, a: TTreeIter, b: TTreeIter) {.inline.} =
 # need sugar: is static method
 # 'TreeView' 'TransferNone[TTreeView]' (diff., need sugar)
 proc gtk_tree_view_new(): TransferNone[TTreeView] {.cdecl, dynlib: lib, importc: "gtk_tree_view_new".}
-proc treeview_new*(): TreeView {.inline.} =
+proc new_treeview*(): TreeView {.inline.} =
   wrap(gtk_tree_view_new())
-# proc treeview_new*(): TreeView {.inline.} =
+# proc new_treeview*(): TreeView {.inline.} =
 
 # gtk_tree_view_new_with_model
 # flags: {isConstructor} container: TreeView
@@ -29107,9 +29107,9 @@ proc treeview_new*(): TreeView {.inline.} =
 # model 'TreeModel' 'ptr TTreeModel' IN (diff., need sugar)
 # 'TreeView' 'TransferNone[TTreeView]' (diff., need sugar)
 proc gtk_tree_view_new_with_model(model: ptr TTreeModel): TransferNone[TTreeView] {.cdecl, dynlib: lib, importc: "gtk_tree_view_new_with_model".}
-proc treeview_new_with_model*(model: TreeModel): TreeView {.inline.} =
+proc new_treeview_with_model*(model: TreeModel): TreeView {.inline.} =
   wrap(gtk_tree_view_new_with_model(unwrap(model)))
-# proc treeview_new_with_model*(model: TreeModel): TreeView {.inline.} =
+# proc new_treeview_with_model*(model: TreeModel): TreeView {.inline.} =
 
 # gtk_tree_view_append_column
 # flags: {isMethod} container: TreeView
@@ -30113,9 +30113,9 @@ proc unset_rows_drag_source*(self: TreeView) {.inline.} =
 # need sugar: is static method
 # 'TreeViewColumn' 'TransferNone[TTreeViewColumn]' (diff., need sugar)
 proc gtk_tree_view_column_new(): TransferNone[TTreeViewColumn] {.cdecl, dynlib: lib, importc: "gtk_tree_view_column_new".}
-proc treeviewcolumn_new*(): TreeViewColumn {.inline.} =
+proc new_treeviewcolumn*(): TreeViewColumn {.inline.} =
   wrap(gtk_tree_view_column_new())
-# proc treeviewcolumn_new*(): TreeViewColumn {.inline.} =
+# proc new_treeviewcolumn*(): TreeViewColumn {.inline.} =
 
 # gtk_tree_view_column_new_with_area
 # flags: {isConstructor} container: TreeViewColumn
@@ -30123,9 +30123,9 @@ proc treeviewcolumn_new*(): TreeViewColumn {.inline.} =
 # area 'CellArea' 'ptr TCellArea' IN (diff., need sugar)
 # 'TreeViewColumn' 'TransferNone[TTreeViewColumn]' (diff., need sugar)
 proc gtk_tree_view_column_new_with_area(area: ptr TCellArea): TransferNone[TTreeViewColumn] {.cdecl, dynlib: lib, importc: "gtk_tree_view_column_new_with_area".}
-proc treeviewcolumn_new_with_area*(area: CellArea): TreeViewColumn {.inline.} =
+proc new_treeviewcolumn_with_area*(area: CellArea): TreeViewColumn {.inline.} =
   wrap(gtk_tree_view_column_new_with_area(area.getPointer))
-# proc treeviewcolumn_new_with_area*(area: CellArea): TreeViewColumn {.inline.} =
+# proc new_treeviewcolumn_with_area*(area: CellArea): TreeViewColumn {.inline.} =
 
 # gtk_tree_view_column_add_attribute
 # flags: {isMethod} container: TreeViewColumn
@@ -30677,9 +30677,9 @@ proc set_widget*(self: TreeViewColumn, widget: Widget) {.inline.} =
 # vadjustment 'Adjustment' 'ptr TAdjustment' IN (diff., need sugar)
 # 'Viewport' 'TransferNone[TViewport]' (diff., need sugar)
 proc gtk_viewport_new(hadjustment: ptr TAdjustment, vadjustment: ptr TAdjustment): TransferNone[TViewport] {.cdecl, dynlib: lib, importc: "gtk_viewport_new".}
-proc viewport_new*(hadjustment: Adjustment, vadjustment: Adjustment): Viewport {.inline.} =
+proc new_viewport*(hadjustment: Adjustment, vadjustment: Adjustment): Viewport {.inline.} =
   wrap(gtk_viewport_new(hadjustment.getPointer, vadjustment.getPointer))
-# proc viewport_new*(hadjustment: Adjustment, vadjustment: Adjustment): Viewport {.inline.} =
+# proc new_viewport*(hadjustment: Adjustment, vadjustment: Adjustment): Viewport {.inline.} =
 
 # gtk_viewport_get_bin_window
 # flags: {isMethod} container: Viewport
@@ -30731,9 +30731,9 @@ proc set_shadow_type*(self: Viewport, type_x: ShadowType) {.inline.} =
 # need sugar: is static method
 # 'VolumeButton' 'TransferNone[TVolumeButton]' (diff., need sugar)
 proc gtk_volume_button_new(): TransferNone[TVolumeButton] {.cdecl, dynlib: lib, importc: "gtk_volume_button_new".}
-proc volumebutton_new*(): VolumeButton {.inline.} =
+proc new_volumebutton*(): VolumeButton {.inline.} =
   wrap(gtk_volume_button_new())
-# proc volumebutton_new*(): VolumeButton {.inline.} =
+# proc new_volumebutton*(): VolumeButton {.inline.} =
 
 # gtk_widget_get_default_direction
 # flags: {} container: Widget
@@ -32974,9 +32974,9 @@ proc unset_state_flags*(self: Widget, flags: SStateFlags) {.inline.} =
 # type 'WindowType' 'WindowType' IN
 # 'Window' 'TransferNone[TWindow]' (diff., need sugar)
 proc gtk_window_new(type_x: WindowType): TransferNone[TWindow] {.cdecl, dynlib: lib, importc: "gtk_window_new".}
-proc window_new*(type_x: WindowType): Window {.inline.} =
+proc new_window*(type_x: WindowType): Window {.inline.} =
   wrap(gtk_window_new(type_x))
-# proc window_new*(type_x: WindowType): Window {.inline.} =
+# proc new_window*(type_x: WindowType): Window {.inline.} =
 
 # gtk_window_get_default_icon_list
 # flags: {} container: Window
@@ -34071,9 +34071,9 @@ proc unstick*(self: Window) {.inline.} =
 # need sugar: is static method
 # 'WindowGroup' 'TransferFull[TWindowGroup]' (diff., need sugar)
 proc gtk_window_group_new(): TransferFull[TWindowGroup] {.cdecl, dynlib: lib, importc: "gtk_window_group_new".}
-proc windowgroup_new*(): WindowGroup {.inline.} =
+proc new_windowgroup*(): WindowGroup {.inline.} =
   wrap(gtk_window_group_new())
-# proc windowgroup_new*(): WindowGroup {.inline.} =
+# proc new_windowgroup*(): WindowGroup {.inline.} =
 
 # gtk_window_group_add_window
 # flags: {isMethod} container: WindowGroup
@@ -34935,9 +34935,9 @@ template find*(klass_parameter: typedesc[BindingSet], set_name: ustring): TBindi
 # need sugar: is static method
 # 'TBorder' 'ptr TBorder' (diff., need sugar)
 proc gtk_border_new(): ptr TBorder {.cdecl, dynlib: lib, importc: "gtk_border_new".}
-proc border_new*(): TBorder {.inline.} =
+proc new_border*(): TBorder {.inline.} =
   (gtk_border_new())[]
-# proc border_new*(): TBorder {.inline.} =
+# proc new_border*(): TBorder {.inline.} =
 
 # gtk_border_copy
 # flags: {isMethod} container: Border
@@ -35463,9 +35463,9 @@ proc resolve_for_context*(self: Gradient, context: StyleContext): cairo1.TPatter
 # name 'ustring' 'ucstring' IN (diff., need sugar)
 # 'TPaperSize' 'ptr TPaperSize' (diff., need sugar)
 proc gtk_paper_size_new(name: ucstring): ptr TPaperSize {.cdecl, dynlib: lib, importc: "gtk_paper_size_new".}
-proc papersize_new*(name: ustring): TPaperSize {.inline.} =
+proc new_papersize*(name: ustring): TPaperSize {.inline.} =
   (gtk_paper_size_new(ucstring(name)))[]
-# proc papersize_new*(name: ustring): TPaperSize {.inline.} =
+# proc new_papersize*(name: ustring): TPaperSize {.inline.} =
 
 # gtk_paper_size_new_custom
 # flags: {isConstructor} container: PaperSize
@@ -35477,9 +35477,9 @@ proc papersize_new*(name: ustring): TPaperSize {.inline.} =
 # unit 'Unit' 'Unit' IN
 # 'TPaperSize' 'ptr TPaperSize' (diff., need sugar)
 proc gtk_paper_size_new_custom(name: ucstring, display_name: ucstring, width: float64, height: float64, unit: Unit): ptr TPaperSize {.cdecl, dynlib: lib, importc: "gtk_paper_size_new_custom".}
-proc papersize_new_custom*(name: ustring, display_name: ustring, width: float64, height: float64, unit: Unit): TPaperSize {.inline.} =
+proc new_papersize_custom*(name: ustring, display_name: ustring, width: float64, height: float64, unit: Unit): TPaperSize {.inline.} =
   (gtk_paper_size_new_custom(ucstring(name), ucstring(display_name), width, height, unit))[]
-# proc papersize_new_custom*(name: ustring, display_name: ustring, width: float64, height: float64, unit: Unit): TPaperSize {.inline.} =
+# proc new_papersize_custom*(name: ustring, display_name: ustring, width: float64, height: float64, unit: Unit): TPaperSize {.inline.} =
 
 # gtk_paper_size_new_from_key_file
 # flags: {isConstructor, throws} container: PaperSize
@@ -35489,9 +35489,9 @@ proc papersize_new_custom*(name: ustring, display_name: ustring, width: float64,
 # group_name 'ustring' 'ucstring' IN (diff., need sugar)
 # 'TPaperSize' 'ptr TPaperSize' (diff., need sugar)
 proc gtk_paper_size_new_from_key_file(key_file: ptr GLib2.TKeyFile, group_name: ucstring, error: ptr PGError=nil): ptr TPaperSize {.cdecl, dynlib: lib, importc: "gtk_paper_size_new_from_key_file".}
-proc papersize_new_from_key_file*(key_file: GLib2.TKeyFile, group_name: ustring): TPaperSize {.inline.} =
+proc new_papersize_from_key_file*(key_file: GLib2.TKeyFile, group_name: ustring): TPaperSize {.inline.} =
   (gtk_paper_size_new_from_key_file(myUnsafeAddr(key_file), ucstring(group_name)))[]
-# proc papersize_new_from_key_file*(key_file: GLib2.TKeyFile, group_name: ustring): TPaperSize {.inline.} =
+# proc new_papersize_from_key_file*(key_file: GLib2.TKeyFile, group_name: ustring): TPaperSize {.inline.} =
 
 # gtk_paper_size_new_from_ppd
 # flags: {isConstructor} container: PaperSize
@@ -35502,9 +35502,9 @@ proc papersize_new_from_key_file*(key_file: GLib2.TKeyFile, group_name: ustring)
 # height 'float64' 'float64' IN
 # 'TPaperSize' 'ptr TPaperSize' (diff., need sugar)
 proc gtk_paper_size_new_from_ppd(ppd_name: ucstring, ppd_display_name: ucstring, width: float64, height: float64): ptr TPaperSize {.cdecl, dynlib: lib, importc: "gtk_paper_size_new_from_ppd".}
-proc papersize_new_from_ppd*(ppd_name: ustring, ppd_display_name: ustring, width: float64, height: float64): TPaperSize {.inline.} =
+proc new_papersize_from_ppd*(ppd_name: ustring, ppd_display_name: ustring, width: float64, height: float64): TPaperSize {.inline.} =
   (gtk_paper_size_new_from_ppd(ucstring(ppd_name), ucstring(ppd_display_name), width, height))[]
-# proc papersize_new_from_ppd*(ppd_name: ustring, ppd_display_name: ustring, width: float64, height: float64): TPaperSize {.inline.} =
+# proc new_papersize_from_ppd*(ppd_name: ustring, ppd_display_name: ustring, width: float64, height: float64): TPaperSize {.inline.} =
 
 # gtk_paper_size_copy
 # flags: {isMethod} container: PaperSize
@@ -36036,9 +36036,9 @@ proc unref*(self: RecentInfo) {.inline.} =
 # need sugar: is static method
 # 'TRequisition' 'ptr TRequisition' (diff., need sugar)
 proc gtk_requisition_new(): ptr TRequisition {.cdecl, dynlib: lib, importc: "gtk_requisition_new".}
-proc requisition_new*(): TRequisition {.inline.} =
+proc new_requisition*(): TRequisition {.inline.} =
   (gtk_requisition_new())[]
-# proc requisition_new*(): TRequisition {.inline.} =
+# proc new_requisition*(): TRequisition {.inline.} =
 
 # gtk_requisition_copy
 # flags: {isMethod} container: Requisition
@@ -36356,9 +36356,9 @@ proc targets_include_uri*(self: SelectionData): bool {.inline.} =
 # info 'uint32' 'uint32' IN
 # 'TTargetEntry' 'ptr TTargetEntry' (diff., need sugar)
 proc gtk_target_entry_new(target: ucstring, flags: uint32, info: uint32): ptr TTargetEntry {.cdecl, dynlib: lib, importc: "gtk_target_entry_new".}
-proc targetentry_new*(target: ustring, flags: uint32, info: uint32): TTargetEntry {.inline.} =
+proc new_targetentry*(target: ustring, flags: uint32, info: uint32): TTargetEntry {.inline.} =
   (gtk_target_entry_new(ucstring(target), flags, info))[]
-# proc targetentry_new*(target: ustring, flags: uint32, info: uint32): TTargetEntry {.inline.} =
+# proc new_targetentry*(target: ustring, flags: uint32, info: uint32): TTargetEntry {.inline.} =
 
 # gtk_target_entry_copy
 # flags: {isMethod} container: TargetEntry
@@ -36386,9 +36386,9 @@ proc free*(self: TargetEntry) {.inline.} =
 # ntargets 'uint32' 'uint32' IN
 # 'TTargetList' 'ptr TTargetList' (diff., need sugar)
 proc gtk_target_list_new(targets: openarray[TTargetEntry], ntargets: uint32): ptr TTargetList {.cdecl, dynlib: lib, importc: "gtk_target_list_new".}
-proc targetlist_new*(targets: var openarray[TTargetEntry]): TTargetList {.inline.} =
+proc new_targetlist*(targets: var openarray[TTargetEntry]): TTargetList {.inline.} =
   (gtk_target_list_new(targets, targets.len.uint32))[]
-# proc targetlist_new*(targets: var openarray[TTargetEntry]): TTargetList {.inline.} =
+# proc new_targetlist*(targets: var openarray[TTargetEntry]): TTargetList {.inline.} =
 
 # gtk_target_list_add
 # flags: {isMethod} container: TargetList
@@ -36507,9 +36507,9 @@ proc unref*(self: TargetList) {.inline.} =
 # need sugar: is static method
 # 'TTextAttributes' 'ptr TTextAttributes' (diff., need sugar)
 proc gtk_text_attributes_new(): ptr TTextAttributes {.cdecl, dynlib: lib, importc: "gtk_text_attributes_new".}
-proc textattributes_new*(): TTextAttributes {.inline.} =
+proc new_textattributes*(): TTextAttributes {.inline.} =
   (gtk_text_attributes_new())[]
-# proc textattributes_new*(): TTextAttributes {.inline.} =
+# proc new_textattributes*(): TTextAttributes {.inline.} =
 
 # gtk_text_attributes_copy
 # flags: {isMethod} container: TextAttributes
@@ -37506,18 +37506,18 @@ proc free*(self: TreeIter) {.inline.} =
 # need sugar: is static method
 # 'TTreePath' 'ptr TTreePath' (diff., need sugar)
 proc gtk_tree_path_new(): ptr TTreePath {.cdecl, dynlib: lib, importc: "gtk_tree_path_new".}
-proc treepath_new*(): TTreePath {.inline.} =
+proc new_treepath*(): TTreePath {.inline.} =
   (gtk_tree_path_new())[]
-# proc treepath_new*(): TTreePath {.inline.} =
+# proc new_treepath*(): TTreePath {.inline.} =
 
 # gtk_tree_path_new_first
 # flags: {isConstructor} container: TreePath
 # need sugar: is static method
 # 'TTreePath' 'ptr TTreePath' (diff., need sugar)
 proc gtk_tree_path_new_first(): ptr TTreePath {.cdecl, dynlib: lib, importc: "gtk_tree_path_new_first".}
-proc treepath_new_first*(): TTreePath {.inline.} =
+proc new_treepath_first*(): TTreePath {.inline.} =
   (gtk_tree_path_new_first())[]
-# proc treepath_new_first*(): TTreePath {.inline.} =
+# proc new_treepath_first*(): TTreePath {.inline.} =
 
 # gtk_tree_path_new_from_indicesv
 # flags: {isConstructor} container: TreePath
@@ -37526,9 +37526,9 @@ proc treepath_new_first*(): TTreePath {.inline.} =
 # length 'uint32' 'uint32' IN
 # 'TTreePath' 'ptr TTreePath' (diff., need sugar)
 proc gtk_tree_path_new_from_indicesv(indices: openarray[int32], length: uint32): ptr TTreePath {.cdecl, dynlib: lib, importc: "gtk_tree_path_new_from_indicesv".}
-proc treepath_new_from_indices*(indices: var openarray[int32]): TTreePath {.inline.} =
+proc new_treepath_from_indices*(indices: var openarray[int32]): TTreePath {.inline.} =
   (gtk_tree_path_new_from_indicesv(indices, indices.len.uint32))[]
-# proc treepath_new_from_indices*(indices: var openarray[int32]): TTreePath {.inline.} =
+# proc new_treepath_from_indices*(indices: var openarray[int32]): TTreePath {.inline.} =
 
 # gtk_tree_path_new_from_string
 # flags: {isConstructor} container: TreePath
@@ -37536,9 +37536,9 @@ proc treepath_new_from_indices*(indices: var openarray[int32]): TTreePath {.inli
 # path 'ustring' 'ucstring' IN (diff., need sugar)
 # 'TTreePath' 'ptr TTreePath' (diff., need sugar)
 proc gtk_tree_path_new_from_string(path: ucstring): ptr TTreePath {.cdecl, dynlib: lib, importc: "gtk_tree_path_new_from_string".}
-proc treepath_new_from_string*(path: ustring): TTreePath {.inline.} =
+proc new_treepath_from_string*(path: ustring): TTreePath {.inline.} =
   (gtk_tree_path_new_from_string(ucstring(path)))[]
-# proc treepath_new_from_string*(path: ustring): TTreePath {.inline.} =
+# proc new_treepath_from_string*(path: ustring): TTreePath {.inline.} =
 
 # gtk_tree_path_append_index
 # flags: {isMethod} container: TreePath
@@ -37682,9 +37682,9 @@ proc up*(self: TreePath): bool {.inline.} =
 # path 'TTreePath' 'ptr TTreePath' IN (diff., need sugar)
 # 'TTreeRowReference' 'ptr TTreeRowReference' (diff., need sugar)
 proc gtk_tree_row_reference_new(model: ptr TTreeModel, path: ptr TTreePath): ptr TTreeRowReference {.cdecl, dynlib: lib, importc: "gtk_tree_row_reference_new".}
-proc treerowreference_new*(model: TreeModel, path: TTreePath): TTreeRowReference {.inline.} =
+proc new_treerowreference*(model: TreeModel, path: TTreePath): TTreeRowReference {.inline.} =
   (gtk_tree_row_reference_new(unwrap(model), myUnsafeAddr(path)))[]
-# proc treerowreference_new*(model: TreeModel, path: TTreePath): TTreeRowReference {.inline.} =
+# proc new_treerowreference*(model: TreeModel, path: TTreePath): TTreeRowReference {.inline.} =
 
 # gtk_tree_row_reference_new_proxy
 # flags: {isConstructor} container: TreeRowReference
@@ -37694,9 +37694,9 @@ proc treerowreference_new*(model: TreeModel, path: TTreePath): TTreeRowReference
 # path 'TTreePath' 'ptr TTreePath' IN (diff., need sugar)
 # 'TTreeRowReference' 'ptr TTreeRowReference' (diff., need sugar)
 proc gtk_tree_row_reference_new_proxy(proxy: ptr GObject2.TObject, model: ptr TTreeModel, path: ptr TTreePath): ptr TTreeRowReference {.cdecl, dynlib: lib, importc: "gtk_tree_row_reference_new_proxy".}
-proc treerowreference_new_proxy*(proxy: GObject2.Object, model: TreeModel, path: TTreePath): TTreeRowReference {.inline.} =
+proc new_treerowreference_proxy*(proxy: GObject2.Object, model: TreeModel, path: TTreePath): TTreeRowReference {.inline.} =
   (gtk_tree_row_reference_new_proxy(proxy.getPointer, unwrap(model), myUnsafeAddr(path)))[]
-# proc treerowreference_new_proxy*(proxy: GObject2.Object, model: TreeModel, path: TTreePath): TTreeRowReference {.inline.} =
+# proc new_treerowreference_proxy*(proxy: GObject2.Object, model: TreeModel, path: TTreePath): TTreeRowReference {.inline.} =
 
 # gtk_tree_row_reference_copy
 # flags: {isMethod} container: TreeRowReference
@@ -37907,9 +37907,9 @@ proc set_template_from_resource*(self: WidgetClass, resource_name: ustring) {.in
 # need sugar: is static method
 # 'TWidgetPath' 'ptr TWidgetPath' (diff., need sugar)
 proc gtk_widget_path_new(): ptr TWidgetPath {.cdecl, dynlib: lib, importc: "gtk_widget_path_new".}
-proc widgetpath_new*(): TWidgetPath {.inline.} =
+proc new_widgetpath*(): TWidgetPath {.inline.} =
   (gtk_widget_path_new())[]
-# proc widgetpath_new*(): TWidgetPath {.inline.} =
+# proc new_widgetpath*(): TWidgetPath {.inline.} =
 
 # gtk_widget_path_append_for_widget
 # flags: {isMethod} container: WidgetPath

@@ -893,9 +893,17 @@ proc createSugarSignature(meth: GIFunctionInfo, parent: GIRegisteredTypeInfo, ou
     first = false
   elif FunctionInfoFlags.isConstructor in flags:
     # output.writeln "#constructor"
+    var methname = meth.getName
+    let sugarname =
+      if methname.startswith("new"):
+        "new_" & parent.getName.toLower & methname.substr(3)
+      else:
+        parent.getName.toLower & "_" & meth.getName
+
     assert parent != nil
     assert parent.pointer != nil
-    output.write "proc ", parent.getName.toLower, "_", meth.getName, "*("
+    output.write "proc ", sugarname, "*("
+    # output.write "proc ", parent.getName.toLower, "_", meth.getName, "*("
     first = true
   elif container != nil:
     # there is a container, but it is not a method => class method

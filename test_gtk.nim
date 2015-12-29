@@ -27,8 +27,8 @@ proc main() =
   init()
 
   echo "calling windowNew"
-  let window = windowNew(Gtk3.WindowType.toplevel)
-  let button = buttonNew()
+  let window = newWindow(Gtk3.WindowType.toplevel)
+  let button = newButton()
   button.setLabel(u"Hello")
 
   proc buttonClicked(bttn: Button) =
@@ -48,7 +48,7 @@ proc main() =
     return true
   window.connect("configure-event", windowConfigure)
 
-  let grid = gridNew()
+  let grid = newGrid()
   window.setDefaultSize(400, 300)
   grid.setMarginStart(12)
   grid.setMarginEnd(12)
@@ -57,24 +57,24 @@ proc main() =
   window.add(grid)
   
 
-  let notebook = notebookNew()
-  let lbl = labelNew(u"Label:")
+  let notebook = newNotebook()
+  let lbl = newLabel(u"Label:")
   lbl.setVExpand(true)
   lbl.setHExpand(true)
-  discard notebook.appendPage(lbl, labelNew(u"Page"))
+  discard notebook.appendPage(lbl, newLabel(u"Page"))
   grid.attach(notebook, 0, 0, 1, 1)
   # grid.attach(lbl, 0, 0, 1, 1)
   button.setHExpand(true)
   grid.attach(button, 0, 10, 1, 1)
 
-  let tv = textviewNew()
-  let sw = scrolledWindowNew(nil, nil)
+  let tv = newTextview()
+  let sw = newScrolledWindow(nil, nil)
   sw.add(tv)
   sw.setShadowType(ShadowType.`in`)
   var buf = tv.getBuffer()
   let text = u"H 你好 Äpfel"
   buf.setText(text, int32(text.len))
-  discard notebook.appendPage(sw, labelNew(u"Text"))
+  discard notebook.appendPage(sw, newLabel(u"Text"))
 
   # for x in text:
   #   echo x

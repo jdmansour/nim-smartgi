@@ -1186,18 +1186,18 @@ proc is_valid*(self: Hyperlink): bool {.inline.} =
 # obj 'GObject2.Object' 'ptr GObject2.TObject' IN (diff., need sugar)
 # 'NoOpObject' 'TransferFull[TNoOpObject]' (diff., need sugar)
 proc atk_no_op_object_new(obj: ptr GObject2.TObject): TransferFull[TNoOpObject] {.cdecl, dynlib: lib, importc: "atk_no_op_object_new".}
-proc noopobject_new*(obj: GObject2.Object): NoOpObject {.inline.} =
+proc new_noopobject*(obj: GObject2.Object): NoOpObject {.inline.} =
   wrap(atk_no_op_object_new(obj.getPointer))
-# proc noopobject_new*(obj: GObject2.Object): NoOpObject {.inline.} =
+# proc new_noopobject*(obj: GObject2.Object): NoOpObject {.inline.} =
 
 # atk_no_op_object_factory_new
 # flags: {isConstructor} container: NoOpObjectFactory
 # need sugar: is static method
 # 'NoOpObjectFactory' 'TransferFull[TNoOpObjectFactory]' (diff., need sugar)
 proc atk_no_op_object_factory_new(): TransferFull[TNoOpObjectFactory] {.cdecl, dynlib: lib, importc: "atk_no_op_object_factory_new".}
-proc noopobjectfactory_new*(): NoOpObjectFactory {.inline.} =
+proc new_noopobjectfactory*(): NoOpObjectFactory {.inline.} =
   wrap(atk_no_op_object_factory_new())
-# proc noopobjectfactory_new*(): NoOpObjectFactory {.inline.} =
+# proc new_noopobjectfactory*(): NoOpObjectFactory {.inline.} =
 
 # atk_object_add_relationship
 # flags: {isMethod} container: Object
@@ -1430,9 +1430,9 @@ proc invalidate*(self: ObjectFactory) {.inline.} =
 # need sugar: is static method
 # 'Plug' 'TransferFull[TPlug]' (diff., need sugar)
 proc atk_plug_new(): TransferFull[TPlug] {.cdecl, dynlib: lib, importc: "atk_plug_new".}
-proc plug_new*(): Plug {.inline.} =
+proc new_plug*(): Plug {.inline.} =
   wrap(atk_plug_new())
-# proc plug_new*(): Plug {.inline.} =
+# proc new_plug*(): Plug {.inline.} =
 
 # atk_plug_get_id
 # flags: {isMethod} container: Plug
@@ -1482,9 +1482,9 @@ proc set_factory_type*(self: Registry, type_x: GType, factory_type: GType) {.inl
 # relationship 'RelationType' 'RelationType' IN
 # 'Relation' 'TransferFull[TRelation]' (diff., need sugar)
 proc atk_relation_new(targets: openarray[ptr TObject], n_targets: int32, relationship: RelationType): TransferFull[TRelation] {.cdecl, dynlib: lib, importc: "atk_relation_new".}
-proc relation_new*(targets: var openarray[ptr TObject], relationship: RelationType): Relation {.inline.} =
+proc new_relation*(targets: var openarray[ptr TObject], relationship: RelationType): Relation {.inline.} =
   wrap(atk_relation_new(targets, targets.len.int32, relationship))
-# proc relation_new*(targets: var openarray[ptr TObject], relationship: RelationType): Relation {.inline.} =
+# proc new_relation*(targets: var openarray[ptr TObject], relationship: RelationType): Relation {.inline.} =
 
 # atk_relation_add_target
 # flags: {isMethod} container: Relation
@@ -1529,9 +1529,9 @@ proc remove_target*(self: Relation, target: Object): bool {.inline.} =
 # need sugar: is static method
 # 'RelationSet' 'TransferFull[TRelationSet]' (diff., need sugar)
 proc atk_relation_set_new(): TransferFull[TRelationSet] {.cdecl, dynlib: lib, importc: "atk_relation_set_new".}
-proc relationset_new*(): RelationSet {.inline.} =
+proc new_relationset*(): RelationSet {.inline.} =
   wrap(atk_relation_set_new())
-# proc relationset_new*(): RelationSet {.inline.} =
+# proc new_relationset*(): RelationSet {.inline.} =
 
 # atk_relation_set_add
 # flags: {isMethod} container: RelationSet
@@ -1619,9 +1619,9 @@ proc remove*(self: RelationSet, relation: Relation) {.inline.} =
 # need sugar: is static method
 # 'Socket' 'TransferFull[TSocket]' (diff., need sugar)
 proc atk_socket_new(): TransferFull[TSocket] {.cdecl, dynlib: lib, importc: "atk_socket_new".}
-proc socket_new*(): Socket {.inline.} =
+proc new_socket*(): Socket {.inline.} =
   wrap(atk_socket_new())
-# proc socket_new*(): Socket {.inline.} =
+# proc new_socket*(): Socket {.inline.} =
 
 # atk_socket_embed
 # flags: {isMethod} container: Socket
@@ -1647,9 +1647,9 @@ proc is_occupied*(self: Socket): bool {.inline.} =
 # need sugar: is static method
 # 'StateSet' 'TransferFull[TStateSet]' (diff., need sugar)
 proc atk_state_set_new(): TransferFull[TStateSet] {.cdecl, dynlib: lib, importc: "atk_state_set_new".}
-proc stateset_new*(): StateSet {.inline.} =
+proc new_stateset*(): StateSet {.inline.} =
   wrap(atk_state_set_new())
-# proc stateset_new*(): StateSet {.inline.} =
+# proc new_stateset*(): StateSet {.inline.} =
 
 # atk_state_set_add_state
 # flags: {isMethod} container: StateSet
@@ -1815,9 +1815,9 @@ proc ref_accessible*(self: Implementor): Object {.inline.} =
 # description 'ustring' 'ucstring' IN (diff., need sugar)
 # 'TRange' 'ptr TRange' (diff., need sugar)
 proc atk_range_new(lower_limit: float64, upper_limit: float64, description: ucstring): ptr TRange {.cdecl, dynlib: lib, importc: "atk_range_new".}
-proc range_new*(lower_limit: float64, upper_limit: float64, description: ustring): TRange {.inline.} =
+proc new_range*(lower_limit: float64, upper_limit: float64, description: ustring): TRange {.inline.} =
   (atk_range_new(lower_limit, upper_limit, ucstring(description)))[]
-# proc range_new*(lower_limit: float64, upper_limit: float64, description: ustring): TRange {.inline.} =
+# proc new_range*(lower_limit: float64, upper_limit: float64, description: ustring): TRange {.inline.} =
 
 # atk_range_copy
 # flags: {isMethod} container: Range

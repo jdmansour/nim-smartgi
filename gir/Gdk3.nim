@@ -1877,9 +1877,9 @@ proc set_timestamp*(self: AppLaunchContext, timestamp: uint32) {.inline.} =
 # cursor_type 'CursorType' 'CursorType' IN
 # 'Cursor' 'TransferFull[TCursor]' (diff., need sugar)
 proc gdk_cursor_new(cursor_type: CursorType): TransferFull[TCursor] {.cdecl, dynlib: lib, importc: "gdk_cursor_new".}
-proc cursor_new*(cursor_type: CursorType): Cursor {.inline.} =
+proc new_cursor*(cursor_type: CursorType): Cursor {.inline.} =
   wrap(gdk_cursor_new(cursor_type))
-# proc cursor_new*(cursor_type: CursorType): Cursor {.inline.} =
+# proc new_cursor*(cursor_type: CursorType): Cursor {.inline.} =
 
 # gdk_cursor_new_for_display
 # flags: {isConstructor} container: Cursor
@@ -1888,9 +1888,9 @@ proc cursor_new*(cursor_type: CursorType): Cursor {.inline.} =
 # cursor_type 'CursorType' 'CursorType' IN
 # 'Cursor' 'TransferFull[TCursor]' (diff., need sugar)
 proc gdk_cursor_new_for_display(display: ptr TDisplay, cursor_type: CursorType): TransferFull[TCursor] {.cdecl, dynlib: lib, importc: "gdk_cursor_new_for_display".}
-proc cursor_new_for_display*(display: Display, cursor_type: CursorType): Cursor {.inline.} =
+proc new_cursor_for_display*(display: Display, cursor_type: CursorType): Cursor {.inline.} =
   wrap(gdk_cursor_new_for_display(display.getPointer, cursor_type))
-# proc cursor_new_for_display*(display: Display, cursor_type: CursorType): Cursor {.inline.} =
+# proc new_cursor_for_display*(display: Display, cursor_type: CursorType): Cursor {.inline.} =
 
 # gdk_cursor_new_from_name
 # flags: {isConstructor} container: Cursor
@@ -1899,9 +1899,9 @@ proc cursor_new_for_display*(display: Display, cursor_type: CursorType): Cursor 
 # name 'ustring' 'ucstring' IN (diff., need sugar)
 # 'Cursor' 'TransferFull[TCursor]' (diff., need sugar)
 proc gdk_cursor_new_from_name(display: ptr TDisplay, name: ucstring): TransferFull[TCursor] {.cdecl, dynlib: lib, importc: "gdk_cursor_new_from_name".}
-proc cursor_new_from_name*(display: Display, name: ustring): Cursor {.inline.} =
+proc new_cursor_from_name*(display: Display, name: ustring): Cursor {.inline.} =
   wrap(gdk_cursor_new_from_name(display.getPointer, ucstring(name)))
-# proc cursor_new_from_name*(display: Display, name: ustring): Cursor {.inline.} =
+# proc new_cursor_from_name*(display: Display, name: ustring): Cursor {.inline.} =
 
 # gdk_cursor_new_from_pixbuf
 # flags: {isConstructor} container: Cursor
@@ -1912,9 +1912,9 @@ proc cursor_new_from_name*(display: Display, name: ustring): Cursor {.inline.} =
 # y 'int32' 'int32' IN
 # 'Cursor' 'TransferFull[TCursor]' (diff., need sugar)
 proc gdk_cursor_new_from_pixbuf(display: ptr TDisplay, pixbuf: ptr GdkPixbuf2.TPixbuf, x: int32, y: int32): TransferFull[TCursor] {.cdecl, dynlib: lib, importc: "gdk_cursor_new_from_pixbuf".}
-proc cursor_new_from_pixbuf*(display: Display, pixbuf: GdkPixbuf2.Pixbuf, x: int32, y: int32): Cursor {.inline.} =
+proc new_cursor_from_pixbuf*(display: Display, pixbuf: GdkPixbuf2.Pixbuf, x: int32, y: int32): Cursor {.inline.} =
   wrap(gdk_cursor_new_from_pixbuf(display.getPointer, pixbuf.getPointer, x, y))
-# proc cursor_new_from_pixbuf*(display: Display, pixbuf: GdkPixbuf2.Pixbuf, x: int32, y: int32): Cursor {.inline.} =
+# proc new_cursor_from_pixbuf*(display: Display, pixbuf: GdkPixbuf2.Pixbuf, x: int32, y: int32): Cursor {.inline.} =
 
 # gdk_cursor_new_from_surface
 # flags: {isConstructor} container: Cursor
@@ -1925,9 +1925,9 @@ proc cursor_new_from_pixbuf*(display: Display, pixbuf: GdkPixbuf2.Pixbuf, x: int
 # y 'float64' 'float64' IN
 # 'Cursor' 'TransferFull[TCursor]' (diff., need sugar)
 proc gdk_cursor_new_from_surface(display: ptr TDisplay, surface: ptr cairo1.TSurface, x: float64, y: float64): TransferFull[TCursor] {.cdecl, dynlib: lib, importc: "gdk_cursor_new_from_surface".}
-proc cursor_new_from_surface*(display: Display, surface: cairo1.TSurface, x: float64, y: float64): Cursor {.inline.} =
+proc new_cursor_from_surface*(display: Display, surface: cairo1.TSurface, x: float64, y: float64): Cursor {.inline.} =
   wrap(gdk_cursor_new_from_surface(display.getPointer, myUnsafeAddr(surface), x, y))
-# proc cursor_new_from_surface*(display: Display, surface: cairo1.TSurface, x: float64, y: float64): Cursor {.inline.} =
+# proc new_cursor_from_surface*(display: Display, surface: cairo1.TSurface, x: float64, y: float64): Cursor {.inline.} =
 
 # gdk_cursor_get_cursor_type
 # flags: {isMethod} container: Cursor
@@ -3494,9 +3494,9 @@ proc get_visual_type*(self: Visual): VisualType {.inline.} =
 # attributes_mask 'SWindowAttributesType' 'SWindowAttributesType' IN
 # 'Window' 'TransferFull[TWindow]' (diff., need sugar)
 proc gdk_window_new(parent: ptr TWindow, attributes: ptr TWindowAttr, attributes_mask: SWindowAttributesType): TransferFull[TWindow] {.cdecl, dynlib: lib, importc: "gdk_window_new".}
-proc window_new*(parent: Window, attributes: TWindowAttr, attributes_mask: SWindowAttributesType): Window {.inline.} =
+proc new_window*(parent: Window, attributes: TWindowAttr, attributes_mask: SWindowAttributesType): Window {.inline.} =
   wrap(gdk_window_new(parent.getPointer, myUnsafeAddr(attributes), attributes_mask))
-# proc window_new*(parent: Window, attributes: TWindowAttr, attributes_mask: SWindowAttributesType): Window {.inline.} =
+# proc new_window*(parent: Window, attributes: TWindowAttr, attributes_mask: SWindowAttributesType): Window {.inline.} =
 
 # gdk_window_at_pointer
 # flags: {} container: Window (deprecated)

@@ -4070,9 +4070,9 @@ template get*(klass_parameter: typedesc[AppInfoMonitor]): AppInfoMonitor =
 # need sugar: is static method
 # 'AppLaunchContext' 'TransferFull[TAppLaunchContext]' (diff., need sugar)
 proc g_app_launch_context_new(): TransferFull[TAppLaunchContext] {.cdecl, dynlib: lib, importc: "g_app_launch_context_new".}
-proc applaunchcontext_new*(): AppLaunchContext {.inline.} =
+proc new_applaunchcontext*(): AppLaunchContext {.inline.} =
   wrap(g_app_launch_context_new())
-# proc applaunchcontext_new*(): AppLaunchContext {.inline.} =
+# proc new_applaunchcontext*(): AppLaunchContext {.inline.} =
 
 # g_app_launch_context_get_display
 # flags: {isMethod} container: AppLaunchContext
@@ -4143,9 +4143,9 @@ proc unsetenv*(self: AppLaunchContext, variable: ustring) {.inline.} =
 # flags 'SApplicationFlags' 'SApplicationFlags' IN
 # 'Application' 'TransferFull[TApplication]' (diff., need sugar)
 proc g_application_new(application_id: ucstring, flags: SApplicationFlags): TransferFull[TApplication] {.cdecl, dynlib: lib, importc: "g_application_new".}
-proc application_new*(application_id: ustring, flags: SApplicationFlags): Application {.inline.} =
+proc new_application*(application_id: ustring, flags: SApplicationFlags): Application {.inline.} =
   wrap(g_application_new(ucstring(application_id), flags))
-# proc application_new*(application_id: ustring, flags: SApplicationFlags): Application {.inline.} =
+# proc new_application*(application_id: ustring, flags: SApplicationFlags): Application {.inline.} =
 
 # g_application_get_default
 # flags: {} container: Application
@@ -4544,9 +4544,9 @@ proc set_exit_status*(self: ApplicationCommandLine, exit_status: int32) {.inline
 # base_stream 'InputStream' 'ptr TInputStream' IN (diff., need sugar)
 # 'BufferedInputStream' 'TransferFull[TBufferedInputStream]' (diff., need sugar)
 proc g_buffered_input_stream_new(base_stream: ptr TInputStream): TransferFull[TBufferedInputStream] {.cdecl, dynlib: lib, importc: "g_buffered_input_stream_new".}
-proc bufferedinputstream_new*(base_stream: InputStream): BufferedInputStream {.inline.} =
+proc new_bufferedinputstream*(base_stream: InputStream): BufferedInputStream {.inline.} =
   wrap(g_buffered_input_stream_new(base_stream.getPointer))
-# proc bufferedinputstream_new*(base_stream: InputStream): BufferedInputStream {.inline.} =
+# proc new_bufferedinputstream*(base_stream: InputStream): BufferedInputStream {.inline.} =
 
 # g_buffered_input_stream_new_sized
 # flags: {isConstructor} container: BufferedInputStream
@@ -4555,9 +4555,9 @@ proc bufferedinputstream_new*(base_stream: InputStream): BufferedInputStream {.i
 # size 'uint32' 'uint32' IN
 # 'BufferedInputStream' 'TransferFull[TBufferedInputStream]' (diff., need sugar)
 proc g_buffered_input_stream_new_sized(base_stream: ptr TInputStream, size: uint32): TransferFull[TBufferedInputStream] {.cdecl, dynlib: lib, importc: "g_buffered_input_stream_new_sized".}
-proc bufferedinputstream_new_sized*(base_stream: InputStream, size: uint32): BufferedInputStream {.inline.} =
+proc new_bufferedinputstream_sized*(base_stream: InputStream, size: uint32): BufferedInputStream {.inline.} =
   wrap(g_buffered_input_stream_new_sized(base_stream.getPointer, size))
-# proc bufferedinputstream_new_sized*(base_stream: InputStream, size: uint32): BufferedInputStream {.inline.} =
+# proc new_bufferedinputstream_sized*(base_stream: InputStream, size: uint32): BufferedInputStream {.inline.} =
 
 # g_buffered_input_stream_fill
 # flags: {isMethod, throws} container: BufferedInputStream
@@ -4665,9 +4665,9 @@ proc set_buffer_size*(self: BufferedInputStream, size: uint32) {.inline.} =
 # base_stream 'OutputStream' 'ptr TOutputStream' IN (diff., need sugar)
 # 'BufferedOutputStream' 'TransferFull[TBufferedOutputStream]' (diff., need sugar)
 proc g_buffered_output_stream_new(base_stream: ptr TOutputStream): TransferFull[TBufferedOutputStream] {.cdecl, dynlib: lib, importc: "g_buffered_output_stream_new".}
-proc bufferedoutputstream_new*(base_stream: OutputStream): BufferedOutputStream {.inline.} =
+proc new_bufferedoutputstream*(base_stream: OutputStream): BufferedOutputStream {.inline.} =
   wrap(g_buffered_output_stream_new(base_stream.getPointer))
-# proc bufferedoutputstream_new*(base_stream: OutputStream): BufferedOutputStream {.inline.} =
+# proc new_bufferedoutputstream*(base_stream: OutputStream): BufferedOutputStream {.inline.} =
 
 # g_buffered_output_stream_new_sized
 # flags: {isConstructor} container: BufferedOutputStream
@@ -4676,9 +4676,9 @@ proc bufferedoutputstream_new*(base_stream: OutputStream): BufferedOutputStream 
 # size 'uint32' 'uint32' IN
 # 'BufferedOutputStream' 'TransferFull[TBufferedOutputStream]' (diff., need sugar)
 proc g_buffered_output_stream_new_sized(base_stream: ptr TOutputStream, size: uint32): TransferFull[TBufferedOutputStream] {.cdecl, dynlib: lib, importc: "g_buffered_output_stream_new_sized".}
-proc bufferedoutputstream_new_sized*(base_stream: OutputStream, size: uint32): BufferedOutputStream {.inline.} =
+proc new_bufferedoutputstream_sized*(base_stream: OutputStream, size: uint32): BufferedOutputStream {.inline.} =
   wrap(g_buffered_output_stream_new_sized(base_stream.getPointer, size))
-# proc bufferedoutputstream_new_sized*(base_stream: OutputStream, size: uint32): BufferedOutputStream {.inline.} =
+# proc new_bufferedoutputstream_sized*(base_stream: OutputStream, size: uint32): BufferedOutputStream {.inline.} =
 
 # g_buffered_output_stream_get_auto_grow
 # flags: {isMethod} container: BufferedOutputStream
@@ -4724,9 +4724,9 @@ proc set_buffer_size*(self: BufferedOutputStream, size: uint32) {.inline.} =
 # bytes 'GLib2.TBytes' 'ptr GLib2.TBytes' IN (diff., need sugar)
 # 'BytesIcon' 'TransferFull[TBytesIcon]' (diff., need sugar)
 proc g_bytes_icon_new(bytes: ptr GLib2.TBytes): TransferFull[TBytesIcon] {.cdecl, dynlib: lib, importc: "g_bytes_icon_new".}
-proc bytesicon_new*(bytes: GLib2.TBytes): BytesIcon {.inline.} =
+proc new_bytesicon*(bytes: GLib2.TBytes): BytesIcon {.inline.} =
   wrap(g_bytes_icon_new(myUnsafeAddr(bytes)))
-# proc bytesicon_new*(bytes: GLib2.TBytes): BytesIcon {.inline.} =
+# proc new_bytesicon*(bytes: GLib2.TBytes): BytesIcon {.inline.} =
 
 # g_bytes_icon_get_bytes
 # flags: {isMethod} container: BytesIcon
@@ -4742,9 +4742,9 @@ proc get_bytes*(self: BytesIcon): GLib2.TBytes {.inline.} =
 # need sugar: is static method
 # 'Cancellable' 'TransferFull[TCancellable]' (diff., need sugar)
 proc g_cancellable_new(): TransferFull[TCancellable] {.cdecl, dynlib: lib, importc: "g_cancellable_new".}
-proc cancellable_new*(): Cancellable {.inline.} =
+proc new_cancellable*(): Cancellable {.inline.} =
   wrap(g_cancellable_new())
-# proc cancellable_new*(): Cancellable {.inline.} =
+# proc new_cancellable*(): Cancellable {.inline.} =
 
 # g_cancellable_get_current
 # flags: {} container: Cancellable
@@ -4868,9 +4868,9 @@ proc set_error_if_cancelled*(self: Cancellable): bool {.inline.} =
 # from_charset 'ustring' 'ucstring' IN (diff., need sugar)
 # 'CharsetConverter' 'TransferFull[TCharsetConverter]' (diff., need sugar)
 proc g_charset_converter_new(to_charset: ucstring, from_charset: ucstring, error: ptr PGError=nil): TransferFull[TCharsetConverter] {.cdecl, dynlib: lib, importc: "g_charset_converter_new".}
-proc charsetconverter_new*(to_charset: ustring, from_charset: ustring): CharsetConverter {.inline.} =
+proc new_charsetconverter*(to_charset: ustring, from_charset: ustring): CharsetConverter {.inline.} =
   wrap(g_charset_converter_new(ucstring(to_charset), ucstring(from_charset)))
-# proc charsetconverter_new*(to_charset: ustring, from_charset: ustring): CharsetConverter {.inline.} =
+# proc new_charsetconverter*(to_charset: ustring, from_charset: ustring): CharsetConverter {.inline.} =
 
 # g_charset_converter_get_num_fallbacks
 # flags: {isMethod} container: CharsetConverter
@@ -4907,9 +4907,9 @@ proc set_use_fallback*(self: CharsetConverter, use_fallback: bool) {.inline.} =
 # converter 'Converter' 'ptr TConverter' IN (diff., need sugar)
 # 'ConverterInputStream' 'TransferFull[TConverterInputStream]' (diff., need sugar)
 proc g_converter_input_stream_new(base_stream: ptr TInputStream, converter_x: ptr TConverter): TransferFull[TConverterInputStream] {.cdecl, dynlib: lib, importc: "g_converter_input_stream_new".}
-proc converterinputstream_new*(base_stream: InputStream, converter_x: Converter): ConverterInputStream {.inline.} =
+proc new_converterinputstream*(base_stream: InputStream, converter_x: Converter): ConverterInputStream {.inline.} =
   wrap(g_converter_input_stream_new(base_stream.getPointer, unwrap(converter_x)))
-# proc converterinputstream_new*(base_stream: InputStream, converter_x: Converter): ConverterInputStream {.inline.} =
+# proc new_converterinputstream*(base_stream: InputStream, converter_x: Converter): ConverterInputStream {.inline.} =
 
 # g_converter_input_stream_get_converter
 # flags: {isMethod} container: ConverterInputStream
@@ -4927,9 +4927,9 @@ proc get_converter*(self: ConverterInputStream): Converter {.inline.} =
 # converter 'Converter' 'ptr TConverter' IN (diff., need sugar)
 # 'ConverterOutputStream' 'TransferFull[TConverterOutputStream]' (diff., need sugar)
 proc g_converter_output_stream_new(base_stream: ptr TOutputStream, converter_x: ptr TConverter): TransferFull[TConverterOutputStream] {.cdecl, dynlib: lib, importc: "g_converter_output_stream_new".}
-proc converteroutputstream_new*(base_stream: OutputStream, converter_x: Converter): ConverterOutputStream {.inline.} =
+proc new_converteroutputstream*(base_stream: OutputStream, converter_x: Converter): ConverterOutputStream {.inline.} =
   wrap(g_converter_output_stream_new(base_stream.getPointer, unwrap(converter_x)))
-# proc converteroutputstream_new*(base_stream: OutputStream, converter_x: Converter): ConverterOutputStream {.inline.} =
+# proc new_converteroutputstream*(base_stream: OutputStream, converter_x: Converter): ConverterOutputStream {.inline.} =
 
 # g_converter_output_stream_get_converter
 # flags: {isMethod} container: ConverterOutputStream
@@ -4945,9 +4945,9 @@ proc get_converter*(self: ConverterOutputStream): Converter {.inline.} =
 # need sugar: is static method
 # 'Credentials' 'TransferFull[TCredentials]' (diff., need sugar)
 proc g_credentials_new(): TransferFull[TCredentials] {.cdecl, dynlib: lib, importc: "g_credentials_new".}
-proc credentials_new*(): Credentials {.inline.} =
+proc new_credentials*(): Credentials {.inline.} =
   wrap(g_credentials_new())
-# proc credentials_new*(): Credentials {.inline.} =
+# proc new_credentials*(): Credentials {.inline.} =
 
 # g_credentials_is_same_user
 # flags: {isMethod, throws} container: Credentials
@@ -4997,9 +4997,9 @@ template get*(klass_parameter: typedesc[DBusActionGroup], connection: DBusConnec
 # need sugar: is static method
 # 'DBusAuthObserver' 'TransferFull[TDBusAuthObserver]' (diff., need sugar)
 proc g_dbus_auth_observer_new(): TransferFull[TDBusAuthObserver] {.cdecl, dynlib: lib, importc: "g_dbus_auth_observer_new".}
-proc dbusauthobserver_new*(): DBusAuthObserver {.inline.} =
+proc new_dbusauthobserver*(): DBusAuthObserver {.inline.} =
   wrap(g_dbus_auth_observer_new())
-# proc dbusauthobserver_new*(): DBusAuthObserver {.inline.} =
+# proc new_dbusauthobserver*(): DBusAuthObserver {.inline.} =
 
 # g_dbus_auth_observer_allow_mechanism
 # flags: {isMethod} container: DBusAuthObserver
@@ -5029,9 +5029,9 @@ proc authorize_authenticated_peer*(self: DBusAuthObserver, stream: IOStream, cre
 # res 'AsyncResult' 'ptr TAsyncResult' IN (diff., need sugar)
 # 'DBusConnection' 'TransferFull[TDBusConnection]' (diff., need sugar)
 proc g_dbus_connection_new_finish(res: ptr TAsyncResult, error: ptr PGError=nil): TransferFull[TDBusConnection] {.cdecl, dynlib: lib, importc: "g_dbus_connection_new_finish".}
-proc dbusconnection_new_finish*(res: AsyncResult): DBusConnection {.inline.} =
+proc new_dbusconnection_finish*(res: AsyncResult): DBusConnection {.inline.} =
   wrap(g_dbus_connection_new_finish(unwrap(res)))
-# proc dbusconnection_new_finish*(res: AsyncResult): DBusConnection {.inline.} =
+# proc new_dbusconnection_finish*(res: AsyncResult): DBusConnection {.inline.} =
 
 # g_dbus_connection_new_for_address_finish
 # flags: {isConstructor, throws} container: DBusConnection
@@ -5040,9 +5040,9 @@ proc dbusconnection_new_finish*(res: AsyncResult): DBusConnection {.inline.} =
 # res 'AsyncResult' 'ptr TAsyncResult' IN (diff., need sugar)
 # 'DBusConnection' 'TransferFull[TDBusConnection]' (diff., need sugar)
 proc g_dbus_connection_new_for_address_finish(res: ptr TAsyncResult, error: ptr PGError=nil): TransferFull[TDBusConnection] {.cdecl, dynlib: lib, importc: "g_dbus_connection_new_for_address_finish".}
-proc dbusconnection_new_for_address_finish*(res: AsyncResult): DBusConnection {.inline.} =
+proc new_dbusconnection_for_address_finish*(res: AsyncResult): DBusConnection {.inline.} =
   wrap(g_dbus_connection_new_for_address_finish(unwrap(res)))
-# proc dbusconnection_new_for_address_finish*(res: AsyncResult): DBusConnection {.inline.} =
+# proc new_dbusconnection_for_address_finish*(res: AsyncResult): DBusConnection {.inline.} =
 
 # g_dbus_connection_new_for_address_sync
 # flags: {isConstructor, throws} container: DBusConnection
@@ -5054,9 +5054,9 @@ proc dbusconnection_new_for_address_finish*(res: AsyncResult): DBusConnection {.
 # cancellable 'Cancellable' 'ptr TCancellable' IN (diff., need sugar)
 # 'DBusConnection' 'TransferFull[TDBusConnection]' (diff., need sugar)
 proc g_dbus_connection_new_for_address_sync(address: ucstring, flags: SDBusConnectionFlags, observer: ptr TDBusAuthObserver, cancellable: ptr TCancellable, error: ptr PGError=nil): TransferFull[TDBusConnection] {.cdecl, dynlib: lib, importc: "g_dbus_connection_new_for_address_sync".}
-proc dbusconnection_new_for_address_sync*(address: ustring, flags: SDBusConnectionFlags, observer: DBusAuthObserver, cancellable: Cancellable): DBusConnection {.inline.} =
+proc new_dbusconnection_for_address_sync*(address: ustring, flags: SDBusConnectionFlags, observer: DBusAuthObserver, cancellable: Cancellable): DBusConnection {.inline.} =
   wrap(g_dbus_connection_new_for_address_sync(ucstring(address), flags, observer.getPointer, cancellable.getPointer))
-# proc dbusconnection_new_for_address_sync*(address: ustring, flags: SDBusConnectionFlags, observer: DBusAuthObserver, cancellable: Cancellable): DBusConnection {.inline.} =
+# proc new_dbusconnection_for_address_sync*(address: ustring, flags: SDBusConnectionFlags, observer: DBusAuthObserver, cancellable: Cancellable): DBusConnection {.inline.} =
 
 # g_dbus_connection_new_sync
 # flags: {isConstructor, throws} container: DBusConnection
@@ -5069,9 +5069,9 @@ proc dbusconnection_new_for_address_sync*(address: ustring, flags: SDBusConnecti
 # cancellable 'Cancellable' 'ptr TCancellable' IN (diff., need sugar)
 # 'DBusConnection' 'TransferFull[TDBusConnection]' (diff., need sugar)
 proc g_dbus_connection_new_sync(stream: ptr TIOStream, guid: ucstring, flags: SDBusConnectionFlags, observer: ptr TDBusAuthObserver, cancellable: ptr TCancellable, error: ptr PGError=nil): TransferFull[TDBusConnection] {.cdecl, dynlib: lib, importc: "g_dbus_connection_new_sync".}
-proc dbusconnection_new_sync*(stream: IOStream, guid: ustring, flags: SDBusConnectionFlags, observer: DBusAuthObserver, cancellable: Cancellable): DBusConnection {.inline.} =
+proc new_dbusconnection_sync*(stream: IOStream, guid: ustring, flags: SDBusConnectionFlags, observer: DBusAuthObserver, cancellable: Cancellable): DBusConnection {.inline.} =
   wrap(g_dbus_connection_new_sync(stream.getPointer, ucstring(guid), flags, observer.getPointer, cancellable.getPointer))
-# proc dbusconnection_new_sync*(stream: IOStream, guid: ustring, flags: SDBusConnectionFlags, observer: DBusAuthObserver, cancellable: Cancellable): DBusConnection {.inline.} =
+# proc new_dbusconnection_sync*(stream: IOStream, guid: ustring, flags: SDBusConnectionFlags, observer: DBusAuthObserver, cancellable: Cancellable): DBusConnection {.inline.} =
 
 # g_dbus_connection_new
 # flags: {} container: DBusConnection
@@ -5722,9 +5722,9 @@ template get*(klass_parameter: typedesc[DBusMenuModel], connection: DBusConnecti
 # need sugar: is static method
 # 'DBusMessage' 'TransferFull[TDBusMessage]' (diff., need sugar)
 proc g_dbus_message_new(): TransferFull[TDBusMessage] {.cdecl, dynlib: lib, importc: "g_dbus_message_new".}
-proc dbusmessage_new*(): DBusMessage {.inline.} =
+proc new_dbusmessage*(): DBusMessage {.inline.} =
   wrap(g_dbus_message_new())
-# proc dbusmessage_new*(): DBusMessage {.inline.} =
+# proc new_dbusmessage*(): DBusMessage {.inline.} =
 
 # g_dbus_message_new_from_blob
 # flags: {isConstructor, throws} container: DBusMessage
@@ -5735,9 +5735,9 @@ proc dbusmessage_new*(): DBusMessage {.inline.} =
 # capabilities 'SDBusCapabilityFlags' 'SDBusCapabilityFlags' IN
 # 'DBusMessage' 'TransferFull[TDBusMessage]' (diff., need sugar)
 proc g_dbus_message_new_from_blob(blob: cstring, blob_len: uint32, capabilities: SDBusCapabilityFlags, error: ptr PGError=nil): TransferFull[TDBusMessage] {.cdecl, dynlib: lib, importc: "g_dbus_message_new_from_blob".}
-proc dbusmessage_new_from_blob*(blob: string, capabilities: SDBusCapabilityFlags): DBusMessage {.inline.} =
+proc new_dbusmessage_from_blob*(blob: string, capabilities: SDBusCapabilityFlags): DBusMessage {.inline.} =
   wrap(g_dbus_message_new_from_blob(cstring(blob), blob.len.uint32, capabilities))
-# proc dbusmessage_new_from_blob*(blob: string, capabilities: SDBusCapabilityFlags): DBusMessage {.inline.} =
+# proc new_dbusmessage_from_blob*(blob: string, capabilities: SDBusCapabilityFlags): DBusMessage {.inline.} =
 
 # g_dbus_message_new_method_call
 # flags: {isConstructor} container: DBusMessage
@@ -5748,9 +5748,9 @@ proc dbusmessage_new_from_blob*(blob: string, capabilities: SDBusCapabilityFlags
 # method 'ustring' 'ucstring' IN (diff., need sugar)
 # 'DBusMessage' 'TransferFull[TDBusMessage]' (diff., need sugar)
 proc g_dbus_message_new_method_call(name: ucstring, path: ucstring, interface_x: ucstring, method_x: ucstring): TransferFull[TDBusMessage] {.cdecl, dynlib: lib, importc: "g_dbus_message_new_method_call".}
-proc dbusmessage_new_method_call*(name: ustring, path: ustring, interface_x: ustring, method_x: ustring): DBusMessage {.inline.} =
+proc new_dbusmessage_method_call*(name: ustring, path: ustring, interface_x: ustring, method_x: ustring): DBusMessage {.inline.} =
   wrap(g_dbus_message_new_method_call(ucstring(name), ucstring(path), ucstring(interface_x), ucstring(method_x)))
-# proc dbusmessage_new_method_call*(name: ustring, path: ustring, interface_x: ustring, method_x: ustring): DBusMessage {.inline.} =
+# proc new_dbusmessage_method_call*(name: ustring, path: ustring, interface_x: ustring, method_x: ustring): DBusMessage {.inline.} =
 
 # g_dbus_message_new_signal
 # flags: {isConstructor} container: DBusMessage
@@ -5760,9 +5760,9 @@ proc dbusmessage_new_method_call*(name: ustring, path: ustring, interface_x: ust
 # signal 'ustring' 'ucstring' IN (diff., need sugar)
 # 'DBusMessage' 'TransferFull[TDBusMessage]' (diff., need sugar)
 proc g_dbus_message_new_signal(path: ucstring, interface_x: ucstring, signal: ucstring): TransferFull[TDBusMessage] {.cdecl, dynlib: lib, importc: "g_dbus_message_new_signal".}
-proc dbusmessage_new_signal*(path: ustring, interface_x: ustring, signal: ustring): DBusMessage {.inline.} =
+proc new_dbusmessage_signal*(path: ustring, interface_x: ustring, signal: ustring): DBusMessage {.inline.} =
   wrap(g_dbus_message_new_signal(ucstring(path), ucstring(interface_x), ucstring(signal)))
-# proc dbusmessage_new_signal*(path: ustring, interface_x: ustring, signal: ustring): DBusMessage {.inline.} =
+# proc new_dbusmessage_signal*(path: ustring, interface_x: ustring, signal: ustring): DBusMessage {.inline.} =
 
 # g_dbus_message_bytes_needed
 # flags: {throws} container: DBusMessage
@@ -6324,9 +6324,9 @@ proc return_value_with_unix_fd_list*(self: DBusMethodInvocation, parameters: GLi
 # res 'AsyncResult' 'ptr TAsyncResult' IN (diff., need sugar)
 # 'DBusObjectManagerClient' 'TransferFull[TDBusObjectManagerClient]' (diff., need sugar)
 proc g_dbus_object_manager_client_new_finish(res: ptr TAsyncResult, error: ptr PGError=nil): TransferFull[TDBusObjectManagerClient] {.cdecl, dynlib: lib, importc: "g_dbus_object_manager_client_new_finish".}
-proc dbusobjectmanagerclient_new_finish*(res: AsyncResult): DBusObjectManagerClient {.inline.} =
+proc new_dbusobjectmanagerclient_finish*(res: AsyncResult): DBusObjectManagerClient {.inline.} =
   wrap(g_dbus_object_manager_client_new_finish(unwrap(res)))
-# proc dbusobjectmanagerclient_new_finish*(res: AsyncResult): DBusObjectManagerClient {.inline.} =
+# proc new_dbusobjectmanagerclient_finish*(res: AsyncResult): DBusObjectManagerClient {.inline.} =
 
 # g_dbus_object_manager_client_new_for_bus_finish
 # flags: {isConstructor, throws} container: DBusObjectManagerClient
@@ -6335,9 +6335,9 @@ proc dbusobjectmanagerclient_new_finish*(res: AsyncResult): DBusObjectManagerCli
 # res 'AsyncResult' 'ptr TAsyncResult' IN (diff., need sugar)
 # 'DBusObjectManagerClient' 'TransferFull[TDBusObjectManagerClient]' (diff., need sugar)
 proc g_dbus_object_manager_client_new_for_bus_finish(res: ptr TAsyncResult, error: ptr PGError=nil): TransferFull[TDBusObjectManagerClient] {.cdecl, dynlib: lib, importc: "g_dbus_object_manager_client_new_for_bus_finish".}
-proc dbusobjectmanagerclient_new_for_bus_finish*(res: AsyncResult): DBusObjectManagerClient {.inline.} =
+proc new_dbusobjectmanagerclient_for_bus_finish*(res: AsyncResult): DBusObjectManagerClient {.inline.} =
   wrap(g_dbus_object_manager_client_new_for_bus_finish(unwrap(res)))
-# proc dbusobjectmanagerclient_new_for_bus_finish*(res: AsyncResult): DBusObjectManagerClient {.inline.} =
+# proc new_dbusobjectmanagerclient_for_bus_finish*(res: AsyncResult): DBusObjectManagerClient {.inline.} =
 
 # g_dbus_object_manager_client_new_for_bus_sync
 # flags: {isConstructor, throws} container: DBusObjectManagerClient
@@ -6353,9 +6353,9 @@ proc dbusobjectmanagerclient_new_for_bus_finish*(res: AsyncResult): DBusObjectMa
 # cancellable 'Cancellable' 'ptr TCancellable' IN (diff., need sugar)
 # 'DBusObjectManagerClient' 'TransferFull[TDBusObjectManagerClient]' (diff., need sugar)
 proc g_dbus_object_manager_client_new_for_bus_sync(bus_type: BusType, flags: SDBusObjectManagerClientFlags, name: ucstring, object_path: ucstring, get_proxy_type_func: pointer, get_proxy_type_user_data: pointer, get_proxy_type_destroy_notify: pointer, cancellable: ptr TCancellable, error: ptr PGError=nil): TransferFull[TDBusObjectManagerClient] {.cdecl, dynlib: lib, importc: "g_dbus_object_manager_client_new_for_bus_sync".}
-proc dbusobjectmanagerclient_new_for_bus_sync*(bus_type: BusType, flags: SDBusObjectManagerClientFlags, name: ustring, object_path: ustring, get_proxy_type_func: pointer, get_proxy_type_user_data: pointer, get_proxy_type_destroy_notify: pointer, cancellable: Cancellable): DBusObjectManagerClient {.inline.} =
+proc new_dbusobjectmanagerclient_for_bus_sync*(bus_type: BusType, flags: SDBusObjectManagerClientFlags, name: ustring, object_path: ustring, get_proxy_type_func: pointer, get_proxy_type_user_data: pointer, get_proxy_type_destroy_notify: pointer, cancellable: Cancellable): DBusObjectManagerClient {.inline.} =
   wrap(g_dbus_object_manager_client_new_for_bus_sync(bus_type, flags, ucstring(name), ucstring(object_path), get_proxy_type_func, get_proxy_type_user_data, get_proxy_type_destroy_notify, cancellable.getPointer))
-# proc dbusobjectmanagerclient_new_for_bus_sync*(bus_type: BusType, flags: SDBusObjectManagerClientFlags, name: ustring, object_path: ustring, get_proxy_type_func: pointer, get_proxy_type_user_data: pointer, get_proxy_type_destroy_notify: pointer, cancellable: Cancellable): DBusObjectManagerClient {.inline.} =
+# proc new_dbusobjectmanagerclient_for_bus_sync*(bus_type: BusType, flags: SDBusObjectManagerClientFlags, name: ustring, object_path: ustring, get_proxy_type_func: pointer, get_proxy_type_user_data: pointer, get_proxy_type_destroy_notify: pointer, cancellable: Cancellable): DBusObjectManagerClient {.inline.} =
 
 # g_dbus_object_manager_client_new_sync
 # flags: {isConstructor, throws} container: DBusObjectManagerClient
@@ -6371,9 +6371,9 @@ proc dbusobjectmanagerclient_new_for_bus_sync*(bus_type: BusType, flags: SDBusOb
 # cancellable 'Cancellable' 'ptr TCancellable' IN (diff., need sugar)
 # 'DBusObjectManagerClient' 'TransferFull[TDBusObjectManagerClient]' (diff., need sugar)
 proc g_dbus_object_manager_client_new_sync(connection: ptr TDBusConnection, flags: SDBusObjectManagerClientFlags, name: ucstring, object_path: ucstring, get_proxy_type_func: pointer, get_proxy_type_user_data: pointer, get_proxy_type_destroy_notify: pointer, cancellable: ptr TCancellable, error: ptr PGError=nil): TransferFull[TDBusObjectManagerClient] {.cdecl, dynlib: lib, importc: "g_dbus_object_manager_client_new_sync".}
-proc dbusobjectmanagerclient_new_sync*(connection: DBusConnection, flags: SDBusObjectManagerClientFlags, name: ustring, object_path: ustring, get_proxy_type_func: pointer, get_proxy_type_user_data: pointer, get_proxy_type_destroy_notify: pointer, cancellable: Cancellable): DBusObjectManagerClient {.inline.} =
+proc new_dbusobjectmanagerclient_sync*(connection: DBusConnection, flags: SDBusObjectManagerClientFlags, name: ustring, object_path: ustring, get_proxy_type_func: pointer, get_proxy_type_user_data: pointer, get_proxy_type_destroy_notify: pointer, cancellable: Cancellable): DBusObjectManagerClient {.inline.} =
   wrap(g_dbus_object_manager_client_new_sync(connection.getPointer, flags, ucstring(name), ucstring(object_path), get_proxy_type_func, get_proxy_type_user_data, get_proxy_type_destroy_notify, cancellable.getPointer))
-# proc dbusobjectmanagerclient_new_sync*(connection: DBusConnection, flags: SDBusObjectManagerClientFlags, name: ustring, object_path: ustring, get_proxy_type_func: pointer, get_proxy_type_user_data: pointer, get_proxy_type_destroy_notify: pointer, cancellable: Cancellable): DBusObjectManagerClient {.inline.} =
+# proc new_dbusobjectmanagerclient_sync*(connection: DBusConnection, flags: SDBusObjectManagerClientFlags, name: ustring, object_path: ustring, get_proxy_type_func: pointer, get_proxy_type_user_data: pointer, get_proxy_type_destroy_notify: pointer, cancellable: Cancellable): DBusObjectManagerClient {.inline.} =
 
 # g_dbus_object_manager_client_new
 # flags: {} container: DBusObjectManagerClient
@@ -6455,9 +6455,9 @@ proc get_name_owner*(self: DBusObjectManagerClient): ustring {.inline.} =
 # object_path 'ustring' 'ucstring' IN (diff., need sugar)
 # 'DBusObjectManagerServer' 'TransferFull[TDBusObjectManagerServer]' (diff., need sugar)
 proc g_dbus_object_manager_server_new(object_path: ucstring): TransferFull[TDBusObjectManagerServer] {.cdecl, dynlib: lib, importc: "g_dbus_object_manager_server_new".}
-proc dbusobjectmanagerserver_new*(object_path: ustring): DBusObjectManagerServer {.inline.} =
+proc new_dbusobjectmanagerserver*(object_path: ustring): DBusObjectManagerServer {.inline.} =
   wrap(g_dbus_object_manager_server_new(ucstring(object_path)))
-# proc dbusobjectmanagerserver_new*(object_path: ustring): DBusObjectManagerServer {.inline.} =
+# proc new_dbusobjectmanagerserver*(object_path: ustring): DBusObjectManagerServer {.inline.} =
 
 # g_dbus_object_manager_server_export
 # flags: {isMethod} container: DBusObjectManagerServer
@@ -6525,9 +6525,9 @@ proc unexport*(self: DBusObjectManagerServer, object_path: ustring): bool {.inli
 # object_path 'ustring' 'ucstring' IN (diff., need sugar)
 # 'DBusObjectProxy' 'TransferFull[TDBusObjectProxy]' (diff., need sugar)
 proc g_dbus_object_proxy_new(connection: ptr TDBusConnection, object_path: ucstring): TransferFull[TDBusObjectProxy] {.cdecl, dynlib: lib, importc: "g_dbus_object_proxy_new".}
-proc dbusobjectproxy_new*(connection: DBusConnection, object_path: ustring): DBusObjectProxy {.inline.} =
+proc new_dbusobjectproxy*(connection: DBusConnection, object_path: ustring): DBusObjectProxy {.inline.} =
   wrap(g_dbus_object_proxy_new(connection.getPointer, ucstring(object_path)))
-# proc dbusobjectproxy_new*(connection: DBusConnection, object_path: ustring): DBusObjectProxy {.inline.} =
+# proc new_dbusobjectproxy*(connection: DBusConnection, object_path: ustring): DBusObjectProxy {.inline.} =
 
 # g_dbus_object_proxy_get_connection
 # flags: {isMethod} container: DBusObjectProxy
@@ -6544,9 +6544,9 @@ proc get_connection*(self: DBusObjectProxy): DBusConnection {.inline.} =
 # object_path 'ustring' 'ucstring' IN (diff., need sugar)
 # 'DBusObjectSkeleton' 'TransferFull[TDBusObjectSkeleton]' (diff., need sugar)
 proc g_dbus_object_skeleton_new(object_path: ucstring): TransferFull[TDBusObjectSkeleton] {.cdecl, dynlib: lib, importc: "g_dbus_object_skeleton_new".}
-proc dbusobjectskeleton_new*(object_path: ustring): DBusObjectSkeleton {.inline.} =
+proc new_dbusobjectskeleton*(object_path: ustring): DBusObjectSkeleton {.inline.} =
   wrap(g_dbus_object_skeleton_new(ucstring(object_path)))
-# proc dbusobjectskeleton_new*(object_path: ustring): DBusObjectSkeleton {.inline.} =
+# proc new_dbusobjectskeleton*(object_path: ustring): DBusObjectSkeleton {.inline.} =
 
 # g_dbus_object_skeleton_add_interface
 # flags: {isMethod} container: DBusObjectSkeleton
@@ -6604,9 +6604,9 @@ proc set_object_path*(self: DBusObjectSkeleton, object_path: ustring) {.inline.}
 # res 'AsyncResult' 'ptr TAsyncResult' IN (diff., need sugar)
 # 'DBusProxy' 'TransferFull[TDBusProxy]' (diff., need sugar)
 proc g_dbus_proxy_new_finish(res: ptr TAsyncResult, error: ptr PGError=nil): TransferFull[TDBusProxy] {.cdecl, dynlib: lib, importc: "g_dbus_proxy_new_finish".}
-proc dbusproxy_new_finish*(res: AsyncResult): DBusProxy {.inline.} =
+proc new_dbusproxy_finish*(res: AsyncResult): DBusProxy {.inline.} =
   wrap(g_dbus_proxy_new_finish(unwrap(res)))
-# proc dbusproxy_new_finish*(res: AsyncResult): DBusProxy {.inline.} =
+# proc new_dbusproxy_finish*(res: AsyncResult): DBusProxy {.inline.} =
 
 # g_dbus_proxy_new_for_bus_finish
 # flags: {isConstructor, throws} container: DBusProxy
@@ -6615,9 +6615,9 @@ proc dbusproxy_new_finish*(res: AsyncResult): DBusProxy {.inline.} =
 # res 'AsyncResult' 'ptr TAsyncResult' IN (diff., need sugar)
 # 'DBusProxy' 'TransferFull[TDBusProxy]' (diff., need sugar)
 proc g_dbus_proxy_new_for_bus_finish(res: ptr TAsyncResult, error: ptr PGError=nil): TransferFull[TDBusProxy] {.cdecl, dynlib: lib, importc: "g_dbus_proxy_new_for_bus_finish".}
-proc dbusproxy_new_for_bus_finish*(res: AsyncResult): DBusProxy {.inline.} =
+proc new_dbusproxy_for_bus_finish*(res: AsyncResult): DBusProxy {.inline.} =
   wrap(g_dbus_proxy_new_for_bus_finish(unwrap(res)))
-# proc dbusproxy_new_for_bus_finish*(res: AsyncResult): DBusProxy {.inline.} =
+# proc new_dbusproxy_for_bus_finish*(res: AsyncResult): DBusProxy {.inline.} =
 
 # g_dbus_proxy_new_for_bus_sync
 # flags: {isConstructor, throws} container: DBusProxy
@@ -6632,9 +6632,9 @@ proc dbusproxy_new_for_bus_finish*(res: AsyncResult): DBusProxy {.inline.} =
 # cancellable 'Cancellable' 'ptr TCancellable' IN (diff., need sugar)
 # 'DBusProxy' 'TransferFull[TDBusProxy]' (diff., need sugar)
 proc g_dbus_proxy_new_for_bus_sync(bus_type: BusType, flags: SDBusProxyFlags, info: ptr TDBusInterfaceInfo, name: ucstring, object_path: ucstring, interface_name: ucstring, cancellable: ptr TCancellable, error: ptr PGError=nil): TransferFull[TDBusProxy] {.cdecl, dynlib: lib, importc: "g_dbus_proxy_new_for_bus_sync".}
-proc dbusproxy_new_for_bus_sync*(bus_type: BusType, flags: SDBusProxyFlags, info: TDBusInterfaceInfo, name: ustring, object_path: ustring, interface_name: ustring, cancellable: Cancellable): DBusProxy {.inline.} =
+proc new_dbusproxy_for_bus_sync*(bus_type: BusType, flags: SDBusProxyFlags, info: TDBusInterfaceInfo, name: ustring, object_path: ustring, interface_name: ustring, cancellable: Cancellable): DBusProxy {.inline.} =
   wrap(g_dbus_proxy_new_for_bus_sync(bus_type, flags, myUnsafeAddr(info), ucstring(name), ucstring(object_path), ucstring(interface_name), cancellable.getPointer))
-# proc dbusproxy_new_for_bus_sync*(bus_type: BusType, flags: SDBusProxyFlags, info: TDBusInterfaceInfo, name: ustring, object_path: ustring, interface_name: ustring, cancellable: Cancellable): DBusProxy {.inline.} =
+# proc new_dbusproxy_for_bus_sync*(bus_type: BusType, flags: SDBusProxyFlags, info: TDBusInterfaceInfo, name: ustring, object_path: ustring, interface_name: ustring, cancellable: Cancellable): DBusProxy {.inline.} =
 
 # g_dbus_proxy_new_sync
 # flags: {isConstructor, throws} container: DBusProxy
@@ -6649,9 +6649,9 @@ proc dbusproxy_new_for_bus_sync*(bus_type: BusType, flags: SDBusProxyFlags, info
 # cancellable 'Cancellable' 'ptr TCancellable' IN (diff., need sugar)
 # 'DBusProxy' 'TransferFull[TDBusProxy]' (diff., need sugar)
 proc g_dbus_proxy_new_sync(connection: ptr TDBusConnection, flags: SDBusProxyFlags, info: ptr TDBusInterfaceInfo, name: ucstring, object_path: ucstring, interface_name: ucstring, cancellable: ptr TCancellable, error: ptr PGError=nil): TransferFull[TDBusProxy] {.cdecl, dynlib: lib, importc: "g_dbus_proxy_new_sync".}
-proc dbusproxy_new_sync*(connection: DBusConnection, flags: SDBusProxyFlags, info: TDBusInterfaceInfo, name: ustring, object_path: ustring, interface_name: ustring, cancellable: Cancellable): DBusProxy {.inline.} =
+proc new_dbusproxy_sync*(connection: DBusConnection, flags: SDBusProxyFlags, info: TDBusInterfaceInfo, name: ustring, object_path: ustring, interface_name: ustring, cancellable: Cancellable): DBusProxy {.inline.} =
   wrap(g_dbus_proxy_new_sync(connection.getPointer, flags, myUnsafeAddr(info), ucstring(name), ucstring(object_path), ucstring(interface_name), cancellable.getPointer))
-# proc dbusproxy_new_sync*(connection: DBusConnection, flags: SDBusProxyFlags, info: TDBusInterfaceInfo, name: ustring, object_path: ustring, interface_name: ustring, cancellable: Cancellable): DBusProxy {.inline.} =
+# proc new_dbusproxy_sync*(connection: DBusConnection, flags: SDBusProxyFlags, info: TDBusInterfaceInfo, name: ustring, object_path: ustring, interface_name: ustring, cancellable: Cancellable): DBusProxy {.inline.} =
 
 # g_dbus_proxy_new
 # flags: {} container: DBusProxy
@@ -6914,9 +6914,9 @@ proc set_interface_info*(self: DBusProxy, info: TDBusInterfaceInfo) {.inline.} =
 # cancellable 'Cancellable' 'ptr TCancellable' IN (diff., need sugar)
 # 'DBusServer' 'TransferFull[TDBusServer]' (diff., need sugar)
 proc g_dbus_server_new_sync(address: ucstring, flags: SDBusServerFlags, guid: ucstring, observer: ptr TDBusAuthObserver, cancellable: ptr TCancellable, error: ptr PGError=nil): TransferFull[TDBusServer] {.cdecl, dynlib: lib, importc: "g_dbus_server_new_sync".}
-proc dbusserver_new_sync*(address: ustring, flags: SDBusServerFlags, guid: ustring, observer: DBusAuthObserver, cancellable: Cancellable): DBusServer {.inline.} =
+proc new_dbusserver_sync*(address: ustring, flags: SDBusServerFlags, guid: ustring, observer: DBusAuthObserver, cancellable: Cancellable): DBusServer {.inline.} =
   wrap(g_dbus_server_new_sync(ucstring(address), flags, ucstring(guid), observer.getPointer, cancellable.getPointer))
-# proc dbusserver_new_sync*(address: ustring, flags: SDBusServerFlags, guid: ustring, observer: DBusAuthObserver, cancellable: Cancellable): DBusServer {.inline.} =
+# proc new_dbusserver_sync*(address: ustring, flags: SDBusServerFlags, guid: ustring, observer: DBusAuthObserver, cancellable: Cancellable): DBusServer {.inline.} =
 
 # g_dbus_server_get_client_address
 # flags: {isMethod} container: DBusServer
@@ -6978,9 +6978,9 @@ proc stop*(self: DBusServer) {.inline.} =
 # base_stream 'InputStream' 'ptr TInputStream' IN (diff., need sugar)
 # 'DataInputStream' 'TransferFull[TDataInputStream]' (diff., need sugar)
 proc g_data_input_stream_new(base_stream: ptr TInputStream): TransferFull[TDataInputStream] {.cdecl, dynlib: lib, importc: "g_data_input_stream_new".}
-proc datainputstream_new*(base_stream: InputStream): DataInputStream {.inline.} =
+proc new_datainputstream*(base_stream: InputStream): DataInputStream {.inline.} =
   wrap(g_data_input_stream_new(base_stream.getPointer))
-# proc datainputstream_new*(base_stream: InputStream): DataInputStream {.inline.} =
+# proc new_datainputstream*(base_stream: InputStream): DataInputStream {.inline.} =
 
 # g_data_input_stream_get_byte_order
 # flags: {isMethod} container: DataInputStream
@@ -7260,9 +7260,9 @@ proc set_newline_type*(self: DataInputStream, type_x: DataStreamNewlineType) {.i
 # base_stream 'OutputStream' 'ptr TOutputStream' IN (diff., need sugar)
 # 'DataOutputStream' 'TransferFull[TDataOutputStream]' (diff., need sugar)
 proc g_data_output_stream_new(base_stream: ptr TOutputStream): TransferFull[TDataOutputStream] {.cdecl, dynlib: lib, importc: "g_data_output_stream_new".}
-proc dataoutputstream_new*(base_stream: OutputStream): DataOutputStream {.inline.} =
+proc new_dataoutputstream*(base_stream: OutputStream): DataOutputStream {.inline.} =
   wrap(g_data_output_stream_new(base_stream.getPointer))
-# proc dataoutputstream_new*(base_stream: OutputStream): DataOutputStream {.inline.} =
+# proc new_dataoutputstream*(base_stream: OutputStream): DataOutputStream {.inline.} =
 
 # g_data_output_stream_get_byte_order
 # flags: {isMethod} container: DataOutputStream
@@ -7385,9 +7385,9 @@ proc set_byte_order*(self: DataOutputStream, order: DataStreamByteOrder) {.inlin
 # icon 'Icon' 'ptr TIcon' IN (diff., need sugar)
 # 'Emblem' 'TransferFull[TEmblem]' (diff., need sugar)
 proc g_emblem_new(icon: ptr TIcon): TransferFull[TEmblem] {.cdecl, dynlib: lib, importc: "g_emblem_new".}
-proc emblem_new*(icon: Icon): Emblem {.inline.} =
+proc new_emblem*(icon: Icon): Emblem {.inline.} =
   wrap(g_emblem_new(unwrap(icon)))
-# proc emblem_new*(icon: Icon): Emblem {.inline.} =
+# proc new_emblem*(icon: Icon): Emblem {.inline.} =
 
 # g_emblem_new_with_origin
 # flags: {isConstructor} container: Emblem
@@ -7396,9 +7396,9 @@ proc emblem_new*(icon: Icon): Emblem {.inline.} =
 # origin 'EmblemOrigin' 'EmblemOrigin' IN
 # 'Emblem' 'TransferFull[TEmblem]' (diff., need sugar)
 proc g_emblem_new_with_origin(icon: ptr TIcon, origin: EmblemOrigin): TransferFull[TEmblem] {.cdecl, dynlib: lib, importc: "g_emblem_new_with_origin".}
-proc emblem_new_with_origin*(icon: Icon, origin: EmblemOrigin): Emblem {.inline.} =
+proc new_emblem_with_origin*(icon: Icon, origin: EmblemOrigin): Emblem {.inline.} =
   wrap(g_emblem_new_with_origin(unwrap(icon), origin))
-# proc emblem_new_with_origin*(icon: Icon, origin: EmblemOrigin): Emblem {.inline.} =
+# proc new_emblem_with_origin*(icon: Icon, origin: EmblemOrigin): Emblem {.inline.} =
 
 # g_emblem_get_icon
 # flags: {isMethod} container: Emblem
@@ -7425,9 +7425,9 @@ proc get_origin*(self: Emblem): EmblemOrigin {.inline.} =
 # emblem 'Emblem' 'ptr TEmblem' IN (diff., need sugar)
 # 'EmblemedIcon' 'TransferFull[TEmblemedIcon]' (diff., need sugar)
 proc g_emblemed_icon_new(icon: ptr TIcon, emblem: ptr TEmblem): TransferFull[TEmblemedIcon] {.cdecl, dynlib: lib, importc: "g_emblemed_icon_new".}
-proc emblemedicon_new*(icon: Icon, emblem: Emblem): EmblemedIcon {.inline.} =
+proc new_emblemedicon*(icon: Icon, emblem: Emblem): EmblemedIcon {.inline.} =
   wrap(g_emblemed_icon_new(unwrap(icon), emblem.getPointer))
-# proc emblemedicon_new*(icon: Icon, emblem: Emblem): EmblemedIcon {.inline.} =
+# proc new_emblemedicon*(icon: Icon, emblem: Emblem): EmblemedIcon {.inline.} =
 
 # g_emblemed_icon_add_emblem
 # flags: {isMethod} container: EmblemedIcon
@@ -7636,9 +7636,9 @@ proc query_info_finish*(self: FileIOStream, result_x: AsyncResult): FileInfo {.i
 # file 'File' 'ptr TFile' IN (diff., need sugar)
 # 'FileIcon' 'TransferFull[TFileIcon]' (diff., need sugar)
 proc g_file_icon_new(file: ptr TFile): TransferFull[TFileIcon] {.cdecl, dynlib: lib, importc: "g_file_icon_new".}
-proc fileicon_new*(file: File): FileIcon {.inline.} =
+proc new_fileicon*(file: File): FileIcon {.inline.} =
   wrap(g_file_icon_new(unwrap(file)))
-# proc fileicon_new*(file: File): FileIcon {.inline.} =
+# proc new_fileicon*(file: File): FileIcon {.inline.} =
 
 # g_file_icon_get_file
 # flags: {isMethod} container: FileIcon
@@ -7654,9 +7654,9 @@ proc get_file*(self: FileIcon): File {.inline.} =
 # need sugar: is static method
 # 'FileInfo' 'TransferFull[TFileInfo]' (diff., need sugar)
 proc g_file_info_new(): TransferFull[TFileInfo] {.cdecl, dynlib: lib, importc: "g_file_info_new".}
-proc fileinfo_new*(): FileInfo {.inline.} =
+proc new_fileinfo*(): FileInfo {.inline.} =
   wrap(g_file_info_new())
-# proc fileinfo_new*(): FileInfo {.inline.} =
+# proc new_fileinfo*(): FileInfo {.inline.} =
 
 # g_file_info_clear_status
 # flags: {isMethod} container: FileInfo
@@ -8409,9 +8409,9 @@ proc query_info_finish*(self: FileOutputStream, result_x: AsyncResult): FileInfo
 # need sugar: is static method
 # 'FilenameCompleter' 'TransferFull[TFilenameCompleter]' (diff., need sugar)
 proc g_filename_completer_new(): TransferFull[TFilenameCompleter] {.cdecl, dynlib: lib, importc: "g_filename_completer_new".}
-proc filenamecompleter_new*(): FilenameCompleter {.inline.} =
+proc new_filenamecompleter*(): FilenameCompleter {.inline.} =
   wrap(g_filename_completer_new())
-# proc filenamecompleter_new*(): FilenameCompleter {.inline.} =
+# proc new_filenamecompleter*(): FilenameCompleter {.inline.} =
 
 # g_filename_completer_get_completion_suffix
 # flags: {isMethod} container: FilenameCompleter
@@ -8505,9 +8505,9 @@ proc set_close_base_stream*(self: FilterOutputStream, close_base: bool) {.inline
 # filename 'ustring' 'ucstring' IN (diff., need sugar)
 # 'IOModule' 'TransferFull[TIOModule]' (diff., need sugar)
 proc g_io_module_new(filename: ucstring): TransferFull[TIOModule] {.cdecl, dynlib: lib, importc: "g_io_module_new".}
-proc iomodule_new*(filename: ustring): IOModule {.inline.} =
+proc new_iomodule*(filename: ustring): IOModule {.inline.} =
   wrap(g_io_module_new(ucstring(filename)))
-# proc iomodule_new*(filename: ustring): IOModule {.inline.} =
+# proc new_iomodule*(filename: ustring): IOModule {.inline.} =
 
 # g_io_module_query
 # flags: {} container: IOModule
@@ -8658,9 +8658,9 @@ proc splice_async*(self: IOStream, stream2: IOStream, flags: SIOStreamSpliceFlag
 # family 'SocketFamily' 'SocketFamily' IN
 # 'InetAddress' 'TransferFull[TInetAddress]' (diff., need sugar)
 proc g_inet_address_new_any(family: SocketFamily): TransferFull[TInetAddress] {.cdecl, dynlib: lib, importc: "g_inet_address_new_any".}
-proc inetaddress_new_any*(family: SocketFamily): InetAddress {.inline.} =
+proc new_inetaddress_any*(family: SocketFamily): InetAddress {.inline.} =
   wrap(g_inet_address_new_any(family))
-# proc inetaddress_new_any*(family: SocketFamily): InetAddress {.inline.} =
+# proc new_inetaddress_any*(family: SocketFamily): InetAddress {.inline.} =
 
 # g_inet_address_new_from_bytes
 # flags: {isConstructor} container: InetAddress
@@ -8669,9 +8669,9 @@ proc inetaddress_new_any*(family: SocketFamily): InetAddress {.inline.} =
 # family 'SocketFamily' 'SocketFamily' IN
 # 'InetAddress' 'TransferFull[TInetAddress]' (diff., need sugar)
 proc g_inet_address_new_from_bytes(bytes: cstring, family: SocketFamily): TransferFull[TInetAddress] {.cdecl, dynlib: lib, importc: "g_inet_address_new_from_bytes".}
-proc inetaddress_new_from_bytes*(bytes: string, family: SocketFamily): InetAddress {.inline.} =
+proc new_inetaddress_from_bytes*(bytes: string, family: SocketFamily): InetAddress {.inline.} =
   wrap(g_inet_address_new_from_bytes(cstring(bytes), family))
-# proc inetaddress_new_from_bytes*(bytes: string, family: SocketFamily): InetAddress {.inline.} =
+# proc new_inetaddress_from_bytes*(bytes: string, family: SocketFamily): InetAddress {.inline.} =
 
 # g_inet_address_new_from_string
 # flags: {isConstructor} container: InetAddress
@@ -8679,9 +8679,9 @@ proc inetaddress_new_from_bytes*(bytes: string, family: SocketFamily): InetAddre
 # string 'ustring' 'ucstring' IN (diff., need sugar)
 # 'InetAddress' 'TransferFull[TInetAddress]' (diff., need sugar)
 proc g_inet_address_new_from_string(string: ucstring): TransferFull[TInetAddress] {.cdecl, dynlib: lib, importc: "g_inet_address_new_from_string".}
-proc inetaddress_new_from_string*(string: ustring): InetAddress {.inline.} =
+proc new_inetaddress_from_string*(string: ustring): InetAddress {.inline.} =
   wrap(g_inet_address_new_from_string(ucstring(string)))
-# proc inetaddress_new_from_string*(string: ustring): InetAddress {.inline.} =
+# proc new_inetaddress_from_string*(string: ustring): InetAddress {.inline.} =
 
 # g_inet_address_new_loopback
 # flags: {isConstructor} container: InetAddress
@@ -8689,9 +8689,9 @@ proc inetaddress_new_from_string*(string: ustring): InetAddress {.inline.} =
 # family 'SocketFamily' 'SocketFamily' IN
 # 'InetAddress' 'TransferFull[TInetAddress]' (diff., need sugar)
 proc g_inet_address_new_loopback(family: SocketFamily): TransferFull[TInetAddress] {.cdecl, dynlib: lib, importc: "g_inet_address_new_loopback".}
-proc inetaddress_new_loopback*(family: SocketFamily): InetAddress {.inline.} =
+proc new_inetaddress_loopback*(family: SocketFamily): InetAddress {.inline.} =
   wrap(g_inet_address_new_loopback(family))
-# proc inetaddress_new_loopback*(family: SocketFamily): InetAddress {.inline.} =
+# proc new_inetaddress_loopback*(family: SocketFamily): InetAddress {.inline.} =
 
 # g_inet_address_equal
 # flags: {isMethod} container: InetAddress
@@ -8828,9 +8828,9 @@ proc to_string*(self: InetAddress): ustring {.inline.} =
 # length 'uint32' 'uint32' IN
 # 'InetAddressMask' 'TransferFull[TInetAddressMask]' (diff., need sugar)
 proc g_inet_address_mask_new(addr_x: ptr TInetAddress, length: uint32, error: ptr PGError=nil): TransferFull[TInetAddressMask] {.cdecl, dynlib: lib, importc: "g_inet_address_mask_new".}
-proc inetaddressmask_new*(addr_x: InetAddress, length: uint32): InetAddressMask {.inline.} =
+proc new_inetaddressmask*(addr_x: InetAddress, length: uint32): InetAddressMask {.inline.} =
   wrap(g_inet_address_mask_new(addr_x.getPointer, length))
-# proc inetaddressmask_new*(addr_x: InetAddress, length: uint32): InetAddressMask {.inline.} =
+# proc new_inetaddressmask*(addr_x: InetAddress, length: uint32): InetAddressMask {.inline.} =
 
 # g_inet_address_mask_new_from_string
 # flags: {isConstructor, throws} container: InetAddressMask
@@ -8839,9 +8839,9 @@ proc inetaddressmask_new*(addr_x: InetAddress, length: uint32): InetAddressMask 
 # mask_string 'ustring' 'ucstring' IN (diff., need sugar)
 # 'InetAddressMask' 'TransferFull[TInetAddressMask]' (diff., need sugar)
 proc g_inet_address_mask_new_from_string(mask_string: ucstring, error: ptr PGError=nil): TransferFull[TInetAddressMask] {.cdecl, dynlib: lib, importc: "g_inet_address_mask_new_from_string".}
-proc inetaddressmask_new_from_string*(mask_string: ustring): InetAddressMask {.inline.} =
+proc new_inetaddressmask_from_string*(mask_string: ustring): InetAddressMask {.inline.} =
   wrap(g_inet_address_mask_new_from_string(ucstring(mask_string)))
-# proc inetaddressmask_new_from_string*(mask_string: ustring): InetAddressMask {.inline.} =
+# proc new_inetaddressmask_from_string*(mask_string: ustring): InetAddressMask {.inline.} =
 
 # g_inet_address_mask_equal
 # flags: {isMethod} container: InetAddressMask
@@ -8906,9 +8906,9 @@ proc to_string*(self: InetAddressMask): ustring {.inline.} =
 # port 'uint16' 'uint16' IN
 # 'InetSocketAddress' 'TransferFull[TInetSocketAddress]' (diff., need sugar)
 proc g_inet_socket_address_new(address: ptr TInetAddress, port: uint16): TransferFull[TInetSocketAddress] {.cdecl, dynlib: lib, importc: "g_inet_socket_address_new".}
-proc inetsocketaddress_new*(address: InetAddress, port: uint16): InetSocketAddress {.inline.} =
+proc new_inetsocketaddress*(address: InetAddress, port: uint16): InetSocketAddress {.inline.} =
   wrap(g_inet_socket_address_new(address.getPointer, port))
-# proc inetsocketaddress_new*(address: InetAddress, port: uint16): InetSocketAddress {.inline.} =
+# proc new_inetsocketaddress*(address: InetAddress, port: uint16): InetSocketAddress {.inline.} =
 
 # g_inet_socket_address_new_from_string
 # flags: {isConstructor} container: InetSocketAddress
@@ -8917,9 +8917,9 @@ proc inetsocketaddress_new*(address: InetAddress, port: uint16): InetSocketAddre
 # port 'uint32' 'uint32' IN
 # 'InetSocketAddress' 'TransferFull[TInetSocketAddress]' (diff., need sugar)
 proc g_inet_socket_address_new_from_string(address: ucstring, port: uint32): TransferFull[TInetSocketAddress] {.cdecl, dynlib: lib, importc: "g_inet_socket_address_new_from_string".}
-proc inetsocketaddress_new_from_string*(address: ustring, port: uint32): InetSocketAddress {.inline.} =
+proc new_inetsocketaddress_from_string*(address: ustring, port: uint32): InetSocketAddress {.inline.} =
   wrap(g_inet_socket_address_new_from_string(ucstring(address), port))
-# proc inetsocketaddress_new_from_string*(address: ustring, port: uint32): InetSocketAddress {.inline.} =
+# proc new_inetsocketaddress_from_string*(address: ustring, port: uint32): InetSocketAddress {.inline.} =
 
 # g_inet_socket_address_get_address
 # flags: {isMethod} container: InetSocketAddress
@@ -9163,9 +9163,9 @@ proc skip_finish*(self: InputStream, result_x: AsyncResult): int32 {.inline.} =
 # need sugar: is static method
 # 'MemoryInputStream' 'TransferFull[TMemoryInputStream]' (diff., need sugar)
 proc g_memory_input_stream_new(): TransferFull[TMemoryInputStream] {.cdecl, dynlib: lib, importc: "g_memory_input_stream_new".}
-proc memoryinputstream_new*(): MemoryInputStream {.inline.} =
+proc new_memoryinputstream*(): MemoryInputStream {.inline.} =
   wrap(g_memory_input_stream_new())
-# proc memoryinputstream_new*(): MemoryInputStream {.inline.} =
+# proc new_memoryinputstream*(): MemoryInputStream {.inline.} =
 
 # g_memory_input_stream_new_from_bytes
 # flags: {isConstructor} container: MemoryInputStream
@@ -9173,9 +9173,9 @@ proc memoryinputstream_new*(): MemoryInputStream {.inline.} =
 # bytes 'GLib2.TBytes' 'ptr GLib2.TBytes' IN (diff., need sugar)
 # 'MemoryInputStream' 'TransferFull[TMemoryInputStream]' (diff., need sugar)
 proc g_memory_input_stream_new_from_bytes(bytes: ptr GLib2.TBytes): TransferFull[TMemoryInputStream] {.cdecl, dynlib: lib, importc: "g_memory_input_stream_new_from_bytes".}
-proc memoryinputstream_new_from_bytes*(bytes: GLib2.TBytes): MemoryInputStream {.inline.} =
+proc new_memoryinputstream_from_bytes*(bytes: GLib2.TBytes): MemoryInputStream {.inline.} =
   wrap(g_memory_input_stream_new_from_bytes(myUnsafeAddr(bytes)))
-# proc memoryinputstream_new_from_bytes*(bytes: GLib2.TBytes): MemoryInputStream {.inline.} =
+# proc new_memoryinputstream_from_bytes*(bytes: GLib2.TBytes): MemoryInputStream {.inline.} =
 
 # g_memory_input_stream_new_from_data
 # flags: {isConstructor} container: MemoryInputStream
@@ -9185,9 +9185,9 @@ proc memoryinputstream_new_from_bytes*(bytes: GLib2.TBytes): MemoryInputStream {
 # destroy 'pointer' 'pointer' IN
 # 'MemoryInputStream' 'TransferFull[TMemoryInputStream]' (diff., need sugar)
 proc g_memory_input_stream_new_from_data(data: cstring, len: int32, destroy: pointer): TransferFull[TMemoryInputStream] {.cdecl, dynlib: lib, importc: "g_memory_input_stream_new_from_data".}
-proc memoryinputstream_new_from_data*(data: string, destroy: pointer): MemoryInputStream {.inline.} =
+proc new_memoryinputstream_from_data*(data: string, destroy: pointer): MemoryInputStream {.inline.} =
   wrap(g_memory_input_stream_new_from_data(cstring(data), data.len.int32, destroy))
-# proc memoryinputstream_new_from_data*(data: string, destroy: pointer): MemoryInputStream {.inline.} =
+# proc new_memoryinputstream_from_data*(data: string, destroy: pointer): MemoryInputStream {.inline.} =
 
 # g_memory_input_stream_add_bytes
 # flags: {isMethod} container: MemoryInputStream
@@ -9216,9 +9216,9 @@ proc add_data*(self: MemoryInputStream, data: string, destroy: pointer) {.inline
 # need sugar: is static method
 # 'MemoryOutputStream' 'TransferFull[TMemoryOutputStream]' (diff., need sugar)
 proc g_memory_output_stream_new_resizable(): TransferFull[TMemoryOutputStream] {.cdecl, dynlib: lib, importc: "g_memory_output_stream_new_resizable".}
-proc memoryoutputstream_new_resizable*(): MemoryOutputStream {.inline.} =
+proc new_memoryoutputstream_resizable*(): MemoryOutputStream {.inline.} =
   wrap(g_memory_output_stream_new_resizable())
-# proc memoryoutputstream_new_resizable*(): MemoryOutputStream {.inline.} =
+# proc new_memoryoutputstream_resizable*(): MemoryOutputStream {.inline.} =
 
 # g_memory_output_stream_get_data
 # flags: {isMethod} container: MemoryOutputStream
@@ -9270,9 +9270,9 @@ proc steal_data*(self: MemoryOutputStream) {.inline.} =
 # need sugar: is static method
 # 'Menu' 'TransferFull[TMenu]' (diff., need sugar)
 proc g_menu_new(): TransferFull[TMenu] {.cdecl, dynlib: lib, importc: "g_menu_new".}
-proc menu_new*(): Menu {.inline.} =
+proc new_menu*(): Menu {.inline.} =
   wrap(g_menu_new())
-# proc menu_new*(): Menu {.inline.} =
+# proc new_menu*(): Menu {.inline.} =
 
 # g_menu_append
 # flags: {isMethod} container: Menu
@@ -9483,9 +9483,9 @@ proc next*(self: MenuAttributeIter): bool {.inline.} =
 # detailed_action 'ustring' 'ucstring' IN (diff., need sugar)
 # 'MenuItem' 'TransferFull[TMenuItem]' (diff., need sugar)
 proc g_menu_item_new(label: ucstring, detailed_action: ucstring): TransferFull[TMenuItem] {.cdecl, dynlib: lib, importc: "g_menu_item_new".}
-proc menuitem_new*(label: ustring, detailed_action: ustring): MenuItem {.inline.} =
+proc new_menuitem*(label: ustring, detailed_action: ustring): MenuItem {.inline.} =
   wrap(g_menu_item_new(ucstring(label), ucstring(detailed_action)))
-# proc menuitem_new*(label: ustring, detailed_action: ustring): MenuItem {.inline.} =
+# proc new_menuitem*(label: ustring, detailed_action: ustring): MenuItem {.inline.} =
 
 # g_menu_item_new_from_model
 # flags: {isConstructor} container: MenuItem
@@ -9494,9 +9494,9 @@ proc menuitem_new*(label: ustring, detailed_action: ustring): MenuItem {.inline.
 # item_index 'int32' 'int32' IN
 # 'MenuItem' 'TransferFull[TMenuItem]' (diff., need sugar)
 proc g_menu_item_new_from_model(model: ptr TMenuModel, item_index: int32): TransferFull[TMenuItem] {.cdecl, dynlib: lib, importc: "g_menu_item_new_from_model".}
-proc menuitem_new_from_model*(model: MenuModel, item_index: int32): MenuItem {.inline.} =
+proc new_menuitem_from_model*(model: MenuModel, item_index: int32): MenuItem {.inline.} =
   wrap(g_menu_item_new_from_model(model.getPointer, item_index))
-# proc menuitem_new_from_model*(model: MenuModel, item_index: int32): MenuItem {.inline.} =
+# proc new_menuitem_from_model*(model: MenuModel, item_index: int32): MenuItem {.inline.} =
 
 # g_menu_item_new_section
 # flags: {isConstructor} container: MenuItem
@@ -9505,9 +9505,9 @@ proc menuitem_new_from_model*(model: MenuModel, item_index: int32): MenuItem {.i
 # section 'MenuModel' 'ptr TMenuModel' IN (diff., need sugar)
 # 'MenuItem' 'TransferFull[TMenuItem]' (diff., need sugar)
 proc g_menu_item_new_section(label: ucstring, section: ptr TMenuModel): TransferFull[TMenuItem] {.cdecl, dynlib: lib, importc: "g_menu_item_new_section".}
-proc menuitem_new_section*(label: ustring, section: MenuModel): MenuItem {.inline.} =
+proc new_menuitem_section*(label: ustring, section: MenuModel): MenuItem {.inline.} =
   wrap(g_menu_item_new_section(ucstring(label), section.getPointer))
-# proc menuitem_new_section*(label: ustring, section: MenuModel): MenuItem {.inline.} =
+# proc new_menuitem_section*(label: ustring, section: MenuModel): MenuItem {.inline.} =
 
 # g_menu_item_new_submenu
 # flags: {isConstructor} container: MenuItem
@@ -9516,9 +9516,9 @@ proc menuitem_new_section*(label: ustring, section: MenuModel): MenuItem {.inlin
 # submenu 'MenuModel' 'ptr TMenuModel' IN (diff., need sugar)
 # 'MenuItem' 'TransferFull[TMenuItem]' (diff., need sugar)
 proc g_menu_item_new_submenu(label: ucstring, submenu: ptr TMenuModel): TransferFull[TMenuItem] {.cdecl, dynlib: lib, importc: "g_menu_item_new_submenu".}
-proc menuitem_new_submenu*(label: ustring, submenu: MenuModel): MenuItem {.inline.} =
+proc new_menuitem_submenu*(label: ustring, submenu: MenuModel): MenuItem {.inline.} =
   wrap(g_menu_item_new_submenu(ucstring(label), submenu.getPointer))
-# proc menuitem_new_submenu*(label: ustring, submenu: MenuModel): MenuItem {.inline.} =
+# proc new_menuitem_submenu*(label: ustring, submenu: MenuModel): MenuItem {.inline.} =
 
 # g_menu_item_get_attribute_value
 # flags: {isMethod} container: MenuItem
@@ -9743,9 +9743,9 @@ proc iterate_item_links*(self: MenuModel, item_index: int32): MenuLinkIter {.inl
 # need sugar: is static method
 # 'MountOperation' 'TransferFull[TMountOperation]' (diff., need sugar)
 proc g_mount_operation_new(): TransferFull[TMountOperation] {.cdecl, dynlib: lib, importc: "g_mount_operation_new".}
-proc mountoperation_new*(): MountOperation {.inline.} =
+proc new_mountoperation*(): MountOperation {.inline.} =
   wrap(g_mount_operation_new())
-# proc mountoperation_new*(): MountOperation {.inline.} =
+# proc new_mountoperation*(): MountOperation {.inline.} =
 
 # g_mount_operation_get_anonymous
 # flags: {isMethod} container: MountOperation
@@ -9878,9 +9878,9 @@ proc set_username*(self: MountOperation, username: ustring) {.inline.} =
 # port 'uint16' 'uint16' IN
 # 'NetworkAddress' 'TransferFull[TNetworkAddress]' (diff., need sugar)
 proc g_network_address_new(hostname: ucstring, port: uint16): TransferFull[TNetworkAddress] {.cdecl, dynlib: lib, importc: "g_network_address_new".}
-proc networkaddress_new*(hostname: ustring, port: uint16): NetworkAddress {.inline.} =
+proc new_networkaddress*(hostname: ustring, port: uint16): NetworkAddress {.inline.} =
   wrap(g_network_address_new(ucstring(hostname), port))
-# proc networkaddress_new*(hostname: ustring, port: uint16): NetworkAddress {.inline.} =
+# proc new_networkaddress*(hostname: ustring, port: uint16): NetworkAddress {.inline.} =
 
 # g_network_address_parse
 # flags: {throws} container: NetworkAddress
@@ -9941,9 +9941,9 @@ proc get_scheme*(self: NetworkAddress): ustring {.inline.} =
 # domain 'ustring' 'ucstring' IN (diff., need sugar)
 # 'NetworkService' 'TransferFull[TNetworkService]' (diff., need sugar)
 proc g_network_service_new(service: ucstring, protocol: ucstring, domain: ucstring): TransferFull[TNetworkService] {.cdecl, dynlib: lib, importc: "g_network_service_new".}
-proc networkservice_new*(service: ustring, protocol: ustring, domain: ustring): NetworkService {.inline.} =
+proc new_networkservice*(service: ustring, protocol: ustring, domain: ustring): NetworkService {.inline.} =
   wrap(g_network_service_new(ucstring(service), ucstring(protocol), ucstring(domain)))
-# proc networkservice_new*(service: ustring, protocol: ustring, domain: ustring): NetworkService {.inline.} =
+# proc new_networkservice*(service: ustring, protocol: ustring, domain: ustring): NetworkService {.inline.} =
 
 # g_network_service_get_domain
 # flags: {isMethod} container: NetworkService
@@ -9997,9 +9997,9 @@ proc set_scheme*(self: NetworkService, scheme: ustring) {.inline.} =
 # title 'ustring' 'ucstring' IN (diff., need sugar)
 # 'Notification' 'TransferFull[TNotification]' (diff., need sugar)
 proc g_notification_new(title: ucstring): TransferFull[TNotification] {.cdecl, dynlib: lib, importc: "g_notification_new".}
-proc notification_new*(title: ustring): Notification {.inline.} =
+proc new_notification*(title: ustring): Notification {.inline.} =
   wrap(g_notification_new(ucstring(title)))
-# proc notification_new*(title: ustring): Notification {.inline.} =
+# proc new_notification*(title: ustring): Notification {.inline.} =
 
 # g_notification_add_button
 # flags: {isMethod} container: Notification
@@ -10457,9 +10457,9 @@ proc release_finish*(self: Permission, result_x: AsyncResult): bool {.inline.} =
 # property_name 'ustring' 'ucstring' IN (diff., need sugar)
 # 'PropertyAction' 'TransferFull[TPropertyAction]' (diff., need sugar)
 proc g_property_action_new(name: ucstring, object_x: pointer, property_name: ucstring): TransferFull[TPropertyAction] {.cdecl, dynlib: lib, importc: "g_property_action_new".}
-proc propertyaction_new*(name: ustring, object_x: pointer, property_name: ustring): PropertyAction {.inline.} =
+proc new_propertyaction*(name: ustring, object_x: pointer, property_name: ustring): PropertyAction {.inline.} =
   wrap(g_property_action_new(ucstring(name), object_x, ucstring(property_name)))
-# proc propertyaction_new*(name: ustring, object_x: pointer, property_name: ustring): PropertyAction {.inline.} =
+# proc new_propertyaction*(name: ustring, object_x: pointer, property_name: ustring): PropertyAction {.inline.} =
 
 # g_proxy_address_new
 # flags: {isConstructor} container: ProxyAddress
@@ -10473,9 +10473,9 @@ proc propertyaction_new*(name: ustring, object_x: pointer, property_name: ustrin
 # password 'ustring' 'ucstring' IN (diff., need sugar)
 # 'ProxyAddress' 'TransferFull[TProxyAddress]' (diff., need sugar)
 proc g_proxy_address_new(inetaddr: ptr TInetAddress, port: uint16, protocol: ucstring, dest_hostname: ucstring, dest_port: uint16, username: ucstring, password: ucstring): TransferFull[TProxyAddress] {.cdecl, dynlib: lib, importc: "g_proxy_address_new".}
-proc proxyaddress_new*(inetaddr: InetAddress, port: uint16, protocol: ustring, dest_hostname: ustring, dest_port: uint16, username: ustring, password: ustring): ProxyAddress {.inline.} =
+proc new_proxyaddress*(inetaddr: InetAddress, port: uint16, protocol: ustring, dest_hostname: ustring, dest_port: uint16, username: ustring, password: ustring): ProxyAddress {.inline.} =
   wrap(g_proxy_address_new(inetaddr.getPointer, port, ucstring(protocol), ucstring(dest_hostname), dest_port, ucstring(username), ucstring(password)))
-# proc proxyaddress_new*(inetaddr: InetAddress, port: uint16, protocol: ustring, dest_hostname: ustring, dest_port: uint16, username: ustring, password: ustring): ProxyAddress {.inline.} =
+# proc new_proxyaddress*(inetaddr: InetAddress, port: uint16, protocol: ustring, dest_hostname: ustring, dest_port: uint16, username: ustring, password: ustring): ProxyAddress {.inline.} =
 
 # g_proxy_address_get_destination_hostname
 # flags: {isMethod} container: ProxyAddress
@@ -10714,9 +10714,9 @@ proc set_default*(self: Resolver) {.inline.} =
 # schema_id 'ustring' 'ucstring' IN (diff., need sugar)
 # 'Settings' 'TransferFull[TSettings]' (diff., need sugar)
 proc g_settings_new(schema_id: ucstring): TransferFull[TSettings] {.cdecl, dynlib: lib, importc: "g_settings_new".}
-proc settings_new*(schema_id: ustring): Settings {.inline.} =
+proc new_settings*(schema_id: ustring): Settings {.inline.} =
   wrap(g_settings_new(ucstring(schema_id)))
-# proc settings_new*(schema_id: ustring): Settings {.inline.} =
+# proc new_settings*(schema_id: ustring): Settings {.inline.} =
 
 # g_settings_new_full
 # flags: {isConstructor} container: Settings
@@ -10726,9 +10726,9 @@ proc settings_new*(schema_id: ustring): Settings {.inline.} =
 # path 'ustring' 'ucstring' IN (diff., need sugar)
 # 'Settings' 'TransferFull[TSettings]' (diff., need sugar)
 proc g_settings_new_full(schema: ptr TSettingsSchema, backend: ptr TSettingsBackend, path: ucstring): TransferFull[TSettings] {.cdecl, dynlib: lib, importc: "g_settings_new_full".}
-proc settings_new_full*(schema: TSettingsSchema, backend: TSettingsBackend, path: ustring): Settings {.inline.} =
+proc new_settings_full*(schema: TSettingsSchema, backend: TSettingsBackend, path: ustring): Settings {.inline.} =
   wrap(g_settings_new_full(myUnsafeAddr(schema), myUnsafeAddr(backend), ucstring(path)))
-# proc settings_new_full*(schema: TSettingsSchema, backend: TSettingsBackend, path: ustring): Settings {.inline.} =
+# proc new_settings_full*(schema: TSettingsSchema, backend: TSettingsBackend, path: ustring): Settings {.inline.} =
 
 # g_settings_new_with_backend
 # flags: {isConstructor} container: Settings
@@ -10737,9 +10737,9 @@ proc settings_new_full*(schema: TSettingsSchema, backend: TSettingsBackend, path
 # backend 'TSettingsBackend' 'ptr TSettingsBackend' IN (diff., need sugar)
 # 'Settings' 'TransferFull[TSettings]' (diff., need sugar)
 proc g_settings_new_with_backend(schema_id: ucstring, backend: ptr TSettingsBackend): TransferFull[TSettings] {.cdecl, dynlib: lib, importc: "g_settings_new_with_backend".}
-proc settings_new_with_backend*(schema_id: ustring, backend: TSettingsBackend): Settings {.inline.} =
+proc new_settings_with_backend*(schema_id: ustring, backend: TSettingsBackend): Settings {.inline.} =
   wrap(g_settings_new_with_backend(ucstring(schema_id), myUnsafeAddr(backend)))
-# proc settings_new_with_backend*(schema_id: ustring, backend: TSettingsBackend): Settings {.inline.} =
+# proc new_settings_with_backend*(schema_id: ustring, backend: TSettingsBackend): Settings {.inline.} =
 
 # g_settings_new_with_backend_and_path
 # flags: {isConstructor} container: Settings
@@ -10749,9 +10749,9 @@ proc settings_new_with_backend*(schema_id: ustring, backend: TSettingsBackend): 
 # path 'ustring' 'ucstring' IN (diff., need sugar)
 # 'Settings' 'TransferFull[TSettings]' (diff., need sugar)
 proc g_settings_new_with_backend_and_path(schema_id: ucstring, backend: ptr TSettingsBackend, path: ucstring): TransferFull[TSettings] {.cdecl, dynlib: lib, importc: "g_settings_new_with_backend_and_path".}
-proc settings_new_with_backend_and_path*(schema_id: ustring, backend: TSettingsBackend, path: ustring): Settings {.inline.} =
+proc new_settings_with_backend_and_path*(schema_id: ustring, backend: TSettingsBackend, path: ustring): Settings {.inline.} =
   wrap(g_settings_new_with_backend_and_path(ucstring(schema_id), myUnsafeAddr(backend), ucstring(path)))
-# proc settings_new_with_backend_and_path*(schema_id: ustring, backend: TSettingsBackend, path: ustring): Settings {.inline.} =
+# proc new_settings_with_backend_and_path*(schema_id: ustring, backend: TSettingsBackend, path: ustring): Settings {.inline.} =
 
 # g_settings_new_with_path
 # flags: {isConstructor} container: Settings
@@ -10760,9 +10760,9 @@ proc settings_new_with_backend_and_path*(schema_id: ustring, backend: TSettingsB
 # path 'ustring' 'ucstring' IN (diff., need sugar)
 # 'Settings' 'TransferFull[TSettings]' (diff., need sugar)
 proc g_settings_new_with_path(schema_id: ucstring, path: ucstring): TransferFull[TSettings] {.cdecl, dynlib: lib, importc: "g_settings_new_with_path".}
-proc settings_new_with_path*(schema_id: ustring, path: ustring): Settings {.inline.} =
+proc new_settings_with_path*(schema_id: ustring, path: ustring): Settings {.inline.} =
   wrap(g_settings_new_with_path(ucstring(schema_id), ucstring(path)))
-# proc settings_new_with_path*(schema_id: ustring, path: ustring): Settings {.inline.} =
+# proc new_settings_with_path*(schema_id: ustring, path: ustring): Settings {.inline.} =
 
 # g_settings_list_relocatable_schemas
 # flags: {} container: Settings (deprecated)
@@ -11140,9 +11140,9 @@ proc set_value*(self: Settings, key: ustring, value: GLib2.TVariant): bool {.inl
 # parameter_type 'GLib2.TVariantType' 'ptr GLib2.TVariantType' IN (diff., need sugar)
 # 'SimpleAction' 'TransferFull[TSimpleAction]' (diff., need sugar)
 proc g_simple_action_new(name: ucstring, parameter_type: ptr GLib2.TVariantType): TransferFull[TSimpleAction] {.cdecl, dynlib: lib, importc: "g_simple_action_new".}
-proc simpleaction_new*(name: ustring, parameter_type: GLib2.TVariantType): SimpleAction {.inline.} =
+proc new_simpleaction*(name: ustring, parameter_type: GLib2.TVariantType): SimpleAction {.inline.} =
   wrap(g_simple_action_new(ucstring(name), myUnsafeAddr(parameter_type)))
-# proc simpleaction_new*(name: ustring, parameter_type: GLib2.TVariantType): SimpleAction {.inline.} =
+# proc new_simpleaction*(name: ustring, parameter_type: GLib2.TVariantType): SimpleAction {.inline.} =
 
 # g_simple_action_new_stateful
 # flags: {isConstructor} container: SimpleAction
@@ -11152,9 +11152,9 @@ proc simpleaction_new*(name: ustring, parameter_type: GLib2.TVariantType): Simpl
 # state 'GLib2.TVariant' 'ptr GLib2.TVariant' IN (diff., need sugar)
 # 'SimpleAction' 'TransferFull[TSimpleAction]' (diff., need sugar)
 proc g_simple_action_new_stateful(name: ucstring, parameter_type: ptr GLib2.TVariantType, state: ptr GLib2.TVariant): TransferFull[TSimpleAction] {.cdecl, dynlib: lib, importc: "g_simple_action_new_stateful".}
-proc simpleaction_new_stateful*(name: ustring, parameter_type: GLib2.TVariantType, state: GLib2.TVariant): SimpleAction {.inline.} =
+proc new_simpleaction_stateful*(name: ustring, parameter_type: GLib2.TVariantType, state: GLib2.TVariant): SimpleAction {.inline.} =
   wrap(g_simple_action_new_stateful(ucstring(name), myUnsafeAddr(parameter_type), myUnsafeAddr(state)))
-# proc simpleaction_new_stateful*(name: ustring, parameter_type: GLib2.TVariantType, state: GLib2.TVariant): SimpleAction {.inline.} =
+# proc new_simpleaction_stateful*(name: ustring, parameter_type: GLib2.TVariantType, state: GLib2.TVariant): SimpleAction {.inline.} =
 
 # g_simple_action_set_enabled
 # flags: {isMethod} container: SimpleAction
@@ -11181,9 +11181,9 @@ proc set_state*(self: SimpleAction, value: GLib2.TVariant) {.inline.} =
 # need sugar: is static method
 # 'SimpleActionGroup' 'TransferFull[TSimpleActionGroup]' (diff., need sugar)
 proc g_simple_action_group_new(): TransferFull[TSimpleActionGroup] {.cdecl, dynlib: lib, importc: "g_simple_action_group_new".}
-proc simpleactiongroup_new*(): SimpleActionGroup {.inline.} =
+proc new_simpleactiongroup*(): SimpleActionGroup {.inline.} =
   wrap(g_simple_action_group_new())
-# proc simpleactiongroup_new*(): SimpleActionGroup {.inline.} =
+# proc new_simpleactiongroup*(): SimpleActionGroup {.inline.} =
 
 # g_simple_action_group_add_entries
 # flags: {isMethod} container: SimpleActionGroup (deprecated)
@@ -11202,9 +11202,9 @@ proc simpleactiongroup_new*(): SimpleActionGroup {.inline.} =
 # source_tag 'pointer' 'pointer' IN
 # 'SimpleAsyncResult' 'TransferFull[TSimpleAsyncResult]' (diff., need sugar)
 proc g_simple_async_result_new(source_object: ptr GObject2.TObject, callback: pointer, user_data: pointer, source_tag: pointer): TransferFull[TSimpleAsyncResult] {.cdecl, dynlib: lib, importc: "g_simple_async_result_new".}
-proc simpleasyncresult_new*(source_object: GObject2.Object, callback: pointer, user_data: pointer, source_tag: pointer): SimpleAsyncResult {.inline.} =
+proc new_simpleasyncresult*(source_object: GObject2.Object, callback: pointer, user_data: pointer, source_tag: pointer): SimpleAsyncResult {.inline.} =
   wrap(g_simple_async_result_new(source_object.getPointer, callback, user_data, source_tag))
-# proc simpleasyncresult_new*(source_object: GObject2.Object, callback: pointer, user_data: pointer, source_tag: pointer): SimpleAsyncResult {.inline.} =
+# proc new_simpleasyncresult*(source_object: GObject2.Object, callback: pointer, user_data: pointer, source_tag: pointer): SimpleAsyncResult {.inline.} =
 
 # g_simple_async_result_new_from_error
 # flags: {isConstructor} container: SimpleAsyncResult
@@ -11215,9 +11215,9 @@ proc simpleasyncresult_new*(source_object: GObject2.Object, callback: pointer, u
 # error 'ptr ERROR_TODO' 'ptr ERROR_TODO' IN
 # 'SimpleAsyncResult' 'TransferFull[TSimpleAsyncResult]' (diff., need sugar)
 proc g_simple_async_result_new_from_error(source_object: ptr GObject2.TObject, callback: pointer, user_data: pointer, error: ptr ERROR_TODO): TransferFull[TSimpleAsyncResult] {.cdecl, dynlib: lib, importc: "g_simple_async_result_new_from_error".}
-proc simpleasyncresult_new_from_error*(source_object: GObject2.Object, callback: pointer, user_data: pointer, error: ptr ERROR_TODO): SimpleAsyncResult {.inline.} =
+proc new_simpleasyncresult_from_error*(source_object: GObject2.Object, callback: pointer, user_data: pointer, error: ptr ERROR_TODO): SimpleAsyncResult {.inline.} =
   wrap(g_simple_async_result_new_from_error(source_object.getPointer, callback, user_data, error))
-# proc simpleasyncresult_new_from_error*(source_object: GObject2.Object, callback: pointer, user_data: pointer, error: ptr ERROR_TODO): SimpleAsyncResult {.inline.} =
+# proc new_simpleasyncresult_from_error*(source_object: GObject2.Object, callback: pointer, user_data: pointer, error: ptr ERROR_TODO): SimpleAsyncResult {.inline.} =
 
 # g_simple_async_result_is_valid
 # flags: {} container: SimpleAsyncResult
@@ -11333,9 +11333,9 @@ proc set_op_res_gssize*(self: SimpleAsyncResult, op_res: int32) {.inline.} =
 # allowed 'bool' 'bool' IN
 # 'SimplePermission' 'TransferFull[TSimplePermission]' (diff., need sugar)
 proc g_simple_permission_new(allowed: bool): TransferFull[TSimplePermission] {.cdecl, dynlib: lib, importc: "g_simple_permission_new".}
-proc simplepermission_new*(allowed: bool): SimplePermission {.inline.} =
+proc new_simplepermission*(allowed: bool): SimplePermission {.inline.} =
   wrap(g_simple_permission_new(allowed))
-# proc simplepermission_new*(allowed: bool): SimplePermission {.inline.} =
+# proc new_simplepermission*(allowed: bool): SimplePermission {.inline.} =
 
 # g_simple_proxy_resolver_new
 # flags: {} container: SimpleProxyResolver
@@ -11388,9 +11388,9 @@ proc set_uri_proxy*(self: SimpleProxyResolver, uri_scheme: ustring, proxy: ustri
 # protocol 'SocketProtocol' 'SocketProtocol' IN
 # 'Socket' 'TransferFull[TSocket]' (diff., need sugar)
 proc g_socket_new(family: SocketFamily, type_x: SocketType, protocol: SocketProtocol, error: ptr PGError=nil): TransferFull[TSocket] {.cdecl, dynlib: lib, importc: "g_socket_new".}
-proc socket_new*(family: SocketFamily, type_x: SocketType, protocol: SocketProtocol): Socket {.inline.} =
+proc new_socket*(family: SocketFamily, type_x: SocketType, protocol: SocketProtocol): Socket {.inline.} =
   wrap(g_socket_new(family, type_x, protocol))
-# proc socket_new*(family: SocketFamily, type_x: SocketType, protocol: SocketProtocol): Socket {.inline.} =
+# proc new_socket*(family: SocketFamily, type_x: SocketType, protocol: SocketProtocol): Socket {.inline.} =
 
 # g_socket_new_from_fd
 # flags: {isConstructor, throws} container: Socket
@@ -11399,9 +11399,9 @@ proc socket_new*(family: SocketFamily, type_x: SocketType, protocol: SocketProto
 # fd 'int32' 'int32' IN
 # 'Socket' 'TransferFull[TSocket]' (diff., need sugar)
 proc g_socket_new_from_fd(fd: int32, error: ptr PGError=nil): TransferFull[TSocket] {.cdecl, dynlib: lib, importc: "g_socket_new_from_fd".}
-proc socket_new_from_fd*(fd: int32): Socket {.inline.} =
+proc new_socket_from_fd*(fd: int32): Socket {.inline.} =
   wrap(g_socket_new_from_fd(fd))
-# proc socket_new_from_fd*(fd: int32): Socket {.inline.} =
+# proc new_socket_from_fd*(fd: int32): Socket {.inline.} =
 
 # g_socket_accept
 # flags: {isMethod, throws} container: Socket
@@ -11959,9 +11959,9 @@ proc speaks_ipv4*(self: Socket): bool {.inline.} =
 # len 'uint32' 'uint32' IN
 # 'SocketAddress' 'TransferFull[TSocketAddress]' (diff., need sugar)
 proc g_socket_address_new_from_native(native: pointer, len: uint32): TransferFull[TSocketAddress] {.cdecl, dynlib: lib, importc: "g_socket_address_new_from_native".}
-proc socketaddress_new_from_native*(native: pointer, len: uint32): SocketAddress {.inline.} =
+proc new_socketaddress_from_native*(native: pointer, len: uint32): SocketAddress {.inline.} =
   wrap(g_socket_address_new_from_native(native, len))
-# proc socketaddress_new_from_native*(native: pointer, len: uint32): SocketAddress {.inline.} =
+# proc new_socketaddress_from_native*(native: pointer, len: uint32): SocketAddress {.inline.} =
 
 # g_socket_address_get_family
 # flags: {isMethod} container: SocketAddress
@@ -12032,9 +12032,9 @@ proc next_finish*(self: SocketAddressEnumerator, result_x: AsyncResult): SocketA
 # need sugar: is static method
 # 'SocketClient' 'TransferFull[TSocketClient]' (diff., need sugar)
 proc g_socket_client_new(): TransferFull[TSocketClient] {.cdecl, dynlib: lib, importc: "g_socket_client_new".}
-proc socketclient_new*(): SocketClient {.inline.} =
+proc new_socketclient*(): SocketClient {.inline.} =
   wrap(g_socket_client_new())
-# proc socketclient_new*(): SocketClient {.inline.} =
+# proc new_socketclient*(): SocketClient {.inline.} =
 
 # g_socket_client_add_application_proxy
 # flags: {isMethod} container: SocketClient
@@ -12521,9 +12521,9 @@ proc serialize*(self: SocketControlMessage, data: pointer) {.inline.} =
 # need sugar: is static method
 # 'SocketListener' 'TransferFull[TSocketListener]' (diff., need sugar)
 proc g_socket_listener_new(): TransferFull[TSocketListener] {.cdecl, dynlib: lib, importc: "g_socket_listener_new".}
-proc socketlistener_new*(): SocketListener {.inline.} =
+proc new_socketlistener*(): SocketListener {.inline.} =
   wrap(g_socket_listener_new())
-# proc socketlistener_new*(): SocketListener {.inline.} =
+# proc new_socketlistener*(): SocketListener {.inline.} =
 
 # g_socket_listener_accept
 # flags: {isMethod, throws} container: SocketListener
@@ -12681,9 +12681,9 @@ proc set_backlog*(self: SocketListener, listen_backlog: int32) {.inline.} =
 # need sugar: is static method
 # 'SocketService' 'TransferFull[TSocketService]' (diff., need sugar)
 proc g_socket_service_new(): TransferFull[TSocketService] {.cdecl, dynlib: lib, importc: "g_socket_service_new".}
-proc socketservice_new*(): SocketService {.inline.} =
+proc new_socketservice*(): SocketService {.inline.} =
   wrap(g_socket_service_new())
-# proc socketservice_new*(): SocketService {.inline.} =
+# proc new_socketservice*(): SocketService {.inline.} =
 
 # g_socket_service_is_active
 # flags: {isMethod} container: SocketService
@@ -12720,9 +12720,9 @@ proc stop*(self: SocketService) {.inline.} =
 # flags 'SSubprocessFlags' 'SSubprocessFlags' IN
 # 'Subprocess' 'TransferFull[TSubprocess]' (diff., need sugar)
 proc g_subprocess_newv(argv: uncheckedArray[ucstring], flags: SSubprocessFlags, error: ptr PGError=nil): TransferFull[TSubprocess] {.cdecl, dynlib: lib, importc: "g_subprocess_newv".}
-proc subprocess_new*(argv: uncheckedArray[ucstring], flags: SSubprocessFlags): Subprocess {.inline.} =
+proc new_subprocess*(argv: uncheckedArray[ucstring], flags: SSubprocessFlags): Subprocess {.inline.} =
   wrap(g_subprocess_newv(argv, flags))
-# proc subprocess_new*(argv: uncheckedArray[ucstring], flags: SSubprocessFlags): Subprocess {.inline.} =
+# proc new_subprocess*(argv: uncheckedArray[ucstring], flags: SSubprocessFlags): Subprocess {.inline.} =
 
 # g_subprocess_communicate
 # flags: {isMethod, throws} container: Subprocess
@@ -12989,9 +12989,9 @@ proc wait_finish*(self: Subprocess, result_x: AsyncResult): bool {.inline.} =
 # flags 'SSubprocessFlags' 'SSubprocessFlags' IN
 # 'SubprocessLauncher' 'TransferFull[TSubprocessLauncher]' (diff., need sugar)
 proc g_subprocess_launcher_new(flags: SSubprocessFlags): TransferFull[TSubprocessLauncher] {.cdecl, dynlib: lib, importc: "g_subprocess_launcher_new".}
-proc subprocesslauncher_new*(flags: SSubprocessFlags): SubprocessLauncher {.inline.} =
+proc new_subprocesslauncher*(flags: SSubprocessFlags): SubprocessLauncher {.inline.} =
   wrap(g_subprocess_launcher_new(flags))
-# proc subprocesslauncher_new*(flags: SSubprocessFlags): SubprocessLauncher {.inline.} =
+# proc new_subprocesslauncher*(flags: SSubprocessFlags): SubprocessLauncher {.inline.} =
 
 # g_subprocess_launcher_getenv
 # flags: {isMethod} container: SubprocessLauncher
@@ -13075,9 +13075,9 @@ proc unsetenv*(self: SubprocessLauncher, variable: ustring) {.inline.} =
 # callback_data 'pointer' 'pointer' IN
 # 'Task' 'TransferFull[TTask]' (diff., need sugar)
 proc g_task_new(source_object: ptr GObject2.TObject, cancellable: ptr TCancellable, callback: pointer, callback_data: pointer): TransferFull[TTask] {.cdecl, dynlib: lib, importc: "g_task_new".}
-proc task_new*(source_object: GObject2.Object, cancellable: Cancellable, callback: pointer, callback_data: pointer): Task {.inline.} =
+proc new_task*(source_object: GObject2.Object, cancellable: Cancellable, callback: pointer, callback_data: pointer): Task {.inline.} =
   wrap(g_task_new(source_object.getPointer, cancellable.getPointer, callback, callback_data))
-# proc task_new*(source_object: GObject2.Object, cancellable: Cancellable, callback: pointer, callback_data: pointer): Task {.inline.} =
+# proc new_task*(source_object: GObject2.Object, cancellable: Cancellable, callback: pointer, callback_data: pointer): Task {.inline.} =
 
 # g_task_is_valid
 # flags: {} container: Task
@@ -13342,9 +13342,9 @@ proc set_graceful_disconnect*(self: TcpConnection, graceful_disconnect: bool) {.
 # socket 'Socket' 'ptr TSocket' IN (diff., need sugar)
 # 'TcpWrapperConnection' 'TransferFull[TTcpWrapperConnection]' (diff., need sugar)
 proc g_tcp_wrapper_connection_new(base_io_stream: ptr TIOStream, socket: ptr TSocket): TransferFull[TTcpWrapperConnection] {.cdecl, dynlib: lib, importc: "g_tcp_wrapper_connection_new".}
-proc tcpwrapperconnection_new*(base_io_stream: IOStream, socket: Socket): TcpWrapperConnection {.inline.} =
+proc new_tcpwrapperconnection*(base_io_stream: IOStream, socket: Socket): TcpWrapperConnection {.inline.} =
   wrap(g_tcp_wrapper_connection_new(base_io_stream.getPointer, socket.getPointer))
-# proc tcpwrapperconnection_new*(base_io_stream: IOStream, socket: Socket): TcpWrapperConnection {.inline.} =
+# proc new_tcpwrapperconnection*(base_io_stream: IOStream, socket: Socket): TcpWrapperConnection {.inline.} =
 
 # g_tcp_wrapper_connection_get_base_io_stream
 # flags: {isMethod} container: TcpWrapperConnection
@@ -13361,9 +13361,9 @@ proc get_base_io_stream*(self: TcpWrapperConnection): IOStream {.inline.} =
 # flags 'STestDBusFlags' 'STestDBusFlags' IN
 # 'TestDBus' 'TransferFull[TTestDBus]' (diff., need sugar)
 proc g_test_dbus_new(flags: STestDBusFlags): TransferFull[TTestDBus] {.cdecl, dynlib: lib, importc: "g_test_dbus_new".}
-proc testdbus_new*(flags: STestDBusFlags): TestDBus {.inline.} =
+proc new_testdbus*(flags: STestDBusFlags): TestDBus {.inline.} =
   wrap(g_test_dbus_new(flags))
-# proc testdbus_new*(flags: STestDBusFlags): TestDBus {.inline.} =
+# proc new_testdbus*(flags: STestDBusFlags): TestDBus {.inline.} =
 
 # g_test_dbus_unset
 # flags: {} container: TestDBus
@@ -13435,9 +13435,9 @@ proc up*(self: TestDBus) {.inline.} =
 # iconname 'ustring' 'ucstring' IN (diff., need sugar)
 # 'ThemedIcon' 'TransferFull[TThemedIcon]' (diff., need sugar)
 proc g_themed_icon_new(iconname: ucstring): TransferFull[TThemedIcon] {.cdecl, dynlib: lib, importc: "g_themed_icon_new".}
-proc themedicon_new*(iconname: ustring): ThemedIcon {.inline.} =
+proc new_themedicon*(iconname: ustring): ThemedIcon {.inline.} =
   wrap(g_themed_icon_new(ucstring(iconname)))
-# proc themedicon_new*(iconname: ustring): ThemedIcon {.inline.} =
+# proc new_themedicon*(iconname: ustring): ThemedIcon {.inline.} =
 
 # g_themed_icon_new_from_names
 # flags: {isConstructor} container: ThemedIcon
@@ -13446,9 +13446,9 @@ proc themedicon_new*(iconname: ustring): ThemedIcon {.inline.} =
 # len 'int32' 'int32' IN
 # 'ThemedIcon' 'TransferFull[TThemedIcon]' (diff., need sugar)
 proc g_themed_icon_new_from_names(iconnames: openarray[ucstring], len: int32): TransferFull[TThemedIcon] {.cdecl, dynlib: lib, importc: "g_themed_icon_new_from_names".}
-proc themedicon_new_from_names*(iconnames: var openarray[ucstring]): ThemedIcon {.inline.} =
+proc new_themedicon_from_names*(iconnames: var openarray[ucstring]): ThemedIcon {.inline.} =
   wrap(g_themed_icon_new_from_names(iconnames, iconnames.len.int32))
-# proc themedicon_new_from_names*(iconnames: var openarray[ucstring]): ThemedIcon {.inline.} =
+# proc new_themedicon_from_names*(iconnames: var openarray[ucstring]): ThemedIcon {.inline.} =
 
 # g_themed_icon_new_with_default_fallbacks
 # flags: {isConstructor} container: ThemedIcon
@@ -13456,9 +13456,9 @@ proc themedicon_new_from_names*(iconnames: var openarray[ucstring]): ThemedIcon 
 # iconname 'ustring' 'ucstring' IN (diff., need sugar)
 # 'ThemedIcon' 'TransferFull[TThemedIcon]' (diff., need sugar)
 proc g_themed_icon_new_with_default_fallbacks(iconname: ucstring): TransferFull[TThemedIcon] {.cdecl, dynlib: lib, importc: "g_themed_icon_new_with_default_fallbacks".}
-proc themedicon_new_with_default_fallbacks*(iconname: ustring): ThemedIcon {.inline.} =
+proc new_themedicon_with_default_fallbacks*(iconname: ustring): ThemedIcon {.inline.} =
   wrap(g_themed_icon_new_with_default_fallbacks(ucstring(iconname)))
-# proc themedicon_new_with_default_fallbacks*(iconname: ustring): ThemedIcon {.inline.} =
+# proc new_themedicon_with_default_fallbacks*(iconname: ustring): ThemedIcon {.inline.} =
 
 # g_themed_icon_append_name
 # flags: {isMethod} container: ThemedIcon
@@ -13495,9 +13495,9 @@ proc prepend_name*(self: ThemedIcon, iconname: ustring) {.inline.} =
 # max_threads 'int32' 'int32' IN
 # 'ThreadedSocketService' 'TransferFull[TThreadedSocketService]' (diff., need sugar)
 proc g_threaded_socket_service_new(max_threads: int32): TransferFull[TThreadedSocketService] {.cdecl, dynlib: lib, importc: "g_threaded_socket_service_new".}
-proc threadedsocketservice_new*(max_threads: int32): ThreadedSocketService {.inline.} =
+proc new_threadedsocketservice*(max_threads: int32): ThreadedSocketService {.inline.} =
   wrap(g_threaded_socket_service_new(max_threads))
-# proc threadedsocketservice_new*(max_threads: int32): ThreadedSocketService {.inline.} =
+# proc new_threadedsocketservice*(max_threads: int32): ThreadedSocketService {.inline.} =
 
 # g_tls_certificate_new_from_file
 # flags: {isConstructor, throws} container: TlsCertificate
@@ -13506,9 +13506,9 @@ proc threadedsocketservice_new*(max_threads: int32): ThreadedSocketService {.inl
 # file 'ustring' 'ucstring' IN (diff., need sugar)
 # 'TlsCertificate' 'TransferFull[TTlsCertificate]' (diff., need sugar)
 proc g_tls_certificate_new_from_file(file: ucstring, error: ptr PGError=nil): TransferFull[TTlsCertificate] {.cdecl, dynlib: lib, importc: "g_tls_certificate_new_from_file".}
-proc tlscertificate_new_from_file*(file: ustring): TlsCertificate {.inline.} =
+proc new_tlscertificate_from_file*(file: ustring): TlsCertificate {.inline.} =
   wrap(g_tls_certificate_new_from_file(ucstring(file)))
-# proc tlscertificate_new_from_file*(file: ustring): TlsCertificate {.inline.} =
+# proc new_tlscertificate_from_file*(file: ustring): TlsCertificate {.inline.} =
 
 # g_tls_certificate_new_from_files
 # flags: {isConstructor, throws} container: TlsCertificate
@@ -13518,9 +13518,9 @@ proc tlscertificate_new_from_file*(file: ustring): TlsCertificate {.inline.} =
 # key_file 'ustring' 'ucstring' IN (diff., need sugar)
 # 'TlsCertificate' 'TransferFull[TTlsCertificate]' (diff., need sugar)
 proc g_tls_certificate_new_from_files(cert_file: ucstring, key_file: ucstring, error: ptr PGError=nil): TransferFull[TTlsCertificate] {.cdecl, dynlib: lib, importc: "g_tls_certificate_new_from_files".}
-proc tlscertificate_new_from_files*(cert_file: ustring, key_file: ustring): TlsCertificate {.inline.} =
+proc new_tlscertificate_from_files*(cert_file: ustring, key_file: ustring): TlsCertificate {.inline.} =
   wrap(g_tls_certificate_new_from_files(ucstring(cert_file), ucstring(key_file)))
-# proc tlscertificate_new_from_files*(cert_file: ustring, key_file: ustring): TlsCertificate {.inline.} =
+# proc new_tlscertificate_from_files*(cert_file: ustring, key_file: ustring): TlsCertificate {.inline.} =
 
 # g_tls_certificate_new_from_pem
 # flags: {isConstructor, throws} container: TlsCertificate
@@ -13530,9 +13530,9 @@ proc tlscertificate_new_from_files*(cert_file: ustring, key_file: ustring): TlsC
 # length 'int32' 'int32' IN
 # 'TlsCertificate' 'TransferFull[TTlsCertificate]' (diff., need sugar)
 proc g_tls_certificate_new_from_pem(data: ucstring, length: int32, error: ptr PGError=nil): TransferFull[TTlsCertificate] {.cdecl, dynlib: lib, importc: "g_tls_certificate_new_from_pem".}
-proc tlscertificate_new_from_pem*(data: ustring, length: int32): TlsCertificate {.inline.} =
+proc new_tlscertificate_from_pem*(data: ustring, length: int32): TlsCertificate {.inline.} =
   wrap(g_tls_certificate_new_from_pem(ucstring(data), length))
-# proc tlscertificate_new_from_pem*(data: ustring, length: int32): TlsCertificate {.inline.} =
+# proc new_tlscertificate_from_pem*(data: ustring, length: int32): TlsCertificate {.inline.} =
 
 # g_tls_certificate_list_new_from_file
 # flags: {throws} container: TlsCertificate
@@ -14018,9 +14018,9 @@ proc request_certificate_finish*(self: TlsInteraction, result_x: AsyncResult): T
 # description 'ustring' 'ucstring' IN (diff., need sugar)
 # 'TlsPassword' 'TransferFull[TTlsPassword]' (diff., need sugar)
 proc g_tls_password_new(flags: STlsPasswordFlags, description: ucstring): TransferFull[TTlsPassword] {.cdecl, dynlib: lib, importc: "g_tls_password_new".}
-proc tlspassword_new*(flags: STlsPasswordFlags, description: ustring): TlsPassword {.inline.} =
+proc new_tlspassword*(flags: STlsPasswordFlags, description: ustring): TlsPassword {.inline.} =
   wrap(g_tls_password_new(flags, ucstring(description)))
-# proc tlspassword_new*(flags: STlsPasswordFlags, description: ustring): TlsPassword {.inline.} =
+# proc new_tlspassword*(flags: STlsPasswordFlags, description: ustring): TlsPassword {.inline.} =
 
 # g_tls_password_get_description
 # flags: {isMethod} container: TlsPassword
@@ -14243,9 +14243,9 @@ proc get_volumes*(self: VolumeMonitor): ptr GLIST_TODO {.inline.} =
 # close_handle 'bool' 'bool' IN
 # 'Win32InputStream' 'TransferFull[TWin32InputStream]' (diff., need sugar)
 proc g_win32_input_stream_new(handle: pointer, close_handle: bool): TransferFull[TWin32InputStream] {.cdecl, dynlib: lib, importc: "g_win32_input_stream_new".}
-proc win32inputstream_new*(handle: pointer, close_handle: bool): Win32InputStream {.inline.} =
+proc new_win32inputstream*(handle: pointer, close_handle: bool): Win32InputStream {.inline.} =
   wrap(g_win32_input_stream_new(handle, close_handle))
-# proc win32inputstream_new*(handle: pointer, close_handle: bool): Win32InputStream {.inline.} =
+# proc new_win32inputstream*(handle: pointer, close_handle: bool): Win32InputStream {.inline.} =
 
 # g_win32_input_stream_get_close_handle
 # flags: {isMethod} container: Win32InputStream
@@ -14273,9 +14273,9 @@ proc set_close_handle*(self: Win32InputStream, close_handle: bool) {.inline.} =
 # close_handle 'bool' 'bool' IN
 # 'Win32OutputStream' 'TransferFull[TWin32OutputStream]' (diff., need sugar)
 proc g_win32_output_stream_new(handle: pointer, close_handle: bool): TransferFull[TWin32OutputStream] {.cdecl, dynlib: lib, importc: "g_win32_output_stream_new".}
-proc win32outputstream_new*(handle: pointer, close_handle: bool): Win32OutputStream {.inline.} =
+proc new_win32outputstream*(handle: pointer, close_handle: bool): Win32OutputStream {.inline.} =
   wrap(g_win32_output_stream_new(handle, close_handle))
-# proc win32outputstream_new*(handle: pointer, close_handle: bool): Win32OutputStream {.inline.} =
+# proc new_win32outputstream*(handle: pointer, close_handle: bool): Win32OutputStream {.inline.} =
 
 # g_win32_output_stream_get_close_handle
 # flags: {isMethod} container: Win32OutputStream
@@ -14303,9 +14303,9 @@ proc set_close_handle*(self: Win32OutputStream, close_handle: bool) {.inline.} =
 # level 'int32' 'int32' IN
 # 'ZlibCompressor' 'TransferFull[TZlibCompressor]' (diff., need sugar)
 proc g_zlib_compressor_new(format: ZlibCompressorFormat, level: int32): TransferFull[TZlibCompressor] {.cdecl, dynlib: lib, importc: "g_zlib_compressor_new".}
-proc zlibcompressor_new*(format: ZlibCompressorFormat, level: int32): ZlibCompressor {.inline.} =
+proc new_zlibcompressor*(format: ZlibCompressorFormat, level: int32): ZlibCompressor {.inline.} =
   wrap(g_zlib_compressor_new(format, level))
-# proc zlibcompressor_new*(format: ZlibCompressorFormat, level: int32): ZlibCompressor {.inline.} =
+# proc new_zlibcompressor*(format: ZlibCompressorFormat, level: int32): ZlibCompressor {.inline.} =
 
 # g_zlib_compressor_get_file_info
 # flags: {isMethod} container: ZlibCompressor
@@ -14332,9 +14332,9 @@ proc set_file_info*(self: ZlibCompressor, file_info: FileInfo) {.inline.} =
 # format 'ZlibCompressorFormat' 'ZlibCompressorFormat' IN
 # 'ZlibDecompressor' 'TransferFull[TZlibDecompressor]' (diff., need sugar)
 proc g_zlib_decompressor_new(format: ZlibCompressorFormat): TransferFull[TZlibDecompressor] {.cdecl, dynlib: lib, importc: "g_zlib_decompressor_new".}
-proc zlibdecompressor_new*(format: ZlibCompressorFormat): ZlibDecompressor {.inline.} =
+proc new_zlibdecompressor*(format: ZlibCompressorFormat): ZlibDecompressor {.inline.} =
   wrap(g_zlib_decompressor_new(format))
-# proc zlibdecompressor_new*(format: ZlibCompressorFormat): ZlibDecompressor {.inline.} =
+# proc new_zlibdecompressor*(format: ZlibCompressorFormat): ZlibDecompressor {.inline.} =
 
 # g_zlib_decompressor_get_file_info
 # flags: {isMethod} container: ZlibDecompressor
@@ -14621,9 +14621,9 @@ proc unref*(self: DBusMethodInfo) {.inline.} =
 # xml_data 'ustring' 'ucstring' IN (diff., need sugar)
 # 'TDBusNodeInfo' 'ptr TDBusNodeInfo' (diff., need sugar)
 proc g_dbus_node_info_new_for_xml(xml_data: ucstring, error: ptr PGError=nil): ptr TDBusNodeInfo {.cdecl, dynlib: lib, importc: "g_dbus_node_info_new_for_xml".}
-proc dbusnodeinfo_new_for_xml*(xml_data: ustring): TDBusNodeInfo {.inline.} =
+proc new_dbusnodeinfo_for_xml*(xml_data: ustring): TDBusNodeInfo {.inline.} =
   (g_dbus_node_info_new_for_xml(ucstring(xml_data)))[]
-# proc dbusnodeinfo_new_for_xml*(xml_data: ustring): TDBusNodeInfo {.inline.} =
+# proc new_dbusnodeinfo_for_xml*(xml_data: ustring): TDBusNodeInfo {.inline.} =
 
 # g_dbus_node_info_generate_xml
 # flags: {isMethod} container: DBusNodeInfo
@@ -14732,9 +14732,9 @@ proc unref*(self: DBusSignalInfo) {.inline.} =
 # need sugar: is static method
 # 'TFileAttributeInfoList' 'ptr TFileAttributeInfoList' (diff., need sugar)
 proc g_file_attribute_info_list_new(): ptr TFileAttributeInfoList {.cdecl, dynlib: lib, importc: "g_file_attribute_info_list_new".}
-proc fileattributeinfolist_new*(): TFileAttributeInfoList {.inline.} =
+proc new_fileattributeinfolist*(): TFileAttributeInfoList {.inline.} =
   (g_file_attribute_info_list_new())[]
-# proc fileattributeinfolist_new*(): TFileAttributeInfoList {.inline.} =
+# proc new_fileattributeinfolist*(): TFileAttributeInfoList {.inline.} =
 
 # g_file_attribute_info_list_add
 # flags: {isMethod} container: FileAttributeInfoList
@@ -14792,9 +14792,9 @@ proc unref*(self: FileAttributeInfoList) {.inline.} =
 # attributes 'ustring' 'ucstring' IN (diff., need sugar)
 # 'TFileAttributeMatcher' 'ptr TFileAttributeMatcher' (diff., need sugar)
 proc g_file_attribute_matcher_new(attributes: ucstring): ptr TFileAttributeMatcher {.cdecl, dynlib: lib, importc: "g_file_attribute_matcher_new".}
-proc fileattributematcher_new*(attributes: ustring): TFileAttributeMatcher {.inline.} =
+proc new_fileattributematcher*(attributes: ustring): TFileAttributeMatcher {.inline.} =
   (g_file_attribute_matcher_new(ucstring(attributes)))[]
-# proc fileattributematcher_new*(attributes: ustring): TFileAttributeMatcher {.inline.} =
+# proc new_fileattributematcher*(attributes: ustring): TFileAttributeMatcher {.inline.} =
 
 # g_file_attribute_matcher_enumerate_namespace
 # flags: {isMethod} container: FileAttributeMatcher
@@ -15076,9 +15076,9 @@ proc free*(self: IOModuleScope) {.inline.} =
 # data 'GLib2.TBytes' 'ptr GLib2.TBytes' IN (diff., need sugar)
 # 'TResource' 'ptr TResource' (diff., need sugar)
 proc g_resource_new_from_data(data: ptr GLib2.TBytes, error: ptr PGError=nil): ptr TResource {.cdecl, dynlib: lib, importc: "g_resource_new_from_data".}
-proc resource_new_from_data*(data: GLib2.TBytes): TResource {.inline.} =
+proc new_resource_from_data*(data: GLib2.TBytes): TResource {.inline.} =
   (g_resource_new_from_data(myUnsafeAddr(data)))[]
-# proc resource_new_from_data*(data: GLib2.TBytes): TResource {.inline.} =
+# proc new_resource_from_data*(data: GLib2.TBytes): TResource {.inline.} =
 
 # g_resources_register
 # flags: {isMethod} container: Resource
@@ -15328,9 +15328,9 @@ proc unref*(self: SettingsSchemaKey) {.inline.} =
 # trusted 'bool' 'bool' IN
 # 'TSettingsSchemaSource' 'ptr TSettingsSchemaSource' (diff., need sugar)
 proc g_settings_schema_source_new_from_directory(directory: ucstring, parent: ptr TSettingsSchemaSource, trusted: bool, error: ptr PGError=nil): ptr TSettingsSchemaSource {.cdecl, dynlib: lib, importc: "g_settings_schema_source_new_from_directory".}
-proc settingsschemasource_new_from_directory*(directory: ustring, parent: TSettingsSchemaSource, trusted: bool): TSettingsSchemaSource {.inline.} =
+proc new_settingsschemasource_from_directory*(directory: ustring, parent: TSettingsSchemaSource, trusted: bool): TSettingsSchemaSource {.inline.} =
   (g_settings_schema_source_new_from_directory(ucstring(directory), myUnsafeAddr(parent), trusted))[]
-# proc settingsschemasource_new_from_directory*(directory: ustring, parent: TSettingsSchemaSource, trusted: bool): TSettingsSchemaSource {.inline.} =
+# proc new_settingsschemasource_from_directory*(directory: ustring, parent: TSettingsSchemaSource, trusted: bool): TSettingsSchemaSource {.inline.} =
 
 # g_settings_schema_source_list_schemas
 # flags: {isMethod} container: SettingsSchemaSource
@@ -15415,9 +15415,9 @@ template get_default*(klass_parameter: typedesc[SettingsSchemaSource]): TSetting
 # weight 'uint16' 'uint16' IN
 # 'TSrvTarget' 'ptr TSrvTarget' (diff., need sugar)
 proc g_srv_target_new(hostname: ucstring, port: uint16, priority: uint16, weight: uint16): ptr TSrvTarget {.cdecl, dynlib: lib, importc: "g_srv_target_new".}
-proc srvtarget_new*(hostname: ustring, port: uint16, priority: uint16, weight: uint16): TSrvTarget {.inline.} =
+proc new_srvtarget*(hostname: ustring, port: uint16, priority: uint16, weight: uint16): TSrvTarget {.inline.} =
   (g_srv_target_new(ucstring(hostname), port, priority, weight))[]
-# proc srvtarget_new*(hostname: ustring, port: uint16, priority: uint16, weight: uint16): TSrvTarget {.inline.} =
+# proc new_srvtarget*(hostname: ustring, port: uint16, priority: uint16, weight: uint16): TSrvTarget {.inline.} =
 
 # g_srv_target_copy
 # flags: {isMethod} container: SrvTarget

@@ -5903,9 +5903,9 @@ template unref*(klass_parameter: typedesc[ByteArray], array: string) =
 # size 'uint32' 'uint32' IN
 # 'TBytes' 'ptr TBytes' (diff., need sugar)
 proc g_bytes_new(data: cstring, size: uint32): ptr TBytes {.cdecl, dynlib: lib, importc: "g_bytes_new".}
-proc bytes_new*(data: string): TBytes {.inline.} =
+proc new_bytes*(data: string): TBytes {.inline.} =
   (g_bytes_new(cstring(data), data.len.uint32))[]
-# proc bytes_new*(data: string): TBytes {.inline.} =
+# proc new_bytes*(data: string): TBytes {.inline.} =
 
 # g_bytes_new_take
 # flags: {isConstructor} container: Bytes
@@ -5914,9 +5914,9 @@ proc bytes_new*(data: string): TBytes {.inline.} =
 # size 'uint32' 'uint32' IN
 # 'TBytes' 'ptr TBytes' (diff., need sugar)
 proc g_bytes_new_take(data: cstring, size: uint32): ptr TBytes {.cdecl, dynlib: lib, importc: "g_bytes_new_take".}
-proc bytes_new_take*(data: string): TBytes {.inline.} =
+proc new_bytes_take*(data: string): TBytes {.inline.} =
   (g_bytes_new_take(cstring(data), data.len.uint32))[]
-# proc bytes_new_take*(data: string): TBytes {.inline.} =
+# proc new_bytes_take*(data: string): TBytes {.inline.} =
 
 # g_bytes_compare
 # flags: {isMethod} container: Bytes
@@ -6023,9 +6023,9 @@ proc unref_to_data*(self: Bytes, size: ptr uint32) {.inline.} =
 # checksum_type 'ChecksumType' 'ChecksumType' IN
 # 'TChecksum' 'ptr TChecksum' (diff., need sugar)
 proc g_checksum_new(checksum_type: ChecksumType): ptr TChecksum {.cdecl, dynlib: lib, importc: "g_checksum_new".}
-proc checksum_new*(checksum_type: ChecksumType): TChecksum {.inline.} =
+proc new_checksum*(checksum_type: ChecksumType): TChecksum {.inline.} =
   (g_checksum_new(checksum_type))[]
-# proc checksum_new*(checksum_type: ChecksumType): TChecksum {.inline.} =
+# proc new_checksum*(checksum_type: ChecksumType): TChecksum {.inline.} =
 
 # g_checksum_copy
 # flags: {isMethod} container: Checksum
@@ -6150,9 +6150,9 @@ proc wait_until*(self: Cond, mutex: TMutex, end_time: int64): bool {.inline.} =
 # need sugar: is static method
 # 'TDate' 'ptr TDate' (diff., need sugar)
 proc g_date_new(): ptr TDate {.cdecl, dynlib: lib, importc: "g_date_new".}
-proc date_new*(): TDate {.inline.} =
+proc new_date*(): TDate {.inline.} =
   (g_date_new())[]
-# proc date_new*(): TDate {.inline.} =
+# proc new_date*(): TDate {.inline.} =
 
 # g_date_new_dmy
 # flags: {isConstructor} container: Date
@@ -6162,9 +6162,9 @@ proc date_new*(): TDate {.inline.} =
 # year 'uint16' 'uint16' IN
 # 'TDate' 'ptr TDate' (diff., need sugar)
 proc g_date_new_dmy(day: uint8, month: DateMonth, year: uint16): ptr TDate {.cdecl, dynlib: lib, importc: "g_date_new_dmy".}
-proc date_new_dmy*(day: uint8, month: DateMonth, year: uint16): TDate {.inline.} =
+proc new_date_dmy*(day: uint8, month: DateMonth, year: uint16): TDate {.inline.} =
   (g_date_new_dmy(day, month, year))[]
-# proc date_new_dmy*(day: uint8, month: DateMonth, year: uint16): TDate {.inline.} =
+# proc new_date_dmy*(day: uint8, month: DateMonth, year: uint16): TDate {.inline.} =
 
 # g_date_new_julian
 # flags: {isConstructor} container: Date
@@ -6172,9 +6172,9 @@ proc date_new_dmy*(day: uint8, month: DateMonth, year: uint16): TDate {.inline.}
 # julian_day 'uint32' 'uint32' IN
 # 'TDate' 'ptr TDate' (diff., need sugar)
 proc g_date_new_julian(julian_day: uint32): ptr TDate {.cdecl, dynlib: lib, importc: "g_date_new_julian".}
-proc date_new_julian*(julian_day: uint32): TDate {.inline.} =
+proc new_date_julian*(julian_day: uint32): TDate {.inline.} =
   (g_date_new_julian(julian_day))[]
-# proc date_new_julian*(julian_day: uint32): TDate {.inline.} =
+# proc new_date_julian*(julian_day: uint32): TDate {.inline.} =
 
 # g_date_add_days
 # flags: {isMethod} container: Date
@@ -6638,9 +6638,9 @@ template valid_year*(klass_parameter: typedesc[Date], year: uint16): bool =
 # seconds 'float64' 'float64' IN
 # 'TDateTime' 'ptr TDateTime' (diff., need sugar)
 proc g_date_time_new(tz: ptr TTimeZone, year: int32, month: int32, day: int32, hour: int32, minute: int32, seconds: float64): ptr TDateTime {.cdecl, dynlib: lib, importc: "g_date_time_new".}
-proc datetime_new*(tz: TTimeZone, year: int32, month: int32, day: int32, hour: int32, minute: int32, seconds: float64): TDateTime {.inline.} =
+proc new_datetime*(tz: TTimeZone, year: int32, month: int32, day: int32, hour: int32, minute: int32, seconds: float64): TDateTime {.inline.} =
   (g_date_time_new(myUnsafeAddr(tz), year, month, day, hour, minute, seconds))[]
-# proc datetime_new*(tz: TTimeZone, year: int32, month: int32, day: int32, hour: int32, minute: int32, seconds: float64): TDateTime {.inline.} =
+# proc new_datetime*(tz: TTimeZone, year: int32, month: int32, day: int32, hour: int32, minute: int32, seconds: float64): TDateTime {.inline.} =
 
 # g_date_time_new_from_timeval_local
 # flags: {isConstructor} container: DateTime
@@ -6648,9 +6648,9 @@ proc datetime_new*(tz: TTimeZone, year: int32, month: int32, day: int32, hour: i
 # tv 'TTimeVal' 'ptr TTimeVal' IN (diff., need sugar)
 # 'TDateTime' 'ptr TDateTime' (diff., need sugar)
 proc g_date_time_new_from_timeval_local(tv: ptr TTimeVal): ptr TDateTime {.cdecl, dynlib: lib, importc: "g_date_time_new_from_timeval_local".}
-proc datetime_new_from_timeval_local*(tv: TTimeVal): TDateTime {.inline.} =
+proc new_datetime_from_timeval_local*(tv: TTimeVal): TDateTime {.inline.} =
   (g_date_time_new_from_timeval_local(myUnsafeAddr(tv)))[]
-# proc datetime_new_from_timeval_local*(tv: TTimeVal): TDateTime {.inline.} =
+# proc new_datetime_from_timeval_local*(tv: TTimeVal): TDateTime {.inline.} =
 
 # g_date_time_new_from_timeval_utc
 # flags: {isConstructor} container: DateTime
@@ -6658,9 +6658,9 @@ proc datetime_new_from_timeval_local*(tv: TTimeVal): TDateTime {.inline.} =
 # tv 'TTimeVal' 'ptr TTimeVal' IN (diff., need sugar)
 # 'TDateTime' 'ptr TDateTime' (diff., need sugar)
 proc g_date_time_new_from_timeval_utc(tv: ptr TTimeVal): ptr TDateTime {.cdecl, dynlib: lib, importc: "g_date_time_new_from_timeval_utc".}
-proc datetime_new_from_timeval_utc*(tv: TTimeVal): TDateTime {.inline.} =
+proc new_datetime_from_timeval_utc*(tv: TTimeVal): TDateTime {.inline.} =
   (g_date_time_new_from_timeval_utc(myUnsafeAddr(tv)))[]
-# proc datetime_new_from_timeval_utc*(tv: TTimeVal): TDateTime {.inline.} =
+# proc new_datetime_from_timeval_utc*(tv: TTimeVal): TDateTime {.inline.} =
 
 # g_date_time_new_from_unix_local
 # flags: {isConstructor} container: DateTime
@@ -6668,9 +6668,9 @@ proc datetime_new_from_timeval_utc*(tv: TTimeVal): TDateTime {.inline.} =
 # t 'int64' 'int64' IN
 # 'TDateTime' 'ptr TDateTime' (diff., need sugar)
 proc g_date_time_new_from_unix_local(t: int64): ptr TDateTime {.cdecl, dynlib: lib, importc: "g_date_time_new_from_unix_local".}
-proc datetime_new_from_unix_local*(t: int64): TDateTime {.inline.} =
+proc new_datetime_from_unix_local*(t: int64): TDateTime {.inline.} =
   (g_date_time_new_from_unix_local(t))[]
-# proc datetime_new_from_unix_local*(t: int64): TDateTime {.inline.} =
+# proc new_datetime_from_unix_local*(t: int64): TDateTime {.inline.} =
 
 # g_date_time_new_from_unix_utc
 # flags: {isConstructor} container: DateTime
@@ -6678,9 +6678,9 @@ proc datetime_new_from_unix_local*(t: int64): TDateTime {.inline.} =
 # t 'int64' 'int64' IN
 # 'TDateTime' 'ptr TDateTime' (diff., need sugar)
 proc g_date_time_new_from_unix_utc(t: int64): ptr TDateTime {.cdecl, dynlib: lib, importc: "g_date_time_new_from_unix_utc".}
-proc datetime_new_from_unix_utc*(t: int64): TDateTime {.inline.} =
+proc new_datetime_from_unix_utc*(t: int64): TDateTime {.inline.} =
   (g_date_time_new_from_unix_utc(t))[]
-# proc datetime_new_from_unix_utc*(t: int64): TDateTime {.inline.} =
+# proc new_datetime_from_unix_utc*(t: int64): TDateTime {.inline.} =
 
 # g_date_time_new_local
 # flags: {isConstructor} container: DateTime
@@ -6693,9 +6693,9 @@ proc datetime_new_from_unix_utc*(t: int64): TDateTime {.inline.} =
 # seconds 'float64' 'float64' IN
 # 'TDateTime' 'ptr TDateTime' (diff., need sugar)
 proc g_date_time_new_local(year: int32, month: int32, day: int32, hour: int32, minute: int32, seconds: float64): ptr TDateTime {.cdecl, dynlib: lib, importc: "g_date_time_new_local".}
-proc datetime_new_local*(year: int32, month: int32, day: int32, hour: int32, minute: int32, seconds: float64): TDateTime {.inline.} =
+proc new_datetime_local*(year: int32, month: int32, day: int32, hour: int32, minute: int32, seconds: float64): TDateTime {.inline.} =
   (g_date_time_new_local(year, month, day, hour, minute, seconds))[]
-# proc datetime_new_local*(year: int32, month: int32, day: int32, hour: int32, minute: int32, seconds: float64): TDateTime {.inline.} =
+# proc new_datetime_local*(year: int32, month: int32, day: int32, hour: int32, minute: int32, seconds: float64): TDateTime {.inline.} =
 
 # g_date_time_new_now
 # flags: {isConstructor} container: DateTime
@@ -6703,27 +6703,27 @@ proc datetime_new_local*(year: int32, month: int32, day: int32, hour: int32, min
 # tz 'TTimeZone' 'ptr TTimeZone' IN (diff., need sugar)
 # 'TDateTime' 'ptr TDateTime' (diff., need sugar)
 proc g_date_time_new_now(tz: ptr TTimeZone): ptr TDateTime {.cdecl, dynlib: lib, importc: "g_date_time_new_now".}
-proc datetime_new_now*(tz: TTimeZone): TDateTime {.inline.} =
+proc new_datetime_now*(tz: TTimeZone): TDateTime {.inline.} =
   (g_date_time_new_now(myUnsafeAddr(tz)))[]
-# proc datetime_new_now*(tz: TTimeZone): TDateTime {.inline.} =
+# proc new_datetime_now*(tz: TTimeZone): TDateTime {.inline.} =
 
 # g_date_time_new_now_local
 # flags: {isConstructor} container: DateTime
 # need sugar: is static method
 # 'TDateTime' 'ptr TDateTime' (diff., need sugar)
 proc g_date_time_new_now_local(): ptr TDateTime {.cdecl, dynlib: lib, importc: "g_date_time_new_now_local".}
-proc datetime_new_now_local*(): TDateTime {.inline.} =
+proc new_datetime_now_local*(): TDateTime {.inline.} =
   (g_date_time_new_now_local())[]
-# proc datetime_new_now_local*(): TDateTime {.inline.} =
+# proc new_datetime_now_local*(): TDateTime {.inline.} =
 
 # g_date_time_new_now_utc
 # flags: {isConstructor} container: DateTime
 # need sugar: is static method
 # 'TDateTime' 'ptr TDateTime' (diff., need sugar)
 proc g_date_time_new_now_utc(): ptr TDateTime {.cdecl, dynlib: lib, importc: "g_date_time_new_now_utc".}
-proc datetime_new_now_utc*(): TDateTime {.inline.} =
+proc new_datetime_now_utc*(): TDateTime {.inline.} =
   (g_date_time_new_now_utc())[]
-# proc datetime_new_now_utc*(): TDateTime {.inline.} =
+# proc new_datetime_now_utc*(): TDateTime {.inline.} =
 
 # g_date_time_new_utc
 # flags: {isConstructor} container: DateTime
@@ -6736,9 +6736,9 @@ proc datetime_new_now_utc*(): TDateTime {.inline.} =
 # seconds 'float64' 'float64' IN
 # 'TDateTime' 'ptr TDateTime' (diff., need sugar)
 proc g_date_time_new_utc(year: int32, month: int32, day: int32, hour: int32, minute: int32, seconds: float64): ptr TDateTime {.cdecl, dynlib: lib, importc: "g_date_time_new_utc".}
-proc datetime_new_utc*(year: int32, month: int32, day: int32, hour: int32, minute: int32, seconds: float64): TDateTime {.inline.} =
+proc new_datetime_utc*(year: int32, month: int32, day: int32, hour: int32, minute: int32, seconds: float64): TDateTime {.inline.} =
   (g_date_time_new_utc(year, month, day, hour, minute, seconds))[]
-# proc datetime_new_utc*(year: int32, month: int32, day: int32, hour: int32, minute: int32, seconds: float64): TDateTime {.inline.} =
+# proc new_datetime_utc*(year: int32, month: int32, day: int32, hour: int32, minute: int32, seconds: float64): TDateTime {.inline.} =
 
 # g_date_time_add
 # flags: {isMethod} container: DateTime
@@ -7165,9 +7165,9 @@ template make_tmp*(klass_parameter: typedesc[Dir], tmpl: string): string =
 # message 'ustring' 'ucstring' IN (diff., need sugar)
 # 'ptr ERROR_TODO' 'ptr ERROR_TODO'
 proc g_error_new_literal(domain: uint32, code: int32, message: ucstring): ptr ERROR_TODO {.cdecl, dynlib: lib, importc: "g_error_new_literal".}
-proc error_new_literal*(domain: uint32, code: int32, message: ustring): ptr ERROR_TODO {.inline.} =
+proc new_error_literal*(domain: uint32, code: int32, message: ustring): ptr ERROR_TODO {.inline.} =
   g_error_new_literal(domain, code, ucstring(message))
-# proc error_new_literal*(domain: uint32, code: int32, message: ustring): ptr ERROR_TODO {.inline.} =
+# proc new_error_literal*(domain: uint32, code: int32, message: ustring): ptr ERROR_TODO {.inline.} =
 
 # g_error_copy
 # flags: {isMethod} container: Error
@@ -7590,9 +7590,9 @@ proc close*(self: IConv): int32 {.inline.} =
 # mode 'ustring' 'ucstring' IN (diff., need sugar)
 # 'TIOChannel' 'ptr TIOChannel' (diff., need sugar)
 proc g_io_channel_new_file(filename: ucstring, mode: ucstring, error: ptr PGError=nil): ptr TIOChannel {.cdecl, dynlib: lib, importc: "g_io_channel_new_file".}
-proc iochannel_new_file*(filename: ustring, mode: ustring): TIOChannel {.inline.} =
+proc new_iochannel_file*(filename: ustring, mode: ustring): TIOChannel {.inline.} =
   (g_io_channel_new_file(ucstring(filename), ucstring(mode)))[]
-# proc iochannel_new_file*(filename: ustring, mode: ustring): TIOChannel {.inline.} =
+# proc new_iochannel_file*(filename: ustring, mode: ustring): TIOChannel {.inline.} =
 
 # g_io_channel_new_file_utf8
 # flags: {isConstructor, throws} container: IOChannel
@@ -7602,9 +7602,9 @@ proc iochannel_new_file*(filename: ustring, mode: ustring): TIOChannel {.inline.
 # mode 'ustring' 'ucstring' IN (diff., need sugar)
 # 'TIOChannel' 'ptr TIOChannel' (diff., need sugar)
 proc g_io_channel_new_file_utf8(filename: ucstring, mode: ucstring, error: ptr PGError=nil): ptr TIOChannel {.cdecl, dynlib: lib, importc: "g_io_channel_new_file_utf8".}
-proc iochannel_new_file_utf8*(filename: ustring, mode: ustring): TIOChannel {.inline.} =
+proc new_iochannel_file_utf8*(filename: ustring, mode: ustring): TIOChannel {.inline.} =
   (g_io_channel_new_file_utf8(ucstring(filename), ucstring(mode)))[]
-# proc iochannel_new_file_utf8*(filename: ustring, mode: ustring): TIOChannel {.inline.} =
+# proc new_iochannel_file_utf8*(filename: ustring, mode: ustring): TIOChannel {.inline.} =
 
 # g_io_channel_unix_new
 # flags: {isConstructor} container: IOChannel
@@ -8030,9 +8030,9 @@ template win32_poll*(klass_parameter: typedesc[IOChannel], fds: TPollFD, n_fds: 
 # need sugar: is static method
 # 'TKeyFile' 'ptr TKeyFile' (diff., need sugar)
 proc g_key_file_new(): ptr TKeyFile {.cdecl, dynlib: lib, importc: "g_key_file_new".}
-proc keyfile_new*(): TKeyFile {.inline.} =
+proc new_keyfile*(): TKeyFile {.inline.} =
   (g_key_file_new())[]
-# proc keyfile_new*(): TKeyFile {.inline.} =
+# proc new_keyfile*(): TKeyFile {.inline.} =
 
 # g_key_file_get_boolean
 # flags: {isMethod, throws} container: KeyFile
@@ -8591,9 +8591,9 @@ template error_quark*(klass_parameter: typedesc[KeyFile]): uint32 =
 # need sugar: is static method
 # 'TMainContext' 'ptr TMainContext' (diff., need sugar)
 proc g_main_context_new(): ptr TMainContext {.cdecl, dynlib: lib, importc: "g_main_context_new".}
-proc maincontext_new*(): TMainContext {.inline.} =
+proc new_maincontext*(): TMainContext {.inline.} =
   (g_main_context_new())[]
-# proc maincontext_new*(): TMainContext {.inline.} =
+# proc new_maincontext*(): TMainContext {.inline.} =
 
 # g_main_context_acquire
 # flags: {isMethod} container: MainContext
@@ -8845,9 +8845,9 @@ template ref_thread_default*(klass_parameter: typedesc[MainContext]): TMainConte
 # is_running 'bool' 'bool' IN
 # 'TMainLoop' 'ptr TMainLoop' (diff., need sugar)
 proc g_main_loop_new(context: ptr TMainContext, is_running: bool): ptr TMainLoop {.cdecl, dynlib: lib, importc: "g_main_loop_new".}
-proc mainloop_new*(context: TMainContext, is_running: bool): TMainLoop {.inline.} =
+proc new_mainloop*(context: TMainContext, is_running: bool): TMainLoop {.inline.} =
   (g_main_loop_new(myUnsafeAddr(context), is_running))[]
-# proc mainloop_new*(context: TMainContext, is_running: bool): TMainLoop {.inline.} =
+# proc new_mainloop*(context: TMainContext, is_running: bool): TMainLoop {.inline.} =
 
 # g_main_loop_get_context
 # flags: {isMethod} container: MainLoop
@@ -8912,9 +8912,9 @@ proc unref*(self: MainLoop) {.inline.} =
 # writable 'bool' 'bool' IN
 # 'TMappedFile' 'ptr TMappedFile' (diff., need sugar)
 proc g_mapped_file_new(filename: ucstring, writable: bool, error: ptr PGError=nil): ptr TMappedFile {.cdecl, dynlib: lib, importc: "g_mapped_file_new".}
-proc mappedfile_new*(filename: ustring, writable: bool): TMappedFile {.inline.} =
+proc new_mappedfile*(filename: ustring, writable: bool): TMappedFile {.inline.} =
   (g_mapped_file_new(ucstring(filename), writable))[]
-# proc mappedfile_new*(filename: ustring, writable: bool): TMappedFile {.inline.} =
+# proc new_mappedfile*(filename: ustring, writable: bool): TMappedFile {.inline.} =
 
 # g_mapped_file_new_from_fd
 # flags: {isConstructor, throws} container: MappedFile
@@ -8924,9 +8924,9 @@ proc mappedfile_new*(filename: ustring, writable: bool): TMappedFile {.inline.} 
 # writable 'bool' 'bool' IN
 # 'TMappedFile' 'ptr TMappedFile' (diff., need sugar)
 proc g_mapped_file_new_from_fd(fd: int32, writable: bool, error: ptr PGError=nil): ptr TMappedFile {.cdecl, dynlib: lib, importc: "g_mapped_file_new_from_fd".}
-proc mappedfile_new_from_fd*(fd: int32, writable: bool): TMappedFile {.inline.} =
+proc new_mappedfile_from_fd*(fd: int32, writable: bool): TMappedFile {.inline.} =
   (g_mapped_file_new_from_fd(fd, writable))[]
-# proc mappedfile_new_from_fd*(fd: int32, writable: bool): TMappedFile {.inline.} =
+# proc new_mappedfile_from_fd*(fd: int32, writable: bool): TMappedFile {.inline.} =
 
 # g_mapped_file_free
 # flags: {isMethod} container: MappedFile (deprecated)
@@ -8985,9 +8985,9 @@ proc unref*(self: MappedFile) {.inline.} =
 # user_data_dnotify 'pointer' 'pointer' IN
 # 'TMarkupParseContext' 'ptr TMarkupParseContext' (diff., need sugar)
 proc g_markup_parse_context_new(parser: ptr TMarkupParser, flags: SMarkupParseFlags, user_data: pointer, user_data_dnotify: pointer): ptr TMarkupParseContext {.cdecl, dynlib: lib, importc: "g_markup_parse_context_new".}
-proc markupparsecontext_new*(parser: TMarkupParser, flags: SMarkupParseFlags, user_data: pointer, user_data_dnotify: pointer): TMarkupParseContext {.inline.} =
+proc new_markupparsecontext*(parser: TMarkupParser, flags: SMarkupParseFlags, user_data: pointer, user_data_dnotify: pointer): TMarkupParseContext {.inline.} =
   (g_markup_parse_context_new(myUnsafeAddr(parser), flags, user_data, user_data_dnotify))[]
-# proc markupparsecontext_new*(parser: TMarkupParser, flags: SMarkupParseFlags, user_data: pointer, user_data_dnotify: pointer): TMarkupParseContext {.inline.} =
+# proc new_markupparsecontext*(parser: TMarkupParser, flags: SMarkupParseFlags, user_data: pointer, user_data_dnotify: pointer): TMarkupParseContext {.inline.} =
 
 # g_markup_parse_context_end_parse
 # flags: {isMethod, throws} container: MarkupParseContext
@@ -9928,9 +9928,9 @@ proc unlock*(self: RecMutex) {.inline.} =
 # match_options 'SRegexMatchFlags' 'SRegexMatchFlags' IN
 # 'TRegex' 'ptr TRegex' (diff., need sugar)
 proc g_regex_new(pattern: ucstring, compile_options: SRegexCompileFlags, match_options: SRegexMatchFlags, error: ptr PGError=nil): ptr TRegex {.cdecl, dynlib: lib, importc: "g_regex_new".}
-proc regex_new*(pattern: ustring, compile_options: SRegexCompileFlags, match_options: SRegexMatchFlags): TRegex {.inline.} =
+proc new_regex*(pattern: ustring, compile_options: SRegexCompileFlags, match_options: SRegexMatchFlags): TRegex {.inline.} =
   (g_regex_new(ucstring(pattern), compile_options, match_options))[]
-# proc regex_new*(pattern: ustring, compile_options: SRegexCompileFlags, match_options: SRegexMatchFlags): TRegex {.inline.} =
+# proc new_regex*(pattern: ustring, compile_options: SRegexCompileFlags, match_options: SRegexMatchFlags): TRegex {.inline.} =
 
 # g_regex_get_capture_count
 # flags: {isMethod} container: Regex
@@ -10499,9 +10499,9 @@ proc is_end*(self: SequenceIter): bool {.inline.} =
 # struct_size 'uint32' 'uint32' IN
 # 'TSource' 'ptr TSource' (diff., need sugar)
 proc g_source_new(source_funcs: ptr TSourceFuncs, struct_size: uint32): ptr TSource {.cdecl, dynlib: lib, importc: "g_source_new".}
-proc source_new*(source_funcs: TSourceFuncs, struct_size: uint32): TSource {.inline.} =
+proc new_source*(source_funcs: TSourceFuncs, struct_size: uint32): TSource {.inline.} =
   (g_source_new(myUnsafeAddr(source_funcs), struct_size))[]
-# proc source_new*(source_funcs: TSourceFuncs, struct_size: uint32): TSource {.inline.} =
+# proc new_source*(source_funcs: TSourceFuncs, struct_size: uint32): TSource {.inline.} =
 
 # g_source_add_child_source
 # flags: {isMethod} container: Source
@@ -11368,27 +11368,27 @@ template from_iso8601*(klass_parameter: typedesc[TimeVal], iso_date: ustring, ti
 # identifier 'ustring' 'ucstring' IN (diff., need sugar)
 # 'TTimeZone' 'ptr TTimeZone' (diff., need sugar)
 proc g_time_zone_new(identifier: ucstring): ptr TTimeZone {.cdecl, dynlib: lib, importc: "g_time_zone_new".}
-proc timezone_new*(identifier: ustring): TTimeZone {.inline.} =
+proc new_timezone*(identifier: ustring): TTimeZone {.inline.} =
   (g_time_zone_new(ucstring(identifier)))[]
-# proc timezone_new*(identifier: ustring): TTimeZone {.inline.} =
+# proc new_timezone*(identifier: ustring): TTimeZone {.inline.} =
 
 # g_time_zone_new_local
 # flags: {isConstructor} container: TimeZone
 # need sugar: is static method
 # 'TTimeZone' 'ptr TTimeZone' (diff., need sugar)
 proc g_time_zone_new_local(): ptr TTimeZone {.cdecl, dynlib: lib, importc: "g_time_zone_new_local".}
-proc timezone_new_local*(): TTimeZone {.inline.} =
+proc new_timezone_local*(): TTimeZone {.inline.} =
   (g_time_zone_new_local())[]
-# proc timezone_new_local*(): TTimeZone {.inline.} =
+# proc new_timezone_local*(): TTimeZone {.inline.} =
 
 # g_time_zone_new_utc
 # flags: {isConstructor} container: TimeZone
 # need sugar: is static method
 # 'TTimeZone' 'ptr TTimeZone' (diff., need sugar)
 proc g_time_zone_new_utc(): ptr TTimeZone {.cdecl, dynlib: lib, importc: "g_time_zone_new_utc".}
-proc timezone_new_utc*(): TTimeZone {.inline.} =
+proc new_timezone_utc*(): TTimeZone {.inline.} =
   (g_time_zone_new_utc())[]
-# proc timezone_new_utc*(): TTimeZone {.inline.} =
+# proc new_timezone_utc*(): TTimeZone {.inline.} =
 
 # g_time_zone_adjust_time
 # flags: {isMethod} container: TimeZone
@@ -11640,9 +11640,9 @@ proc unref*(self: Tree) {.inline.} =
 # n_children 'uint32' 'uint32' IN
 # 'TVariant' 'ptr TVariant' (diff., need sugar)
 proc g_variant_new_array(child_type: ptr TVariantType, children: openarray[ptr TVariant], n_children: uint32): ptr TVariant {.cdecl, dynlib: lib, importc: "g_variant_new_array".}
-proc variant_new_array*(child_type: TVariantType, children: var openarray[ptr TVariant]): TVariant {.inline.} =
+proc new_variant_array*(child_type: TVariantType, children: var openarray[ptr TVariant]): TVariant {.inline.} =
   (g_variant_new_array(myUnsafeAddr(child_type), children, children.len.uint32))[]
-# proc variant_new_array*(child_type: TVariantType, children: var openarray[ptr TVariant]): TVariant {.inline.} =
+# proc new_variant_array*(child_type: TVariantType, children: var openarray[ptr TVariant]): TVariant {.inline.} =
 
 # g_variant_new_boolean
 # flags: {isConstructor} container: Variant
@@ -11650,9 +11650,9 @@ proc variant_new_array*(child_type: TVariantType, children: var openarray[ptr TV
 # value 'bool' 'bool' IN
 # 'TVariant' 'ptr TVariant' (diff., need sugar)
 proc g_variant_new_boolean(value: bool): ptr TVariant {.cdecl, dynlib: lib, importc: "g_variant_new_boolean".}
-proc variant_new_boolean*(value: bool): TVariant {.inline.} =
+proc new_variant_boolean*(value: bool): TVariant {.inline.} =
   (g_variant_new_boolean(value))[]
-# proc variant_new_boolean*(value: bool): TVariant {.inline.} =
+# proc new_variant_boolean*(value: bool): TVariant {.inline.} =
 
 # g_variant_new_byte
 # flags: {isConstructor} container: Variant
@@ -11660,9 +11660,9 @@ proc variant_new_boolean*(value: bool): TVariant {.inline.} =
 # value 'uint8' 'uint8' IN
 # 'TVariant' 'ptr TVariant' (diff., need sugar)
 proc g_variant_new_byte(value: uint8): ptr TVariant {.cdecl, dynlib: lib, importc: "g_variant_new_byte".}
-proc variant_new_byte*(value: uint8): TVariant {.inline.} =
+proc new_variant_byte*(value: uint8): TVariant {.inline.} =
   (g_variant_new_byte(value))[]
-# proc variant_new_byte*(value: uint8): TVariant {.inline.} =
+# proc new_variant_byte*(value: uint8): TVariant {.inline.} =
 
 # g_variant_new_bytestring
 # flags: {isConstructor} container: Variant
@@ -11670,9 +11670,9 @@ proc variant_new_byte*(value: uint8): TVariant {.inline.} =
 # string 'string' 'cstring' IN (diff., need sugar) array zero-terminated
 # 'TVariant' 'ptr TVariant' (diff., need sugar)
 proc g_variant_new_bytestring(string: cstring): ptr TVariant {.cdecl, dynlib: lib, importc: "g_variant_new_bytestring".}
-proc variant_new_bytestring*(string: string): TVariant {.inline.} =
+proc new_variant_bytestring*(string: string): TVariant {.inline.} =
   (g_variant_new_bytestring(cstring(string)))[]
-# proc variant_new_bytestring*(string: string): TVariant {.inline.} =
+# proc new_variant_bytestring*(string: string): TVariant {.inline.} =
 
 # g_variant_new_bytestring_array
 # flags: {isConstructor} container: Variant
@@ -11681,9 +11681,9 @@ proc variant_new_bytestring*(string: string): TVariant {.inline.} =
 # length 'int32' 'int32' IN
 # 'TVariant' 'ptr TVariant' (diff., need sugar)
 proc g_variant_new_bytestring_array(strv: openarray[ucstring], length: int32): ptr TVariant {.cdecl, dynlib: lib, importc: "g_variant_new_bytestring_array".}
-proc variant_new_bytestring_array*(strv: var openarray[ucstring]): TVariant {.inline.} =
+proc new_variant_bytestring_array*(strv: var openarray[ucstring]): TVariant {.inline.} =
   (g_variant_new_bytestring_array(strv, strv.len.int32))[]
-# proc variant_new_bytestring_array*(strv: var openarray[ucstring]): TVariant {.inline.} =
+# proc new_variant_bytestring_array*(strv: var openarray[ucstring]): TVariant {.inline.} =
 
 # g_variant_new_dict_entry
 # flags: {isConstructor} container: Variant
@@ -11692,9 +11692,9 @@ proc variant_new_bytestring_array*(strv: var openarray[ucstring]): TVariant {.in
 # value 'TVariant' 'ptr TVariant' IN (diff., need sugar)
 # 'TVariant' 'ptr TVariant' (diff., need sugar)
 proc g_variant_new_dict_entry(key: ptr TVariant, value: ptr TVariant): ptr TVariant {.cdecl, dynlib: lib, importc: "g_variant_new_dict_entry".}
-proc variant_new_dict_entry*(key: TVariant, value: TVariant): TVariant {.inline.} =
+proc new_variant_dict_entry*(key: TVariant, value: TVariant): TVariant {.inline.} =
   (g_variant_new_dict_entry(myUnsafeAddr(key), myUnsafeAddr(value)))[]
-# proc variant_new_dict_entry*(key: TVariant, value: TVariant): TVariant {.inline.} =
+# proc new_variant_dict_entry*(key: TVariant, value: TVariant): TVariant {.inline.} =
 
 # g_variant_new_double
 # flags: {isConstructor} container: Variant
@@ -11702,9 +11702,9 @@ proc variant_new_dict_entry*(key: TVariant, value: TVariant): TVariant {.inline.
 # value 'float64' 'float64' IN
 # 'TVariant' 'ptr TVariant' (diff., need sugar)
 proc g_variant_new_double(value: float64): ptr TVariant {.cdecl, dynlib: lib, importc: "g_variant_new_double".}
-proc variant_new_double*(value: float64): TVariant {.inline.} =
+proc new_variant_double*(value: float64): TVariant {.inline.} =
   (g_variant_new_double(value))[]
-# proc variant_new_double*(value: float64): TVariant {.inline.} =
+# proc new_variant_double*(value: float64): TVariant {.inline.} =
 
 # g_variant_new_fixed_array
 # flags: {isConstructor} container: Variant
@@ -11715,9 +11715,9 @@ proc variant_new_double*(value: float64): TVariant {.inline.} =
 # element_size 'uint32' 'uint32' IN
 # 'TVariant' 'ptr TVariant' (diff., need sugar)
 proc g_variant_new_fixed_array(element_type: ptr TVariantType, elements: pointer, n_elements: uint32, element_size: uint32): ptr TVariant {.cdecl, dynlib: lib, importc: "g_variant_new_fixed_array".}
-proc variant_new_fixed_array*(element_type: TVariantType, elements: pointer, n_elements: uint32, element_size: uint32): TVariant {.inline.} =
+proc new_variant_fixed_array*(element_type: TVariantType, elements: pointer, n_elements: uint32, element_size: uint32): TVariant {.inline.} =
   (g_variant_new_fixed_array(myUnsafeAddr(element_type), elements, n_elements, element_size))[]
-# proc variant_new_fixed_array*(element_type: TVariantType, elements: pointer, n_elements: uint32, element_size: uint32): TVariant {.inline.} =
+# proc new_variant_fixed_array*(element_type: TVariantType, elements: pointer, n_elements: uint32, element_size: uint32): TVariant {.inline.} =
 
 # g_variant_new_from_bytes
 # flags: {isConstructor} container: Variant
@@ -11727,9 +11727,9 @@ proc variant_new_fixed_array*(element_type: TVariantType, elements: pointer, n_e
 # trusted 'bool' 'bool' IN
 # 'TVariant' 'ptr TVariant' (diff., need sugar)
 proc g_variant_new_from_bytes(type_x: ptr TVariantType, bytes: ptr TBytes, trusted: bool): ptr TVariant {.cdecl, dynlib: lib, importc: "g_variant_new_from_bytes".}
-proc variant_new_from_bytes*(type_x: TVariantType, bytes: TBytes, trusted: bool): TVariant {.inline.} =
+proc new_variant_from_bytes*(type_x: TVariantType, bytes: TBytes, trusted: bool): TVariant {.inline.} =
   (g_variant_new_from_bytes(myUnsafeAddr(type_x), myUnsafeAddr(bytes), trusted))[]
-# proc variant_new_from_bytes*(type_x: TVariantType, bytes: TBytes, trusted: bool): TVariant {.inline.} =
+# proc new_variant_from_bytes*(type_x: TVariantType, bytes: TBytes, trusted: bool): TVariant {.inline.} =
 
 # g_variant_new_from_data
 # flags: {isConstructor} container: Variant
@@ -11742,9 +11742,9 @@ proc variant_new_from_bytes*(type_x: TVariantType, bytes: TBytes, trusted: bool)
 # user_data 'pointer' 'pointer' IN
 # 'TVariant' 'ptr TVariant' (diff., need sugar)
 proc g_variant_new_from_data(type_x: ptr TVariantType, data: cstring, size: uint32, trusted: bool, notify: pointer, user_data: pointer): ptr TVariant {.cdecl, dynlib: lib, importc: "g_variant_new_from_data".}
-proc variant_new_from_data*(type_x: TVariantType, data: string, trusted: bool, notify: pointer, user_data: pointer): TVariant {.inline.} =
+proc new_variant_from_data*(type_x: TVariantType, data: string, trusted: bool, notify: pointer, user_data: pointer): TVariant {.inline.} =
   (g_variant_new_from_data(myUnsafeAddr(type_x), cstring(data), data.len.uint32, trusted, notify, user_data))[]
-# proc variant_new_from_data*(type_x: TVariantType, data: string, trusted: bool, notify: pointer, user_data: pointer): TVariant {.inline.} =
+# proc new_variant_from_data*(type_x: TVariantType, data: string, trusted: bool, notify: pointer, user_data: pointer): TVariant {.inline.} =
 
 # g_variant_new_handle
 # flags: {isConstructor} container: Variant
@@ -11752,9 +11752,9 @@ proc variant_new_from_data*(type_x: TVariantType, data: string, trusted: bool, n
 # value 'int32' 'int32' IN
 # 'TVariant' 'ptr TVariant' (diff., need sugar)
 proc g_variant_new_handle(value: int32): ptr TVariant {.cdecl, dynlib: lib, importc: "g_variant_new_handle".}
-proc variant_new_handle*(value: int32): TVariant {.inline.} =
+proc new_variant_handle*(value: int32): TVariant {.inline.} =
   (g_variant_new_handle(value))[]
-# proc variant_new_handle*(value: int32): TVariant {.inline.} =
+# proc new_variant_handle*(value: int32): TVariant {.inline.} =
 
 # g_variant_new_int16
 # flags: {isConstructor} container: Variant
@@ -11762,9 +11762,9 @@ proc variant_new_handle*(value: int32): TVariant {.inline.} =
 # value 'int16' 'int16' IN
 # 'TVariant' 'ptr TVariant' (diff., need sugar)
 proc g_variant_new_int16(value: int16): ptr TVariant {.cdecl, dynlib: lib, importc: "g_variant_new_int16".}
-proc variant_new_int16*(value: int16): TVariant {.inline.} =
+proc new_variant_int16*(value: int16): TVariant {.inline.} =
   (g_variant_new_int16(value))[]
-# proc variant_new_int16*(value: int16): TVariant {.inline.} =
+# proc new_variant_int16*(value: int16): TVariant {.inline.} =
 
 # g_variant_new_int32
 # flags: {isConstructor} container: Variant
@@ -11772,9 +11772,9 @@ proc variant_new_int16*(value: int16): TVariant {.inline.} =
 # value 'int32' 'int32' IN
 # 'TVariant' 'ptr TVariant' (diff., need sugar)
 proc g_variant_new_int32(value: int32): ptr TVariant {.cdecl, dynlib: lib, importc: "g_variant_new_int32".}
-proc variant_new_int32*(value: int32): TVariant {.inline.} =
+proc new_variant_int32*(value: int32): TVariant {.inline.} =
   (g_variant_new_int32(value))[]
-# proc variant_new_int32*(value: int32): TVariant {.inline.} =
+# proc new_variant_int32*(value: int32): TVariant {.inline.} =
 
 # g_variant_new_int64
 # flags: {isConstructor} container: Variant
@@ -11782,9 +11782,9 @@ proc variant_new_int32*(value: int32): TVariant {.inline.} =
 # value 'int64' 'int64' IN
 # 'TVariant' 'ptr TVariant' (diff., need sugar)
 proc g_variant_new_int64(value: int64): ptr TVariant {.cdecl, dynlib: lib, importc: "g_variant_new_int64".}
-proc variant_new_int64*(value: int64): TVariant {.inline.} =
+proc new_variant_int64*(value: int64): TVariant {.inline.} =
   (g_variant_new_int64(value))[]
-# proc variant_new_int64*(value: int64): TVariant {.inline.} =
+# proc new_variant_int64*(value: int64): TVariant {.inline.} =
 
 # g_variant_new_maybe
 # flags: {isConstructor} container: Variant
@@ -11793,9 +11793,9 @@ proc variant_new_int64*(value: int64): TVariant {.inline.} =
 # child 'TVariant' 'ptr TVariant' IN (diff., need sugar)
 # 'TVariant' 'ptr TVariant' (diff., need sugar)
 proc g_variant_new_maybe(child_type: ptr TVariantType, child: ptr TVariant): ptr TVariant {.cdecl, dynlib: lib, importc: "g_variant_new_maybe".}
-proc variant_new_maybe*(child_type: TVariantType, child: TVariant): TVariant {.inline.} =
+proc new_variant_maybe*(child_type: TVariantType, child: TVariant): TVariant {.inline.} =
   (g_variant_new_maybe(myUnsafeAddr(child_type), myUnsafeAddr(child)))[]
-# proc variant_new_maybe*(child_type: TVariantType, child: TVariant): TVariant {.inline.} =
+# proc new_variant_maybe*(child_type: TVariantType, child: TVariant): TVariant {.inline.} =
 
 # g_variant_new_object_path
 # flags: {isConstructor} container: Variant
@@ -11803,9 +11803,9 @@ proc variant_new_maybe*(child_type: TVariantType, child: TVariant): TVariant {.i
 # object_path 'ustring' 'ucstring' IN (diff., need sugar)
 # 'TVariant' 'ptr TVariant' (diff., need sugar)
 proc g_variant_new_object_path(object_path: ucstring): ptr TVariant {.cdecl, dynlib: lib, importc: "g_variant_new_object_path".}
-proc variant_new_object_path*(object_path: ustring): TVariant {.inline.} =
+proc new_variant_object_path*(object_path: ustring): TVariant {.inline.} =
   (g_variant_new_object_path(ucstring(object_path)))[]
-# proc variant_new_object_path*(object_path: ustring): TVariant {.inline.} =
+# proc new_variant_object_path*(object_path: ustring): TVariant {.inline.} =
 
 # g_variant_new_objv
 # flags: {isConstructor} container: Variant
@@ -11814,9 +11814,9 @@ proc variant_new_object_path*(object_path: ustring): TVariant {.inline.} =
 # length 'int32' 'int32' IN
 # 'TVariant' 'ptr TVariant' (diff., need sugar)
 proc g_variant_new_objv(strv: openarray[ucstring], length: int32): ptr TVariant {.cdecl, dynlib: lib, importc: "g_variant_new_objv".}
-proc variant_new_objv*(strv: var openarray[ucstring]): TVariant {.inline.} =
+proc new_variant_objv*(strv: var openarray[ucstring]): TVariant {.inline.} =
   (g_variant_new_objv(strv, strv.len.int32))[]
-# proc variant_new_objv*(strv: var openarray[ucstring]): TVariant {.inline.} =
+# proc new_variant_objv*(strv: var openarray[ucstring]): TVariant {.inline.} =
 
 # g_variant_new_signature
 # flags: {isConstructor} container: Variant
@@ -11824,9 +11824,9 @@ proc variant_new_objv*(strv: var openarray[ucstring]): TVariant {.inline.} =
 # signature 'ustring' 'ucstring' IN (diff., need sugar)
 # 'TVariant' 'ptr TVariant' (diff., need sugar)
 proc g_variant_new_signature(signature: ucstring): ptr TVariant {.cdecl, dynlib: lib, importc: "g_variant_new_signature".}
-proc variant_new_signature*(signature: ustring): TVariant {.inline.} =
+proc new_variant_signature*(signature: ustring): TVariant {.inline.} =
   (g_variant_new_signature(ucstring(signature)))[]
-# proc variant_new_signature*(signature: ustring): TVariant {.inline.} =
+# proc new_variant_signature*(signature: ustring): TVariant {.inline.} =
 
 # g_variant_new_string
 # flags: {isConstructor} container: Variant
@@ -11834,9 +11834,9 @@ proc variant_new_signature*(signature: ustring): TVariant {.inline.} =
 # string 'ustring' 'ucstring' IN (diff., need sugar)
 # 'TVariant' 'ptr TVariant' (diff., need sugar)
 proc g_variant_new_string(string: ucstring): ptr TVariant {.cdecl, dynlib: lib, importc: "g_variant_new_string".}
-proc variant_new_string*(string: ustring): TVariant {.inline.} =
+proc new_variant_string*(string: ustring): TVariant {.inline.} =
   (g_variant_new_string(ucstring(string)))[]
-# proc variant_new_string*(string: ustring): TVariant {.inline.} =
+# proc new_variant_string*(string: ustring): TVariant {.inline.} =
 
 # g_variant_new_strv
 # flags: {isConstructor} container: Variant
@@ -11845,9 +11845,9 @@ proc variant_new_string*(string: ustring): TVariant {.inline.} =
 # length 'int32' 'int32' IN
 # 'TVariant' 'ptr TVariant' (diff., need sugar)
 proc g_variant_new_strv(strv: openarray[ucstring], length: int32): ptr TVariant {.cdecl, dynlib: lib, importc: "g_variant_new_strv".}
-proc variant_new_strv*(strv: var openarray[ucstring]): TVariant {.inline.} =
+proc new_variant_strv*(strv: var openarray[ucstring]): TVariant {.inline.} =
   (g_variant_new_strv(strv, strv.len.int32))[]
-# proc variant_new_strv*(strv: var openarray[ucstring]): TVariant {.inline.} =
+# proc new_variant_strv*(strv: var openarray[ucstring]): TVariant {.inline.} =
 
 # g_variant_new_tuple
 # flags: {isConstructor} container: Variant
@@ -11856,9 +11856,9 @@ proc variant_new_strv*(strv: var openarray[ucstring]): TVariant {.inline.} =
 # n_children 'uint32' 'uint32' IN
 # 'TVariant' 'ptr TVariant' (diff., need sugar)
 proc g_variant_new_tuple(children: openarray[ptr TVariant], n_children: uint32): ptr TVariant {.cdecl, dynlib: lib, importc: "g_variant_new_tuple".}
-proc variant_new_tuple*(children: var openarray[ptr TVariant]): TVariant {.inline.} =
+proc new_variant_tuple*(children: var openarray[ptr TVariant]): TVariant {.inline.} =
   (g_variant_new_tuple(children, children.len.uint32))[]
-# proc variant_new_tuple*(children: var openarray[ptr TVariant]): TVariant {.inline.} =
+# proc new_variant_tuple*(children: var openarray[ptr TVariant]): TVariant {.inline.} =
 
 # g_variant_new_uint16
 # flags: {isConstructor} container: Variant
@@ -11866,9 +11866,9 @@ proc variant_new_tuple*(children: var openarray[ptr TVariant]): TVariant {.inlin
 # value 'uint16' 'uint16' IN
 # 'TVariant' 'ptr TVariant' (diff., need sugar)
 proc g_variant_new_uint16(value: uint16): ptr TVariant {.cdecl, dynlib: lib, importc: "g_variant_new_uint16".}
-proc variant_new_uint16*(value: uint16): TVariant {.inline.} =
+proc new_variant_uint16*(value: uint16): TVariant {.inline.} =
   (g_variant_new_uint16(value))[]
-# proc variant_new_uint16*(value: uint16): TVariant {.inline.} =
+# proc new_variant_uint16*(value: uint16): TVariant {.inline.} =
 
 # g_variant_new_uint32
 # flags: {isConstructor} container: Variant
@@ -11876,9 +11876,9 @@ proc variant_new_uint16*(value: uint16): TVariant {.inline.} =
 # value 'uint32' 'uint32' IN
 # 'TVariant' 'ptr TVariant' (diff., need sugar)
 proc g_variant_new_uint32(value: uint32): ptr TVariant {.cdecl, dynlib: lib, importc: "g_variant_new_uint32".}
-proc variant_new_uint32*(value: uint32): TVariant {.inline.} =
+proc new_variant_uint32*(value: uint32): TVariant {.inline.} =
   (g_variant_new_uint32(value))[]
-# proc variant_new_uint32*(value: uint32): TVariant {.inline.} =
+# proc new_variant_uint32*(value: uint32): TVariant {.inline.} =
 
 # g_variant_new_uint64
 # flags: {isConstructor} container: Variant
@@ -11886,9 +11886,9 @@ proc variant_new_uint32*(value: uint32): TVariant {.inline.} =
 # value 'uint64' 'uint64' IN
 # 'TVariant' 'ptr TVariant' (diff., need sugar)
 proc g_variant_new_uint64(value: uint64): ptr TVariant {.cdecl, dynlib: lib, importc: "g_variant_new_uint64".}
-proc variant_new_uint64*(value: uint64): TVariant {.inline.} =
+proc new_variant_uint64*(value: uint64): TVariant {.inline.} =
   (g_variant_new_uint64(value))[]
-# proc variant_new_uint64*(value: uint64): TVariant {.inline.} =
+# proc new_variant_uint64*(value: uint64): TVariant {.inline.} =
 
 # g_variant_new_variant
 # flags: {isConstructor} container: Variant
@@ -11896,9 +11896,9 @@ proc variant_new_uint64*(value: uint64): TVariant {.inline.} =
 # value 'TVariant' 'ptr TVariant' IN (diff., need sugar)
 # 'TVariant' 'ptr TVariant' (diff., need sugar)
 proc g_variant_new_variant(value: ptr TVariant): ptr TVariant {.cdecl, dynlib: lib, importc: "g_variant_new_variant".}
-proc variant_new_variant*(value: TVariant): TVariant {.inline.} =
+proc new_variant_variant*(value: TVariant): TVariant {.inline.} =
   (g_variant_new_variant(myUnsafeAddr(value)))[]
-# proc variant_new_variant*(value: TVariant): TVariant {.inline.} =
+# proc new_variant_variant*(value: TVariant): TVariant {.inline.} =
 
 # g_variant_byteswap
 # flags: {isMethod} container: Variant
@@ -12428,9 +12428,9 @@ template parse_error_quark*(klass_parameter: typedesc[Variant]): uint32 =
 # type 'TVariantType' 'ptr TVariantType' IN (diff., need sugar)
 # 'TVariantBuilder' 'ptr TVariantBuilder' (diff., need sugar)
 proc g_variant_builder_new(type_x: ptr TVariantType): ptr TVariantBuilder {.cdecl, dynlib: lib, importc: "g_variant_builder_new".}
-proc variantbuilder_new*(type_x: TVariantType): TVariantBuilder {.inline.} =
+proc new_variantbuilder*(type_x: TVariantType): TVariantBuilder {.inline.} =
   (g_variant_builder_new(myUnsafeAddr(type_x)))[]
-# proc variantbuilder_new*(type_x: TVariantType): TVariantBuilder {.inline.} =
+# proc new_variantbuilder*(type_x: TVariantType): TVariantBuilder {.inline.} =
 
 # g_variant_builder_add_value
 # flags: {isMethod} container: VariantBuilder
@@ -12495,9 +12495,9 @@ proc unref*(self: VariantBuilder) {.inline.} =
 # from_asv 'TVariant' 'ptr TVariant' IN (diff., need sugar)
 # 'TVariantDict' 'ptr TVariantDict' (diff., need sugar)
 proc g_variant_dict_new(from_asv: ptr TVariant): ptr TVariantDict {.cdecl, dynlib: lib, importc: "g_variant_dict_new".}
-proc variantdict_new*(from_asv: TVariant): TVariantDict {.inline.} =
+proc new_variantdict*(from_asv: TVariant): TVariantDict {.inline.} =
   (g_variant_dict_new(myUnsafeAddr(from_asv)))[]
-# proc variantdict_new*(from_asv: TVariant): TVariantDict {.inline.} =
+# proc new_variantdict*(from_asv: TVariant): TVariantDict {.inline.} =
 
 # g_variant_dict_clear
 # flags: {isMethod} container: VariantDict
@@ -12584,9 +12584,9 @@ proc unref*(self: VariantDict) {.inline.} =
 # type_string 'ustring' 'ucstring' IN (diff., need sugar)
 # 'TVariantType' 'ptr TVariantType' (diff., need sugar)
 proc g_variant_type_new(type_string: ucstring): ptr TVariantType {.cdecl, dynlib: lib, importc: "g_variant_type_new".}
-proc varianttype_new*(type_string: ustring): TVariantType {.inline.} =
+proc new_varianttype*(type_string: ustring): TVariantType {.inline.} =
   (g_variant_type_new(ucstring(type_string)))[]
-# proc varianttype_new*(type_string: ustring): TVariantType {.inline.} =
+# proc new_varianttype*(type_string: ustring): TVariantType {.inline.} =
 
 # g_variant_type_new_array
 # flags: {isConstructor} container: VariantType
@@ -12594,9 +12594,9 @@ proc varianttype_new*(type_string: ustring): TVariantType {.inline.} =
 # element 'TVariantType' 'ptr TVariantType' IN (diff., need sugar)
 # 'TVariantType' 'ptr TVariantType' (diff., need sugar)
 proc g_variant_type_new_array(element: ptr TVariantType): ptr TVariantType {.cdecl, dynlib: lib, importc: "g_variant_type_new_array".}
-proc varianttype_new_array*(element: TVariantType): TVariantType {.inline.} =
+proc new_varianttype_array*(element: TVariantType): TVariantType {.inline.} =
   (g_variant_type_new_array(myUnsafeAddr(element)))[]
-# proc varianttype_new_array*(element: TVariantType): TVariantType {.inline.} =
+# proc new_varianttype_array*(element: TVariantType): TVariantType {.inline.} =
 
 # g_variant_type_new_dict_entry
 # flags: {isConstructor} container: VariantType
@@ -12605,9 +12605,9 @@ proc varianttype_new_array*(element: TVariantType): TVariantType {.inline.} =
 # value 'TVariantType' 'ptr TVariantType' IN (diff., need sugar)
 # 'TVariantType' 'ptr TVariantType' (diff., need sugar)
 proc g_variant_type_new_dict_entry(key: ptr TVariantType, value: ptr TVariantType): ptr TVariantType {.cdecl, dynlib: lib, importc: "g_variant_type_new_dict_entry".}
-proc varianttype_new_dict_entry*(key: TVariantType, value: TVariantType): TVariantType {.inline.} =
+proc new_varianttype_dict_entry*(key: TVariantType, value: TVariantType): TVariantType {.inline.} =
   (g_variant_type_new_dict_entry(myUnsafeAddr(key), myUnsafeAddr(value)))[]
-# proc varianttype_new_dict_entry*(key: TVariantType, value: TVariantType): TVariantType {.inline.} =
+# proc new_varianttype_dict_entry*(key: TVariantType, value: TVariantType): TVariantType {.inline.} =
 
 # g_variant_type_new_maybe
 # flags: {isConstructor} container: VariantType
@@ -12615,9 +12615,9 @@ proc varianttype_new_dict_entry*(key: TVariantType, value: TVariantType): TVaria
 # element 'TVariantType' 'ptr TVariantType' IN (diff., need sugar)
 # 'TVariantType' 'ptr TVariantType' (diff., need sugar)
 proc g_variant_type_new_maybe(element: ptr TVariantType): ptr TVariantType {.cdecl, dynlib: lib, importc: "g_variant_type_new_maybe".}
-proc varianttype_new_maybe*(element: TVariantType): TVariantType {.inline.} =
+proc new_varianttype_maybe*(element: TVariantType): TVariantType {.inline.} =
   (g_variant_type_new_maybe(myUnsafeAddr(element)))[]
-# proc varianttype_new_maybe*(element: TVariantType): TVariantType {.inline.} =
+# proc new_varianttype_maybe*(element: TVariantType): TVariantType {.inline.} =
 
 # g_variant_type_new_tuple
 # flags: {isConstructor} container: VariantType
@@ -12626,9 +12626,9 @@ proc varianttype_new_maybe*(element: TVariantType): TVariantType {.inline.} =
 # length 'int32' 'int32' IN
 # 'TVariantType' 'ptr TVariantType' (diff., need sugar)
 proc g_variant_type_new_tuple(items: openarray[ptr TVariantType], length: int32): ptr TVariantType {.cdecl, dynlib: lib, importc: "g_variant_type_new_tuple".}
-proc varianttype_new_tuple*(items: var openarray[ptr TVariantType]): TVariantType {.inline.} =
+proc new_varianttype_tuple*(items: var openarray[ptr TVariantType]): TVariantType {.inline.} =
   (g_variant_type_new_tuple(items, items.len.int32))[]
-# proc varianttype_new_tuple*(items: var openarray[ptr TVariantType]): TVariantType {.inline.} =
+# proc new_varianttype_tuple*(items: var openarray[ptr TVariantType]): TVariantType {.inline.} =
 
 # g_variant_type_copy
 # flags: {isMethod} container: VariantType

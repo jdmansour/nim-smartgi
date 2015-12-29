@@ -1248,9 +1248,9 @@ proc pango_version_string*(): ustring {.inline.} =
 # need sugar: is static method
 # 'Context' 'TransferFull[TContext]' (diff., need sugar)
 proc pango_context_new(): TransferFull[TContext] {.cdecl, dynlib: lib, importc: "pango_context_new".}
-proc context_new*(): Context {.inline.} =
+proc new_context*(): Context {.inline.} =
   wrap(pango_context_new())
-# proc context_new*(): Context {.inline.} =
+# proc new_context*(): Context {.inline.} =
 
 # pango_context_changed
 # flags: {isMethod} container: Context
@@ -1703,9 +1703,9 @@ proc get_metrics*(self: Fontset): TFontMetrics {.inline.} =
 # language 'TLanguage' 'ptr TLanguage' IN (diff., need sugar)
 # 'FontsetSimple' 'TransferFull[TFontsetSimple]' (diff., need sugar)
 proc pango_fontset_simple_new(language: ptr TLanguage): TransferFull[TFontsetSimple] {.cdecl, dynlib: lib, importc: "pango_fontset_simple_new".}
-proc fontsetsimple_new*(language: TLanguage): FontsetSimple {.inline.} =
+proc new_fontsetsimple*(language: TLanguage): FontsetSimple {.inline.} =
   wrap(pango_fontset_simple_new(myUnsafeAddr(language)))
-# proc fontsetsimple_new*(language: TLanguage): FontsetSimple {.inline.} =
+# proc new_fontsetsimple*(language: TLanguage): FontsetSimple {.inline.} =
 
 # pango_fontset_simple_append
 # flags: {isMethod} container: FontsetSimple
@@ -1732,9 +1732,9 @@ proc size*(self: FontsetSimple): int32 {.inline.} =
 # context 'Context' 'ptr TContext' IN (diff., need sugar)
 # 'Layout' 'TransferFull[TLayout]' (diff., need sugar)
 proc pango_layout_new(context: ptr TContext): TransferFull[TLayout] {.cdecl, dynlib: lib, importc: "pango_layout_new".}
-proc layout_new*(context: Context): Layout {.inline.} =
+proc new_layout*(context: Context): Layout {.inline.} =
   wrap(pango_layout_new(context.getPointer))
-# proc layout_new*(context: Context): Layout {.inline.} =
+# proc new_layout*(context: Context): Layout {.inline.} =
 
 # pango_layout_context_changed
 # flags: {isMethod} container: Layout
@@ -2589,9 +2589,9 @@ proc range*(self: AttrIterator, start: var int32, end_x: var int32) {.inline.} =
 # need sugar: is static method
 # 'TAttrList' 'ptr TAttrList' (diff., need sugar)
 proc pango_attr_list_new(): ptr TAttrList {.cdecl, dynlib: lib, importc: "pango_attr_list_new".}
-proc attrlist_new*(): TAttrList {.inline.} =
+proc new_attrlist*(): TAttrList {.inline.} =
   (pango_attr_list_new())[]
-# proc attrlist_new*(): TAttrList {.inline.} =
+# proc new_attrlist*(): TAttrList {.inline.} =
 
 # pango_attr_list_change
 # flags: {isMethod} container: AttrList
@@ -2812,9 +2812,9 @@ proc unref*(self: Coverage) {.inline.} =
 # need sugar: is static method
 # 'TFontDescription' 'ptr TFontDescription' (diff., need sugar)
 proc pango_font_description_new(): ptr TFontDescription {.cdecl, dynlib: lib, importc: "pango_font_description_new".}
-proc fontdescription_new*(): TFontDescription {.inline.} =
+proc new_fontdescription*(): TFontDescription {.inline.} =
   (pango_font_description_new())[]
-# proc fontdescription_new*(): TFontDescription {.inline.} =
+# proc new_fontdescription*(): TFontDescription {.inline.} =
 
 # pango_font_description_better_match
 # flags: {isMethod} container: FontDescription
@@ -3114,9 +3114,9 @@ template from_string*(klass_parameter: typedesc[FontDescription], str: ustring):
 # need sugar: is static method
 # 'TFontMetrics' 'ptr TFontMetrics' (diff., need sugar)
 proc pango_font_metrics_new(): ptr TFontMetrics {.cdecl, dynlib: lib, importc: "pango_font_metrics_new".}
-proc fontmetrics_new*(): TFontMetrics {.inline.} =
+proc new_fontmetrics*(): TFontMetrics {.inline.} =
   (pango_font_metrics_new())[]
-# proc fontmetrics_new*(): TFontMetrics {.inline.} =
+# proc new_fontmetrics*(): TFontMetrics {.inline.} =
 
 # pango_font_metrics_get_approximate_char_width
 # flags: {isMethod} container: FontMetrics
@@ -3341,9 +3341,9 @@ proc prev_cluster*(self: GlyphItemIter): bool {.inline.} =
 # need sugar: is static method
 # 'TGlyphString' 'ptr TGlyphString' (diff., need sugar)
 proc pango_glyph_string_new(): ptr TGlyphString {.cdecl, dynlib: lib, importc: "pango_glyph_string_new".}
-proc glyphstring_new*(): TGlyphString {.inline.} =
+proc new_glyphstring*(): TGlyphString {.inline.} =
   (pango_glyph_string_new())[]
-# proc glyphstring_new*(): TGlyphString {.inline.} =
+# proc new_glyphstring*(): TGlyphString {.inline.} =
 
 # pango_glyph_string_copy
 # flags: {isMethod} container: GlyphString
@@ -3470,9 +3470,9 @@ proc x_to_index*(self: GlyphString, text: ustring, length: int32, analysis: TAna
 # need sugar: is static method
 # 'TItem' 'ptr TItem' (diff., need sugar)
 proc pango_item_new(): ptr TItem {.cdecl, dynlib: lib, importc: "pango_item_new".}
-proc item_new*(): TItem {.inline.} =
+proc new_item*(): TItem {.inline.} =
   (pango_item_new())[]
-# proc item_new*(): TItem {.inline.} =
+# proc new_item*(): TItem {.inline.} =
 
 # pango_item_copy
 # flags: {isMethod} container: Item
@@ -4038,9 +4038,9 @@ proc next*(self: ScriptIter): bool {.inline.} =
 # positions_in_pixels 'bool' 'bool' IN
 # 'TTabArray' 'ptr TTabArray' (diff., need sugar)
 proc pango_tab_array_new(initial_size: int32, positions_in_pixels: bool): ptr TTabArray {.cdecl, dynlib: lib, importc: "pango_tab_array_new".}
-proc tabarray_new*(initial_size: int32, positions_in_pixels: bool): TTabArray {.inline.} =
+proc new_tabarray*(initial_size: int32, positions_in_pixels: bool): TTabArray {.inline.} =
   (pango_tab_array_new(initial_size, positions_in_pixels))[]
-# proc tabarray_new*(initial_size: int32, positions_in_pixels: bool): TTabArray {.inline.} =
+# proc new_tabarray*(initial_size: int32, positions_in_pixels: bool): TTabArray {.inline.} =
 
 # pango_tab_array_copy
 # flags: {isMethod} container: TabArray
