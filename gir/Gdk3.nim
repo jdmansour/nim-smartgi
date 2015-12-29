@@ -5004,12 +5004,17 @@ proc withdraw*(self: Window) {.inline.} =
 # Device - changed - 
 declareSignal(Device, TDevice, changed)
 # DeviceManager - device-added - device 
+declareSignal(DeviceManager, TDeviceManager, device_added, device, Device)
 # DeviceManager - device-changed - device 
+declareSignal(DeviceManager, TDeviceManager, device_changed, device, Device)
 # DeviceManager - device-removed - device 
+declareSignal(DeviceManager, TDeviceManager, device_removed, device, Device)
 # Display - closed - is_error 
+declareSignal(Display, TDisplay, closed, is_error, bool)
 # Display - opened - 
 declareSignal(Display, TDisplay, opened)
 # DisplayManager - display-opened - display 
+declareSignal(DisplayManager, TDisplayManager, display_opened, display, Display)
 # FrameClock - after-paint - 
 declareSignal(FrameClock, TFrameClock, after_paint)
 # FrameClock - before-paint - 

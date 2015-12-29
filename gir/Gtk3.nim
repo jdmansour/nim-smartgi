@@ -34126,6 +34126,7 @@ proc remove_window*(self: WindowGroup, window: Window) {.inline.} =
 # object signals
 #------------------
 # AboutDialog - activate-link - uri 
+declareSignal(AboutDialog, TAboutDialog, activate_link, uri, ustring)
 # AccelGroup - accel-activate - acceleratable keyval modifier 
 # AccelGroup - accel-changed - keyval modifier accel_closure 
 # AccelMap - changed - accel_path accel_key accel_mods 
@@ -34134,17 +34135,24 @@ declareSignal(Action, TAction, activate)
 # ActionGroup - connect-proxy - action proxy 
 # ActionGroup - disconnect-proxy - action proxy 
 # ActionGroup - post-activate - action 
+declareSignal(ActionGroup, TActionGroup, post_activate, action, Action)
 # ActionGroup - pre-activate - action 
+declareSignal(ActionGroup, TActionGroup, pre_activate, action, Action)
 # Adjustment - changed - 
 declareSignal(Adjustment, TAdjustment, changed)
 # Adjustment - value-changed - 
 declareSignal(Adjustment, TAdjustment, value_changed)
 # AppChooserButton - custom-item-activated - item_name 
+declareSignal(AppChooserButton, TAppChooserButton, custom_item_activated, item_name, ustring)
 # AppChooserWidget - application-activated - application 
+declareSignal(AppChooserWidget, TAppChooserWidget, application_activated, application, Gio2.AppInfo)
 # AppChooserWidget - application-selected - application 
+declareSignal(AppChooserWidget, TAppChooserWidget, application_selected, application, Gio2.AppInfo)
 # AppChooserWidget - populate-popup - menu application 
 # Application - window-added - window 
+declareSignal(Application, TApplication, window_added, window, Window)
 # Application - window-removed - window 
+declareSignal(Application, TApplication, window_removed, window, Window)
 # Assistant - apply - 
 declareSignal(Assistant, TAssistant, apply)
 # Assistant - cancel - 
@@ -34154,6 +34162,7 @@ declareSignal(Assistant, TAssistant, close)
 # Assistant - escape - 
 declareSignal(Assistant, TAssistant, escape)
 # Assistant - prepare - page 
+declareSignal(Assistant, TAssistant, prepare, page, Widget)
 # Button - activate - 
 declareSignal(Button, TButton, activate)
 # Button - clicked - 
@@ -34188,13 +34197,16 @@ declareSignal(Calendar, TCalendar, prev_year)
 declareSignal(CellRenderer, TCellRenderer, editing_canceled)
 # CellRenderer - editing-started - editable path 
 # CellRendererAccel - accel-cleared - path_string 
+declareSignal(CellRendererAccel, TCellRendererAccel, accel_cleared, path_string, ustring)
 # CellRendererAccel - accel-edited - path_string accel_key accel_mods hardware_keycode 
 # CellRendererCombo - changed - path_string new_iter 
 # CellRendererText - edited - path new_text 
 # CellRendererToggle - toggled - path 
+declareSignal(CellRendererToggle, TCellRendererToggle, toggled, path, ustring)
 # CheckMenuItem - toggled - 
 declareSignal(CheckMenuItem, TCheckMenuItem, toggled)
 # Clipboard - owner-change - event 
+declareSignal(Clipboard, TClipboard, owner_change, event, Gdk3.TEventOwnerChange)
 # ColorButton - color-set - 
 declareSignal(ColorButton, TColorButton, color_set)
 # ColorSelection - color-changed - 
@@ -34202,20 +34214,26 @@ declareSignal(ColorSelection, TColorSelection, color_changed)
 # ComboBox - changed - 
 declareSignal(ComboBox, TComboBox, changed)
 # ComboBox - format-entry-text - path 
+declareSignal(ComboBox, TComboBox, format_entry_text, path, ustring)
 # ComboBox - move-active - scroll_type 
+declareSignal(ComboBox, TComboBox, move_active, scroll_type, ScrollType)
 # ComboBox - popdown - 
 declareSignal(ComboBox, TComboBox, popdown)
 # ComboBox - popup - 
 declareSignal(ComboBox, TComboBox, popup)
 # Container - add - object 
+declareSignal(Container, TContainer, add, object_x, Widget)
 # Container - check-resize - 
 declareSignal(Container, TContainer, check_resize)
 # Container - remove - object 
+declareSignal(Container, TContainer, remove, object_x, Widget)
 # Container - set-focus-child - object 
+declareSignal(Container, TContainer, set_focus_child, object_x, Widget)
 # CssProvider - parsing-error - section error 
 # Dialog - close - 
 declareSignal(Dialog, TDialog, close)
 # Dialog - response - response_id 
+declareSignal(Dialog, TDialog, response, response_id, int32)
 # Entry - activate - 
 declareSignal(Entry, TEntry, activate)
 # Entry - backspace - 
@@ -34228,18 +34246,23 @@ declareSignal(Entry, TEntry, cut_clipboard)
 # Entry - icon-press - icon_pos event 
 # Entry - icon-release - icon_pos event 
 # Entry - insert-at-cursor - string 
+declareSignal(Entry, TEntry, insert_at_cursor, string, ustring)
 # Entry - move-cursor - step count extend_selection 
 # Entry - paste-clipboard - 
 declareSignal(Entry, TEntry, paste_clipboard)
 # Entry - populate-popup - popup 
+declareSignal(Entry, TEntry, populate_popup, popup, Widget)
 # Entry - preedit-changed - preedit 
+declareSignal(Entry, TEntry, preedit_changed, preedit, ustring)
 # Entry - toggle-overwrite - 
 declareSignal(Entry, TEntry, toggle_overwrite)
 # EntryBuffer - deleted-text - position n_chars 
 # EntryBuffer - inserted-text - position chars n_chars 
 # EntryCompletion - action-activated - index 
+declareSignal(EntryCompletion, TEntryCompletion, action_activated, index, int32)
 # EntryCompletion - cursor-on-match - model iter 
 # EntryCompletion - insert-prefix - prefix 
+declareSignal(EntryCompletion, TEntryCompletion, insert_prefix, prefix, ustring)
 # EntryCompletion - match-selected - model iter 
 # EntryCompletion - no-matches - 
 declareSignal(EntryCompletion, TEntryCompletion, no_matches)
@@ -34254,11 +34277,13 @@ declareSignal(FileChooserWidget, TFileChooserWidget, down_folder)
 # FileChooserWidget - home-folder - 
 declareSignal(FileChooserWidget, TFileChooserWidget, home_folder)
 # FileChooserWidget - location-popup - path 
+declareSignal(FileChooserWidget, TFileChooserWidget, location_popup, path, ustring)
 # FileChooserWidget - location-popup-on-paste - 
 declareSignal(FileChooserWidget, TFileChooserWidget, location_popup_on_paste)
 # FileChooserWidget - location-toggle-popup - 
 declareSignal(FileChooserWidget, TFileChooserWidget, location_toggle_popup)
 # FileChooserWidget - quick-bookmark - bookmark_index 
+declareSignal(FileChooserWidget, TFileChooserWidget, quick_bookmark, bookmark_index, int32)
 # FileChooserWidget - recent-shortcut - 
 declareSignal(FileChooserWidget, TFileChooserWidget, recent_shortcut)
 # FileChooserWidget - search-shortcut - 
@@ -34270,6 +34295,7 @@ declareSignal(FileChooserWidget, TFileChooserWidget, up_folder)
 # FlowBox - activate-cursor-child - 
 declareSignal(FlowBox, TFlowBox, activate_cursor_child)
 # FlowBox - child-activated - child 
+declareSignal(FlowBox, TFlowBox, child_activated, child, FlowBoxChild)
 # FlowBox - move-cursor - step count 
 # FlowBox - select-all - 
 declareSignal(FlowBox, TFlowBox, select_all)
@@ -34284,10 +34310,14 @@ declareSignal(FlowBoxChild, TFlowBoxChild, activate)
 # FontButton - font-set - 
 declareSignal(FontButton, TFontButton, font_set)
 # Gesture - begin - sequence 
+declareSignal(Gesture, TGesture, begin, sequence, Gdk3.TEventSequence)
 # Gesture - cancel - sequence 
+declareSignal(Gesture, TGesture, cancel, sequence, Gdk3.TEventSequence)
 # Gesture - end - sequence 
+declareSignal(Gesture, TGesture, end_x, sequence, Gdk3.TEventSequence)
 # Gesture - sequence-state-changed - sequence state 
 # Gesture - update - sequence 
+declareSignal(Gesture, TGesture, update, sequence, Gdk3.TEventSequence)
 # GestureDrag - drag-begin - start_x start_y 
 # GestureDrag - drag-end - offset_x offset_y 
 # GestureDrag - drag-update - offset_x offset_y 
@@ -34302,12 +34332,17 @@ declareSignal(GestureMultiPress, TGestureMultiPress, stopped)
 # GestureRotate - angle-changed - angle angle_delta 
 # GestureSwipe - swipe - velocity_x velocity_y 
 # GestureZoom - scale-changed - scale 
+declareSignal(GestureZoom, TGestureZoom, scale_changed, scale, float64)
 # HSV - changed - 
 declareSignal(HSV, THSV, changed)
 # HSV - move - object 
+declareSignal(HSV, THSV, move, object_x, DirectionType)
 # HandleBox - child-attached - widget 
+declareSignal(HandleBox, THandleBox, child_attached, widget, Widget)
 # HandleBox - child-detached - widget 
+declareSignal(HandleBox, THandleBox, child_detached, widget, Widget)
 # IMContext - commit - str 
+declareSignal(IMContext, TIMContext, commit, str, ustring)
 # IMContext - delete-surrounding - offset n_chars 
 # IMContext - preedit-changed - 
 declareSignal(IMContext, TIMContext, preedit_changed)
@@ -34322,6 +34357,7 @@ declareSignal(IconTheme, TIconTheme, changed)
 # IconView - activate-cursor-item - 
 declareSignal(IconView, TIconView, activate_cursor_item)
 # IconView - item-activated - path 
+declareSignal(IconView, TIconView, item_activated, path, TTreePath)
 # IconView - move-cursor - step count 
 # IconView - select-all - 
 declareSignal(IconView, TIconView, select_all)
@@ -34336,21 +34372,27 @@ declareSignal(IconView, TIconView, unselect_all)
 # InfoBar - close - 
 declareSignal(InfoBar, TInfoBar, close)
 # InfoBar - response - response_id 
+declareSignal(InfoBar, TInfoBar, response, response_id, int32)
 # Label - activate-current-link - 
 declareSignal(Label, TLabel, activate_current_link)
 # Label - activate-link - uri 
+declareSignal(Label, TLabel, activate_link, uri, ustring)
 # Label - copy-clipboard - 
 declareSignal(Label, TLabel, copy_clipboard)
 # Label - move-cursor - step count extend_selection 
 # Label - populate-popup - menu 
+declareSignal(Label, TLabel, populate_popup, menu, Menu)
 # LevelBar - offset-changed - name 
+declareSignal(LevelBar, TLevelBar, offset_changed, name, ustring)
 # LinkButton - activate-link - 
 declareSignal(LinkButton, TLinkButton, activate_link)
 # ListBox - activate-cursor-row - 
 declareSignal(ListBox, TListBox, activate_cursor_row)
 # ListBox - move-cursor - object p0 
 # ListBox - row-activated - row 
+declareSignal(ListBox, TListBox, row_activated, row, ListBoxRow)
 # ListBox - row-selected - row 
+declareSignal(ListBox, TListBox, row_selected, row, ListBoxRow)
 # ListBox - select-all - 
 declareSignal(ListBox, TListBox, select_all)
 # ListBox - selected-rows-changed - 
@@ -34362,6 +34404,7 @@ declareSignal(ListBox, TListBox, unselect_all)
 # ListBoxRow - activate - 
 declareSignal(ListBoxRow, TListBoxRow, activate)
 # Menu - move-scroll - scroll_type 
+declareSignal(Menu, TMenu, move_scroll, scroll_type, ScrollType)
 # MenuItem - activate - 
 declareSignal(MenuItem, TMenuItem, activate)
 # MenuItem - activate-item - 
@@ -34371,29 +34414,39 @@ declareSignal(MenuItem, TMenuItem, deselect)
 # MenuItem - select - 
 declareSignal(MenuItem, TMenuItem, select)
 # MenuItem - toggle-size-allocate - object 
+declareSignal(MenuItem, TMenuItem, toggle_size_allocate, object_x, int32)
 # MenuItem - toggle-size-request - object 
+declareSignal(MenuItem, TMenuItem, toggle_size_request, object_x, pointer)
 # MenuShell - activate-current - force_hide 
+declareSignal(MenuShell, TMenuShell, activate_current, force_hide, bool)
 # MenuShell - cancel - 
 declareSignal(MenuShell, TMenuShell, cancel)
 # MenuShell - cycle-focus - direction 
+declareSignal(MenuShell, TMenuShell, cycle_focus, direction, DirectionType)
 # MenuShell - deactivate - 
 declareSignal(MenuShell, TMenuShell, deactivate)
 # MenuShell - insert - child position 
 # MenuShell - move-current - direction 
+declareSignal(MenuShell, TMenuShell, move_current, direction, MenuDirectionType)
 # MenuShell - move-selected - distance 
+declareSignal(MenuShell, TMenuShell, move_selected, distance, int32)
 # MenuShell - selection-done - 
 declareSignal(MenuShell, TMenuShell, selection_done)
 # MenuToolButton - show-menu - 
 declareSignal(MenuToolButton, TMenuToolButton, show_menu)
 # Notebook - change-current-page - object 
+declareSignal(Notebook, TNotebook, change_current_page, object_x, int32)
 # Notebook - create-window - page x y 
 # Notebook - focus-tab - object 
+declareSignal(Notebook, TNotebook, focus_tab, object_x, NotebookTab)
 # Notebook - move-focus-out - object 
+declareSignal(Notebook, TNotebook, move_focus_out, object_x, DirectionType)
 # Notebook - page-added - child page_num 
 # Notebook - page-removed - child page_num 
 # Notebook - page-reordered - child page_num 
 # Notebook - reorder-tab - object p0 
 # Notebook - select-page - object 
+declareSignal(Notebook, TNotebook, select_page, object_x, bool)
 # Notebook - switch-page - page page_num 
 # Overlay - get-child-position - widget allocation 
 # Paned - accept-position - 
@@ -34401,11 +34454,15 @@ declareSignal(Paned, TPaned, accept_position)
 # Paned - cancel-position - 
 declareSignal(Paned, TPaned, cancel_position)
 # Paned - cycle-child-focus - reversed 
+declareSignal(Paned, TPaned, cycle_child_focus, reversed, bool)
 # Paned - cycle-handle-focus - reversed 
+declareSignal(Paned, TPaned, cycle_handle_focus, reversed, bool)
 # Paned - move-handle - scroll_type 
+declareSignal(Paned, TPaned, move_handle, scroll_type, ScrollType)
 # Paned - toggle-handle-focus - 
 declareSignal(Paned, TPaned, toggle_handle_focus)
 # PlacesSidebar - drag-action-ask - actions 
+declareSignal(PlacesSidebar, TPlacesSidebar, drag_action_ask, actions, int32)
 # PlacesSidebar - drag-action-requested - context dest_file source_file_list 
 # PlacesSidebar - drag-perform-drop - dest_file source_file_list action 
 # PlacesSidebar - open-location - location open_flags 
@@ -34418,42 +34475,55 @@ declareSignal(PlacesSidebar, TPlacesSidebar, show_enter_location)
 # Popover - closed - 
 declareSignal(Popover, TPopover, closed)
 # PrintOperation - begin-print - context 
+declareSignal(PrintOperation, TPrintOperation, begin_print, context, PrintContext)
 # PrintOperation - create-custom-widget - 
 declareSignal(PrintOperation, TPrintOperation, create_custom_widget)
 # PrintOperation - custom-widget-apply - widget 
+declareSignal(PrintOperation, TPrintOperation, custom_widget_apply, widget, Widget)
 # PrintOperation - done - result 
+declareSignal(PrintOperation, TPrintOperation, done, result_x, PrintOperationResult)
 # PrintOperation - draw-page - context page_nr 
 # PrintOperation - end-print - context 
+declareSignal(PrintOperation, TPrintOperation, end_print, context, PrintContext)
 # PrintOperation - paginate - context 
+declareSignal(PrintOperation, TPrintOperation, paginate, context, PrintContext)
 # PrintOperation - preview - preview context parent 
 # PrintOperation - request-page-setup - context page_nr setup 
 # PrintOperation - status-changed - 
 declareSignal(PrintOperation, TPrintOperation, status_changed)
 # PrintOperation - update-custom-widget - widget setup settings 
 # RadioAction - changed - current 
+declareSignal(RadioAction, TRadioAction, changed, current, RadioAction)
 # RadioButton - group-changed - 
 declareSignal(RadioButton, TRadioButton, group_changed)
 # RadioMenuItem - group-changed - 
 declareSignal(RadioMenuItem, TRadioMenuItem, group_changed)
 # Range - adjust-bounds - value 
+declareSignal(Range, TRange, adjust_bounds, value, float64)
 # Range - change-value - scroll value 
 # Range - move-slider - step 
+declareSignal(Range, TRange, move_slider, step, ScrollType)
 # Range - value-changed - 
 declareSignal(Range, TRange, value_changed)
 # RecentManager - changed - 
 declareSignal(RecentManager, TRecentManager, changed)
 # Scale - format-value - value 
+declareSignal(Scale, TScale, format_value, value, float64)
 # ScaleButton - popdown - 
 declareSignal(ScaleButton, TScaleButton, popdown)
 # ScaleButton - popup - 
 declareSignal(ScaleButton, TScaleButton, popup)
 # ScaleButton - value-changed - value 
+declareSignal(ScaleButton, TScaleButton, value_changed, value, float64)
 # ScrolledWindow - move-focus-out - direction_type 
+declareSignal(ScrolledWindow, TScrolledWindow, move_focus_out, direction_type, DirectionType)
 # ScrolledWindow - scroll-child - scroll horizontal 
 # SearchEntry - search-changed - 
 declareSignal(SearchEntry, TSearchEntry, search_changed)
 # SpinButton - change-value - scroll 
+declareSignal(SpinButton, TSpinButton, change_value, scroll, ScrollType)
 # SpinButton - input - new_value 
+declareSignal(SpinButton, TSpinButton, input, new_value, var float64)
 # SpinButton - output - 
 declareSignal(SpinButton, TSpinButton, output)
 # SpinButton - value-changed - 
@@ -34463,11 +34533,15 @@ declareSignal(SpinButton, TSpinButton, wrapped)
 # StatusIcon - activate - 
 declareSignal(StatusIcon, TStatusIcon, activate)
 # StatusIcon - button-press-event - event 
+declareSignal(StatusIcon, TStatusIcon, button_press_event, event, Gdk3.TEventButton)
 # StatusIcon - button-release-event - event 
+declareSignal(StatusIcon, TStatusIcon, button_release_event, event, Gdk3.TEventButton)
 # StatusIcon - popup-menu - button activate_time 
 # StatusIcon - query-tooltip - x y keyboard_mode tooltip 
 # StatusIcon - scroll-event - event 
+declareSignal(StatusIcon, TStatusIcon, scroll_event, event, Gdk3.TEventScroll)
 # StatusIcon - size-changed - size 
+declareSignal(StatusIcon, TStatusIcon, size_changed, size, int32)
 # Statusbar - text-popped - context_id text 
 # Statusbar - text-pushed - context_id text 
 # Style - realize - 
@@ -34479,6 +34553,7 @@ declareSignal(StyleContext, TStyleContext, changed)
 # Switch - activate - 
 declareSignal(Switch, TSwitch, activate)
 # Switch - state-set - state 
+declareSignal(Switch, TSwitch, state_set, state, bool)
 # TextBuffer - apply-tag - tag start end 
 # TextBuffer - begin-user-action - 
 declareSignal(TextBuffer, TTextBuffer, begin_user_action)
@@ -34491,15 +34566,19 @@ declareSignal(TextBuffer, TTextBuffer, end_user_action)
 # TextBuffer - insert-pixbuf - location pixbuf 
 # TextBuffer - insert-text - location text len 
 # TextBuffer - mark-deleted - mark 
+declareSignal(TextBuffer, TTextBuffer, mark_deleted, mark, TextMark)
 # TextBuffer - mark-set - location mark 
 # TextBuffer - modified-changed - 
 declareSignal(TextBuffer, TTextBuffer, modified_changed)
 # TextBuffer - paste-done - clipboard 
+declareSignal(TextBuffer, TTextBuffer, paste_done, clipboard, Clipboard)
 # TextBuffer - remove-tag - tag start end 
 # TextTag - event - object event iter 
 # TextTagTable - tag-added - tag 
+declareSignal(TextTagTable, TTextTagTable, tag_added, tag, TextTag)
 # TextTagTable - tag-changed - tag size_changed 
 # TextTagTable - tag-removed - tag 
+declareSignal(TextTagTable, TTextTagTable, tag_removed, tag, TextTag)
 # TextView - backspace - 
 declareSignal(TextView, TTextView, backspace)
 # TextView - copy-clipboard - 
@@ -34508,13 +34587,17 @@ declareSignal(TextView, TTextView, copy_clipboard)
 declareSignal(TextView, TTextView, cut_clipboard)
 # TextView - delete-from-cursor - type count 
 # TextView - insert-at-cursor - string 
+declareSignal(TextView, TTextView, insert_at_cursor, string, ustring)
 # TextView - move-cursor - step count extend_selection 
 # TextView - move-viewport - step count 
 # TextView - paste-clipboard - 
 declareSignal(TextView, TTextView, paste_clipboard)
 # TextView - populate-popup - popup 
+declareSignal(TextView, TTextView, populate_popup, popup, Widget)
 # TextView - preedit-changed - preedit 
+declareSignal(TextView, TTextView, preedit_changed, preedit, ustring)
 # TextView - select-all - select 
+declareSignal(TextView, TTextView, select_all, select, bool)
 # TextView - set-anchor - 
 declareSignal(TextView, TTextView, set_anchor)
 # TextView - toggle-cursor-visible - 
@@ -34534,9 +34617,12 @@ declareSignal(ToolItem, TToolItem, create_menu_proxy)
 # ToolItem - toolbar-reconfigured - 
 declareSignal(ToolItem, TToolItem, toolbar_reconfigured)
 # Toolbar - focus-home-or-end - focus_home 
+declareSignal(Toolbar, TToolbar, focus_home_or_end, focus_home, bool)
 # Toolbar - orientation-changed - orientation 
+declareSignal(Toolbar, TToolbar, orientation_changed, orientation, Orientation)
 # Toolbar - popup-context-menu - x y button 
 # Toolbar - style-changed - style 
+declareSignal(Toolbar, TToolbar, style_changed, style, ToolbarStyle)
 # TreeSelection - changed - 
 declareSignal(TreeSelection, TTreeSelection, changed)
 # TreeView - columns-changed - 
@@ -34553,6 +34639,7 @@ declareSignal(TreeView, TTreeView, select_all)
 # TreeView - select-cursor-parent - 
 declareSignal(TreeView, TTreeView, select_cursor_parent)
 # TreeView - select-cursor-row - object 
+declareSignal(TreeView, TTreeView, select_cursor_row, object_x, bool)
 # TreeView - start-interactive-search - 
 declareSignal(TreeView, TTreeView, start_interactive_search)
 # TreeView - test-collapse-row - iter path 
@@ -34566,99 +34653,152 @@ declareSignal(TreeViewColumn, TTreeViewColumn, clicked)
 # UIManager - actions-changed - 
 declareSignal(UIManager, TUIManager, actions_changed)
 # UIManager - add-widget - widget 
+declareSignal(UIManager, TUIManager, add_widget, widget, Widget)
 # UIManager - connect-proxy - action proxy 
 # UIManager - disconnect-proxy - action proxy 
 # UIManager - post-activate - action 
+declareSignal(UIManager, TUIManager, post_activate, action, Action)
 # UIManager - pre-activate - action 
+declareSignal(UIManager, TUIManager, pre_activate, action, Action)
 # Widget - accel-closures-changed - 
 declareSignal(Widget, TWidget, accel_closures_changed)
 # Widget - button-press-event - event 
+declareSignal(Widget, TWidget, button_press_event, event, Gdk3.TEventButton)
 # Widget - button-release-event - event 
+declareSignal(Widget, TWidget, button_release_event, event, Gdk3.TEventButton)
 # Widget - can-activate-accel - signal_id 
+declareSignal(Widget, TWidget, can_activate_accel, signal_id, uint32)
 # Widget - child-notify - child_property 
+declareSignal(Widget, TWidget, child_notify, child_property, GObject2.ParamSpec)
 # Widget - composited-changed - 
 declareSignal(Widget, TWidget, composited_changed)
 # Widget - configure-event - event 
+declareSignal(Widget, TWidget, configure_event, event, Gdk3.TEventConfigure)
 # Widget - damage-event - event 
+declareSignal(Widget, TWidget, damage_event, event, Gdk3.TEventExpose)
 # Widget - delete-event - event 
+declareSignal(Widget, TWidget, delete_event, event, Gdk3.TEvent)
 # Widget - destroy - 
 declareSignal(Widget, TWidget, destroy)
 # Widget - destroy-event - event 
+declareSignal(Widget, TWidget, destroy_event, event, Gdk3.TEvent)
 # Widget - direction-changed - previous_direction 
+declareSignal(Widget, TWidget, direction_changed, previous_direction, TextDirection)
 # Widget - drag-begin - context 
+declareSignal(Widget, TWidget, drag_begin, context, Gdk3.DragContext)
 # Widget - drag-data-delete - context 
+declareSignal(Widget, TWidget, drag_data_delete, context, Gdk3.DragContext)
 # Widget - drag-data-get - context data info time 
 # Widget - drag-data-received - context x y data info time 
 # Widget - drag-drop - context x y time 
 # Widget - drag-end - context 
+declareSignal(Widget, TWidget, drag_end, context, Gdk3.DragContext)
 # Widget - drag-failed - context result 
 # Widget - drag-leave - context time 
 # Widget - drag-motion - context x y time 
 # Widget - draw - cr 
+declareSignal(Widget, TWidget, draw, cr, cairo1.TContext)
 # Widget - enter-notify-event - event 
+declareSignal(Widget, TWidget, enter_notify_event, event, Gdk3.TEventCrossing)
 # Widget - event - event 
+declareSignal(Widget, TWidget, event, event, Gdk3.TEvent)
 # Widget - event-after - event 
+declareSignal(Widget, TWidget, event_after, event, Gdk3.TEvent)
 # Widget - focus - direction 
+declareSignal(Widget, TWidget, focus, direction, DirectionType)
 # Widget - focus-in-event - event 
+declareSignal(Widget, TWidget, focus_in_event, event, Gdk3.TEventFocus)
 # Widget - focus-out-event - event 
+declareSignal(Widget, TWidget, focus_out_event, event, Gdk3.TEventFocus)
 # Widget - grab-broken-event - event 
+declareSignal(Widget, TWidget, grab_broken_event, event, Gdk3.TEventGrabBroken)
 # Widget - grab-focus - 
 declareSignal(Widget, TWidget, grab_focus)
 # Widget - grab-notify - was_grabbed 
+declareSignal(Widget, TWidget, grab_notify, was_grabbed, bool)
 # Widget - hide - 
 declareSignal(Widget, TWidget, hide)
 # Widget - hierarchy-changed - previous_toplevel 
+declareSignal(Widget, TWidget, hierarchy_changed, previous_toplevel, Widget)
 # Widget - key-press-event - event 
+declareSignal(Widget, TWidget, key_press_event, event, Gdk3.TEventKey)
 # Widget - key-release-event - event 
+declareSignal(Widget, TWidget, key_release_event, event, Gdk3.TEventKey)
 # Widget - keynav-failed - direction 
+declareSignal(Widget, TWidget, keynav_failed, direction, DirectionType)
 # Widget - leave-notify-event - event 
+declareSignal(Widget, TWidget, leave_notify_event, event, Gdk3.TEventCrossing)
 # Widget - map - 
 declareSignal(Widget, TWidget, map)
 # Widget - map-event - event 
+declareSignal(Widget, TWidget, map_event, event, Gdk3.TEventAny)
 # Widget - mnemonic-activate - arg1 
+declareSignal(Widget, TWidget, mnemonic_activate, arg1, bool)
 # Widget - motion-notify-event - event 
+declareSignal(Widget, TWidget, motion_notify_event, event, Gdk3.TEventMotion)
 # Widget - move-focus - direction 
+declareSignal(Widget, TWidget, move_focus, direction, DirectionType)
 # Widget - parent-set - old_parent 
+declareSignal(Widget, TWidget, parent_set, old_parent, Widget)
 # Widget - popup-menu - 
 declareSignal(Widget, TWidget, popup_menu)
 # Widget - property-notify-event - event 
+declareSignal(Widget, TWidget, property_notify_event, event, Gdk3.TEventProperty)
 # Widget - proximity-in-event - event 
+declareSignal(Widget, TWidget, proximity_in_event, event, Gdk3.TEventProximity)
 # Widget - proximity-out-event - event 
+declareSignal(Widget, TWidget, proximity_out_event, event, Gdk3.TEventProximity)
 # Widget - query-tooltip - x y keyboard_mode tooltip 
 # Widget - realize - 
 declareSignal(Widget, TWidget, realize)
 # Widget - screen-changed - previous_screen 
+declareSignal(Widget, TWidget, screen_changed, previous_screen, Gdk3.Screen)
 # Widget - scroll-event - event 
+declareSignal(Widget, TWidget, scroll_event, event, Gdk3.TEventScroll)
 # Widget - selection-clear-event - event 
+declareSignal(Widget, TWidget, selection_clear_event, event, Gdk3.TEventSelection)
 # Widget - selection-get - data info time 
 # Widget - selection-notify-event - event 
+declareSignal(Widget, TWidget, selection_notify_event, event, Gdk3.TEventSelection)
 # Widget - selection-received - data time 
 # Widget - selection-request-event - event 
+declareSignal(Widget, TWidget, selection_request_event, event, Gdk3.TEventSelection)
 # Widget - show - 
 declareSignal(Widget, TWidget, show)
 # Widget - show-help - help_type 
+declareSignal(Widget, TWidget, show_help, help_type, WidgetHelpType)
 # Widget - size-allocate - allocation 
+declareSignal(Widget, TWidget, size_allocate, allocation, cairo1.TRectangleInt)
 # Widget - state-changed - state 
+declareSignal(Widget, TWidget, state_changed, state, StateType)
 # Widget - state-flags-changed - flags 
+declareSignal(Widget, TWidget, state_flags_changed, flags, SStateFlags)
 # Widget - style-set - previous_style 
+declareSignal(Widget, TWidget, style_set, previous_style, Style)
 # Widget - style-updated - 
 declareSignal(Widget, TWidget, style_updated)
 # Widget - touch-event - object 
+declareSignal(Widget, TWidget, touch_event, object_x, Gdk3.TEvent)
 # Widget - unmap - 
 declareSignal(Widget, TWidget, unmap)
 # Widget - unmap-event - event 
+declareSignal(Widget, TWidget, unmap_event, event, Gdk3.TEventAny)
 # Widget - unrealize - 
 declareSignal(Widget, TWidget, unrealize)
 # Widget - visibility-notify-event - event 
+declareSignal(Widget, TWidget, visibility_notify_event, event, Gdk3.TEventVisibility)
 # Widget - window-state-event - event 
+declareSignal(Widget, TWidget, window_state_event, event, Gdk3.TEventWindowState)
 # Window - activate-default - 
 declareSignal(Window, TWindow, activate_default)
 # Window - activate-focus - 
 declareSignal(Window, TWindow, activate_focus)
 # Window - enable-debugging - toggle 
+declareSignal(Window, TWindow, enable_debugging, toggle, bool)
 # Window - keys-changed - 
 declareSignal(Window, TWindow, keys_changed)
 # Window - set-focus - object 
+declareSignal(Window, TWindow, set_focus, object_x, Widget)
   # struct methods
   #------------------
 # struct AboutDialogClass

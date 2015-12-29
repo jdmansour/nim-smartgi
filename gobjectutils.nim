@@ -233,7 +233,7 @@ proc myUnsafeAddr*[T](x: T): ptr T {.inline.} =
 
 
 
-import gir.GObject2 as Gobject2
+# import gir.GObject2 as Gobject2
 import macros
 import tables
 import typetraits
@@ -241,35 +241,23 @@ const lib = "libgobject-2.0-0.dll"
 
 # {.deadCodeElim: on.}
 proc g_signal_connect_data* (instance: pointer, detailed_signal: cstring, c_handler: pointer,
-  data: pointer, destroy_data: pointer, connect_flags: SConnectFlags): uint64 {.cdecl, dynlib: lib, importc: "g_signal_connect_data".}
+  data: pointer, destroy_data: pointer, connect_flags: uint32): uint64 {.cdecl, dynlib: lib, importc: "g_signal_connect_data".}
 
-
-static:
-  let knownSignals = ["destroy", "clicked", "configure_event"]
 
 macro connect*(instance: expr, name: string, fun: expr, arguments: varargs[expr]): auto =
   {.hint: "connect called".}
   let signalName = ($name).replace("-", "_")
   let procExpr = newIdentNode("connect_for_signal_" & signalName)
-  if signalName in knownSignals:
-  # if signalName == "destroy":
-    # result = quote do:
-    #   echo "calling signal proc"
-    #   discard `procExpr`(`instance`, `fun`)
-    result = newNimNode(nnkStmtList)
-    var call = newCall(procExpr, instance, fun)
-    for i in 0 .. arguments.len-1:
-      call.add(arguments[i])
-    result.add(call)
-    var tmp = "connect($#, $#, $#" % [repr(instance), repr(name), repr(fun)]
-    for i in 0 .. arguments.len-1:
-      tmp &= ", " & repr(arguments[i])
-    tmp &= ") -> "
-    echo tmp, repr(result).strip
-  else:
-    result = quote do:
-      {.fatal: "Could not find signal '" & `signalName` & "'" .}
-      echo "FAIL"
+  result = newNimNode(nnkStmtList)
+  var call = newCall(procExpr, instance, fun)
+  for i in 0 .. arguments.len-1:
+    call.add(arguments[i])
+  result.add(call)
+  var tmp = "connect($#, $#, $#" % [repr(instance), repr(name), repr(fun)]
+  for i in 0 .. arguments.len-1:
+    tmp &= ", " & repr(arguments[i])
+  tmp &= ") -> "
+  echo tmp, repr(result).strip
 
 
 type
@@ -360,7 +348,7 @@ macro declareSignal*(smartType: typedesc, structType: typedesc, expression: expr
       discard g_signal_connect_data(instance.pointer, `signalStrLit`, specialTrampolineTwo[`structType`,V], data, freeTrampoline, 0)
 
 
-macro declareSignal*(smartType: typedesc, structType: typedesc, expression: expr, arg1Type: typedesc): auto =
+macro declareSignal*(smartType: typedesc, structType: typedesc, expression: expr, arg1Name: expr, arg1Type: typedesc): auto =
   let
     signalStrLit = toStrLit(expression)
     signalName = repr(expression).replace("-", "_")
@@ -369,10 +357,10 @@ macro declareSignal*(smartType: typedesc, structType: typedesc, expression: expr
 
   result = quote do:
 
-    proc `procExpr`*(instance: `smartType`, callback: proc(x: `smartType`, y: `arg1Type`):bool ): uint {.discardable.} =
+    proc `procExpr`*(instance: `smartType`, callback: proc(x: `smartType`, `arg1Name`: `arg1Type`):bool ): uint {.discardable.} =
       echo "allocating trampoline data for \"", `signalStrLit`, "\" (EA)"
       type
-        Callback = proc(x: `smartType`, y: `arg1Type`): bool
+        Callback = proc(x: `smartType`, `arg1Name`: `arg1Type`): bool
         Data = TrampolineData[Callback]
 
       let data = cast[ptr Data](alloc(sizeof(Data)))

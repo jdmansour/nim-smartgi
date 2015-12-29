@@ -849,6 +849,30 @@ proc createLiteralSignature(meth: GIFunctionInfo, parent: GIRegisteredTypeInfo, 
   output.write "\n"
 
 
+proc createSignalDeclaration(signal: GISignalInfo, oi: GIObjectInfo) =
+  output.write "# ", oi.getName, " - ", signal.getName, " - "
+  let nargs = signal.getNArgs
+  for arg in signal.args:
+    output.write arg.getName, " "
+  output.writeln
+
+  if nargs > 1:
+    # not implemented yet
+    return
+
+  let normalizedName = signal.getName.escapeName.replace("-", "_");
+  var parts = @[oi.getQualifiedNimStructName(wrapped=true),
+                oi.getQualifiedNimStructName(wrapped=false),
+                normalizedName]
+
+  for arg in signal.args:
+    let identity = identifyType(arg)
+    parts.add(arg.getName.escapeName)
+    parts.add(identity.wrappedTypeName)
+
+  output.writeln "declareSignal(" & parts.join(", ") & ")"
+
+
 proc createSugarSignature(meth: GIFunctionInfo, parent: GIRegisteredTypeInfo, outArgs: seq[int]=newSeq[int]()): Table[int, int] =
   let
     flags = meth.getFlags
@@ -1510,17 +1534,7 @@ proc main() =
   for info in gi.infos(namespace).filter((i:GIBaseInfo) => i.getType == GIInfoType.OBJECT):
     let oi = toGIObjectInfo(info)
     for signal in oi.signals:
-      output.write "# ", oi.getName, " - ", signal.getName, " - "
-      var hasArgs = false
-      for arg in signal.args:
-        hasArgs = true
-        output.write arg.getName, " "
-      output.writeln
-
-      if not hasArgs:
-        output.write "declareSignal(", oi.getQualifiedNimStructName(wrapped=true)
-        output.write ", ", oi.getQualifiedNimStructName(wrapped=false)
-        output.writeln ", ", signal.getName.escapeName.replace("-", "_"), ")"
+      createSignalDeclaration(signal, oi)
 
 
 

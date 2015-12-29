@@ -2749,6 +2749,7 @@ proc use*(self: TypeModule): bool {.inline.} =
 # object signals
 #------------------
 # Object - notify - pspec 
+declareSignal(Object, TObject, notify, pspec, ParamSpec)
   # struct methods
   #------------------
 # struct CClosure

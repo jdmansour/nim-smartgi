@@ -1756,9 +1756,12 @@ proc xor_sets*(self: StateSet, compare_set: StateSet): StateSet {.inline.} =
 # Hyperlink - link-activated - 
 declareSignal(Hyperlink, THyperlink, link_activated)
 # Object - active-descendant-changed - arg1 
+declareSignal(Object, TObject, active_descendant_changed, arg1, pointer)
 # Object - children-changed - arg1 arg2 
 # Object - focus-event - arg1 
+declareSignal(Object, TObject, focus_event, arg1, bool)
 # Object - property-change - arg1 
+declareSignal(Object, TObject, property_change, arg1, pointer)
 # Object - state-change - arg1 arg2 
 # Object - visible-data-changed - 
 declareSignal(Object, TObject, visible_data_changed)

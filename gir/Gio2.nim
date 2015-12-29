@@ -14350,11 +14350,14 @@ proc get_file_info*(self: ZlibDecompressor): FileInfo {.inline.} =
 # AppInfoMonitor - changed - 
 declareSignal(AppInfoMonitor, TAppInfoMonitor, changed)
 # AppLaunchContext - launch-failed - object 
+declareSignal(AppLaunchContext, TAppLaunchContext, launch_failed, object_x, ustring)
 # AppLaunchContext - launched - object p0 
 # Application - activate - 
 declareSignal(Application, TApplication, activate)
 # Application - command-line - command_line 
+declareSignal(Application, TApplication, command_line, command_line, ApplicationCommandLine)
 # Application - handle-local-options - options 
+declareSignal(Application, TApplication, handle_local_options, options, GLib2.TVariantDict)
 # Application - open - files n_files hint 
 # Application - shutdown - 
 declareSignal(Application, TApplication, shutdown)
@@ -14363,15 +14366,18 @@ declareSignal(Application, TApplication, startup)
 # Cancellable - cancelled - 
 declareSignal(Cancellable, TCancellable, cancelled)
 # DBusAuthObserver - allow-mechanism - mechanism 
+declareSignal(DBusAuthObserver, TDBusAuthObserver, allow_mechanism, mechanism, ustring)
 # DBusAuthObserver - authorize-authenticated-peer - stream credentials 
 # DBusConnection - closed - remote_peer_vanished error 
 # DBusInterfaceSkeleton - g-authorize-method - invocation 
+declareSignal(DBusInterfaceSkeleton, TDBusInterfaceSkeleton, g_authorize_method, invocation, DBusMethodInvocation)
 # DBusObjectManagerClient - interface-proxy-properties-changed - object_proxy interface_proxy changed_properties invalidated_properties 
 # DBusObjectManagerClient - interface-proxy-signal - object_proxy interface_proxy sender_name signal_name parameters 
 # DBusObjectSkeleton - authorize-method - interface invocation 
 # DBusProxy - g-properties-changed - changed_properties invalidated_properties 
 # DBusProxy - g-signal - sender_name signal_name parameters 
 # DBusServer - new-connection - connection 
+declareSignal(DBusServer, TDBusServer, new_connection, connection, DBusConnection)
 # FileMonitor - changed - file other_file event_type 
 # FilenameCompleter - got-completion-data - 
 declareSignal(FilenameCompleter, TFilenameCompleter, got_completion_data)
@@ -14381,32 +14387,50 @@ declareSignal(MountOperation, TMountOperation, aborted)
 # MountOperation - ask-password - message default_user default_domain flags 
 # MountOperation - ask-question - message choices 
 # MountOperation - reply - result 
+declareSignal(MountOperation, TMountOperation, reply, result_x, MountOperationResult)
 # MountOperation - show-processes - message processes choices 
 # MountOperation - show-unmount-progress - message time_left bytes_left 
 # Resolver - reload - 
 declareSignal(Resolver, TResolver, reload)
 # Settings - change-event - keys n_keys 
 # Settings - changed - key 
+declareSignal(Settings, TSettings, changed, key, ustring)
 # Settings - writable-change-event - key 
+declareSignal(Settings, TSettings, writable_change_event, key, uint32)
 # Settings - writable-changed - key 
+declareSignal(Settings, TSettings, writable_changed, key, ustring)
 # SimpleAction - activate - parameter 
+declareSignal(SimpleAction, TSimpleAction, activate, parameter, GLib2.TVariant)
 # SimpleAction - change-state - value 
+declareSignal(SimpleAction, TSimpleAction, change_state, value, GLib2.TVariant)
 # SocketClient - event - event connectable connection 
 # SocketService - incoming - connection source_object 
 # ThreadedSocketService - run - connection source_object 
 # TlsConnection - accept-certificate - peer_cert errors 
 # VolumeMonitor - drive-changed - drive 
+declareSignal(VolumeMonitor, TVolumeMonitor, drive_changed, drive, Drive)
 # VolumeMonitor - drive-connected - drive 
+declareSignal(VolumeMonitor, TVolumeMonitor, drive_connected, drive, Drive)
 # VolumeMonitor - drive-disconnected - drive 
+declareSignal(VolumeMonitor, TVolumeMonitor, drive_disconnected, drive, Drive)
 # VolumeMonitor - drive-eject-button - drive 
+declareSignal(VolumeMonitor, TVolumeMonitor, drive_eject_button, drive, Drive)
 # VolumeMonitor - drive-stop-button - drive 
+declareSignal(VolumeMonitor, TVolumeMonitor, drive_stop_button, drive, Drive)
 # VolumeMonitor - mount-added - mount 
+declareSignal(VolumeMonitor, TVolumeMonitor, mount_added, mount, Mount)
 # VolumeMonitor - mount-changed - mount 
+declareSignal(VolumeMonitor, TVolumeMonitor, mount_changed, mount, Mount)
 # VolumeMonitor - mount-pre-unmount - mount 
+declareSignal(VolumeMonitor, TVolumeMonitor, mount_pre_unmount, mount, Mount)
 # VolumeMonitor - mount-removed - mount 
+declareSignal(VolumeMonitor, TVolumeMonitor, mount_removed, mount, Mount)
 # VolumeMonitor - volume-added - volume 
+declareSignal(VolumeMonitor, TVolumeMonitor, volume_added, volume, Volume)
 # VolumeMonitor - volume-changed - volume 
+declareSignal(VolumeMonitor, TVolumeMonitor, volume_changed, volume, Volume)
 # VolumeMonitor - volume-removed - volume 
+declareSignal(VolumeMonitor, TVolumeMonitor, volume_removed, volume, Volume)
   # struct methods
   #------------------
 # struct ActionEntry

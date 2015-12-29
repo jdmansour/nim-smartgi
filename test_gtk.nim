@@ -1,3 +1,4 @@
+import gir.GObject2 as GObject2
 import gir.Gtk3 as Gtk3
 import gir.Gdk3 as Gdk3
 import gobjectutils
@@ -12,7 +13,7 @@ from future import `=>`
 
 # declareSignal(Gtk3.Window, Gtk3.TWindow, destroy)
 # declareSignal(Gtk3.Button, Gtk3.TButton, clicked)
-declareSignal(Gtk3.Window, Gtk3.TWindow, configure_event, Gdk3.TEventConfigure)
+# declareSignal(Gtk3.Window, Gtk3.TWindow, configure_event, Gdk3.TEventConfigure)
 
 
 proc init() =
@@ -41,7 +42,8 @@ proc main() =
   button.connect("clicked", (bttn: Button, x: string )=>echo x, "wuff")
 
   # works because Gdk3.TEventConfigure is byref
-  proc windowConfigure(win: Gtk3.Window, ea: Gdk3.TEventConfigure): bool =
+  # proc windowConfigure(win: Gtk3.Window, ea: Gdk3.TEventConfigure): bool =
+  proc windowConfigure(win: Gtk3.Widget, ea: Gdk3.TEventConfigure): bool =
     echo ea.x, " ", ea.y
     return true
   window.connect("configure-event", windowConfigure)
@@ -79,6 +81,7 @@ proc main() =
 
   # let wid: Gtk3.Widget = window
   window.connect("destroy", (w:Gtk3.Widget)=>gtkMainQuit())
+  # to do: make this work:
   # wid.connect("destroy", (w:Gtk3.Window)=>gtkMainQuit())
   window.showAll
 
