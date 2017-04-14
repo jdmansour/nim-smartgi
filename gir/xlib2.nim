@@ -10,51 +10,63 @@ type
   #------------------
   # structs
   #------------------
-  TDisplay* = object
-  Display* = ref GSmartPtr[TDisplay]
+# wrapped: TDisplay
+# unwrapped: TDisplay
+  TDisplay* {.pure,inheritable.} = object
 
-  TScreen* = object
-  Screen* = ref GSmartPtr[TScreen]
+# wrapped: TScreen
+# unwrapped: TScreen
+  TScreen* {.pure,inheritable.} = object
 
-  TVisual* = object
-  Visual* = ref GSmartPtr[TVisual]
+# wrapped: TVisual
+# unwrapped: TVisual
+  TVisual* {.pure,inheritable.} = object
 
-  TXConfigureEvent* = object
-  XConfigureEvent* = ref GSmartPtr[TXConfigureEvent]
+# wrapped: TXConfigureEvent
+# unwrapped: TXConfigureEvent
+  TXConfigureEvent* {.pure,inheritable.} = object
 
-  TXImage* = object
-  XImage* = ref GSmartPtr[TXImage]
+# wrapped: TXImage
+# unwrapped: TXImage
+  TXImage* {.pure,inheritable.} = object
 
-  TXFontStruct* = object
-  XFontStruct* = ref GSmartPtr[TXFontStruct]
+# wrapped: TXFontStruct
+# unwrapped: TXFontStruct
+  TXFontStruct* {.pure,inheritable.} = object
 
-  TXTrapezoid* = object
-  XTrapezoid* = ref GSmartPtr[TXTrapezoid]
+# wrapped: TXTrapezoid
+# unwrapped: TXTrapezoid
+  TXTrapezoid* {.pure,inheritable.} = object
 
-  TXVisualInfo* = object
-  XVisualInfo* = ref GSmartPtr[TXVisualInfo]
+# wrapped: TXVisualInfo
+# unwrapped: TXVisualInfo
+  TXVisualInfo* {.pure,inheritable.} = object
 
-  TXWindowAttributes* = object
-  XWindowAttributes* = ref GSmartPtr[TXWindowAttributes]
+# wrapped: TXWindowAttributes
+# unwrapped: TXWindowAttributes
+  TXWindowAttributes* {.pure,inheritable.} = object
 
   # unions
   #------------------
-  TXEvent* = object
-  XEvent* = ref GSmartPtr[TXEvent]
+# wrapped: TXEvent
+# unwrapped: TXEvent
+  TXEvent* {.pure,inheritable.} = object
 
   # interfaces
   #------------------
   # enums
   #------------------
+  # constants
+  #------------------
 
-# implicit unwrapping
-# for some reason, this is not picked up from gobjectutils (bug?)
-converter unwrap[T](s: ref GSmartPtr[T]): ptr T = s.pointer
+# # implicit unwrapping
+# # for some reason, this is not picked up from gobjectutils (bug?)
+# converter unwrap[T](s: ref GSmartPtr[T]): ptr T = s.pointer
   # free functions
   #------------------
 # XOpenDisplay
 # flags: {} container: -
-# 'VOID_TODO' 'VOID_TODO'
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc XOpenDisplay*() {.cdecl, dynlib: lib, importc: "XOpenDisplay".}
   # object methods
   #------------------
@@ -71,3 +83,5 @@ proc XOpenDisplay*() {.cdecl, dynlib: lib, importc: "XOpenDisplay".}
 # struct XTrapezoid
 # struct XVisualInfo
 # struct XWindowAttributes
+  # flag type methods
+  #------------------

@@ -67,8 +67,9 @@ proc escapeName(name: string, for_public=false): string =
 
   if result[0] in Digits:
     result = "x"&result
-  if result.startswith("_"):
-    result = "x"&result
+  while result.startswith("_"):
+    result = result[1..result.len-1]
+    # result = "x"&result
   if result.endswith("_"):
     result = result&"x"
   result = result.replace("__", "_")
@@ -99,6 +100,7 @@ proc getQualifiedNimStructName(info: GIBaseInfo, wrapped=false): string =
 
   let ns = info.getVersionedNamespace
   var name = escapeName(info.getName)
+  # if not wrapped or info.getType == GIInfoType.STRUCT:
   if not wrapped:
     name = "T" & name
   if ns != gCurrentNs:
@@ -222,6 +224,8 @@ proc id(expression: string): string = expression
 
 type
   Wrapper = proc (expression:string):string {.closure.}
+  # todo: we could add a "typesAreIdentical" field if
+  # the wrapped is just an alias of the unwrapped
   NimTypeInfo = tuple[wrappedTypeName: string, unwrappedTypeName: string, wrapTo: Wrapper, unwrapFrom: Wrapper, tempInit: proc(tempName, argName: string): string, tempCopyOut: bool]
 
 proc makeTypeInfo(wrappedTypeName: string, unwrappedTypeName: string, wrapTo=Wrapper(id), unwrapFrom=Wrapper(id), tempInit: proc(tempName, argName: string): string=nil, tempCopyOut: bool=false): NimTypeInfo =
@@ -231,6 +235,196 @@ proc makeTypeInfo(wrappedTypeName: string, unwrappedTypeName: string, wrapTo=Wra
    unwrapFrom: unwrapFrom,
    tempInit: tempInit,
    tempCopyOut: tempCopyOut)
+
+
+proc identifyTypeForObject(iface: GIBaseInfo, argInfo: GIArgInfo=nil, callableInfo: GICallableInfo=nil): NimTypeInfo =
+
+  assert iface.getType == GIInfoType.OBJECT
+
+  # let
+    # ns = iface.getVersionedNamespace
+    # name = iface.getName()
+
+  result = makeTypeInfo(
+    wrappedTypeName = getQualifiedNimStructName(iface, wrapped=true),
+    unwrappedTypeName = "ptr " & getQualifiedNimStructName(iface, wrapped=false))
+
+  if argInfo != nil:
+    # there is automatic unwrapping, but in case the signature of the import and sugar
+    # procs are too similar, we want to explicitly select the import one, and not recurse
+    # proc gdk_cairo_create(window: ptr TWindow): ptr cairo.TContext {.cdecl, dynlib: lib, importc: "gdk_cairo_create".}
+    # proc gdk_cairo_create*(window: Window): var cairo.TContext {.inline.} =
+    #   gdk_cairo_create(window.unwrap)
+    # result.unwrapFrom = (x:string)=>"unwrap("&x&")"
+    # TODO: we could insert an "assert x != nil" or deal otherwise with nil
+    # result.unwrapFrom = (x:string) => x & ".pointer"
+    result.unwrapFrom = (x:string) => x & ".getPointer"
+
+    case argInfo.getDirection
+    of Direction.`in`:
+      discard
+    else:
+      result.wrappedTypeName = "var " & result.wrappedTypeName
+      # result.tempInit = ((tempName: string, argName: string) => ("var " & tempName & " = g_string_new(" & argName & ")"))
+      # result.tempInit = ((tempName: string, argName: string) => ("# blah"))
+      # # we could make "unwrap" a template instead so we could assign to it (?)
+      # result.wrapTo = Wrapper((x:string) => x & ".pointer")
+
+
+  elif callableInfo != nil:
+    # as a return type
+    var structName = getQualifiedNimStructName(iface, wrapped=false)
+
+    if callableInfo.getType == GIInfoType.Function:
+      let funcInfo = toGIFunctionInfo(callableInfo)
+      if FunctionInfoFlags.isConstructor in funcInfo.getFlags:
+        # this is a constructor, upgrade the return type
+        # e.g. for windowNew: Widget -> Window
+        let realType = funcInfo.getContainer
+        structName = getQualifiedNimStructName(realType, wrapped=false)
+        result.wrappedTypeName = getQualifiedNimStructName(realType, wrapped=true)
+
+    case callableInfo.getCallerOwns
+    of Transfer.Everything:
+      # no "ptr" in front, but use the distinct pointer type TransferFull instead
+      result.unwrappedTypeName = "TransferFull[" & structName & "]"
+      result.wrapTo = Wrapper((x:string) => "wrap(" & x & ")")
+    of Transfer.Nothing:
+      result.unwrappedTypeName = "TransferNone[" & structName & "]"
+      result.wrapTo = Wrapper((x:string) => "wrap(" & x & ")")
+    of Transfer.Container:
+      # TODO:
+      assert false
+
+  return result
+
+proc identifyTypeForStructOrUnion(iface: GIBaseInfo, isArg: bool=false, argDirection: Direction=Direction.`in`, info: GITypeInfo=nil): NimTypeInfo =
+
+  assert (case iface.getType
+          of GIInfoType.STRUCT, GIInfoType.UNION, GIInfoType.Interface: true
+          else: false)
+
+
+# proc identifyTypeForStructOrUnion(iface: GIInterfaceInfo, isArg: bool=false, argDirection: Direction=Direction.`in`, info: GITypeInfo=nil): NimTypeInfo =
+# proc identifyTypeForStructOrUnion(iface: GIInterfaceInfo, argInfo: GIArgInfo=nil, info: GITypeInfo=nil): NimTypeInfo =
+  # let
+  #   plainNs = iface.getNamespace
+  #   ns = iface.getVersionedNamespace
+  #   name = iface.getName()
+
+
+  # if plainNs == "GLib" and name == "String":
+
+  #   result = makeTypeInfo(
+  #     wrappedTypeName = "ustring",
+  #     unwrappedTypeName = "ptr " & getQualifiedNimStructName(iface, wrapped=false),
+  #     wrapTo=Wrapper(wrapToUstringFromGlibString),
+  #     unwrapFrom=Wrapper((x:string) => "TODO("&x&")"))
+
+  #   if (argInfo != nil):
+  #     case argInfo.getDirection
+  #     of Direction.`in`:
+  #       result.tempInit = ((tempName: string, argName: string) => ("var " & tempName & " = g_string_new(" & argName & ")"))
+  #       result.tempCopyOut = false
+  #     of Direction.`out`:
+  #       result.wrappedTypeName = "var " & result.wrappedTypeName
+  #       result.tempInit = ((tempName: string, argName: string) => ("var " & tempName & " = g_string_new(\"\")"))
+  #       result.tempCopyOut = true
+  #     of Direction.`inout`:
+  #       result.wrappedTypeName = "var " & result.wrappedTypeName
+  #       result.tempInit = ((tempName: string, argName: string) => ("var " & tempName & " = g_string_new(" & argName & ")"))
+  #       result.tempCopyOut = true
+  
+  #   return result
+
+
+
+  var
+    # we want for the "wrappedTypeName", i.e. the nim interface type,
+    # either "TBlah" or "var TBlah", this is why we say wrapped=false:
+    # ...
+    # hmm that doesn't seem to work.  we can't initialize a var TBlah
+    # from a ptr TBlah without copying the TBlah object (since the var TBlah
+    # lives on the stack in C code)
+    # wrappedTypeName = getQualifiedNimStructName(iface, wrapped=false)
+    # unwrappedTypeName = getQualifiedNimStructName(iface, wrapped=false)
+    # wrapTo = Wrapper(id)
+    # unwrapFrom = Wrapper(id)
+    wrappedTypeName = getQualifiedNimStructName(iface, wrapped=false)
+    # wrappedTypeName = getQualifiedNimStructName(iface, wrapped=true)
+    unwrappedTypeName = getQualifiedNimStructName(iface, wrapped=false)
+    wrapTo = Wrapper(id)
+    unwrapFrom = Wrapper(id)
+
+
+  # # if info.isPointer or (argInfo != nil and argInfo.getDirection != Direction.`in`):
+  # # if info.isPointer and argInfo != nil:
+  # if isArg:
+  #   case argDirection
+  #   of Direction.`in`:
+  #     # wrappedTypeName = wrappedTypeName
+  #     unwrappedTypeName = "ptr " & unwrappedTypeName
+  #     wrapTo = (x:string) => "("&x&")[]"
+  #     unwrapFrom = (x:string) => "myUnsafeAddr("&x&")"
+  #   of Direction.`inout`:
+  #     wrappedTypeName = "var " & wrappedTypeName
+  #     unwrappedTypeName = "ptr " & unwrappedTypeName
+  #     wrapTo = (x:string) => "("&x&")[]"
+  #     unwrapFrom = (x:string) => "addr("&x&")"
+  #   of Direction.`out`:
+  #     wrappedTypeName = "var " & wrappedTypeName
+  #     unwrappedTypeName = "ptr " & unwrappedTypeName
+  #     wrapTo = (x:string) => "("&x&")[]"
+  #     unwrapFrom = (x:string) => "addr("&x&")"
+  # elif info != nil:
+  #   # what is going on here?
+  #   if info.isPointer:
+  #     # wrappedTypeName = wrappedTypeName
+  #     unwrappedTypeName = "ptr " & unwrappedTypeName
+  #     wrapTo = (x:string) => "("&x&")[]"
+  #     unwrapFrom = (x:string) => "myUnsafeAddr("&x&")"
+  #   # to do: handle return type case?
+  # # else:
+
+  # if info.isPointer or (argInfo != nil and argInfo.getDirection != Direction.`in`):
+  # if info.isPointer and argInfo != nil:
+  if isArg:
+    case argDirection
+    of Direction.`in`:
+      # wrappedTypeName = wrappedTypeName
+      wrappedTypeName = "ptr " & wrappedTypeName
+      unwrappedTypeName = "ptr " & unwrappedTypeName
+      # wrapTo = (x:string) => "("&x&")[]"
+      # unwrapFrom = (x:string) => "myUnsafeAddr("&x&")"
+    of Direction.`inout`:
+      wrappedTypeName = "ptr " & wrappedTypeName
+      unwrappedTypeName = "ptr " & unwrappedTypeName
+      # wrapTo = (x:string) => "("&x&")[]"
+      # unwrapFrom = (x:string) => "addr("&x&")"
+    of Direction.`out`:
+      wrappedTypeName = "ptr " & wrappedTypeName
+      unwrappedTypeName = "ptr " & unwrappedTypeName
+      # wrapTo = (x:string) => "("&x&")[]"
+      # unwrapFrom = (x:string) => "addr("&x&")"
+  elif info != nil:
+    # what is going on here?
+    # this branch seems to be used on return types
+    if info.isPointer:
+      # wrappedTypeName = wrappedTypeName
+      wrappedTypeName = "ptr " & wrappedTypeName
+      unwrappedTypeName = "ptr " & unwrappedTypeName
+      # wrapTo = (x:string) => "("&x&")[]"
+      # unwrapFrom = (x:string) => "myUnsafeAddr("&x&")"
+    # to do: handle return type case?
+  # else:
+
+
+  # unwrappedTypeName = "XXX " & unwrappedTypeName
+
+  return makeTypeInfo (wrappedTypeName=wrappedTypeName,
+          unwrappedTypeName=unwrappedTypeName,
+          wrapTo=wrapTo, unwrapFrom=unwrapFrom
+          )      
 
 
 proc identifyType(info: GITypeInfo, argInfo: GIArgInfo=nil, callableInfo: GICallableInfo=nil): NimTypeInfo =
@@ -244,139 +438,14 @@ proc identifyType(info: GITypeInfo, argInfo: GIArgInfo=nil, callableInfo: GICall
 
     case iface.getType
     of GIInfoType.OBJECT: #----------------------------------------------------
-    
-      # let
-        # ns = iface.getVersionedNamespace
-        # name = iface.getName()
 
-      result = makeTypeInfo(
-        wrappedTypeName = getQualifiedNimStructName(iface, wrapped=true),
-        unwrappedTypeName = "ptr " & getQualifiedNimStructName(iface, wrapped=false))
-
-      if argInfo != nil:
-        # there is automatic unwrapping, but in case the signature of the import and sugar
-        # procs are too similar, we want to explicitly select the import one, and not recurse
-        # proc gdk_cairo_create(window: ptr TWindow): ptr cairo.TContext {.cdecl, dynlib: lib, importc: "gdk_cairo_create".}
-        # proc gdk_cairo_create*(window: Window): var cairo.TContext {.inline.} =
-        #   gdk_cairo_create(window.unwrap)
-        # result.unwrapFrom = (x:string)=>"unwrap("&x&")"
-        # TODO: we could insert an "assert x != nil" or deal otherwise with nil
-        # result.unwrapFrom = (x:string) => x & ".pointer"
-        result.unwrapFrom = (x:string) => x & ".getPointer"
-
-        case argInfo.getDirection
-        of Direction.`in`:
-          discard
-        else:
-          result.wrappedTypeName = "var " & result.wrappedTypeName
-          # result.tempInit = ((tempName: string, argName: string) => ("var " & tempName & " = g_string_new(" & argName & ")"))
-          # result.tempInit = ((tempName: string, argName: string) => ("# blah"))
-          # # we could make "unwrap" a template instead so we could assign to it (?)
-          # result.wrapTo = Wrapper((x:string) => x & ".pointer")
-
-
-      elif callableInfo != nil:
-        # as a return type
-        var structName = getQualifiedNimStructName(iface, wrapped=false)
-
-        if callableInfo.getType == GIInfoType.Function:
-          let funcInfo = toGIFunctionInfo(callableInfo)
-          if FunctionInfoFlags.isConstructor in funcInfo.getFlags:
-            # this is a constructor, upgrade the return type
-            # e.g. for windowNew: Widget -> Window
-            let realType = funcInfo.getContainer
-            structName = getQualifiedNimStructName(realType, wrapped=false)
-            result.wrappedTypeName = getQualifiedNimStructName(realType, wrapped=true)
-    
-        case callableInfo.getCallerOwns
-        of Transfer.Everything:
-          # no "ptr" in front, but use the distinct pointer type TransferFull instead
-          result.unwrappedTypeName = "TransferFull[" & structName & "]"
-          result.wrapTo = Wrapper((x:string) => "wrap(" & x & ")")
-        of Transfer.Nothing:
-          result.unwrappedTypeName = "TransferNone[" & structName & "]"
-          result.wrapTo = Wrapper((x:string) => "wrap(" & x & ")")
-        of Transfer.Container:
-          # TODO:
-          assert false
-
-      return result
+      return identifyTypeForObject(iface, argInfo, callableInfo)
 
     of GIInfoType.STRUCT, GIInfoType.UNION: #----------------------------------
-
-      # let
-      #   plainNs = iface.getNamespace
-      #   ns = iface.getVersionedNamespace
-      #   name = iface.getName()
-
-
-      # if plainNs == "GLib" and name == "String":
-
-      #   result = makeTypeInfo(
-      #     wrappedTypeName = "ustring",
-      #     unwrappedTypeName = "ptr " & getQualifiedNimStructName(iface, wrapped=false),
-      #     wrapTo=Wrapper(wrapToUstringFromGlibString),
-      #     unwrapFrom=Wrapper((x:string) => "TODO("&x&")"))
-
-      #   if (argInfo != nil):
-      #     case argInfo.getDirection
-      #     of Direction.`in`:
-      #       result.tempInit = ((tempName: string, argName: string) => ("var " & tempName & " = g_string_new(" & argName & ")"))
-      #       result.tempCopyOut = false
-      #     of Direction.`out`:
-      #       result.wrappedTypeName = "var " & result.wrappedTypeName
-      #       result.tempInit = ((tempName: string, argName: string) => ("var " & tempName & " = g_string_new(\"\")"))
-      #       result.tempCopyOut = true
-      #     of Direction.`inout`:
-      #       result.wrappedTypeName = "var " & result.wrappedTypeName
-      #       result.tempInit = ((tempName: string, argName: string) => ("var " & tempName & " = g_string_new(" & argName & ")"))
-      #       result.tempCopyOut = true
-      
-      #   return result
-
-
-
-      var
-        # we want for the "wrappedTypeName", i.e. the nim interface type,
-        # either "TBlah" or "var TBlah", this is why we say wrapped=false:
-        wrappedTypeName = getQualifiedNimStructName(iface, wrapped=false)
-        unwrappedTypeName = getQualifiedNimStructName(iface, wrapped=false)
-        wrapTo = Wrapper(id)
-        unwrapFrom = Wrapper(id)
-
-      # if info.isPointer or (argInfo != nil and argInfo.getDirection != Direction.`in`):
-      # if info.isPointer and argInfo != nil:
-      if argInfo != nil:
-        case argInfo.getDirection
-        of Direction.`in`:
-          # wrappedTypeName = wrappedTypeName
-          unwrappedTypeName = "ptr " & unwrappedTypeName
-          wrapTo = (x:string) => "("&x&")[]"
-          unwrapFrom = (x:string) => "myUnsafeAddr("&x&")"
-        of Direction.`inout`:
-          wrappedTypeName = "var " & wrappedTypeName
-          unwrappedTypeName = "ptr " & unwrappedTypeName
-          wrapTo = (x:string) => "("&x&")[]"
-          unwrapFrom = (x:string) => "addr("&x&")"
-        of Direction.`out`:
-          wrappedTypeName = "var " & wrappedTypeName
-          unwrappedTypeName = "ptr " & unwrappedTypeName
-          wrapTo = (x:string) => "("&x&")[]"
-          unwrapFrom = (x:string) => "addr("&x&")"
-      else:
-        if info.isPointer:
-          # wrappedTypeName = wrappedTypeName
-          unwrappedTypeName = "ptr " & unwrappedTypeName
-          wrapTo = (x:string) => "("&x&")[]"
-          unwrapFrom = (x:string) => "myUnsafeAddr("&x&")"
-        # to do: handle return type case?
-
-      # unwrappedTypeName = "XXX " & unwrappedTypeName
-
-      return makeTypeInfo (wrappedTypeName=wrappedTypeName,
-              unwrappedTypeName=unwrappedTypeName,
-              wrapTo=wrapTo, unwrapFrom=unwrapFrom
-              )      
+      let
+        isArg = argInfo != nil
+        argDirection = if isArg: argInfo.getDirection() else: Direction.`in`
+      return identifyTypeForStructOrUnion(iface, isArg, argDirection, info)
 
     of GIInfoType.Flags: #-----------------------------------------------------
 
@@ -422,7 +491,8 @@ proc identifyType(info: GITypeInfo, argInfo: GIArgInfo=nil, callableInfo: GICall
     of GIInfoType.Interface: #-------------------------------------------------
       # TODO: specific handling of interfaces (vs. objects) needed?
       var
-        wrappedTypeName = getQualifiedNimStructName(iface, wrapped=true)
+        wrappedTypeName = "ptr " & getQualifiedNimStructName(iface, wrapped=false)
+        # wrappedTypeName = getQualifiedNimStructName(iface, wrapped=true)
         unwrappedTypeName = "ptr " & getQualifiedNimStructName(iface, wrapped=false)
         wrapTo = Wrapper(id)
         unwrapFrom = Wrapper(id)
@@ -440,22 +510,22 @@ proc identifyType(info: GITypeInfo, argInfo: GIArgInfo=nil, callableInfo: GICall
         of Transfer.Container:
           # TODO:
           discard
-      elif argInfo != nil:
-        case argInfo.getDirection
-        of Direction.`in`:
-          wrappedTypeName = wrappedTypeName
-          unwrappedTypeName = unwrappedTypeName
-        else:
-          wrappedTypeName = "var " & wrappedTypeName
-          unwrappedTypeName = unwrappedTypeName
+      # elif argInfo != nil:
+      #   case argInfo.getDirection
+      #   of Direction.`in`:
+      #     wrappedTypeName = wrappedTypeName
+      #     unwrappedTypeName = unwrappedTypeName
+      #   else:
+      #     wrappedTypeName = "var " & wrappedTypeName
+      #     unwrappedTypeName = unwrappedTypeName
 
-        # there is automatic unwrapping, but in case the signature of the import and sugar
-        # procs are too similar, we want to explicitly select the import one, and not recurse
-        # proc gdk_cairo_create(window: ptr TWindow): ptr cairo.TContext {.cdecl, dynlib: lib, importc: "gdk_cairo_create".}
-        # proc gdk_cairo_create*(window: Window): var cairo.TContext {.inline.} =
-        #   gdk_cairo_create(window.unwrap)
-        # unwrapFrom = (x: string) => x & ".pointer"
-        unwrapFrom = (x:string)=>"unwrap("&x&")"
+      #   # there is automatic unwrapping, but in case the signature of the import and sugar
+      #   # procs are too similar, we want to explicitly select the import one, and not recurse
+      #   # proc gdk_cairo_create(window: ptr TWindow): ptr cairo.TContext {.cdecl, dynlib: lib, importc: "gdk_cairo_create".}
+      #   # proc gdk_cairo_create*(window: Window): var cairo.TContext {.inline.} =
+      #   #   gdk_cairo_create(window.unwrap)
+      #   # unwrapFrom = (x: string) => x & ".pointer"
+      #   # unwrapFrom = (x:string)=>"unwrap("&x&")"
 
 
 
@@ -582,6 +652,14 @@ proc identifyType(info: GITypeInfo, argInfo: GIArgInfo=nil, callableInfo: GICall
         return makeTypeInfo(wrappedTypeName=wrappedTypeName,
               unwrappedTypeName=unwrappedTypeName,
               wrapTo=Wrapper(id), unwrapFrom=Wrapper((x:string)=>"addr("&x&")"))
+      elif info.getTag == GITypeTag.UTF8 and callableInfo != nil:
+        # special case: string is returned.
+        # sometimes we want to preserve the actual pointer
+        # and also we don't want to make an unneccessary copy
+        # so keep as ucstring
+        return makeTypeInfo(
+          wrappedTypeName="ucstring", unwrappedTypeName="ucstring",
+          wrapTo=Wrapper(id), unwrapFrom=Wrapper(id))
       elif info.getTag == GITypeTag.UTF8:# and argInfo != nil:# and argInfo.getDirection == Direction.`in`:
         # special case: string but for some reason isPointer is set (we have const guchar*)
         # use cstring
@@ -660,6 +738,8 @@ proc identifyType(argInfo: GIArgInfo): NimTypeInfo =
 proc identifyReturnType(callableInfo: GICallableInfo): NimTypeInfo =
   identifyType(callableInfo.getReturnType, callableInfo=callableInfo)
 
+
+
 proc isAmbiguousAmongSuperclasses(fieldName: string, oi: GIObjectInfo): bool =
   var this = oi
   while this.pointer != nil:
@@ -708,6 +788,10 @@ proc createTypeDeclaration(oi: GIObjectInfo) =
     output.writeln "  # fundamental"
   output.writeln "  # ", oi.getRefFunction
   output.writeln "  # ", oi.getUnrefFunction
+  # TODO is this used at all??
+  # if oi.getType == GIInfoType.STRUCT:
+  #   output.writeln "  # is struct"
+  #   output.write "  #"
   output.writeln "  ", className, "* = ref GSmartPtr[", nimStructName, "]"
   # TODO: move unwrapped to private module
   output.writeln "  ", nimStructName, "* = object of " & parentClassName
@@ -852,15 +936,24 @@ proc createLiteralSignature(meth: GIFunctionInfo, parent: GIRegisteredTypeInfo, 
 proc createSignalDeclaration(signal: GISignalInfo, oi: GIObjectInfo) =
   output.write "# ", oi.getName, " - ", signal.getName, " - "
   let nargs = signal.getNArgs
-  for arg in signal.args:
-    output.write arg.getName, " "
   output.writeln
+  for arg in signal.args:
+    let identity = identifyType(arg)
+    output.write "# ", arg.getName, ": "
+    output.write identity.wrappedTypeName, " (", identity.unwrappedTypeName, ")"
+    output.write " ", ($arg.getDirection).toUpper
+    # output.write ($arg.getType.isPointer)
+    output.writeln
+  # output.writeln
 
   if nargs > 1:
     # not implemented yet
+    output.writeln("# nargs == $1: not implemented" % [$nargs])
     return
 
   let normalizedName = signal.getName.escapeName.replace("-", "_");
+  # let identity = oi.identifyTypeForStructOrUnion(isArg=true, argDirection=Direction.`in`)
+  # var parts = @[identity.wrappedTypeName, identity.unwrappedTypeName, normalizedName]
   var parts = @[oi.getQualifiedNimStructName(wrapped=true),
                 oi.getQualifiedNimStructName(wrapped=false),
                 normalizedName]
@@ -869,6 +962,9 @@ proc createSignalDeclaration(signal: GISignalInfo, oi: GIObjectInfo) =
     let identity = identifyType(arg)
     parts.add(arg.getName.escapeName)
     parts.add(identity.wrappedTypeName)
+    if nargs > 1:  # temporary
+      parts.add(identity.unwrappedTypeName)
+      # parts.add("(x:" & identity.unwrappedTypeName & "): " & identity.wrappedTypeName & " => " & identity.wrapTo("x"))
 
   output.writeln "declareSignal(" & parts.join(", ") & ")"
 
@@ -889,7 +985,14 @@ proc createSugarSignature(meth: GIFunctionInfo, parent: GIRegisteredTypeInfo, ou
     assert parent.pointer != nil
     output.write "proc ", escapeName(meth.getName), "*("
     #output.write "self: ", getNimTypeName(parent.getInterface, wrapped=true)
-    output.write "self: ", getQualifiedNimStructName(parent, wrapped=true)
+    # make this like an inout parameter so we can pass by reference
+    # TODO: see if we can remove the special casing
+    let selfTypeName = if parent.getType == GIInfoType.STRUCT:
+                         parent.identifyTypeForStructOrUnion(isArg=true, argDirection=Direction.`inout`).wrappedTypeName
+                       else:
+                         getQualifiedNimStructName(parent, wrapped=true)
+    # TODO add appropriate wrapper
+    output.write "self: ", selfTypeName
     first = false
   elif FunctionInfoFlags.isConstructor in flags:
     # output.writeln "#constructor"
@@ -908,7 +1011,22 @@ proc createSugarSignature(meth: GIFunctionInfo, parent: GIRegisteredTypeInfo, ou
   elif container != nil:
     # there is a container, but it is not a method => class method
     isClassMethod = true
-    output.write "template ", escapeName(meth.getName), "*(klass_parameter: typedesc[", container.getName, "]"
+    # TODO: use identification here!!!
+    # let containerObj = container.toGI
+    #let containerIdent = container.identifyType
+    # I can't easily go from GIBaseInfo to GITypeInfo (which I'd need for identifyType)
+    # echo container.getType
+    var containerIdent: NimTypeInfo
+    case container.getType:
+      of GIInfoType.OBJECT:
+        containerIdent = identifyTypeForObject(container)
+      of GIInfoType.STRUCT, GIInfoType.UNION:
+        containerIdent = identifyTypeForStructOrUnion(container)
+      else:
+        assert false
+    # let containerIdent = identifyTypeForStructOrUnion(container)
+    output.write "template ", escapeName(meth.getName), "*(klass_parameter: typedesc[", containerIdent.wrappedTypeName, "]"
+    # output.write "template ", escapeName(meth.getName), "*(klass_parameter: typedesc[", container.getName, "]"
     first = false
   else:
     output.write "proc ", escapeName(meth.getSymbol), "*("
@@ -1006,7 +1124,13 @@ proc createInvocation(meth: GIFunctionInfo, parent: GIRegisteredTypeInfo, litPro
 
   invoc.write litProcName, "("
   if FunctionInfoFlags.isMethod in flags:
-    invoc.write "self"
+    # invoc.write "self"
+    var selfUnwrapFrom = Wrapper(id)
+    # todo: do this for other types, not just struct
+    if parent.getType == GIInfoType.STRUCT:
+      let parentIdentity = identifyTypeForStructOrUnion(parent, isArg=true, argDirection=Direction.`inout`)
+      selfUnwrapFrom = parentIdentity.unwrapFrom
+    invoc.write selfUnwrapFrom("self")
     first = false
   else:
     first = true
@@ -1107,7 +1231,13 @@ proc createMethod(meth: GIFunctionInfo, parent: GIRegisteredTypeInfo=nil) =
   var isAmbiguous = false
   for arg in meth.args:
     let identity = identifyType(arg)
-    output.write "# ", arg.getName, " '", identity.wrappedTypeName, "' '", identity.unwrappedTypeName, "' ", ($arg.getDirection).toUpper
+    let tag = arg.getType.getTag
+    output.write "# arg ", arg.getName, ": ", tag, " "
+    if tag == GITypeTag.INTERFACE:
+      let iface = arg.getType.getInterface
+      output.write "(", iface.getType, ") "
+    output.write "'", identity.wrappedTypeName, "' '", identity.unwrappedTypeName, "' ", ($arg.getDirection).toUpper
+    # output.write "# arg ", arg.getName, ": tag=", arg.getType.getTag, " type=", arg.getType.getType, " '", identity.wrappedTypeName, "' '", identity.unwrappedTypeName, "' ", ($arg.getDirection).toUpper
     if identity.wrappedTypeName != identity.unwrappedTypeName:
       output.write " (diff., need sugar)"
       needSugar = true
@@ -1138,7 +1268,7 @@ proc createMethod(meth: GIFunctionInfo, parent: GIRegisteredTypeInfo=nil) =
     output.writeln ""
   
 
-  output.write "# '", retIdentity.wrappedTypeName, "' '", retIdentity.unwrappedTypeName, "'"
+  output.write "# return: ", meth.getReturnType.getTag, " '", retIdentity.wrappedTypeName, "' '", retIdentity.unwrappedTypeName, "'"
   if retIdentity.wrappedTypeName != retIdentity.unwrappedTypeName:
     output.writeln " (diff., need sugar)"
     if not needSugar: # (yet)
@@ -1235,6 +1365,11 @@ proc topoSort[T](objects: openarray[T], dependency: (proc(a,b:T):bool)): seq[T] 
   return sortedObjects
 
 
+proc filterType(infos: seq[GIBaseInfo], theType: GIInfoType): seq[GIBaseInfo] =
+  result = newSeq[GIBaseInfo]()
+  for info in infos:
+    if (info.getType == theType):
+      result.add(info)
 
 
 proc main() =
@@ -1337,7 +1472,9 @@ proc main() =
   output.writeln "  # classes"
   output.writeln "  #------------------"
 
-  var objects = toSeq(gi.infos(namespace).filter((i:GIBaseInfo) => i.getType == GIInfoType.OBJECT))
+
+
+  var objects = toSeq(gi.infos(namespace)).filterType(GIInfoType.OBJECT)
   proc dependency(a, b: GIBaseInfo): bool =
     let oia = toGIObjectInfo(a)
     let oib = toGIObjectInfo(b)
@@ -1389,18 +1526,23 @@ proc main() =
 
   output.writeln "  # structs"
   output.writeln "  #------------------"
-  for info in gi.infos(namespace).filter((i:GIBaseInfo) => i.getType == GIInfoType.STRUCT):
+  for info in toSeq(gi.infos(namespace)).filterType(GIInfoType.STRUCT):
     let struct = toGIStructInfo(info)
     assert struct.pointer != nil
     let
       className = struct.getName()
       nimStructName = escapeName("T" & className)
-      pointerName = escapeName(className)
 
     # TODO: move unwrapped structs to private file
     for name, value in struct.attributes():
       output.writeln "# attr: $1: $2" % [name, value]
-    output.writeln "  ", nimStructName, "* = object"
+    # let tmp = toGIObjectInfo(info)
+    # let identity = tmp.getType.identifyType
+    let identity = info.identifyTypeForStructOrUnion
+    output.writeln "# wrapped: ", identity.wrappedTypeName
+    output.writeln "# unwrapped: ", identity.unwrappedTypeName
+    # output.writeln "# isGtypeStruct: ", if info.isGtypeStruct: "true" else: "false"
+    output.writeln "  ", nimStructName, "* {.pure,inheritable.} = object"
     for field in struct.fields:
       let
         fti: GITypeInfo = field.getType
@@ -1409,63 +1551,135 @@ proc main() =
     # # TODO: do we want smart pointers for structs, too??
     # # or should we change method signatures to have ptr TStruct
     # output.writeln "  ", className, " = ptr ", nimStructName
-    output.writeln "  ", pointerName, "* = ref GSmartPtr[", nimStructName, "]"
+    # output.write "#"
 
     output.writeln ""
 
 
   output.writeln "  # unions"
   output.writeln "  #------------------"
-  for info in gi.infos(namespace).filter((i:GIBaseInfo) => i.getType == GIInfoType.Union):
+  for info in toSeq(gi.infos(namespace)).filterType(GIInfoType.UNION):
     let union = toGIUnionInfo(info)
     assert union.pointer != nil
     let
-      className = escapeName(union.getName())
-      nimStructName = "T" & className
+      className = union.getName()
+      nimStructName = escapeName("T" & className)
 
     if union.isDiscriminated:
       output.writeln "  # discriminated union"
       output.writeln "  # ", union.getDiscriminatorType.identifyType.unwrappedTypeName
     for name, value in union.attributes():
       output.writeln "# attr: $1: $2" % [name, value]
-    output.writeln "  ", nimStructName, "* = object"
+
+    let identity = info.identifyTypeForStructOrUnion
+    output.writeln "# wrapped: ", identity.wrappedTypeName
+    output.writeln "# unwrapped: ", identity.unwrappedTypeName
+    output.writeln "  ", nimStructName, "* {.pure,inheritable.} = object"
     for field in union.fields:
       let
         fti: GITypeInfo = field.getType
         fieldTypeIdentity = fti.identifyType
-      output.writeln "    ", escapeName(field.getName), ": ", fieldTypeIdentity.unwrappedTypeName
-    # # TODO: do we want smart pointers for structs, too??
-    # # or should we change method signatures to have ptr TStruct
+      output.writeln "    ", escapeName(field.getName), "*: ", fieldTypeIdentity.unwrappedTypeName
     # output.writeln "  ", className, " = ptr ", nimStructName
-    output.writeln "  ", className, "* = ref GSmartPtr[", nimStructName, "]"
 
     output.writeln ""
 
-  
+
+
+  # output.writeln "  # unions"
+  # output.writeln "  #------------------"
+  # for info in toSeq(gi.infos(namespace)).filterType(GIInfoType.Union):
+  #   let union = toGIUnionInfo(info)
+  #   assert union.pointer != nil
+  #   let
+  #     className = escapeName(union.getName())
+  #     nimStructName = "T" & className
+
+  #   if union.isDiscriminated:
+  #     output.writeln "  # discriminated union"
+  #     output.writeln "  # ", union.getDiscriminatorType.identifyType.unwrappedTypeName
+  #   for name, value in union.attributes():
+  #     output.writeln "# attr: $1: $2" % [name, value]
+  #   output.writeln "  ", nimStructName, "* = object"
+  #   for field in union.fields:
+  #     let
+  #       fti: GITypeInfo = field.getType
+  #       fieldTypeIdentity = fti.identifyType
+  #     output.writeln "    ", escapeName(field.getName), ": ", fieldTypeIdentity.unwrappedTypeName
+  #   # # TODO: do we want smart pointers for structs, too??
+  #   # # or should we change method signatures to have ptr TStruct
+    # output.writeln "  ", className, " = ptr ", nimStructName
+  #   output.writeln "  ", className, "* = ref GSmartPtr[", nimStructName, "]"
+
+  #   output.writeln ""
+
+
   output.writeln "  # interfaces"
   output.writeln "  #------------------"
-  for info in gi.infos(namespace).filter((i:GIBaseInfo) => i.getType == GIInfoType.Interface):
+  for info in toSeq(gi.infos(namespace)).filterType(GIInfoType.INTERFACE):
     let iface = toGIInterfaceInfo(info)
     assert iface.pointer != nil
     let
       className = iface.getName()
-      nimStructName = "T" & className
+      nimStructName = escapeName("T" & className)
 
+    # TODO: move unwrapped structs to private file
     for name, value in iface.attributes():
       output.writeln "# attr: $1: $2" % [name, value]
-    output.writeln "  ", nimStructName, "* = object"
-    output.writeln "    discard"
-    output.writeln "  ", className, "* = ref GSmartPtr[", nimStructName, "]"
+    # let tmp = toGIObjectInfo(info)
+    # let identity = tmp.getType.identifyType
+    let identity = info.identifyTypeForStructOrUnion
+    output.writeln "# wrapped: ", identity.wrappedTypeName
+    output.writeln "# unwrapped: ", identity.unwrappedTypeName
+    # output.writeln "# isGtypeStruct: ", if info.isGtypeStruct: "true" else: "false"
+    output.writeln "  ", nimStructName, "* {.pure,inheritable.} = object"
+    # for field in iface.fields:
+    #   let
+    #     fti: GITypeInfo = field.getType
+    #     fieldTypeIdentity = fti.identifyType
+    #   output.writeln "    ", escapeName(field.getName), "*: ", fieldTypeIdentity.unwrappedTypeName
+    # # TODO: do we want smart pointers for structs, too??
+    # # or should we change method signatures to have ptr TStruct
+    # output.writeln "  ", className, " = ptr ", nimStructName
+    # output.write "#"
 
     output.writeln ""
+
+
+  
+  # output.writeln "  # interfaces"
+  # output.writeln "  #------------------"
+  # for info in toSeq(gi.infos(namespace)).filterType(GIInfoType.Interface):
+  #   let iface = toGIInterfaceInfo(info)
+  #   assert iface.pointer != nil
+  #   let
+  #     className = iface.getName()
+  #     nimStructName = "T" & className
+
+  #   for name, value in iface.attributes():
+  #     output.writeln "# attr: $1: $2" % [name, value]
+  #   output.writeln "  ", nimStructName, "* = object"
+  #   output.writeln "    discard"
+  #   output.writeln "  ", className, "* = ref GSmartPtr[", nimStructName, "]"
+
+  #   output.writeln ""
 
   # handle enums and flags
   output.writeln "  # enums"
   output.writeln "  #------------------"
 
-  let enums = toSeq(gi.infos(namespace).filter((i:GIBaseInfo) => i.getType == GIInfoType.ENUM or i.getType == GIInfoType.FLAGS))
-  for info in enums:
+  for info in toSeq(gi.infos(namespace)).filterType(GIInfoType.ENUM):
    createEnum(toGIEnumInfo(info))
+  for info in toSeq(gi.infos(namespace)).filterType(GIInfoType.FLAGS):
+   createEnum(toGIEnumInfo(info))
+
+  output.writeln "  # constants"
+  output.writeln "  #------------------"
+  for info in toSeq(gi.infos(namespace)).filterType(GIInfoType.CONSTANT):
+    let constant = toGIConstantInfo(info)
+    assert constant.pointer != nil
+    output.writeln "# ", constant.getName()
+
 
   # if true: return
 
@@ -1482,9 +1696,40 @@ proc main() =
 
   output.writeln ""
 
-  output.writeln "# implicit unwrapping"
-  output.writeln "# for some reason, this is not picked up from gobjectutils (bug?)"
-  output.writeln "converter unwrap[T](s: ref GSmartPtr[T]): ptr T = s.pointer"
+  output.writeln "# # implicit unwrapping"
+  output.writeln "# # for some reason, this is not picked up from gobjectutils (bug?)"
+  output.writeln "# converter unwrap[T](s: ref GSmartPtr[T]): ptr T = s.pointer"
+
+  # output.writeln ""
+  # output.writeln "# struct unwrappers"
+
+  # for info in toSeq(gi.infos(namespace)).filterType(GIInfoType.STRUCT):
+  #   # todo: do we need different wrap/unwrap for different usages (in/out/inout)?
+  #   # how to call the right one in the trampoline?
+  #   let identity = info.identifyTypeForStructOrUnion(isArg=true, argDirection=Direction.`in`)
+  #   output.writeln "# wrapped: ", identity.wrappedTypeName
+  #   output.writeln "# unwrapped: ", identity.unwrappedTypeName
+  #   output.write   "proc universalWrap*(x: ", identity.unwrappedTypeName, "): "
+  #   output.writeln identity.wrappedTypeName, " = "
+  #   output.writeln "  ", identity.wrapTo("x")
+  #   output.writeln ""
+
+
+  # output.writeln ""
+  # output.writeln "# interface unwrappers"
+
+  # for info in gi.infos(namespace).filter((i:GIBaseInfo) => i.getType == GIInfoType.Interface):
+  #   # todo: do we need different wrap/unwrap for different usages (in/out/inout)?
+  #   # how to call the right one in the trampoline?
+  #   let identity = info.identifyTypeForStructOrUnion(isArg=true, argDirection=Direction.`in`)
+  #   output.writeln "# wrapped: ", identity.wrappedTypeName
+  #   output.writeln "# unwrapped: ", identity.unwrappedTypeName
+  #   output.write   "converter universalWrap*(x: ", identity.unwrappedTypeName, "): "
+  #   output.writeln identity.wrappedTypeName, " = "
+  #   output.writeln "  ", identity.wrapTo("x")
+  #   output.writeln ""
+
+
 
   # for info in sortedObjects:
   #   let
@@ -1511,7 +1756,7 @@ proc main() =
   output.writeln "  # free functions"
   output.writeln "  #------------------"
 
-  for info in gi.infos(namespace).filter((i:GIBaseInfo) => i.getType == GIInfoType.FUNCTION):
+  for info in toSeq(gi.infos(namespace)).filterType(GIInfoType.FUNCTION):
     let fun = toGIFunctionInfo(info)
 
     # this checked whether the function belongs to a containing type, but
@@ -1531,15 +1776,23 @@ proc main() =
   output.writeln "  # object methods"
   output.writeln "  #------------------"
 
-  for info in gi.infos(namespace).filter((i:GIBaseInfo) => i.getType == GIInfoType.OBJECT):
+  for info in toSeq(gi.infos(namespace)).filterType(GIInfoType.OBJECT):
     let oi = toGIObjectInfo(info)
+    let initFunc = oi.getTypeInit
+    if initFunc != "intern":
+      output.writeln "# initializer for ", oi.getName, ": ", initFunc
+      output.write   "proc ", initFunc, "(): GType"
+      output.writeln " {.cdecl, dynlib: lib, importc: \"", initFunc, "\".}"
+      # TODO: use type identification here!
+      output.writeln "template gtype*(klass_parameter: typedesc[", oi.getName, "]): GType = ", initFunc, "()"
+
     for meth in oi.methods:
       createMethod(meth, oi)
 
 
   output.writeln "# object signals"
   output.writeln "#------------------"
-  for info in gi.infos(namespace).filter((i:GIBaseInfo) => i.getType == GIInfoType.OBJECT):
+  for info in toSeq(gi.infos(namespace)).filterType(GIInfoType.OBJECT):
     let oi = toGIObjectInfo(info)
     for signal in oi.signals:
       createSignalDeclaration(signal, oi)
@@ -1549,7 +1802,7 @@ proc main() =
   output.writeln "  # struct methods"
   output.writeln "  #------------------"
 
-  for info in gi.infos(namespace).filter((i:GIBaseInfo) => i.getType == GIInfoType.STRUCT):
+  for info in toSeq(gi.infos(namespace)).filterType(GIInfoType.STRUCT):
     let si = toGIStructInfo(info)
     
     output.writeln "# struct ", info.getName
@@ -1557,6 +1810,22 @@ proc main() =
 
     for meth in si.methods:
       createMethod(meth, si)
+
+
+  output.writeln "  # flag type methods"
+  output.writeln "  #------------------"
+
+  for info in toSeq(gi.infos(namespace)).filterType(GIInfoType.FLAGS):
+    let ei = toGIEnumInfo(info)
+    let initFunc = ei.getTypeInit
+    if initFunc != "" and initFunc != "intern":
+      output.writeln "# initializer for ", ei.getName, ": ", initFunc
+      output.write   "proc ", initFunc, "(): GType"
+      output.writeln " {.cdecl, dynlib: lib, importc: \"", initFunc, "\".}"
+      # TODO: use type identification here!
+      output.writeln "template gtype*(klass_parameter: typedesc[", ei.getName, "]): GType = ", initFunc, "()"
+
+
 
 main()
 let filename = "gir" / gCurrentNs & ".nim"

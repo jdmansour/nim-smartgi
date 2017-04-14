@@ -10,7 +10,8 @@ type
   ustring* = distinct string
 
 
-  GType* = distinct uint64
+  GType* = distinct cint
+  # GType* = distinct uint64
   
   unichar* = distinct uint32
 
@@ -78,7 +79,8 @@ proc len*(str: ustring): int {.borrow.}
 #             $x)
 
 
-proc g_object_ref*[T](obj: ptr T): ptr T {. importc: "g_object_ref", cdecl, dynlib: gobjectlib .}
+proc g_object_ref*(obj: pointer): pointer {. importc: "g_object_ref", cdecl, dynlib: gobjectlib .}
+# proc g_object_ref*[T](obj: ptr T): ptr T {. importc: "g_object_ref", cdecl, dynlib: gobjectlib .}
 # proc g_object_ref_sink[T](obj: FloatingPtr[T]): ptr T {. importc: "g_object_ref_sink", cdecl, dynlib: gobjectlib .}
 proc g_object_unref*(obj: pointer) {. importc: "g_object_unref", cdecl, dynlib: gobjectlib .}
 
@@ -93,7 +95,7 @@ proc customFinalizer*[T: TRoot](x: ref GSmartPtr[T]) {.procvar.}=
   g_object_unref(x.pointer)
 
 converter wrap*[T](point: TransferFull[T]): ref GSmartPtr[T] =
-  #echo "wrapping custom pointer of type ", T.type.name
+  echo "wrapping TransferFull pointer"# of type ", T.type.name
   # nil pointers don't get cleaned up
   if cast[ptr T](point) != nil:
     new(result, customFinalizer[T])
@@ -109,6 +111,7 @@ converter wrap*[T](point: TransferNone[T]): ref GSmartPtr[T] =
   result.pointer = cast[ptr T](point)
   
 converter wrap*[T](point: ptr T): ref GSmartPtr[T] =
+  echo "wrapping pointer"# of type ", T.type.name
   discard g_object_ref(point)
   new(result, customFinalizer[T])
   result.pointer = cast[ptr T](point)
@@ -276,11 +279,12 @@ type
     arg2: V
 
 
-proc g_object_ref(obj: pointer): pointer {. importc: "g_object_ref", cdecl, dynlib: gobjectlib .}
+# proc g_object_ref(obj: pointer): pointer {. importc: "g_object_ref", cdecl, dynlib: gobjectlib .}
 
 proc manualWrap[T](rawPointer: ptr T): ref GSmartPtr[T] =
   var wrapped: ref GSmartPtr[T]
-  discard g_object_ref(cast[pointer](rawPointer))
+  discard g_object_ref(cast[ptr T](rawPointer))
+  # discard g_object_ref(cast[pointer](rawPointer))
   new(wrapped, customFinalizer[T])
   wrapped.pointer = rawPointer
   return wrapped
@@ -306,6 +310,32 @@ proc specialTrampolineEA[StructType,V](
   var wrapped = manualWrap(arg1)
   return pTrampoline.callback(wrapped, arg2)
 
+
+
+# template wrapIfNeccessary[T:TObject](arg: ptr T): ref GSmartPtr[T] =
+#   echo "wrapping "#, T.type.name
+#   wrap(arg)
+
+# proc universalWrap*[T:TObject](arg: ptr T): ref GSmartPtr[T] =
+#   echo "wrapping "#, T.type.name
+#   wrap(arg)
+
+# template wrapIfNeccessary[T](arg: T): T =
+#   echo "no need to wrap "#, T.type.name
+#   arg
+
+proc specialTrampolineEA[StructType,V,Vraw,W,Wraw](
+  arg0: ptr StructType,
+  arg1: Vraw,
+  arg2: Wraw,
+  pTrampoline: ptr TrampolineData[proc(x: ref GSmartPtr[StructType], v: V, w: W):bool ]): bool {.cdecl.} =
+
+  echo "trampoline called"
+  var wrapped = manualWrap(arg0)
+  # return pTrampoline.callback(wrapped, arg1, arg2)
+  return pTrampoline.callback(wrapped, V(arg1), W(arg2))
+  # return pTrampoline.callback(wrapped, wraper1(arg1), wrapper2(arg2))
+  # return pTrampoline.callback(wrapped, wrapIfNeccessary(arg1), wrapIfNeccessary(arg2))
 
 proc freeTrampoline(pTrampoline: pointer) {.cdecl.} =
   echo "freeing trampoline data"
@@ -367,6 +397,32 @@ macro declareSignal*(smartType: typedesc, structType: typedesc, expression: expr
       data.callback = callback
 
       discard g_signal_connect_data(instance.pointer, `signalStrLit`, specialTrampolineEA[`structType`,`arg1Type`], data, freeTrampoline, 0)
+
+
+macro declareSignal*(smartType: typedesc, structType: typedesc, expression: expr,
+  arg1Name: expr, arg1Type: typedesc, arg1RawType: typedesc,
+  arg2Name: expr, arg2Type: typedesc, arg2RawType: typedesc): auto =
+  let
+    signalStrLit = toStrLit(expression)
+    signalName = repr(expression).replace("-", "_")
+    procExpr = newIdentNode("connect_for_signal_" & signalName)
+    # procExpr = newIdentNode("connect[for signal \"" & signalName & "\"]")
+
+  result = quote do:
+
+    # todo: see if we can use a gensym for callbackObject
+    # proc `procExpr`*(instance: `smartType`, callback: proc(callbackObject: `smartType`, `arg1Name`: `arg1Type`, `arg2Name`: `arg2Type`):bool ): uint {.discardable.} =
+    proc `procExpr`*(instance: `smartType`, callback: proc(callbackObject: `smartType`, `arg1Name`: `arg1Type`, `arg2Name`: `arg2Type`):bool ): uint {.discardable.} =
+      echo "allocating trampoline data for \"", `signalStrLit`, "\" (EA)"
+      type
+        Callback = proc(callbackObject: `smartType`, `arg1Name`: `arg1Type`, `arg2Name`: `arg2Type`): bool
+        Data = TrampolineData[Callback]
+
+      let data = cast[ptr Data](alloc(sizeof(Data)))
+      data.callback = callback
+
+      discard g_signal_connect_data(instance.pointer, `signalStrLit`, specialTrampolineEA[`structType`,`arg1Type`,`arg1RawType`,`arg2Type`,`arg2RawType`], data, freeTrampoline, 0)
+
 
 
 

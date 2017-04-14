@@ -10,42 +10,53 @@ type
   #------------------
   # structs
   #------------------
-  TContext* = object
-  Context* = ref GSmartPtr[TContext]
+# wrapped: TContext
+# unwrapped: TContext
+  TContext* {.pure,inheritable.} = object
 
-  TSurface* = object
-  Surface* = ref GSmartPtr[TSurface]
+# wrapped: TSurface
+# unwrapped: TSurface
+  TSurface* {.pure,inheritable.} = object
 
-  TMatrix* = object
-  Matrix* = ref GSmartPtr[TMatrix]
+# wrapped: TMatrix
+# unwrapped: TMatrix
+  TMatrix* {.pure,inheritable.} = object
 
-  TPattern* = object
-  Pattern* = ref GSmartPtr[TPattern]
+# wrapped: TPattern
+# unwrapped: TPattern
+  TPattern* {.pure,inheritable.} = object
 
-  TRegion* = object
-  Region* = ref GSmartPtr[TRegion]
+# wrapped: TRegion
+# unwrapped: TRegion
+  TRegion* {.pure,inheritable.} = object
 
-  TFontOptions* = object
-  FontOptions* = ref GSmartPtr[TFontOptions]
+# wrapped: TFontOptions
+# unwrapped: TFontOptions
+  TFontOptions* {.pure,inheritable.} = object
 
-  TFontType* = object
-  FontType* = ref GSmartPtr[TFontType]
+# wrapped: TFontType
+# unwrapped: TFontType
+  TFontType* {.pure,inheritable.} = object
 
-  TFontFace* = object
-  FontFace* = ref GSmartPtr[TFontFace]
+# wrapped: TFontFace
+# unwrapped: TFontFace
+  TFontFace* {.pure,inheritable.} = object
 
-  TScaledFont* = object
-  ScaledFont* = ref GSmartPtr[TScaledFont]
+# wrapped: TScaledFont
+# unwrapped: TScaledFont
+  TScaledFont* {.pure,inheritable.} = object
 
-  TPath* = object
-  Path* = ref GSmartPtr[TPath]
+# wrapped: TPath
+# unwrapped: TPath
+  TPath* {.pure,inheritable.} = object
 
-  TRectangleInt* = object
+# wrapped: TRectangleInt
+# unwrapped: TRectangleInt
+  TRectangleInt* {.pure,inheritable.} = object
     x*: int32
     y*: int32
     width*: int32
     height*: int32
-  RectangleInt* = ref GSmartPtr[TRectangleInt]
 
   # unions
   #------------------
@@ -59,15 +70,17 @@ type
     COLOR_ALPHA = 12288,
 
 
+  # constants
+  #------------------
 
-# implicit unwrapping
-# for some reason, this is not picked up from gobjectutils (bug?)
-converter unwrap[T](s: ref GSmartPtr[T]): ptr T = s.pointer
+# # implicit unwrapping
+# # for some reason, this is not picked up from gobjectutils (bug?)
+# converter unwrap[T](s: ref GSmartPtr[T]): ptr T = s.pointer
   # free functions
   #------------------
 # cairo_image_surface_create
 # flags: {} container: -
-# 'VOID_TODO' 'VOID_TODO'
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc cairo_image_surface_create*() {.cdecl, dynlib: lib, importc: "cairo_image_surface_create".}
   # object methods
   #------------------
@@ -86,3 +99,5 @@ proc cairo_image_surface_create*() {.cdecl, dynlib: lib, importc: "cairo_image_s
 # struct ScaledFont
 # struct Path
 # struct RectangleInt
+  # flag type methods
+  #------------------

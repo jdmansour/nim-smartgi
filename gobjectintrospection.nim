@@ -76,6 +76,9 @@ type
   TGICallableInfo = object of TGIBaseInfo
   GICallableInfo* = ref GSmartPtr[TGICallableInfo]
 
+  TGIConstantInfo = object of TGIBaseInfo
+  GIConstantInfo* = ref GSmartPtr[TGIConstantInfo]
+
   TGISignalInfo = object of TGICallableInfo
   GISignalInfo* = ref GSmartPtr[TGISignalInfo]
 
@@ -181,6 +184,29 @@ type
   TGIAttributeIter = object
     data, data2, data3, data4: pointer
 
+  TGIArgument {.pure, union.} = object
+    v_boolean: bool
+    v_int8: int8
+    v_uint8: uint8
+    v_int16: int16
+    v_uint16: uint16
+    v_int32: int32
+    v_uint32: uint32
+    v_int64: int64
+    v_uint64: uint64
+    v_float: float32
+    v_double: float64
+    # v_short: short
+    # v_ushort: ushort
+    v_int: int
+    v_uint: uint
+    # v_long: long
+    # v_ulong: ulong
+    # v_ssize: ssize
+    # v_size: size
+    # *v_string: char
+    # v_pointe: pointer
+  GIArgument* = ref GSmartPtr[TGIArgument]
 
 template declareSubclass(S: typedesc[TRoot], T: typedesc[TRoot]) =
   #converter castup(s: S): T = s
@@ -460,11 +486,17 @@ proc get_shared_library*(repository: GIRepository, namespace: string): string {.
 #  for i in 0 .. <n:
 #    yield g_irepository_get_info(repository, namespace, i)
 
-proc infos*(repository: GIRepository, namespace: string): iterator(): GIBaseInfo =
-  result = iterator(): GIBaseInfo =
-    let n = g_irepository_get_n_infos(repository, namespace)
-    for i in 0 .. <n:
-      yield g_irepository_get_info(repository, namespace, i)
+# proc infos*(repository: GIRepository, namespace: string): iterator(): GIBaseInfo =
+#   result = iterator(): GIBaseInfo =
+#     let n = g_irepository_get_n_infos(repository, namespace)
+#     for i in 0 .. <n:
+#       yield g_irepository_get_info(repository, namespace, i)
+
+iterator infos*(repository: GIRepository, namespace: string): GIBaseInfo =
+  let n = g_irepository_get_n_infos(repository, namespace)
+  for i in 0 .. <n:
+    yield g_irepository_get_info(repository, namespace, i)
+
 
 
 
@@ -513,6 +545,12 @@ iterator attributes*(info: GIBaseInfo): tuple[name, value: string] =
   while g_base_info_iterate_attributes(info, addr(iter), addr(name), addr(value)):
     yield ($name, $value)
 
+proc g_registered_type_info_get_type_init(info: ptr TGIRegisteredTypeInfo): cstring  {.cdecl, dynlib: lib, importc: "g_registered_type_info_get_type_init".}
+proc get_type_init*(info: GIRegisteredTypeInfo): string =
+  let ret = g_registered_type_info_get_type_init(info)
+  if ret == nil: "" else: $ret
+
+
 proc g_object_info_get_fundamental(info: ptr TGIObjectInfo): bool {.cdecl, dynlib: lib, importc: "g_object_info_get_fundamental".}
 proc get_fundamental*(info: GIObjectInfo): bool {.inline.} =
   g_object_info_get_fundamental(info)
@@ -523,6 +561,10 @@ proc get_type_name*(info: GIObjectInfo): string =
   let ret = g_object_info_get_type_name(info)
   if ret == nil: "" else: $ret
 
+proc g_object_info_get_type_init(info: ptr TGIObjectInfo): cstring  {.cdecl, dynlib: lib, importc: "g_object_info_get_type_init".}
+proc get_type_init*(info: GIObjectInfo): string =
+  let ret = g_object_info_get_type_init(info)
+  if ret == nil: "" else: $ret
 
 proc g_object_info_get_parent(info: ptr TGIObjectInfo): CustomCleanupPtr[TGIObjectInfo]  {.cdecl, dynlib: lib, importc: "g_object_info_get_parent".}
 proc get_parent*(info: GIObjectInfo): GIObjectInfo = g_object_info_get_parent(info)
@@ -596,6 +638,22 @@ proc g_callable_info_can_throw_gerror (info: ptr TGICallableInfo): bool {.cdecl,
 proc can_throw_gerror* (info: GICallableInfo): bool = g_callable_info_can_throw_gerror(info)
 
 
+# TGIConstantInfo
+
+# I have no idea how this is supposed to work.
+proc g_constant_info_get_type (info: ptr TGIConstantInfo): CustomCleanupPtr[TGITypeInfo] {.cdecl, dynlib: lib, importc: "g_constant_info_get_type".}
+proc get_type* (info: GIConstantInfo): GITypeInfo = g_constant_info_get_type(info)
+
+proc g_constant_info_get_value* (info: ptr TGIConstantInfo, value: ptr TGIArgument): int {.cdecl, dynlib: lib, importc: "g_constant_info_get_value".}
+# proc get_value* (info: GIConstantInfo): GIArgument =
+#   var tmp: GIArgument
+#   g_constant_info_get_type(info, addr(tmp))
+#   # let p = cast[CustomCleanupPtr[TGIArgument]](addr(tmp))
+#   # return wrap(p)
+
+# proc g_constant_info_free_value (info: ptr TGIConstantInfo, value: ptr TGIArgument): int {.cdecl, dynlib: lib, importc: "g_constant_info_free_value".}
+# proc free_value* (info: GIConstantInfo, value: ptr TGIArgument): GIArgument =
+#   g_constant_info_free_value(info, value)
 
 # TGITypeInfo
 
@@ -708,6 +766,10 @@ iterator methods*(info: GIStructInfo): GIFunctionInfo =
   for i in 0 .. <n:
     yield g_struct_info_get_method(info, i)
 
+# g_struct_info_is_gtype_struct
+proc g_struct_info_is_gtype_struct(info: ptr TGIStructInfo): bool  {.cdecl, dynlib: lib, importc: "g_struct_info_is_gtype_struct".}
+proc is_gtype_struct*(info: GIStructInfo): bool {.inline.} =
+  g_struct_info_is_gtype_struct(info)
 
 
 # GIUnionInfo
@@ -803,22 +865,34 @@ proc downcast*[Subclass](source: GIBaseInfo): ref GSmartPtr[Subclass] =
 discard """ proc downcast2[SubclassPtr](source: GIBaseInfo): SubclassPtr =
   wrap(cast[CustomCleanupPtr[SubclassPtr.
  """
+
+converter toGIConstantInfo*(source: GIBaseInfo): GIConstantInfo =
+  assert source.getType == GIInfoType.CONSTANT
+  downcast[TGIConstantInfo](source)
+
 converter toGIObjectInfo*(source: GIBaseInfo): GIObjectInfo =
+  assert source.getType == GIInfoType.OBJECT
   downcast[TGIObjectInfo](source)
 
 converter toGIStructInfo*(source: GIBaseInfo): GIStructInfo =
+  assert source.getType == GIInfoType.STRUCT
   downcast[TGIStructInfo](source)
 
 converter toGIUnionInfo*(source: GIBaseInfo): GIUnionInfo =
+  assert source.getType == GIInfoType.UNION
   downcast[TGIUnionInfo](source)
 
 converter toGIInterfaceInfo*(source: GIBaseInfo): GIInterfaceInfo =
+  assert source.getType == GIInfoType.INTERFACE
   downcast[TGIInterfaceInfo](source)
 
 converter toGIEnumInfo*(source: GIBaseInfo): GIEnumInfo =
+  # TODOOOO
+  # assert source.getType == GIInfoType.ENUM
   downcast[TGIEnumInfo](source)
 
 converter toGIFunctionInfo*(source: GIBaseInfo): GIFunctionInfo =
+  assert source.getType == GIInfoType.FUNCTION
   downcast[TGIFunctionInfo](source)
 
 

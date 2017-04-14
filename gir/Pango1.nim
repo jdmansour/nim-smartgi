@@ -3,8 +3,8 @@
 {. deadCodeElim: on .}
 import gobjectutils
 import gir.cairo1 as cairo1 # 1.0 dep:cairo-1.0
-import gir.GObject2 as GObject2 # 2.0 dep:GObject-2.0
 import gir.GLib2 as GLib2 # 2.0 dep:GLib-2.0
+import gir.GObject2 as GObject2 # 2.0 dep:GObject-2.0
 
 # libraries: libpango-1.0-0.dll
 const lib = "libpango-1.0-0.dll"
@@ -96,7 +96,9 @@ type
 
   # structs
   #------------------
-  TAnalysis* = object
+# wrapped: TAnalysis
+# unwrapped: TAnalysis
+  TAnalysis* {.pure,inheritable.} = object
     shape_engine*: ptr TEngineShape
     lang_engine*: ptr TEngineLang
     font*: ptr TFont
@@ -106,113 +108,140 @@ type
     script*: uint8
     language*: ptr TLanguage
     extra_attrs*: ptr GSLIST_TODO
-  Analysis* = ref GSmartPtr[TAnalysis]
 
-  TAttrClass* = object
+# wrapped: TAttrClass
+# unwrapped: TAttrClass
+  TAttrClass* {.pure,inheritable.} = object
     type_x*: AttrType
     copy*: pointer
     destroy*: pointer
     equal*: pointer
-  AttrClass* = ref GSmartPtr[TAttrClass]
 
-  TAttrColor* = object
+# wrapped: TAttrColor
+# unwrapped: TAttrColor
+  TAttrColor* {.pure,inheritable.} = object
     attr*: TAttribute
     color*: TColor
-  AttrColor* = ref GSmartPtr[TAttrColor]
 
-  TAttrFloat* = object
+# wrapped: TAttrFloat
+# unwrapped: TAttrFloat
+  TAttrFloat* {.pure,inheritable.} = object
     attr*: TAttribute
     value*: float64
-  AttrFloat* = ref GSmartPtr[TAttrFloat]
 
-  TAttrFontDesc* = object
+# wrapped: TAttrFontDesc
+# unwrapped: TAttrFontDesc
+  TAttrFontDesc* {.pure,inheritable.} = object
     attr*: TAttribute
     desc*: ptr TFontDescription
-  AttrFontDesc* = ref GSmartPtr[TAttrFontDesc]
 
-  TAttrInt* = object
+# wrapped: TAttrFontFeatures
+# unwrapped: TAttrFontFeatures
+  TAttrFontFeatures* {.pure,inheritable.} = object
+    attr*: TAttribute
+    features*: ucstring
+
+# wrapped: TAttrInt
+# unwrapped: TAttrInt
+  TAttrInt* {.pure,inheritable.} = object
     attr*: TAttribute
     value*: int32
-  AttrInt* = ref GSmartPtr[TAttrInt]
 
-  TAttrIterator* = object
-  AttrIterator* = ref GSmartPtr[TAttrIterator]
+# wrapped: TAttrIterator
+# unwrapped: TAttrIterator
+  TAttrIterator* {.pure,inheritable.} = object
 
-  TAttrLanguage* = object
+# wrapped: TAttrLanguage
+# unwrapped: TAttrLanguage
+  TAttrLanguage* {.pure,inheritable.} = object
     attr*: TAttribute
     value*: ptr TLanguage
-  AttrLanguage* = ref GSmartPtr[TAttrLanguage]
 
-  TAttrList* = object
-  AttrList* = ref GSmartPtr[TAttrList]
+# wrapped: TAttrList
+# unwrapped: TAttrList
+  TAttrList* {.pure,inheritable.} = object
 
-  TAttrShape* = object
+# wrapped: TAttrShape
+# unwrapped: TAttrShape
+  TAttrShape* {.pure,inheritable.} = object
     attr*: TAttribute
     ink_rect*: TRectangle
     logical_rect*: TRectangle
     data*: pointer
     copy_func*: pointer
     destroy_func*: pointer
-  AttrShape* = ref GSmartPtr[TAttrShape]
 
-  TAttrSize* = object
+# wrapped: TAttrSize
+# unwrapped: TAttrSize
+  TAttrSize* {.pure,inheritable.} = object
     attr*: TAttribute
     size*: int32
     absolute*: uint32
-  AttrSize* = ref GSmartPtr[TAttrSize]
 
-  TAttrString* = object
+# wrapped: TAttrString
+# unwrapped: TAttrString
+  TAttrString* {.pure,inheritable.} = object
     attr*: TAttribute
     value*: ucstring
-  AttrString* = ref GSmartPtr[TAttrString]
 
-  TAttribute* = object
+# wrapped: TAttribute
+# unwrapped: TAttribute
+  TAttribute* {.pure,inheritable.} = object
     klass*: ptr TAttrClass
     start_index*: uint32
     end_index*: uint32
-  Attribute* = ref GSmartPtr[TAttribute]
 
-  TColor* = object
+# wrapped: TColor
+# unwrapped: TColor
+  TColor* {.pure,inheritable.} = object
     red*: uint16
     green*: uint16
     blue*: uint16
-  Color* = ref GSmartPtr[TColor]
 
-  TContextClass* = object
-  ContextClass* = ref GSmartPtr[TContextClass]
+# wrapped: TContextClass
+# unwrapped: TContextClass
+  TContextClass* {.pure,inheritable.} = object
 
-  TCoverage* = object
-  Coverage* = ref GSmartPtr[TCoverage]
+# wrapped: TCoverage
+# unwrapped: TCoverage
+  TCoverage* {.pure,inheritable.} = object
 
-  TEngineClass* = object
+# wrapped: TEngineClass
+# unwrapped: TEngineClass
+  TEngineClass* {.pure,inheritable.} = object
     parent_class*: GObject2.TObjectClass
-  EngineClass* = ref GSmartPtr[TEngineClass]
 
-  TEngineInfo* = object
+# wrapped: TEngineInfo
+# unwrapped: TEngineInfo
+  TEngineInfo* {.pure,inheritable.} = object
     id*: ucstring
     engine_type*: ucstring
     render_type*: ucstring
     scripts*: ptr TEngineScriptInfo
     n_scripts*: int32
-  EngineInfo* = ref GSmartPtr[TEngineInfo]
 
-  TEngineLangClass* = object
+# wrapped: TEngineLangClass
+# unwrapped: TEngineLangClass
+  TEngineLangClass* {.pure,inheritable.} = object
     parent_class*: TEngineClass
     script_break*: pointer
-  EngineLangClass* = ref GSmartPtr[TEngineLangClass]
 
-  TEngineScriptInfo* = object
+# wrapped: TEngineScriptInfo
+# unwrapped: TEngineScriptInfo
+  TEngineScriptInfo* {.pure,inheritable.} = object
     script*: Script
     langs*: ucstring
-  EngineScriptInfo* = ref GSmartPtr[TEngineScriptInfo]
 
-  TEngineShapeClass* = object
+# wrapped: TEngineShapeClass
+# unwrapped: TEngineShapeClass
+  TEngineShapeClass* {.pure,inheritable.} = object
     parent_class*: TEngineClass
     script_shape*: pointer
     covers*: pointer
-  EngineShapeClass* = ref GSmartPtr[TEngineShapeClass]
 
-  TFontClass* = object
+# wrapped: TFontClass
+# unwrapped: TFontClass
+  TFontClass* {.pure,inheritable.} = object
     parent_class*: GObject2.TObjectClass
     describe*: pointer
     get_coverage*: pointer
@@ -221,34 +250,38 @@ type
     get_metrics*: pointer
     get_font_map*: pointer
     describe_absolute*: pointer
-    x_pango_reserved1*: pointer
-    x_pango_reserved2*: pointer
-  FontClass* = ref GSmartPtr[TFontClass]
+    pango_reserved1*: pointer
+    pango_reserved2*: pointer
 
-  TFontDescription* = object
-  FontDescription* = ref GSmartPtr[TFontDescription]
+# wrapped: TFontDescription
+# unwrapped: TFontDescription
+  TFontDescription* {.pure,inheritable.} = object
 
-  TFontFaceClass* = object
+# wrapped: TFontFaceClass
+# unwrapped: TFontFaceClass
+  TFontFaceClass* {.pure,inheritable.} = object
     parent_class*: GObject2.TObjectClass
     get_face_name*: pointer
     describe*: pointer
     list_sizes*: pointer
     is_synthesized*: pointer
-    x_pango_reserved3*: pointer
-    x_pango_reserved4*: pointer
-  FontFaceClass* = ref GSmartPtr[TFontFaceClass]
+    pango_reserved3*: pointer
+    pango_reserved4*: pointer
 
-  TFontFamilyClass* = object
+# wrapped: TFontFamilyClass
+# unwrapped: TFontFamilyClass
+  TFontFamilyClass* {.pure,inheritable.} = object
     parent_class*: GObject2.TObjectClass
     list_faces*: pointer
     get_name*: pointer
     is_monospace*: pointer
-    x_pango_reserved2*: pointer
-    x_pango_reserved3*: pointer
-    x_pango_reserved4*: pointer
-  FontFamilyClass* = ref GSmartPtr[TFontFamilyClass]
+    pango_reserved2*: pointer
+    pango_reserved3*: pointer
+    pango_reserved4*: pointer
 
-  TFontMapClass* = object
+# wrapped: TFontMapClass
+# unwrapped: TFontMapClass
+  TFontMapClass* {.pure,inheritable.} = object
     parent_class*: GObject2.TObjectClass
     load_font*: pointer
     list_families*: pointer
@@ -256,11 +289,12 @@ type
     shape_engine_type*: ucstring
     get_serial*: pointer
     changed*: pointer
-    x_pango_reserved1*: pointer
-    x_pango_reserved2*: pointer
-  FontMapClass* = ref GSmartPtr[TFontMapClass]
+    pango_reserved1*: pointer
+    pango_reserved2*: pointer
 
-  TFontMetrics* = object
+# wrapped: TFontMetrics
+# unwrapped: TFontMetrics
+  TFontMetrics* {.pure,inheritable.} = object
     ref_count*: uint32
     ascent*: int32
     descent*: int32
@@ -270,41 +304,47 @@ type
     underline_thickness*: int32
     strikethrough_position*: int32
     strikethrough_thickness*: int32
-  FontMetrics* = ref GSmartPtr[TFontMetrics]
 
-  TFontsetClass* = object
+# wrapped: TFontsetClass
+# unwrapped: TFontsetClass
+  TFontsetClass* {.pure,inheritable.} = object
     parent_class*: GObject2.TObjectClass
     get_font*: pointer
     get_metrics*: pointer
     get_language*: pointer
     foreach*: pointer
-    x_pango_reserved1*: pointer
-    x_pango_reserved2*: pointer
-    x_pango_reserved3*: pointer
-    x_pango_reserved4*: pointer
-  FontsetClass* = ref GSmartPtr[TFontsetClass]
+    pango_reserved1*: pointer
+    pango_reserved2*: pointer
+    pango_reserved3*: pointer
+    pango_reserved4*: pointer
 
-  TFontsetSimpleClass* = object
-  FontsetSimpleClass* = ref GSmartPtr[TFontsetSimpleClass]
+# wrapped: TFontsetSimpleClass
+# unwrapped: TFontsetSimpleClass
+  TFontsetSimpleClass* {.pure,inheritable.} = object
 
-  TGlyphGeometry* = object
+# wrapped: TGlyphGeometry
+# unwrapped: TGlyphGeometry
+  TGlyphGeometry* {.pure,inheritable.} = object
     width*: int32
     x_offset*: int32
     y_offset*: int32
-  GlyphGeometry* = ref GSmartPtr[TGlyphGeometry]
 
-  TGlyphInfo* = object
+# wrapped: TGlyphInfo
+# unwrapped: TGlyphInfo
+  TGlyphInfo* {.pure,inheritable.} = object
     glyph*: uint32
     geometry*: TGlyphGeometry
     attr*: TGlyphVisAttr
-  GlyphInfo* = ref GSmartPtr[TGlyphInfo]
 
-  TGlyphItem* = object
+# wrapped: TGlyphItem
+# unwrapped: TGlyphItem
+  TGlyphItem* {.pure,inheritable.} = object
     item*: ptr TItem
     glyphs*: ptr TGlyphString
-  GlyphItem* = ref GSmartPtr[TGlyphItem]
 
-  TGlyphItemIter* = object
+# wrapped: TGlyphItemIter
+# unwrapped: TGlyphItemIter
+  TGlyphItemIter* {.pure,inheritable.} = object
     glyph_item*: ptr TGlyphItem
     text*: ucstring
     start_glyph*: int32
@@ -313,52 +353,61 @@ type
     end_glyph*: int32
     end_index*: int32
     end_char*: int32
-  GlyphItemIter* = ref GSmartPtr[TGlyphItemIter]
 
-  TGlyphString* = object
+# wrapped: TGlyphString
+# unwrapped: TGlyphString
+  TGlyphString* {.pure,inheritable.} = object
     num_glyphs*: int32
-    glyphs*: ptr TGlyphInfo
+    glyphs*: ptr array[-1, TGlyphInfo]
     log_clusters*: ptr int32
     space*: int32
-  GlyphString* = ref GSmartPtr[TGlyphString]
 
-  TGlyphVisAttr* = object
+# wrapped: TGlyphVisAttr
+# unwrapped: TGlyphVisAttr
+  TGlyphVisAttr* {.pure,inheritable.} = object
     is_cluster_start*: uint32
-  GlyphVisAttr* = ref GSmartPtr[TGlyphVisAttr]
 
-  TIncludedModule* = object
+# wrapped: TIncludedModule
+# unwrapped: TIncludedModule
+  TIncludedModule* {.pure,inheritable.} = object
     list*: pointer
     init*: pointer
     exit*: pointer
     create*: pointer
-  IncludedModule* = ref GSmartPtr[TIncludedModule]
 
-  TItem* = object
+# wrapped: TItem
+# unwrapped: TItem
+  TItem* {.pure,inheritable.} = object
     offset*: int32
     length*: int32
     num_chars*: int32
     analysis*: TAnalysis
-  Item* = ref GSmartPtr[TItem]
 
-  TLanguage* = object
-  Language* = ref GSmartPtr[TLanguage]
+# wrapped: TLanguage
+# unwrapped: TLanguage
+  TLanguage* {.pure,inheritable.} = object
 
-  TLayoutClass* = object
-  LayoutClass* = ref GSmartPtr[TLayoutClass]
+# wrapped: TLayoutClass
+# unwrapped: TLayoutClass
+  TLayoutClass* {.pure,inheritable.} = object
 
-  TLayoutIter* = object
-  LayoutIter* = ref GSmartPtr[TLayoutIter]
+# wrapped: TLayoutIter
+# unwrapped: TLayoutIter
+  TLayoutIter* {.pure,inheritable.} = object
 
-  TLayoutLine* = object
+# wrapped: TLayoutLine
+# unwrapped: TLayoutLine
+  TLayoutLine* {.pure,inheritable.} = object
     layout*: ptr TLayout
     start_index*: int32
     length*: int32
     runs*: ptr GSLIST_TODO
     is_paragraph_start*: uint32
     resolved_dir*: uint32
-  LayoutLine* = ref GSmartPtr[TLayoutLine]
 
-  TLogAttr* = object
+# wrapped: TLogAttr
+# unwrapped: TLogAttr
+  TLogAttr* {.pure,inheritable.} = object
     is_line_break*: uint32
     is_mandatory_break*: uint32
     is_char_break*: uint32
@@ -372,31 +421,36 @@ type
     backspace_deletes_character*: uint32
     is_expandable_space*: uint32
     is_word_boundary*: uint32
-  LogAttr* = ref GSmartPtr[TLogAttr]
 
-  TMap* = object
-  Map* = ref GSmartPtr[TMap]
+# wrapped: TMap
+# unwrapped: TMap
+  TMap* {.pure,inheritable.} = object
 
-  TMapEntry* = object
-  MapEntry* = ref GSmartPtr[TMapEntry]
+# wrapped: TMapEntry
+# unwrapped: TMapEntry
+  TMapEntry* {.pure,inheritable.} = object
 
-  TMatrix* = object
+# wrapped: TMatrix
+# unwrapped: TMatrix
+  TMatrix* {.pure,inheritable.} = object
     xx*: float64
     xy*: float64
     yx*: float64
     yy*: float64
     x0*: float64
     y0*: float64
-  Matrix* = ref GSmartPtr[TMatrix]
 
-  TRectangle* = object
+# wrapped: TRectangle
+# unwrapped: TRectangle
+  TRectangle* {.pure,inheritable.} = object
     x*: int32
     y*: int32
     width*: int32
     height*: int32
-  Rectangle* = ref GSmartPtr[TRectangle]
 
-  TRendererClass* = object
+# wrapped: TRendererClass
+# unwrapped: TRendererClass
+  TRendererClass* {.pure,inheritable.} = object
     parent_class*: GObject2.TObjectClass
     draw_glyphs*: pointer
     draw_rectangle*: pointer
@@ -409,24 +463,27 @@ type
     end_x*: pointer
     prepare_run*: pointer
     draw_glyph_item*: pointer
-    x_pango_reserved2*: pointer
-    x_pango_reserved3*: pointer
-    x_pango_reserved4*: pointer
-  RendererClass* = ref GSmartPtr[TRendererClass]
+    pango_reserved2*: pointer
+    pango_reserved3*: pointer
+    pango_reserved4*: pointer
 
-  TRendererPrivate* = object
-  RendererPrivate* = ref GSmartPtr[TRendererPrivate]
+# wrapped: TRendererPrivate
+# unwrapped: TRendererPrivate
+  TRendererPrivate* {.pure,inheritable.} = object
 
-  TScriptForLang* = object
+# wrapped: TScriptForLang
+# unwrapped: TScriptForLang
+  TScriptForLang* {.pure,inheritable.} = object
     lang*: array[7, int8]
     scripts*: array[3, Script]
-  ScriptForLang* = ref GSmartPtr[TScriptForLang]
 
-  TScriptIter* = object
-  ScriptIter* = ref GSmartPtr[TScriptIter]
+# wrapped: TScriptIter
+# unwrapped: TScriptIter
+  TScriptIter* {.pure,inheritable.} = object
 
-  TTabArray* = object
-  TabArray* = ref GSmartPtr[TTabArray]
+# wrapped: TTabArray
+# unwrapped: TTabArray
+  TTabArray* {.pure,inheritable.} = object
 
   # unions
   #------------------
@@ -464,6 +521,9 @@ type
     absolute_size,
     gravity,
     gravity_hint,
+    font_features,
+    foreground_alpha,
+    background_alpha,
 
 
   BidiType* {.pure,size: sizeof(uint32).} = enum
@@ -510,18 +570,6 @@ type
     start,
     middle,
     `end`,
-
-
-  # flags
-  SFontMask* = uint32
-  FontMask* {.pure,size: sizeof(uint32).} = enum
-    family = 1,
-    style = 2,
-    variant = 4,
-    weight = 8,
-    stretch = 16,
-    size = 32,
-    gravity = 64,
 
 
   Gravity* {.pure,size: sizeof(uint32).} = enum
@@ -693,6 +741,32 @@ type
     word_char,
 
 
+  # flags
+  SFontMask* = uint32
+  FontMask* {.pure,size: sizeof(uint32).} = enum
+    family = 1,
+    style = 2,
+    variant = 4,
+    weight = 8,
+    stretch = 16,
+    size = 32,
+    gravity = 64,
+
+
+  # constants
+  #------------------
+# ANALYSIS_FLAG_CENTERED_BASELINE
+# ANALYSIS_FLAG_IS_ELLIPSIS
+# ATTR_INDEX_FROM_TEXT_BEGINNING
+# ENGINE_TYPE_LANG
+# ENGINE_TYPE_SHAPE
+# GLYPH_EMPTY
+# GLYPH_INVALID_INPUT
+# GLYPH_UNKNOWN_FLAG
+# RENDER_TYPE_NONE
+# SCALE
+# UNKNOWN_GLYPH_HEIGHT
+# UNKNOWN_GLYPH_WIDTH
 declareSubclass(TContext, GObject2.TObject)
 declareSubclass(TEngine, GObject2.TObject)
 declareSubclass(TEngineLang, TEngine)
@@ -706,24 +780,20 @@ declareSubclass(TFontsetSimple, TFontset)
 declareSubclass(TLayout, GObject2.TObject)
 declareSubclass(TRenderer, GObject2.TObject)
 
-# implicit unwrapping
-# for some reason, this is not picked up from gobjectutils (bug?)
-converter unwrap[T](s: ref GSmartPtr[T]): ptr T = s.pointer
+# # implicit unwrapping
+# # for some reason, this is not picked up from gobjectutils (bug?)
+# converter unwrap[T](s: ref GSmartPtr[T]): ptr T = s.pointer
   # free functions
   #------------------
 # pango_attr_type_get_name
 # flags: {} container: -
-# type 'AttrType' 'AttrType' IN
-# 'ustring' 'ucstring' (diff., need sugar)
-proc pango_attr_type_get_name_import(type_x: AttrType): ucstring {.cdecl, dynlib: lib, importc: "pango_attr_type_get_name".}
-proc pango_attr_type_get_name*(type_x: AttrType): ustring {.inline.} =
-  ustring($(pango_attr_type_get_name_import(type_x)))
-# proc pango_attr_type_get_name*(type_x: AttrType): ustring {.inline.} =
-
+# arg type: INTERFACE (ENUM) 'AttrType' 'AttrType' IN
+# return: UTF8 'ucstring' 'ucstring'
+proc pango_attr_type_get_name*(type_x: AttrType): ucstring {.cdecl, dynlib: lib, importc: "pango_attr_type_get_name".}
 # pango_attr_type_register
 # flags: {} container: -
-# name 'ustring' 'ucstring' IN (diff., need sugar)
-# 'AttrType' 'AttrType'
+# arg name: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# return: INTERFACE 'AttrType' 'AttrType'
 proc pango_attr_type_register(name: ucstring): AttrType {.cdecl, dynlib: lib, importc: "pango_attr_type_register".}
 proc pango_attr_type_register*(name: ustring): AttrType {.inline.} =
   pango_attr_type_register(ucstring(name))
@@ -731,68 +801,50 @@ proc pango_attr_type_register*(name: ustring): AttrType {.inline.} =
 
 # pango_bidi_type_for_unichar
 # flags: {} container: -
-# ch 'unichar' 'unichar' IN
-# 'BidiType' 'BidiType'
+# arg ch: UNICHAR 'unichar' 'unichar' IN
+# return: INTERFACE 'BidiType' 'BidiType'
 proc pango_bidi_type_for_unichar*(ch: unichar): BidiType {.cdecl, dynlib: lib, importc: "pango_bidi_type_for_unichar".}
 # pango_break
 # flags: {} container: -
-# text 'ustring' 'ucstring' IN (diff., need sugar)
-# length 'int32' 'int32' IN
-# analysis 'TAnalysis' 'ptr TAnalysis' IN (diff., need sugar)
-# attrs 'var openarray[TLogAttr]' 'openarray[TLogAttr]' IN (diff., need sugar) array lengthArg: 4
-# attrs_len 'int32' 'int32' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg text: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# arg length: INT32 'int32' 'int32' IN
+# arg analysis: INTERFACE (STRUCT) 'ptr TAnalysis' 'ptr TAnalysis' IN
+# arg attrs: ARRAY 'var openarray[TLogAttr]' 'openarray[TLogAttr]' IN (diff., need sugar) array lengthArg: 4
+# arg attrs_len: INT32 'int32' 'int32' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_break(text: ucstring, length: int32, analysis: ptr TAnalysis, attrs: openarray[TLogAttr], attrs_len: int32) {.cdecl, dynlib: lib, importc: "pango_break".}
-proc pango_break*(text: ustring, length: int32, analysis: TAnalysis, attrs: var openarray[TLogAttr]) {.inline.} =
-  pango_break(ucstring(text), length, myUnsafeAddr(analysis), attrs, attrs.len.int32)
-# proc pango_break*(text: ustring, length: int32, analysis: TAnalysis, attrs: var openarray[TLogAttr]) {.inline.} =
+proc pango_break*(text: ustring, length: int32, analysis: ptr TAnalysis, attrs: var openarray[TLogAttr]) {.inline.} =
+  pango_break(ucstring(text), length, analysis, attrs, attrs.len.int32)
+# proc pango_break*(text: ustring, length: int32, analysis: ptr TAnalysis, attrs: var openarray[TLogAttr]) {.inline.} =
 
 # pango_config_key_get
-# flags: {} container: -
-# key 'ustring' 'ucstring' IN (diff., need sugar)
-# 'ustring' 'ucstring' (diff., need sugar)
-proc pango_config_key_get(key: ucstring): ucstring {.cdecl, dynlib: lib, importc: "pango_config_key_get".}
-proc pango_config_key_get*(key: ustring): ustring {.inline.} =
-  ustring($(pango_config_key_get(ucstring(key))))
-# proc pango_config_key_get*(key: ustring): ustring {.inline.} =
-
+# flags: {} container: - (deprecated)
 # pango_config_key_get_system
-# flags: {} container: -
-# key 'ustring' 'ucstring' IN (diff., need sugar)
-# 'ustring' 'ucstring' (diff., need sugar)
-proc pango_config_key_get_system(key: ucstring): ucstring {.cdecl, dynlib: lib, importc: "pango_config_key_get_system".}
-proc pango_config_key_get_system*(key: ustring): ustring {.inline.} =
-  ustring($(pango_config_key_get_system(ucstring(key))))
-# proc pango_config_key_get_system*(key: ustring): ustring {.inline.} =
-
+# flags: {} container: - (deprecated)
 # pango_default_break
 # flags: {} container: -
-# text 'ustring' 'ucstring' IN (diff., need sugar)
-# length 'int32' 'int32' IN
-# analysis 'TAnalysis' 'ptr TAnalysis' IN (diff., need sugar)
-# attrs 'TLogAttr' 'ptr TLogAttr' IN (diff., need sugar)
-# attrs_len 'int32' 'int32' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg text: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# arg length: INT32 'int32' 'int32' IN
+# arg analysis: INTERFACE (STRUCT) 'ptr TAnalysis' 'ptr TAnalysis' IN
+# arg attrs: INTERFACE (STRUCT) 'ptr TLogAttr' 'ptr TLogAttr' IN
+# arg attrs_len: INT32 'int32' 'int32' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_default_break(text: ucstring, length: int32, analysis: ptr TAnalysis, attrs: ptr TLogAttr, attrs_len: int32) {.cdecl, dynlib: lib, importc: "pango_default_break".}
-proc pango_default_break*(text: ustring, length: int32, analysis: TAnalysis, attrs: TLogAttr, attrs_len: int32) {.inline.} =
-  pango_default_break(ucstring(text), length, myUnsafeAddr(analysis), myUnsafeAddr(attrs), attrs_len)
-# proc pango_default_break*(text: ustring, length: int32, analysis: TAnalysis, attrs: TLogAttr, attrs_len: int32) {.inline.} =
+proc pango_default_break*(text: ustring, length: int32, analysis: ptr TAnalysis, attrs: ptr TLogAttr, attrs_len: int32) {.inline.} =
+  pango_default_break(ucstring(text), length, analysis, attrs, attrs_len)
+# proc pango_default_break*(text: ustring, length: int32, analysis: ptr TAnalysis, attrs: ptr TLogAttr, attrs_len: int32) {.inline.} =
 
 # pango_extents_to_pixels
 # flags: {} container: -
-# inclusive 'TRectangle' 'ptr TRectangle' IN (diff., need sugar)
-# nearest 'TRectangle' 'ptr TRectangle' IN (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
-proc pango_extents_to_pixels(inclusive: ptr TRectangle, nearest: ptr TRectangle) {.cdecl, dynlib: lib, importc: "pango_extents_to_pixels".}
-proc pango_extents_to_pixels*(inclusive: TRectangle, nearest: TRectangle) {.inline.} =
-  pango_extents_to_pixels(myUnsafeAddr(inclusive), myUnsafeAddr(nearest))
-# proc pango_extents_to_pixels*(inclusive: TRectangle, nearest: TRectangle) {.inline.} =
-
+# arg inclusive: INTERFACE (STRUCT) 'ptr TRectangle' 'ptr TRectangle' IN
+# arg nearest: INTERFACE (STRUCT) 'ptr TRectangle' 'ptr TRectangle' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
+proc pango_extents_to_pixels*(inclusive: ptr TRectangle, nearest: ptr TRectangle) {.cdecl, dynlib: lib, importc: "pango_extents_to_pixels".}
 # pango_find_base_dir
 # flags: {} container: -
-# text 'ustring' 'ucstring' IN (diff., need sugar)
-# length 'int32' 'int32' IN
-# 'Direction' 'Direction'
+# arg text: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# arg length: INT32 'int32' 'int32' IN
+# return: INTERFACE 'Direction' 'Direction'
 proc pango_find_base_dir(text: ucstring, length: int32): Direction {.cdecl, dynlib: lib, importc: "pango_find_base_dir".}
 proc pango_find_base_dir*(text: ustring, length: int32): Direction {.inline.} =
   pango_find_base_dir(ucstring(text), length)
@@ -800,11 +852,11 @@ proc pango_find_base_dir*(text: ustring, length: int32): Direction {.inline.} =
 
 # pango_find_paragraph_boundary
 # flags: {} container: -
-# text 'ustring' 'ucstring' IN (diff., need sugar)
-# length 'int32' 'int32' IN
-# paragraph_delimiter_index 'var int32' 'ptr int32' OUT (diff., need sugar)
-# next_paragraph_start 'var int32' 'ptr int32' OUT (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg text: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# arg length: INT32 'int32' 'int32' IN
+# arg paragraph_delimiter_index: INT32 'var int32' 'ptr int32' OUT (diff., need sugar)
+# arg next_paragraph_start: INT32 'var int32' 'ptr int32' OUT (diff., need sugar)
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_find_paragraph_boundary(text: ucstring, length: int32, paragraph_delimiter_index: ptr int32, next_paragraph_start: ptr int32) {.cdecl, dynlib: lib, importc: "pango_find_paragraph_boundary".}
 proc pango_find_paragraph_boundary*(text: ustring, length: int32, paragraph_delimiter_index: var int32, next_paragraph_start: var int32) {.inline.} =
   pango_find_paragraph_boundary(ucstring(text), length, addr(paragraph_delimiter_index), addr(next_paragraph_start))
@@ -815,135 +867,115 @@ proc pango_find_paragraph_boundary*(text: ustring, length: int32, paragraph_deli
 
 # pango_font_description_from_string
 # flags: {} container: -
-# str 'ustring' 'ucstring' IN (diff., need sugar)
-# 'TFontDescription' 'ptr TFontDescription' (diff., need sugar)
+# arg str: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# return: INTERFACE 'ptr TFontDescription' 'ptr TFontDescription'
 proc pango_font_description_from_string(str: ucstring): ptr TFontDescription {.cdecl, dynlib: lib, importc: "pango_font_description_from_string".}
-proc pango_font_description_from_string*(str: ustring): TFontDescription {.inline.} =
-  (pango_font_description_from_string(ucstring(str)))[]
-# proc pango_font_description_from_string*(str: ustring): TFontDescription {.inline.} =
+proc pango_font_description_from_string*(str: ustring): ptr TFontDescription {.inline.} =
+  pango_font_description_from_string(ucstring(str))
+# proc pango_font_description_from_string*(str: ustring): ptr TFontDescription {.inline.} =
 
 # pango_get_lib_subdirectory
-# flags: {} container: -
-# 'ustring' 'ucstring' (diff., need sugar)
-proc pango_get_lib_subdirectory_import(): ucstring {.cdecl, dynlib: lib, importc: "pango_get_lib_subdirectory".}
-proc pango_get_lib_subdirectory*(): ustring {.inline.} =
-  ustring($(pango_get_lib_subdirectory_import()))
-# proc pango_get_lib_subdirectory*(): ustring {.inline.} =
-
+# flags: {} container: - (deprecated)
 # pango_get_log_attrs
 # flags: {} container: -
-# text 'ustring' 'ucstring' IN (diff., need sugar)
-# length 'int32' 'int32' IN
-# level 'int32' 'int32' IN
-# language 'TLanguage' 'ptr TLanguage' IN (diff., need sugar)
-# log_attrs 'var openarray[TLogAttr]' 'openarray[TLogAttr]' IN (diff., need sugar) array lengthArg: 5
-# attrs_len 'int32' 'int32' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg text: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# arg length: INT32 'int32' 'int32' IN
+# arg level: INT32 'int32' 'int32' IN
+# arg language: INTERFACE (STRUCT) 'ptr TLanguage' 'ptr TLanguage' IN
+# arg log_attrs: ARRAY 'var openarray[TLogAttr]' 'openarray[TLogAttr]' IN (diff., need sugar) array lengthArg: 5
+# arg attrs_len: INT32 'int32' 'int32' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_get_log_attrs(text: ucstring, length: int32, level: int32, language: ptr TLanguage, log_attrs: openarray[TLogAttr], attrs_len: int32) {.cdecl, dynlib: lib, importc: "pango_get_log_attrs".}
-proc pango_get_log_attrs*(text: ustring, length: int32, level: int32, language: TLanguage, log_attrs: var openarray[TLogAttr]) {.inline.} =
-  pango_get_log_attrs(ucstring(text), length, level, myUnsafeAddr(language), log_attrs, log_attrs.len.int32)
-# proc pango_get_log_attrs*(text: ustring, length: int32, level: int32, language: TLanguage, log_attrs: var openarray[TLogAttr]) {.inline.} =
+proc pango_get_log_attrs*(text: ustring, length: int32, level: int32, language: ptr TLanguage, log_attrs: var openarray[TLogAttr]) {.inline.} =
+  pango_get_log_attrs(ucstring(text), length, level, language, log_attrs, log_attrs.len.int32)
+# proc pango_get_log_attrs*(text: ustring, length: int32, level: int32, language: ptr TLanguage, log_attrs: var openarray[TLogAttr]) {.inline.} =
 
 # pango_get_mirror_char
 # flags: {} container: -
-# ch 'unichar' 'unichar' IN
-# mirrored_ch 'ptr unichar' 'ptr unichar' IN
-# 'bool' 'bool'
+# arg ch: UNICHAR 'unichar' 'unichar' IN
+# arg mirrored_ch: UNICHAR 'ptr unichar' 'ptr unichar' IN
+# return: BOOLEAN 'bool' 'bool'
 proc pango_get_mirror_char*(ch: unichar, mirrored_ch: ptr unichar): bool {.cdecl, dynlib: lib, importc: "pango_get_mirror_char".}
 # pango_get_sysconf_subdirectory
-# flags: {} container: -
-# 'ustring' 'ucstring' (diff., need sugar)
-proc pango_get_sysconf_subdirectory_import(): ucstring {.cdecl, dynlib: lib, importc: "pango_get_sysconf_subdirectory".}
-proc pango_get_sysconf_subdirectory*(): ustring {.inline.} =
-  ustring($(pango_get_sysconf_subdirectory_import()))
-# proc pango_get_sysconf_subdirectory*(): ustring {.inline.} =
-
+# flags: {} container: - (deprecated)
 # pango_gravity_get_for_matrix
 # flags: {} container: -
-# matrix 'TMatrix' 'ptr TMatrix' IN (diff., need sugar)
-# 'Gravity' 'Gravity'
-proc pango_gravity_get_for_matrix(matrix: ptr TMatrix): Gravity {.cdecl, dynlib: lib, importc: "pango_gravity_get_for_matrix".}
-proc pango_gravity_get_for_matrix*(matrix: TMatrix): Gravity {.inline.} =
-  pango_gravity_get_for_matrix(myUnsafeAddr(matrix))
-# proc pango_gravity_get_for_matrix*(matrix: TMatrix): Gravity {.inline.} =
-
+# arg matrix: INTERFACE (STRUCT) 'ptr TMatrix' 'ptr TMatrix' IN
+# return: INTERFACE 'Gravity' 'Gravity'
+proc pango_gravity_get_for_matrix*(matrix: ptr TMatrix): Gravity {.cdecl, dynlib: lib, importc: "pango_gravity_get_for_matrix".}
 # pango_gravity_get_for_script
 # flags: {} container: -
-# script 'Script' 'Script' IN
-# base_gravity 'Gravity' 'Gravity' IN
-# hint 'GravityHint' 'GravityHint' IN
-# 'Gravity' 'Gravity'
+# arg script: INTERFACE (ENUM) 'Script' 'Script' IN
+# arg base_gravity: INTERFACE (ENUM) 'Gravity' 'Gravity' IN
+# arg hint: INTERFACE (ENUM) 'GravityHint' 'GravityHint' IN
+# return: INTERFACE 'Gravity' 'Gravity'
 proc pango_gravity_get_for_script*(script: Script, base_gravity: Gravity, hint: GravityHint): Gravity {.cdecl, dynlib: lib, importc: "pango_gravity_get_for_script".}
 # pango_gravity_get_for_script_and_width
 # flags: {} container: -
-# script 'Script' 'Script' IN
-# wide 'bool' 'bool' IN
-# base_gravity 'Gravity' 'Gravity' IN
-# hint 'GravityHint' 'GravityHint' IN
-# 'Gravity' 'Gravity'
+# arg script: INTERFACE (ENUM) 'Script' 'Script' IN
+# arg wide: BOOLEAN 'bool' 'bool' IN
+# arg base_gravity: INTERFACE (ENUM) 'Gravity' 'Gravity' IN
+# arg hint: INTERFACE (ENUM) 'GravityHint' 'GravityHint' IN
+# return: INTERFACE 'Gravity' 'Gravity'
 proc pango_gravity_get_for_script_and_width*(script: Script, wide: bool, base_gravity: Gravity, hint: GravityHint): Gravity {.cdecl, dynlib: lib, importc: "pango_gravity_get_for_script_and_width".}
 # pango_gravity_to_rotation
 # flags: {} container: -
-# gravity 'Gravity' 'Gravity' IN
-# 'float64' 'float64'
+# arg gravity: INTERFACE (ENUM) 'Gravity' 'Gravity' IN
+# return: DOUBLE 'float64' 'float64'
 proc pango_gravity_to_rotation*(gravity: Gravity): float64 {.cdecl, dynlib: lib, importc: "pango_gravity_to_rotation".}
 # pango_is_zero_width
 # flags: {} container: -
-# ch 'unichar' 'unichar' IN
-# 'bool' 'bool'
+# arg ch: UNICHAR 'unichar' 'unichar' IN
+# return: BOOLEAN 'bool' 'bool'
 proc pango_is_zero_width*(ch: unichar): bool {.cdecl, dynlib: lib, importc: "pango_is_zero_width".}
 # pango_itemize
 # flags: {} container: -
-# context 'Context' 'ptr TContext' IN (diff., need sugar)
-# text 'ustring' 'ucstring' IN (diff., need sugar)
-# start_index 'int32' 'int32' IN
-# length 'int32' 'int32' IN
-# attrs 'TAttrList' 'ptr TAttrList' IN (diff., need sugar)
-# cached_iter 'TAttrIterator' 'ptr TAttrIterator' IN (diff., need sugar)
-# 'ptr GLIST_TODO' 'ptr GLIST_TODO'
+# arg context: INTERFACE (OBJECT) 'Context' 'ptr TContext' IN (diff., need sugar)
+# arg text: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# arg start_index: INT32 'int32' 'int32' IN
+# arg length: INT32 'int32' 'int32' IN
+# arg attrs: INTERFACE (STRUCT) 'ptr TAttrList' 'ptr TAttrList' IN
+# arg cached_iter: INTERFACE (STRUCT) 'ptr TAttrIterator' 'ptr TAttrIterator' IN
+# return: GLIST 'ptr GLIST_TODO' 'ptr GLIST_TODO'
 proc pango_itemize(context: ptr TContext, text: ucstring, start_index: int32, length: int32, attrs: ptr TAttrList, cached_iter: ptr TAttrIterator): ptr GLIST_TODO {.cdecl, dynlib: lib, importc: "pango_itemize".}
-proc pango_itemize*(context: Context, text: ustring, start_index: int32, length: int32, attrs: TAttrList, cached_iter: TAttrIterator): ptr GLIST_TODO {.inline.} =
-  pango_itemize(context.getPointer, ucstring(text), start_index, length, myUnsafeAddr(attrs), myUnsafeAddr(cached_iter))
-# proc pango_itemize*(context: Context, text: ustring, start_index: int32, length: int32, attrs: TAttrList, cached_iter: TAttrIterator): ptr GLIST_TODO {.inline.} =
+proc pango_itemize*(context: Context, text: ustring, start_index: int32, length: int32, attrs: ptr TAttrList, cached_iter: ptr TAttrIterator): ptr GLIST_TODO {.inline.} =
+  pango_itemize(context.getPointer, ucstring(text), start_index, length, attrs, cached_iter)
+# proc pango_itemize*(context: Context, text: ustring, start_index: int32, length: int32, attrs: ptr TAttrList, cached_iter: ptr TAttrIterator): ptr GLIST_TODO {.inline.} =
 
 # pango_itemize_with_base_dir
 # flags: {} container: -
-# context 'Context' 'ptr TContext' IN (diff., need sugar)
-# base_dir 'Direction' 'Direction' IN
-# text 'ustring' 'ucstring' IN (diff., need sugar)
-# start_index 'int32' 'int32' IN
-# length 'int32' 'int32' IN
-# attrs 'TAttrList' 'ptr TAttrList' IN (diff., need sugar)
-# cached_iter 'TAttrIterator' 'ptr TAttrIterator' IN (diff., need sugar)
-# 'ptr GLIST_TODO' 'ptr GLIST_TODO'
+# arg context: INTERFACE (OBJECT) 'Context' 'ptr TContext' IN (diff., need sugar)
+# arg base_dir: INTERFACE (ENUM) 'Direction' 'Direction' IN
+# arg text: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# arg start_index: INT32 'int32' 'int32' IN
+# arg length: INT32 'int32' 'int32' IN
+# arg attrs: INTERFACE (STRUCT) 'ptr TAttrList' 'ptr TAttrList' IN
+# arg cached_iter: INTERFACE (STRUCT) 'ptr TAttrIterator' 'ptr TAttrIterator' IN
+# return: GLIST 'ptr GLIST_TODO' 'ptr GLIST_TODO'
 proc pango_itemize_with_base_dir(context: ptr TContext, base_dir: Direction, text: ucstring, start_index: int32, length: int32, attrs: ptr TAttrList, cached_iter: ptr TAttrIterator): ptr GLIST_TODO {.cdecl, dynlib: lib, importc: "pango_itemize_with_base_dir".}
-proc pango_itemize_with_base_dir*(context: Context, base_dir: Direction, text: ustring, start_index: int32, length: int32, attrs: TAttrList, cached_iter: TAttrIterator): ptr GLIST_TODO {.inline.} =
-  pango_itemize_with_base_dir(context.getPointer, base_dir, ucstring(text), start_index, length, myUnsafeAddr(attrs), myUnsafeAddr(cached_iter))
-# proc pango_itemize_with_base_dir*(context: Context, base_dir: Direction, text: ustring, start_index: int32, length: int32, attrs: TAttrList, cached_iter: TAttrIterator): ptr GLIST_TODO {.inline.} =
+proc pango_itemize_with_base_dir*(context: Context, base_dir: Direction, text: ustring, start_index: int32, length: int32, attrs: ptr TAttrList, cached_iter: ptr TAttrIterator): ptr GLIST_TODO {.inline.} =
+  pango_itemize_with_base_dir(context.getPointer, base_dir, ucstring(text), start_index, length, attrs, cached_iter)
+# proc pango_itemize_with_base_dir*(context: Context, base_dir: Direction, text: ustring, start_index: int32, length: int32, attrs: ptr TAttrList, cached_iter: ptr TAttrIterator): ptr GLIST_TODO {.inline.} =
 
 # pango_language_from_string
 # flags: {} container: -
-# language 'ustring' 'ucstring' IN (diff., need sugar)
-# 'TLanguage' 'ptr TLanguage' (diff., need sugar)
+# arg language: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# return: INTERFACE 'ptr TLanguage' 'ptr TLanguage'
 proc pango_language_from_string(language: ucstring): ptr TLanguage {.cdecl, dynlib: lib, importc: "pango_language_from_string".}
-proc pango_language_from_string*(language: ustring): TLanguage {.inline.} =
-  (pango_language_from_string(ucstring(language)))[]
-# proc pango_language_from_string*(language: ustring): TLanguage {.inline.} =
+proc pango_language_from_string*(language: ustring): ptr TLanguage {.inline.} =
+  pango_language_from_string(ucstring(language))
+# proc pango_language_from_string*(language: ustring): ptr TLanguage {.inline.} =
 
 # pango_language_get_default
 # flags: {} container: -
-# 'TLanguage' 'ptr TLanguage' (diff., need sugar)
-proc pango_language_get_default_import(): ptr TLanguage {.cdecl, dynlib: lib, importc: "pango_language_get_default".}
-proc pango_language_get_default*(): TLanguage {.inline.} =
-  (pango_language_get_default_import())[]
-# proc pango_language_get_default*(): TLanguage {.inline.} =
-
+# return: INTERFACE 'ptr TLanguage' 'ptr TLanguage'
+proc pango_language_get_default*(): ptr TLanguage {.cdecl, dynlib: lib, importc: "pango_language_get_default".}
 # pango_log2vis_get_embedding_levels
 # flags: {} container: -
-# text 'ustring' 'ucstring' IN (diff., need sugar)
-# length 'int32' 'int32' IN
-# pbase_dir 'Direction' 'Direction' IN
-# 'ptr uint8' 'ptr uint8'
+# arg text: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# arg length: INT32 'int32' 'int32' IN
+# arg pbase_dir: INTERFACE (ENUM) 'Direction' 'Direction' IN
+# return: UINT8 'ptr uint8' 'ptr uint8'
 proc pango_log2vis_get_embedding_levels(text: ucstring, length: int32, pbase_dir: Direction): ptr uint8 {.cdecl, dynlib: lib, importc: "pango_log2vis_get_embedding_levels".}
 proc pango_log2vis_get_embedding_levels*(text: ustring, length: int32, pbase_dir: Direction): ptr uint8 {.inline.} =
   pango_log2vis_get_embedding_levels(ucstring(text), length, pbase_dir)
@@ -954,79 +986,54 @@ proc pango_log2vis_get_embedding_levels*(text: ustring, length: int32, pbase_dir
 # pango_markup_parser_finish
 # flags: {throws} container: -
 # can throw
-# context 'GLib2.TMarkupParseContext' 'ptr GLib2.TMarkupParseContext' IN (diff., need sugar)
-# attr_list 'var TAttrList' 'ptr TAttrList' OUT (diff., need sugar) optional
-# text 'var ucstring' 'ptr ucstring' OUT (diff., need sugar) optional
-# accel_char 'var unichar' 'ptr unichar' OUT (diff., need sugar) optional
-# 'bool' 'bool'
+# arg context: INTERFACE (STRUCT) 'ptr GLib2.TMarkupParseContext' 'ptr GLib2.TMarkupParseContext' IN
+# arg attr_list: INTERFACE (STRUCT) 'ptr TAttrList' 'ptr TAttrList' OUT optional
+# arg text: UTF8 'var ucstring' 'ptr ucstring' OUT (diff., need sugar) optional
+# arg accel_char: UNICHAR 'var unichar' 'ptr unichar' OUT (diff., need sugar) optional
+# return: BOOLEAN 'bool' 'bool'
 proc pango_markup_parser_finish(context: ptr GLib2.TMarkupParseContext, attr_list: ptr TAttrList, text: ptr ucstring, accel_char: ptr unichar, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "pango_markup_parser_finish".}
-proc pango_markup_parser_finish*(context: GLib2.TMarkupParseContext, attr_list: var TAttrList, text: var ucstring, accel_char: var unichar): bool {.inline.} =
-  pango_markup_parser_finish(myUnsafeAddr(context), addr(attr_list), addr(text), addr(accel_char))
+proc pango_markup_parser_finish*(context: ptr GLib2.TMarkupParseContext, attr_list: ptr TAttrList, text: var ucstring, accel_char: var unichar): bool {.inline.} =
+  pango_markup_parser_finish(context, attr_list, addr(text), addr(accel_char))
 # tuple-return
-# attr_list: var TAttrList
+# attr_list: ptr TAttrList
 # text: var ucstring
 # accel_char: var unichar
-# proc pango_markup_parser_finish*(context: GLib2.TMarkupParseContext): bool {.inline.} =
+# proc pango_markup_parser_finish*(context: ptr GLib2.TMarkupParseContext): bool {.inline.} =
 
 # pango_markup_parser_new
 # flags: {} container: -
-# accel_marker 'unichar' 'unichar' IN
-# 'GLib2.TMarkupParseContext' 'ptr GLib2.TMarkupParseContext' (diff., need sugar)
-proc pango_markup_parser_new_import(accel_marker: unichar): ptr GLib2.TMarkupParseContext {.cdecl, dynlib: lib, importc: "pango_markup_parser_new".}
-proc pango_markup_parser_new*(accel_marker: unichar): GLib2.TMarkupParseContext {.inline.} =
-  (pango_markup_parser_new_import(accel_marker))[]
-# proc pango_markup_parser_new*(accel_marker: unichar): GLib2.TMarkupParseContext {.inline.} =
-
+# arg accel_marker: UNICHAR 'unichar' 'unichar' IN
+# return: INTERFACE 'ptr GLib2.TMarkupParseContext' 'ptr GLib2.TMarkupParseContext'
+proc pango_markup_parser_new*(accel_marker: unichar): ptr GLib2.TMarkupParseContext {.cdecl, dynlib: lib, importc: "pango_markup_parser_new".}
 # pango_module_register
-# flags: {} container: -
-# module 'TIncludedModule' 'ptr TIncludedModule' IN (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
-proc pango_module_register(module: ptr TIncludedModule) {.cdecl, dynlib: lib, importc: "pango_module_register".}
-proc pango_module_register*(module: TIncludedModule) {.inline.} =
-  pango_module_register(myUnsafeAddr(module))
-# proc pango_module_register*(module: TIncludedModule) {.inline.} =
-
+# flags: {} container: - (deprecated)
 # pango_parse_enum
-# flags: {} container: -
-# type 'GType' 'GType' IN
-# str 'ustring' 'ucstring' IN (diff., need sugar)
-# value 'var int32' 'ptr int32' OUT (diff., need sugar) optional
-# warn 'bool' 'bool' IN
-# possible_values 'var ucstring' 'ptr ucstring' OUT (diff., need sugar) optional
-# 'bool' 'bool'
-proc pango_parse_enum(type_x: GType, str: ucstring, value: ptr int32, warn: bool, possible_values: ptr ucstring): bool {.cdecl, dynlib: lib, importc: "pango_parse_enum".}
-proc pango_parse_enum*(type_x: GType, str: ustring, value: var int32, warn: bool, possible_values: var ucstring): bool {.inline.} =
-  pango_parse_enum(type_x, ucstring(str), addr(value), warn, addr(possible_values))
-# tuple-return
-# value: var int32
-# possible_values: var ucstring
-# proc pango_parse_enum*(type_x: GType, str: ustring, warn: bool): bool {.inline.} =
-
+# flags: {} container: - (deprecated)
 # pango_parse_markup
 # flags: {throws} container: -
 # can throw
-# markup_text 'ustring' 'ucstring' IN (diff., need sugar)
-# length 'int32' 'int32' IN
-# accel_marker 'unichar' 'unichar' IN
-# attr_list 'var TAttrList' 'ptr TAttrList' OUT (diff., need sugar) optional
-# text 'var ucstring' 'ptr ucstring' OUT (diff., need sugar) optional
-# accel_char 'var unichar' 'ptr unichar' OUT (diff., need sugar) optional
-# 'bool' 'bool'
+# arg markup_text: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# arg length: INT32 'int32' 'int32' IN
+# arg accel_marker: UNICHAR 'unichar' 'unichar' IN
+# arg attr_list: INTERFACE (STRUCT) 'ptr TAttrList' 'ptr TAttrList' OUT optional
+# arg text: UTF8 'var ucstring' 'ptr ucstring' OUT (diff., need sugar) optional
+# arg accel_char: UNICHAR 'var unichar' 'ptr unichar' OUT (diff., need sugar) optional
+# return: BOOLEAN 'bool' 'bool'
 proc pango_parse_markup(markup_text: ucstring, length: int32, accel_marker: unichar, attr_list: ptr TAttrList, text: ptr ucstring, accel_char: ptr unichar, error: ptr PGError=nil): bool {.cdecl, dynlib: lib, importc: "pango_parse_markup".}
-proc pango_parse_markup*(markup_text: ustring, length: int32, accel_marker: unichar, attr_list: var TAttrList, text: var ucstring, accel_char: var unichar): bool {.inline.} =
-  pango_parse_markup(ucstring(markup_text), length, accel_marker, addr(attr_list), addr(text), addr(accel_char))
+proc pango_parse_markup*(markup_text: ustring, length: int32, accel_marker: unichar, attr_list: ptr TAttrList, text: var ucstring, accel_char: var unichar): bool {.inline.} =
+  pango_parse_markup(ucstring(markup_text), length, accel_marker, attr_list, addr(text), addr(accel_char))
 # tuple-return
-# attr_list: var TAttrList
+# attr_list: ptr TAttrList
 # text: var ucstring
 # accel_char: var unichar
 # proc pango_parse_markup*(markup_text: ustring, length: int32, accel_marker: unichar): bool {.inline.} =
 
 # pango_parse_stretch
 # flags: {} container: -
-# str 'ustring' 'ucstring' IN (diff., need sugar)
-# stretch 'Stretch' 'Stretch' OUT caller-allocates
-# warn 'bool' 'bool' IN
-# 'bool' 'bool'
+# arg str: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# arg stretch: INTERFACE (ENUM) 'Stretch' 'Stretch' OUT caller-allocates
+# arg warn: BOOLEAN 'bool' 'bool' IN
+# return: BOOLEAN 'bool' 'bool'
 proc pango_parse_stretch(str: ucstring, stretch: Stretch, warn: bool): bool {.cdecl, dynlib: lib, importc: "pango_parse_stretch".}
 proc pango_parse_stretch*(str: ustring, stretch: Stretch, warn: bool): bool {.inline.} =
   pango_parse_stretch(ucstring(str), stretch, warn)
@@ -1036,10 +1043,10 @@ proc pango_parse_stretch*(str: ustring, stretch: Stretch, warn: bool): bool {.in
 
 # pango_parse_style
 # flags: {} container: -
-# str 'ustring' 'ucstring' IN (diff., need sugar)
-# style 'Style' 'Style' OUT caller-allocates
-# warn 'bool' 'bool' IN
-# 'bool' 'bool'
+# arg str: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# arg style: INTERFACE (ENUM) 'Style' 'Style' OUT caller-allocates
+# arg warn: BOOLEAN 'bool' 'bool' IN
+# return: BOOLEAN 'bool' 'bool'
 proc pango_parse_style(str: ucstring, style: Style, warn: bool): bool {.cdecl, dynlib: lib, importc: "pango_parse_style".}
 proc pango_parse_style*(str: ustring, style: Style, warn: bool): bool {.inline.} =
   pango_parse_style(ucstring(str), style, warn)
@@ -1049,10 +1056,10 @@ proc pango_parse_style*(str: ustring, style: Style, warn: bool): bool {.inline.}
 
 # pango_parse_variant
 # flags: {} container: -
-# str 'ustring' 'ucstring' IN (diff., need sugar)
-# variant 'Variant' 'Variant' OUT caller-allocates
-# warn 'bool' 'bool' IN
-# 'bool' 'bool'
+# arg str: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# arg variant: INTERFACE (ENUM) 'Variant' 'Variant' OUT caller-allocates
+# arg warn: BOOLEAN 'bool' 'bool' IN
+# return: BOOLEAN 'bool' 'bool'
 proc pango_parse_variant(str: ucstring, variant: Variant, warn: bool): bool {.cdecl, dynlib: lib, importc: "pango_parse_variant".}
 proc pango_parse_variant*(str: ustring, variant: Variant, warn: bool): bool {.inline.} =
   pango_parse_variant(ucstring(str), variant, warn)
@@ -1062,10 +1069,10 @@ proc pango_parse_variant*(str: ustring, variant: Variant, warn: bool): bool {.in
 
 # pango_parse_weight
 # flags: {} container: -
-# str 'ustring' 'ucstring' IN (diff., need sugar)
-# weight 'Weight' 'Weight' OUT caller-allocates
-# warn 'bool' 'bool' IN
-# 'bool' 'bool'
+# arg str: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# arg weight: INTERFACE (ENUM) 'Weight' 'Weight' OUT caller-allocates
+# arg warn: BOOLEAN 'bool' 'bool' IN
+# return: BOOLEAN 'bool' 'bool'
 proc pango_parse_weight(str: ucstring, weight: Weight, warn: bool): bool {.cdecl, dynlib: lib, importc: "pango_parse_weight".}
 proc pango_parse_weight*(str: ustring, weight: Weight, warn: bool): bool {.inline.} =
   pango_parse_weight(ucstring(str), weight, warn)
@@ -1075,178 +1082,108 @@ proc pango_parse_weight*(str: ustring, weight: Weight, warn: bool): bool {.inlin
 
 # pango_quantize_line_geometry
 # flags: {} container: -
-# thickness 'var int32' 'ptr int32' INOUT (diff., need sugar)
-# position 'var int32' 'ptr int32' INOUT (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg thickness: INT32 'var int32' 'ptr int32' INOUT (diff., need sugar)
+# arg position: INT32 'var int32' 'ptr int32' INOUT (diff., need sugar)
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_quantize_line_geometry(thickness: ptr int32, position: ptr int32) {.cdecl, dynlib: lib, importc: "pango_quantize_line_geometry".}
 proc pango_quantize_line_geometry*(thickness: var int32, position: var int32) {.inline.} =
   pango_quantize_line_geometry(addr(thickness), addr(position))
 # proc pango_quantize_line_geometry*(thickness: var int32, position: var int32) {.inline.} =
 
 # pango_read_line
-# flags: {} container: -
-# stream 'pointer' 'pointer' IN
-# str 'var GLib2.TString' 'ptr GLib2.TString' OUT (diff., need sugar) caller-allocates
-# 'int32' 'int32'
-proc pango_read_line(stream: pointer, str: ptr GLib2.TString): int32 {.cdecl, dynlib: lib, importc: "pango_read_line".}
-proc pango_read_line*(stream: pointer, str: var GLib2.TString): int32 {.inline.} =
-  pango_read_line(stream, addr(str))
-# tuple-return
-# str: var GLib2.TString
-# proc pango_read_line*(stream: pointer): int32 {.inline.} =
-
+# flags: {} container: - (deprecated)
 # pango_reorder_items
 # flags: {} container: -
-# logical_items 'ptr GLIST_TODO' 'ptr GLIST_TODO' IN
-# 'ptr GLIST_TODO' 'ptr GLIST_TODO'
+# arg logical_items: GLIST 'ptr GLIST_TODO' 'ptr GLIST_TODO' IN
+# return: GLIST 'ptr GLIST_TODO' 'ptr GLIST_TODO'
 proc pango_reorder_items*(logical_items: ptr GLIST_TODO): ptr GLIST_TODO {.cdecl, dynlib: lib, importc: "pango_reorder_items".}
 # pango_scan_int
-# flags: {} container: -
-# pos 'var ucstring' 'ptr ucstring' INOUT (diff., need sugar)
-# out 'var int32' 'ptr int32' OUT (diff., need sugar)
-# 'bool' 'bool'
-proc pango_scan_int(pos: ptr ucstring, out_x: ptr int32): bool {.cdecl, dynlib: lib, importc: "pango_scan_int".}
-proc pango_scan_int*(pos: var ucstring, out_x: var int32): bool {.inline.} =
-  pango_scan_int(addr(pos), addr(out_x))
-# tuple-return
-# out: var int32
-# proc pango_scan_int*(pos: var ucstring): bool {.inline.} =
-
+# flags: {} container: - (deprecated)
 # pango_scan_string
-# flags: {} container: -
-# pos 'var ucstring' 'ptr ucstring' INOUT (diff., need sugar)
-# out 'var GLib2.TString' 'ptr GLib2.TString' OUT (diff., need sugar) caller-allocates
-# 'bool' 'bool'
-proc pango_scan_string(pos: ptr ucstring, out_x: ptr GLib2.TString): bool {.cdecl, dynlib: lib, importc: "pango_scan_string".}
-proc pango_scan_string*(pos: var ucstring, out_x: var GLib2.TString): bool {.inline.} =
-  pango_scan_string(addr(pos), addr(out_x))
-# tuple-return
-# out: var GLib2.TString
-# proc pango_scan_string*(pos: var ucstring): bool {.inline.} =
-
+# flags: {} container: - (deprecated)
 # pango_scan_word
-# flags: {} container: -
-# pos 'var ucstring' 'ptr ucstring' INOUT (diff., need sugar)
-# out 'var GLib2.TString' 'ptr GLib2.TString' OUT (diff., need sugar) caller-allocates
-# 'bool' 'bool'
-proc pango_scan_word(pos: ptr ucstring, out_x: ptr GLib2.TString): bool {.cdecl, dynlib: lib, importc: "pango_scan_word".}
-proc pango_scan_word*(pos: var ucstring, out_x: var GLib2.TString): bool {.inline.} =
-  pango_scan_word(addr(pos), addr(out_x))
-# tuple-return
-# out: var GLib2.TString
-# proc pango_scan_word*(pos: var ucstring): bool {.inline.} =
-
+# flags: {} container: - (deprecated)
 # pango_script_for_unichar
 # flags: {} container: -
-# ch 'unichar' 'unichar' IN
-# 'Script' 'Script'
+# arg ch: UNICHAR 'unichar' 'unichar' IN
+# return: INTERFACE 'Script' 'Script'
 proc pango_script_for_unichar*(ch: unichar): Script {.cdecl, dynlib: lib, importc: "pango_script_for_unichar".}
 # pango_script_get_sample_language
 # flags: {} container: -
-# script 'Script' 'Script' IN
-# 'TLanguage' 'ptr TLanguage' (diff., need sugar)
-proc pango_script_get_sample_language_import(script: Script): ptr TLanguage {.cdecl, dynlib: lib, importc: "pango_script_get_sample_language".}
-proc pango_script_get_sample_language*(script: Script): TLanguage {.inline.} =
-  (pango_script_get_sample_language_import(script))[]
-# proc pango_script_get_sample_language*(script: Script): TLanguage {.inline.} =
-
+# arg script: INTERFACE (ENUM) 'Script' 'Script' IN
+# return: INTERFACE 'ptr TLanguage' 'ptr TLanguage'
+proc pango_script_get_sample_language*(script: Script): ptr TLanguage {.cdecl, dynlib: lib, importc: "pango_script_get_sample_language".}
 # pango_shape
 # flags: {} container: -
-# text 'ustring' 'ucstring' IN (diff., need sugar)
-# length 'int32' 'int32' IN
-# analysis 'TAnalysis' 'ptr TAnalysis' IN (diff., need sugar)
-# glyphs 'TGlyphString' 'ptr TGlyphString' IN (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg text: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# arg length: INT32 'int32' 'int32' IN
+# arg analysis: INTERFACE (STRUCT) 'ptr TAnalysis' 'ptr TAnalysis' IN
+# arg glyphs: INTERFACE (STRUCT) 'ptr TGlyphString' 'ptr TGlyphString' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_shape(text: ucstring, length: int32, analysis: ptr TAnalysis, glyphs: ptr TGlyphString) {.cdecl, dynlib: lib, importc: "pango_shape".}
-proc pango_shape*(text: ustring, length: int32, analysis: TAnalysis, glyphs: TGlyphString) {.inline.} =
-  pango_shape(ucstring(text), length, myUnsafeAddr(analysis), myUnsafeAddr(glyphs))
-# proc pango_shape*(text: ustring, length: int32, analysis: TAnalysis, glyphs: TGlyphString) {.inline.} =
+proc pango_shape*(text: ustring, length: int32, analysis: ptr TAnalysis, glyphs: ptr TGlyphString) {.inline.} =
+  pango_shape(ucstring(text), length, analysis, glyphs)
+# proc pango_shape*(text: ustring, length: int32, analysis: ptr TAnalysis, glyphs: ptr TGlyphString) {.inline.} =
 
 # pango_shape_full
 # flags: {} container: -
-# item_text 'ustring' 'ucstring' IN (diff., need sugar)
-# item_length 'int32' 'int32' IN
-# paragraph_text 'ustring' 'ucstring' IN (diff., need sugar)
-# paragraph_length 'int32' 'int32' IN
-# analysis 'TAnalysis' 'ptr TAnalysis' IN (diff., need sugar)
-# glyphs 'TGlyphString' 'ptr TGlyphString' IN (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg item_text: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# arg item_length: INT32 'int32' 'int32' IN
+# arg paragraph_text: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# arg paragraph_length: INT32 'int32' 'int32' IN
+# arg analysis: INTERFACE (STRUCT) 'ptr TAnalysis' 'ptr TAnalysis' IN
+# arg glyphs: INTERFACE (STRUCT) 'ptr TGlyphString' 'ptr TGlyphString' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_shape_full(item_text: ucstring, item_length: int32, paragraph_text: ucstring, paragraph_length: int32, analysis: ptr TAnalysis, glyphs: ptr TGlyphString) {.cdecl, dynlib: lib, importc: "pango_shape_full".}
-proc pango_shape_full*(item_text: ustring, item_length: int32, paragraph_text: ustring, paragraph_length: int32, analysis: TAnalysis, glyphs: TGlyphString) {.inline.} =
-  pango_shape_full(ucstring(item_text), item_length, ucstring(paragraph_text), paragraph_length, myUnsafeAddr(analysis), myUnsafeAddr(glyphs))
-# proc pango_shape_full*(item_text: ustring, item_length: int32, paragraph_text: ustring, paragraph_length: int32, analysis: TAnalysis, glyphs: TGlyphString) {.inline.} =
+proc pango_shape_full*(item_text: ustring, item_length: int32, paragraph_text: ustring, paragraph_length: int32, analysis: ptr TAnalysis, glyphs: ptr TGlyphString) {.inline.} =
+  pango_shape_full(ucstring(item_text), item_length, ucstring(paragraph_text), paragraph_length, analysis, glyphs)
+# proc pango_shape_full*(item_text: ustring, item_length: int32, paragraph_text: ustring, paragraph_length: int32, analysis: ptr TAnalysis, glyphs: ptr TGlyphString) {.inline.} =
 
 # pango_skip_space
-# flags: {} container: -
-# pos 'var ucstring' 'ptr ucstring' INOUT (diff., need sugar)
-# 'bool' 'bool'
-proc pango_skip_space(pos: ptr ucstring): bool {.cdecl, dynlib: lib, importc: "pango_skip_space".}
-proc pango_skip_space*(pos: var ucstring): bool {.inline.} =
-  pango_skip_space(addr(pos))
-# proc pango_skip_space*(pos: var ucstring): bool {.inline.} =
-
+# flags: {} container: - (deprecated)
 # pango_split_file_list
-# flags: {} container: -
-# str 'ustring' 'ucstring' IN (diff., need sugar)
-# 'zeroTerminatedArray[ucstring]' 'zeroTerminatedArray[ucstring]'
-proc pango_split_file_list(str: ucstring): zeroTerminatedArray[ucstring] {.cdecl, dynlib: lib, importc: "pango_split_file_list".}
-proc pango_split_file_list*(str: ustring): zeroTerminatedArray[ucstring] {.inline.} =
-  pango_split_file_list(ucstring(str))
-# proc pango_split_file_list*(str: ustring): zeroTerminatedArray[ucstring] {.inline.} =
-
+# flags: {} container: - (deprecated)
 # pango_trim_string
-# flags: {} container: -
-# str 'ustring' 'ucstring' IN (diff., need sugar)
-# 'ustring' 'ucstring' (diff., need sugar)
-proc pango_trim_string(str: ucstring): ucstring {.cdecl, dynlib: lib, importc: "pango_trim_string".}
-proc pango_trim_string*(str: ustring): ustring {.inline.} =
-  ustring($(pango_trim_string(ucstring(str))))
-# proc pango_trim_string*(str: ustring): ustring {.inline.} =
-
+# flags: {} container: - (deprecated)
 # pango_unichar_direction
 # flags: {} container: -
-# ch 'unichar' 'unichar' IN
-# 'Direction' 'Direction'
+# arg ch: UNICHAR 'unichar' 'unichar' IN
+# return: INTERFACE 'Direction' 'Direction'
 proc pango_unichar_direction*(ch: unichar): Direction {.cdecl, dynlib: lib, importc: "pango_unichar_direction".}
 # pango_units_from_double
 # flags: {} container: -
-# d 'float64' 'float64' IN
-# 'int32' 'int32'
+# arg d: DOUBLE 'float64' 'float64' IN
+# return: INT32 'int32' 'int32'
 proc pango_units_from_double*(d: float64): int32 {.cdecl, dynlib: lib, importc: "pango_units_from_double".}
 # pango_units_to_double
 # flags: {} container: -
-# i 'int32' 'int32' IN
-# 'float64' 'float64'
+# arg i: INT32 'int32' 'int32' IN
+# return: DOUBLE 'float64' 'float64'
 proc pango_units_to_double*(i: int32): float64 {.cdecl, dynlib: lib, importc: "pango_units_to_double".}
 # pango_version
 # flags: {} container: -
-# 'int32' 'int32'
+# return: INT32 'int32' 'int32'
 proc pango_version*(): int32 {.cdecl, dynlib: lib, importc: "pango_version".}
 # pango_version_check
 # flags: {} container: -
-# required_major 'int32' 'int32' IN
-# required_minor 'int32' 'int32' IN
-# required_micro 'int32' 'int32' IN
-# 'ustring' 'ucstring' (diff., need sugar)
-proc pango_version_check_import(required_major: int32, required_minor: int32, required_micro: int32): ucstring {.cdecl, dynlib: lib, importc: "pango_version_check".}
-proc pango_version_check*(required_major: int32, required_minor: int32, required_micro: int32): ustring {.inline.} =
-  ustring($(pango_version_check_import(required_major, required_minor, required_micro)))
-# proc pango_version_check*(required_major: int32, required_minor: int32, required_micro: int32): ustring {.inline.} =
-
+# arg required_major: INT32 'int32' 'int32' IN
+# arg required_minor: INT32 'int32' 'int32' IN
+# arg required_micro: INT32 'int32' 'int32' IN
+# return: UTF8 'ucstring' 'ucstring'
+proc pango_version_check*(required_major: int32, required_minor: int32, required_micro: int32): ucstring {.cdecl, dynlib: lib, importc: "pango_version_check".}
 # pango_version_string
 # flags: {} container: -
-# 'ustring' 'ucstring' (diff., need sugar)
-proc pango_version_string_import(): ucstring {.cdecl, dynlib: lib, importc: "pango_version_string".}
-proc pango_version_string*(): ustring {.inline.} =
-  ustring($(pango_version_string_import()))
-# proc pango_version_string*(): ustring {.inline.} =
-
+# return: UTF8 'ucstring' 'ucstring'
+proc pango_version_string*(): ucstring {.cdecl, dynlib: lib, importc: "pango_version_string".}
   # object methods
   #------------------
+# initializer for Context: pango_context_get_type
+proc pango_context_get_type(): GType {.cdecl, dynlib: lib, importc: "pango_context_get_type".}
+template gtype*(klass_parameter: typedesc[Context]): GType = pango_context_get_type()
 # pango_context_new
 # flags: {isConstructor} container: Context
 # need sugar: is static method
-# 'Context' 'TransferFull[TContext]' (diff., need sugar)
+# return: INTERFACE 'Context' 'TransferFull[TContext]' (diff., need sugar)
 proc pango_context_new(): TransferFull[TContext] {.cdecl, dynlib: lib, importc: "pango_context_new".}
 proc new_context*(): Context {.inline.} =
   wrap(pango_context_new())
@@ -1255,7 +1192,7 @@ proc new_context*(): Context {.inline.} =
 # pango_context_changed
 # flags: {isMethod} container: Context
 # need sugar: is method
-# 'VOID_TODO' 'VOID_TODO'
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_context_changed(self: ptr TContext) {.cdecl, dynlib: lib, importc: "pango_context_changed".}
 proc changed*(self: Context) {.inline.} =
   pango_context_changed(self)
@@ -1264,7 +1201,7 @@ proc changed*(self: Context) {.inline.} =
 # pango_context_get_base_dir
 # flags: {isMethod} container: Context
 # need sugar: is method
-# 'Direction' 'Direction'
+# return: INTERFACE 'Direction' 'Direction'
 proc pango_context_get_base_dir(self: ptr TContext): Direction {.cdecl, dynlib: lib, importc: "pango_context_get_base_dir".}
 proc get_base_dir*(self: Context): Direction {.inline.} =
   pango_context_get_base_dir(self)
@@ -1273,7 +1210,7 @@ proc get_base_dir*(self: Context): Direction {.inline.} =
 # pango_context_get_base_gravity
 # flags: {isMethod} container: Context
 # need sugar: is method
-# 'Gravity' 'Gravity'
+# return: INTERFACE 'Gravity' 'Gravity'
 proc pango_context_get_base_gravity(self: ptr TContext): Gravity {.cdecl, dynlib: lib, importc: "pango_context_get_base_gravity".}
 proc get_base_gravity*(self: Context): Gravity {.inline.} =
   pango_context_get_base_gravity(self)
@@ -1282,16 +1219,16 @@ proc get_base_gravity*(self: Context): Gravity {.inline.} =
 # pango_context_get_font_description
 # flags: {isMethod} container: Context
 # need sugar: is method
-# 'TFontDescription' 'ptr TFontDescription' (diff., need sugar)
+# return: INTERFACE 'ptr TFontDescription' 'ptr TFontDescription'
 proc pango_context_get_font_description(self: ptr TContext): ptr TFontDescription {.cdecl, dynlib: lib, importc: "pango_context_get_font_description".}
-proc get_font_description*(self: Context): TFontDescription {.inline.} =
-  (pango_context_get_font_description(self))[]
-# proc get_font_description*(self: Context): TFontDescription {.inline.} =
+proc get_font_description*(self: Context): ptr TFontDescription {.inline.} =
+  pango_context_get_font_description(self)
+# proc get_font_description*(self: Context): ptr TFontDescription {.inline.} =
 
 # pango_context_get_font_map
 # flags: {isMethod} container: Context
 # need sugar: is method
-# 'FontMap' 'TransferNone[TFontMap]' (diff., need sugar)
+# return: INTERFACE 'FontMap' 'TransferNone[TFontMap]' (diff., need sugar)
 proc pango_context_get_font_map(self: ptr TContext): TransferNone[TFontMap] {.cdecl, dynlib: lib, importc: "pango_context_get_font_map".}
 proc get_font_map*(self: Context): FontMap {.inline.} =
   wrap(pango_context_get_font_map(self))
@@ -1300,7 +1237,7 @@ proc get_font_map*(self: Context): FontMap {.inline.} =
 # pango_context_get_gravity
 # flags: {isMethod} container: Context
 # need sugar: is method
-# 'Gravity' 'Gravity'
+# return: INTERFACE 'Gravity' 'Gravity'
 proc pango_context_get_gravity(self: ptr TContext): Gravity {.cdecl, dynlib: lib, importc: "pango_context_get_gravity".}
 proc get_gravity*(self: Context): Gravity {.inline.} =
   pango_context_get_gravity(self)
@@ -1309,7 +1246,7 @@ proc get_gravity*(self: Context): Gravity {.inline.} =
 # pango_context_get_gravity_hint
 # flags: {isMethod} container: Context
 # need sugar: is method
-# 'GravityHint' 'GravityHint'
+# return: INTERFACE 'GravityHint' 'GravityHint'
 proc pango_context_get_gravity_hint(self: ptr TContext): GravityHint {.cdecl, dynlib: lib, importc: "pango_context_get_gravity_hint".}
 proc get_gravity_hint*(self: Context): GravityHint {.inline.} =
   pango_context_get_gravity_hint(self)
@@ -1318,36 +1255,36 @@ proc get_gravity_hint*(self: Context): GravityHint {.inline.} =
 # pango_context_get_language
 # flags: {isMethod} container: Context
 # need sugar: is method
-# 'TLanguage' 'ptr TLanguage' (diff., need sugar)
+# return: INTERFACE 'ptr TLanguage' 'ptr TLanguage'
 proc pango_context_get_language(self: ptr TContext): ptr TLanguage {.cdecl, dynlib: lib, importc: "pango_context_get_language".}
-proc get_language*(self: Context): TLanguage {.inline.} =
-  (pango_context_get_language(self))[]
-# proc get_language*(self: Context): TLanguage {.inline.} =
+proc get_language*(self: Context): ptr TLanguage {.inline.} =
+  pango_context_get_language(self)
+# proc get_language*(self: Context): ptr TLanguage {.inline.} =
 
 # pango_context_get_matrix
 # flags: {isMethod} container: Context
 # need sugar: is method
-# 'TMatrix' 'ptr TMatrix' (diff., need sugar)
+# return: INTERFACE 'ptr TMatrix' 'ptr TMatrix'
 proc pango_context_get_matrix(self: ptr TContext): ptr TMatrix {.cdecl, dynlib: lib, importc: "pango_context_get_matrix".}
-proc get_matrix*(self: Context): TMatrix {.inline.} =
-  (pango_context_get_matrix(self))[]
-# proc get_matrix*(self: Context): TMatrix {.inline.} =
+proc get_matrix*(self: Context): ptr TMatrix {.inline.} =
+  pango_context_get_matrix(self)
+# proc get_matrix*(self: Context): ptr TMatrix {.inline.} =
 
 # pango_context_get_metrics
 # flags: {isMethod} container: Context
 # need sugar: is method
-# desc 'TFontDescription' 'ptr TFontDescription' IN (diff., need sugar)
-# language 'TLanguage' 'ptr TLanguage' IN (diff., need sugar)
-# 'TFontMetrics' 'ptr TFontMetrics' (diff., need sugar)
+# arg desc: INTERFACE (STRUCT) 'ptr TFontDescription' 'ptr TFontDescription' IN
+# arg language: INTERFACE (STRUCT) 'ptr TLanguage' 'ptr TLanguage' IN
+# return: INTERFACE 'ptr TFontMetrics' 'ptr TFontMetrics'
 proc pango_context_get_metrics(self: ptr TContext, desc: ptr TFontDescription, language: ptr TLanguage): ptr TFontMetrics {.cdecl, dynlib: lib, importc: "pango_context_get_metrics".}
-proc get_metrics*(self: Context, desc: TFontDescription, language: TLanguage): TFontMetrics {.inline.} =
-  (pango_context_get_metrics(self, myUnsafeAddr(desc), myUnsafeAddr(language)))[]
-# proc get_metrics*(self: Context, desc: TFontDescription, language: TLanguage): TFontMetrics {.inline.} =
+proc get_metrics*(self: Context, desc: ptr TFontDescription, language: ptr TLanguage): ptr TFontMetrics {.inline.} =
+  pango_context_get_metrics(self, desc, language)
+# proc get_metrics*(self: Context, desc: ptr TFontDescription, language: ptr TLanguage): ptr TFontMetrics {.inline.} =
 
 # pango_context_get_serial
 # flags: {isMethod} container: Context
 # need sugar: is method
-# 'uint32' 'uint32'
+# return: UINT32 'uint32' 'uint32'
 proc pango_context_get_serial(self: ptr TContext): uint32 {.cdecl, dynlib: lib, importc: "pango_context_get_serial".}
 proc get_serial*(self: Context): uint32 {.inline.} =
   pango_context_get_serial(self)
@@ -1356,9 +1293,9 @@ proc get_serial*(self: Context): uint32 {.inline.} =
 # pango_context_list_families
 # flags: {isMethod} container: Context
 # need sugar: is method
-# families 'var openarray[ptr TFontFamily]' 'openarray[ptr TFontFamily]' OUT (diff., need sugar) array lengthArg: 1
-# n_families 'var int32' 'ptr int32' OUT (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg families: ARRAY 'var openarray[ptr TFontFamily]' 'openarray[ptr TFontFamily]' OUT (diff., need sugar) array lengthArg: 1
+# arg n_families: INT32 'var int32' 'ptr int32' OUT (diff., need sugar)
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_context_list_families(self: ptr TContext, families: openarray[ptr TFontFamily], n_families: ptr int32) {.cdecl, dynlib: lib, importc: "pango_context_list_families".}
 proc list_families*(self: Context, families: var openarray[ptr TFontFamily], n_families: var int32) {.inline.} =
   pango_context_list_families(self, families, addr(n_families))
@@ -1370,29 +1307,29 @@ proc list_families*(self: Context, families: var openarray[ptr TFontFamily], n_f
 # pango_context_load_font
 # flags: {isMethod} container: Context
 # need sugar: is method
-# desc 'TFontDescription' 'ptr TFontDescription' IN (diff., need sugar)
-# 'Font' 'TransferFull[TFont]' (diff., need sugar)
+# arg desc: INTERFACE (STRUCT) 'ptr TFontDescription' 'ptr TFontDescription' IN
+# return: INTERFACE 'Font' 'TransferFull[TFont]' (diff., need sugar)
 proc pango_context_load_font(self: ptr TContext, desc: ptr TFontDescription): TransferFull[TFont] {.cdecl, dynlib: lib, importc: "pango_context_load_font".}
-proc load_font*(self: Context, desc: TFontDescription): Font {.inline.} =
-  wrap(pango_context_load_font(self, myUnsafeAddr(desc)))
-# proc load_font*(self: Context, desc: TFontDescription): Font {.inline.} =
+proc load_font*(self: Context, desc: ptr TFontDescription): Font {.inline.} =
+  wrap(pango_context_load_font(self, desc))
+# proc load_font*(self: Context, desc: ptr TFontDescription): Font {.inline.} =
 
 # pango_context_load_fontset
 # flags: {isMethod} container: Context
 # need sugar: is method
-# desc 'TFontDescription' 'ptr TFontDescription' IN (diff., need sugar)
-# language 'TLanguage' 'ptr TLanguage' IN (diff., need sugar)
-# 'Fontset' 'TransferFull[TFontset]' (diff., need sugar)
+# arg desc: INTERFACE (STRUCT) 'ptr TFontDescription' 'ptr TFontDescription' IN
+# arg language: INTERFACE (STRUCT) 'ptr TLanguage' 'ptr TLanguage' IN
+# return: INTERFACE 'Fontset' 'TransferFull[TFontset]' (diff., need sugar)
 proc pango_context_load_fontset(self: ptr TContext, desc: ptr TFontDescription, language: ptr TLanguage): TransferFull[TFontset] {.cdecl, dynlib: lib, importc: "pango_context_load_fontset".}
-proc load_fontset*(self: Context, desc: TFontDescription, language: TLanguage): Fontset {.inline.} =
-  wrap(pango_context_load_fontset(self, myUnsafeAddr(desc), myUnsafeAddr(language)))
-# proc load_fontset*(self: Context, desc: TFontDescription, language: TLanguage): Fontset {.inline.} =
+proc load_fontset*(self: Context, desc: ptr TFontDescription, language: ptr TLanguage): Fontset {.inline.} =
+  wrap(pango_context_load_fontset(self, desc, language))
+# proc load_fontset*(self: Context, desc: ptr TFontDescription, language: ptr TLanguage): Fontset {.inline.} =
 
 # pango_context_set_base_dir
 # flags: {isMethod} container: Context
 # need sugar: is method
-# direction 'Direction' 'Direction' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg direction: INTERFACE (ENUM) 'Direction' 'Direction' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_context_set_base_dir(self: ptr TContext, direction: Direction) {.cdecl, dynlib: lib, importc: "pango_context_set_base_dir".}
 proc set_base_dir*(self: Context, direction: Direction) {.inline.} =
   pango_context_set_base_dir(self, direction)
@@ -1401,8 +1338,8 @@ proc set_base_dir*(self: Context, direction: Direction) {.inline.} =
 # pango_context_set_base_gravity
 # flags: {isMethod} container: Context
 # need sugar: is method
-# gravity 'Gravity' 'Gravity' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg gravity: INTERFACE (ENUM) 'Gravity' 'Gravity' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_context_set_base_gravity(self: ptr TContext, gravity: Gravity) {.cdecl, dynlib: lib, importc: "pango_context_set_base_gravity".}
 proc set_base_gravity*(self: Context, gravity: Gravity) {.inline.} =
   pango_context_set_base_gravity(self, gravity)
@@ -1411,18 +1348,18 @@ proc set_base_gravity*(self: Context, gravity: Gravity) {.inline.} =
 # pango_context_set_font_description
 # flags: {isMethod} container: Context
 # need sugar: is method
-# desc 'TFontDescription' 'ptr TFontDescription' IN (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg desc: INTERFACE (STRUCT) 'ptr TFontDescription' 'ptr TFontDescription' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_context_set_font_description(self: ptr TContext, desc: ptr TFontDescription) {.cdecl, dynlib: lib, importc: "pango_context_set_font_description".}
-proc set_font_description*(self: Context, desc: TFontDescription) {.inline.} =
-  pango_context_set_font_description(self, myUnsafeAddr(desc))
-# proc set_font_description*(self: Context, desc: TFontDescription) {.inline.} =
+proc set_font_description*(self: Context, desc: ptr TFontDescription) {.inline.} =
+  pango_context_set_font_description(self, desc)
+# proc set_font_description*(self: Context, desc: ptr TFontDescription) {.inline.} =
 
 # pango_context_set_font_map
 # flags: {isMethod} container: Context
 # need sugar: is method
-# font_map 'FontMap' 'ptr TFontMap' IN (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg font_map: INTERFACE (OBJECT) 'FontMap' 'ptr TFontMap' IN (diff., need sugar)
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_context_set_font_map(self: ptr TContext, font_map: ptr TFontMap) {.cdecl, dynlib: lib, importc: "pango_context_set_font_map".}
 proc set_font_map*(self: Context, font_map: FontMap) {.inline.} =
   pango_context_set_font_map(self, font_map.getPointer)
@@ -1431,8 +1368,8 @@ proc set_font_map*(self: Context, font_map: FontMap) {.inline.} =
 # pango_context_set_gravity_hint
 # flags: {isMethod} container: Context
 # need sugar: is method
-# hint 'GravityHint' 'GravityHint' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg hint: INTERFACE (ENUM) 'GravityHint' 'GravityHint' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_context_set_gravity_hint(self: ptr TContext, hint: GravityHint) {.cdecl, dynlib: lib, importc: "pango_context_set_gravity_hint".}
 proc set_gravity_hint*(self: Context, hint: GravityHint) {.inline.} =
   pango_context_set_gravity_hint(self, hint)
@@ -1441,29 +1378,41 @@ proc set_gravity_hint*(self: Context, hint: GravityHint) {.inline.} =
 # pango_context_set_language
 # flags: {isMethod} container: Context
 # need sugar: is method
-# language 'TLanguage' 'ptr TLanguage' IN (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg language: INTERFACE (STRUCT) 'ptr TLanguage' 'ptr TLanguage' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_context_set_language(self: ptr TContext, language: ptr TLanguage) {.cdecl, dynlib: lib, importc: "pango_context_set_language".}
-proc set_language*(self: Context, language: TLanguage) {.inline.} =
-  pango_context_set_language(self, myUnsafeAddr(language))
-# proc set_language*(self: Context, language: TLanguage) {.inline.} =
+proc set_language*(self: Context, language: ptr TLanguage) {.inline.} =
+  pango_context_set_language(self, language)
+# proc set_language*(self: Context, language: ptr TLanguage) {.inline.} =
 
 # pango_context_set_matrix
 # flags: {isMethod} container: Context
 # need sugar: is method
-# matrix 'TMatrix' 'ptr TMatrix' IN (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg matrix: INTERFACE (STRUCT) 'ptr TMatrix' 'ptr TMatrix' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_context_set_matrix(self: ptr TContext, matrix: ptr TMatrix) {.cdecl, dynlib: lib, importc: "pango_context_set_matrix".}
-proc set_matrix*(self: Context, matrix: TMatrix) {.inline.} =
-  pango_context_set_matrix(self, myUnsafeAddr(matrix))
-# proc set_matrix*(self: Context, matrix: TMatrix) {.inline.} =
+proc set_matrix*(self: Context, matrix: ptr TMatrix) {.inline.} =
+  pango_context_set_matrix(self, matrix)
+# proc set_matrix*(self: Context, matrix: ptr TMatrix) {.inline.} =
 
+# initializer for Engine: pango_engine_get_type
+proc pango_engine_get_type(): GType {.cdecl, dynlib: lib, importc: "pango_engine_get_type".}
+template gtype*(klass_parameter: typedesc[Engine]): GType = pango_engine_get_type()
+# initializer for EngineLang: pango_engine_lang_get_type
+proc pango_engine_lang_get_type(): GType {.cdecl, dynlib: lib, importc: "pango_engine_lang_get_type".}
+template gtype*(klass_parameter: typedesc[EngineLang]): GType = pango_engine_lang_get_type()
+# initializer for EngineShape: pango_engine_shape_get_type
+proc pango_engine_shape_get_type(): GType {.cdecl, dynlib: lib, importc: "pango_engine_shape_get_type".}
+template gtype*(klass_parameter: typedesc[EngineShape]): GType = pango_engine_shape_get_type()
+# initializer for Font: pango_font_get_type
+proc pango_font_get_type(): GType {.cdecl, dynlib: lib, importc: "pango_font_get_type".}
+template gtype*(klass_parameter: typedesc[Font]): GType = pango_font_get_type()
 # pango_font_descriptions_free
 # flags: {} container: Font
 # need sugar: is static method
-# descs 'var openarray[ptr TFontDescription]' 'openarray[ptr TFontDescription]' IN (diff., need sugar) array lengthArg: 1
-# n_descs 'int32' 'int32' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg descs: ARRAY 'var openarray[ptr TFontDescription]' 'openarray[ptr TFontDescription]' IN (diff., need sugar) array lengthArg: 1
+# arg n_descs: INT32 'int32' 'int32' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_font_descriptions_free(descs: openarray[ptr TFontDescription], n_descs: int32) {.cdecl, dynlib: lib, importc: "pango_font_descriptions_free".}
 template descriptions_free*(klass_parameter: typedesc[Font], descs: var openarray[ptr TFontDescription]) =
   pango_font_descriptions_free(descs, descs.len.int32)
@@ -1472,25 +1421,25 @@ template descriptions_free*(klass_parameter: typedesc[Font], descs: var openarra
 # pango_font_describe
 # flags: {isMethod} container: Font
 # need sugar: is method
-# 'TFontDescription' 'ptr TFontDescription' (diff., need sugar)
+# return: INTERFACE 'ptr TFontDescription' 'ptr TFontDescription'
 proc pango_font_describe(self: ptr TFont): ptr TFontDescription {.cdecl, dynlib: lib, importc: "pango_font_describe".}
-proc describe*(self: Font): TFontDescription {.inline.} =
-  (pango_font_describe(self))[]
-# proc describe*(self: Font): TFontDescription {.inline.} =
+proc describe*(self: Font): ptr TFontDescription {.inline.} =
+  pango_font_describe(self)
+# proc describe*(self: Font): ptr TFontDescription {.inline.} =
 
 # pango_font_describe_with_absolute_size
 # flags: {isMethod} container: Font
 # need sugar: is method
-# 'TFontDescription' 'ptr TFontDescription' (diff., need sugar)
+# return: INTERFACE 'ptr TFontDescription' 'ptr TFontDescription'
 proc pango_font_describe_with_absolute_size(self: ptr TFont): ptr TFontDescription {.cdecl, dynlib: lib, importc: "pango_font_describe_with_absolute_size".}
-proc describe_with_absolute_size*(self: Font): TFontDescription {.inline.} =
-  (pango_font_describe_with_absolute_size(self))[]
-# proc describe_with_absolute_size*(self: Font): TFontDescription {.inline.} =
+proc describe_with_absolute_size*(self: Font): ptr TFontDescription {.inline.} =
+  pango_font_describe_with_absolute_size(self)
+# proc describe_with_absolute_size*(self: Font): ptr TFontDescription {.inline.} =
 
 # pango_font_get_font_map
 # flags: {isMethod} container: Font
 # need sugar: is method
-# 'FontMap' 'TransferNone[TFontMap]' (diff., need sugar)
+# return: INTERFACE 'FontMap' 'TransferNone[TFontMap]' (diff., need sugar)
 proc pango_font_get_font_map(self: ptr TFont): TransferNone[TFontMap] {.cdecl, dynlib: lib, importc: "pango_font_get_font_map".}
 proc get_font_map*(self: Font): FontMap {.inline.} =
   wrap(pango_font_get_font_map(self))
@@ -1499,50 +1448,53 @@ proc get_font_map*(self: Font): FontMap {.inline.} =
 # pango_font_get_glyph_extents
 # flags: {isMethod} container: Font
 # need sugar: is method
-# glyph 'uint32' 'uint32' IN
-# ink_rect 'var TRectangle' 'ptr TRectangle' OUT (diff., need sugar) caller-allocates optional
-# logical_rect 'var TRectangle' 'ptr TRectangle' OUT (diff., need sugar) caller-allocates optional
-# 'VOID_TODO' 'VOID_TODO'
+# arg glyph: UINT32 'uint32' 'uint32' IN
+# arg ink_rect: INTERFACE (STRUCT) 'ptr TRectangle' 'ptr TRectangle' OUT caller-allocates optional
+# arg logical_rect: INTERFACE (STRUCT) 'ptr TRectangle' 'ptr TRectangle' OUT caller-allocates optional
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_font_get_glyph_extents(self: ptr TFont, glyph: uint32, ink_rect: ptr TRectangle, logical_rect: ptr TRectangle) {.cdecl, dynlib: lib, importc: "pango_font_get_glyph_extents".}
-proc get_glyph_extents*(self: Font, glyph: uint32, ink_rect: var TRectangle, logical_rect: var TRectangle) {.inline.} =
-  pango_font_get_glyph_extents(self, glyph, addr(ink_rect), addr(logical_rect))
+proc get_glyph_extents*(self: Font, glyph: uint32, ink_rect: ptr TRectangle, logical_rect: ptr TRectangle) {.inline.} =
+  pango_font_get_glyph_extents(self, glyph, ink_rect, logical_rect)
 # tuple-return
-# ink_rect: var TRectangle
-# logical_rect: var TRectangle
+# ink_rect: ptr TRectangle
+# logical_rect: ptr TRectangle
 # proc get_glyph_extents*(self: Font, glyph: uint32) {.inline.} =
 
 # pango_font_get_metrics
 # flags: {isMethod} container: Font
 # need sugar: is method
-# language 'TLanguage' 'ptr TLanguage' IN (diff., need sugar)
-# 'TFontMetrics' 'ptr TFontMetrics' (diff., need sugar)
+# arg language: INTERFACE (STRUCT) 'ptr TLanguage' 'ptr TLanguage' IN
+# return: INTERFACE 'ptr TFontMetrics' 'ptr TFontMetrics'
 proc pango_font_get_metrics(self: ptr TFont, language: ptr TLanguage): ptr TFontMetrics {.cdecl, dynlib: lib, importc: "pango_font_get_metrics".}
-proc get_metrics*(self: Font, language: TLanguage): TFontMetrics {.inline.} =
-  (pango_font_get_metrics(self, myUnsafeAddr(language)))[]
-# proc get_metrics*(self: Font, language: TLanguage): TFontMetrics {.inline.} =
+proc get_metrics*(self: Font, language: ptr TLanguage): ptr TFontMetrics {.inline.} =
+  pango_font_get_metrics(self, language)
+# proc get_metrics*(self: Font, language: ptr TLanguage): ptr TFontMetrics {.inline.} =
 
+# initializer for FontFace: pango_font_face_get_type
+proc pango_font_face_get_type(): GType {.cdecl, dynlib: lib, importc: "pango_font_face_get_type".}
+template gtype*(klass_parameter: typedesc[FontFace]): GType = pango_font_face_get_type()
 # pango_font_face_describe
 # flags: {isMethod} container: FontFace
 # need sugar: is method
-# 'TFontDescription' 'ptr TFontDescription' (diff., need sugar)
+# return: INTERFACE 'ptr TFontDescription' 'ptr TFontDescription'
 proc pango_font_face_describe(self: ptr TFontFace): ptr TFontDescription {.cdecl, dynlib: lib, importc: "pango_font_face_describe".}
-proc describe*(self: FontFace): TFontDescription {.inline.} =
-  (pango_font_face_describe(self))[]
-# proc describe*(self: FontFace): TFontDescription {.inline.} =
+proc describe*(self: FontFace): ptr TFontDescription {.inline.} =
+  pango_font_face_describe(self)
+# proc describe*(self: FontFace): ptr TFontDescription {.inline.} =
 
 # pango_font_face_get_face_name
 # flags: {isMethod} container: FontFace
 # need sugar: is method
-# 'ustring' 'ucstring' (diff., need sugar)
+# return: UTF8 'ucstring' 'ucstring'
 proc pango_font_face_get_face_name(self: ptr TFontFace): ucstring {.cdecl, dynlib: lib, importc: "pango_font_face_get_face_name".}
-proc get_face_name*(self: FontFace): ustring {.inline.} =
-  ustring($(pango_font_face_get_face_name(self)))
-# proc get_face_name*(self: FontFace): ustring {.inline.} =
+proc get_face_name*(self: FontFace): ucstring {.inline.} =
+  pango_font_face_get_face_name(self)
+# proc get_face_name*(self: FontFace): ucstring {.inline.} =
 
 # pango_font_face_is_synthesized
 # flags: {isMethod} container: FontFace
 # need sugar: is method
-# 'bool' 'bool'
+# return: BOOLEAN 'bool' 'bool'
 proc pango_font_face_is_synthesized(self: ptr TFontFace): bool {.cdecl, dynlib: lib, importc: "pango_font_face_is_synthesized".}
 proc is_synthesized*(self: FontFace): bool {.inline.} =
   pango_font_face_is_synthesized(self)
@@ -1551,9 +1503,9 @@ proc is_synthesized*(self: FontFace): bool {.inline.} =
 # pango_font_face_list_sizes
 # flags: {isMethod} container: FontFace
 # need sugar: is method
-# sizes 'var openarray[int32]' 'openarray[int32]' OUT (diff., need sugar) array lengthArg: 1
-# n_sizes 'var int32' 'ptr int32' OUT (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg sizes: ARRAY 'var openarray[int32]' 'openarray[int32]' OUT (diff., need sugar) array lengthArg: 1 optional
+# arg n_sizes: INT32 'var int32' 'ptr int32' OUT (diff., need sugar)
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_font_face_list_sizes(self: ptr TFontFace, sizes: openarray[int32], n_sizes: ptr int32) {.cdecl, dynlib: lib, importc: "pango_font_face_list_sizes".}
 proc list_sizes*(self: FontFace, sizes: var openarray[int32], n_sizes: var int32) {.inline.} =
   pango_font_face_list_sizes(self, sizes, addr(n_sizes))
@@ -1562,19 +1514,22 @@ proc list_sizes*(self: FontFace, sizes: var openarray[int32], n_sizes: var int32
 # n_sizes: var int32
 # proc list_sizes*(self: FontFace) {.inline.} =
 
+# initializer for FontFamily: pango_font_family_get_type
+proc pango_font_family_get_type(): GType {.cdecl, dynlib: lib, importc: "pango_font_family_get_type".}
+template gtype*(klass_parameter: typedesc[FontFamily]): GType = pango_font_family_get_type()
 # pango_font_family_get_name
 # flags: {isMethod} container: FontFamily
 # need sugar: is method
-# 'ustring' 'ucstring' (diff., need sugar)
+# return: UTF8 'ucstring' 'ucstring'
 proc pango_font_family_get_name(self: ptr TFontFamily): ucstring {.cdecl, dynlib: lib, importc: "pango_font_family_get_name".}
-proc get_name*(self: FontFamily): ustring {.inline.} =
-  ustring($(pango_font_family_get_name(self)))
-# proc get_name*(self: FontFamily): ustring {.inline.} =
+proc get_name*(self: FontFamily): ucstring {.inline.} =
+  pango_font_family_get_name(self)
+# proc get_name*(self: FontFamily): ucstring {.inline.} =
 
 # pango_font_family_is_monospace
 # flags: {isMethod} container: FontFamily
 # need sugar: is method
-# 'bool' 'bool'
+# return: BOOLEAN 'bool' 'bool'
 proc pango_font_family_is_monospace(self: ptr TFontFamily): bool {.cdecl, dynlib: lib, importc: "pango_font_family_is_monospace".}
 proc is_monospace*(self: FontFamily): bool {.inline.} =
   pango_font_family_is_monospace(self)
@@ -1583,9 +1538,9 @@ proc is_monospace*(self: FontFamily): bool {.inline.} =
 # pango_font_family_list_faces
 # flags: {isMethod} container: FontFamily
 # need sugar: is method
-# faces 'var openarray[ptr TFontFace]' 'openarray[ptr TFontFace]' OUT (diff., need sugar) array lengthArg: 1 optional
-# n_faces 'var int32' 'ptr int32' OUT (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg faces: ARRAY 'var openarray[ptr TFontFace]' 'openarray[ptr TFontFace]' OUT (diff., need sugar) array lengthArg: 1 optional
+# arg n_faces: INT32 'var int32' 'ptr int32' OUT (diff., need sugar)
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_font_family_list_faces(self: ptr TFontFamily, faces: openarray[ptr TFontFace], n_faces: ptr int32) {.cdecl, dynlib: lib, importc: "pango_font_family_list_faces".}
 proc list_faces*(self: FontFamily, faces: var openarray[ptr TFontFace], n_faces: var int32) {.inline.} =
   pango_font_family_list_faces(self, faces, addr(n_faces))
@@ -1594,10 +1549,13 @@ proc list_faces*(self: FontFamily, faces: var openarray[ptr TFontFace], n_faces:
 # n_faces: var int32
 # proc list_faces*(self: FontFamily) {.inline.} =
 
+# initializer for FontMap: pango_font_map_get_type
+proc pango_font_map_get_type(): GType {.cdecl, dynlib: lib, importc: "pango_font_map_get_type".}
+template gtype*(klass_parameter: typedesc[FontMap]): GType = pango_font_map_get_type()
 # pango_font_map_changed
 # flags: {isMethod} container: FontMap
 # need sugar: is method
-# 'VOID_TODO' 'VOID_TODO'
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_font_map_changed(self: ptr TFontMap) {.cdecl, dynlib: lib, importc: "pango_font_map_changed".}
 proc changed*(self: FontMap) {.inline.} =
   pango_font_map_changed(self)
@@ -1606,7 +1564,7 @@ proc changed*(self: FontMap) {.inline.} =
 # pango_font_map_create_context
 # flags: {isMethod} container: FontMap
 # need sugar: is method
-# 'Context' 'TransferFull[TContext]' (diff., need sugar)
+# return: INTERFACE 'Context' 'TransferFull[TContext]' (diff., need sugar)
 proc pango_font_map_create_context(self: ptr TFontMap): TransferFull[TContext] {.cdecl, dynlib: lib, importc: "pango_font_map_create_context".}
 proc create_context*(self: FontMap): Context {.inline.} =
   wrap(pango_font_map_create_context(self))
@@ -1615,27 +1573,20 @@ proc create_context*(self: FontMap): Context {.inline.} =
 # pango_font_map_get_serial
 # flags: {isMethod} container: FontMap
 # need sugar: is method
-# 'uint32' 'uint32'
+# return: UINT32 'uint32' 'uint32'
 proc pango_font_map_get_serial(self: ptr TFontMap): uint32 {.cdecl, dynlib: lib, importc: "pango_font_map_get_serial".}
 proc get_serial*(self: FontMap): uint32 {.inline.} =
   pango_font_map_get_serial(self)
 # proc get_serial*(self: FontMap): uint32 {.inline.} =
 
 # pango_font_map_get_shape_engine_type
-# flags: {isMethod} container: FontMap
-# need sugar: is method
-# 'ustring' 'ucstring' (diff., need sugar)
-proc pango_font_map_get_shape_engine_type(self: ptr TFontMap): ucstring {.cdecl, dynlib: lib, importc: "pango_font_map_get_shape_engine_type".}
-proc get_shape_engine_type*(self: FontMap): ustring {.inline.} =
-  ustring($(pango_font_map_get_shape_engine_type(self)))
-# proc get_shape_engine_type*(self: FontMap): ustring {.inline.} =
-
+# flags: {isMethod} container: FontMap (deprecated)
 # pango_font_map_list_families
 # flags: {isMethod} container: FontMap
 # need sugar: is method
-# families 'var openarray[ptr TFontFamily]' 'openarray[ptr TFontFamily]' OUT (diff., need sugar) array lengthArg: 1
-# n_families 'var int32' 'ptr int32' OUT (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg families: ARRAY 'var openarray[ptr TFontFamily]' 'openarray[ptr TFontFamily]' OUT (diff., need sugar) array lengthArg: 1
+# arg n_families: INT32 'var int32' 'ptr int32' OUT (diff., need sugar)
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_font_map_list_families(self: ptr TFontMap, families: openarray[ptr TFontFamily], n_families: ptr int32) {.cdecl, dynlib: lib, importc: "pango_font_map_list_families".}
 proc list_families*(self: FontMap, families: var openarray[ptr TFontFamily], n_families: var int32) {.inline.} =
   pango_font_map_list_families(self, families, addr(n_families))
@@ -1647,32 +1598,35 @@ proc list_families*(self: FontMap, families: var openarray[ptr TFontFamily], n_f
 # pango_font_map_load_font
 # flags: {isMethod} container: FontMap
 # need sugar: is method
-# context 'Context' 'ptr TContext' IN (diff., need sugar)
-# desc 'TFontDescription' 'ptr TFontDescription' IN (diff., need sugar)
-# 'Font' 'TransferFull[TFont]' (diff., need sugar)
+# arg context: INTERFACE (OBJECT) 'Context' 'ptr TContext' IN (diff., need sugar)
+# arg desc: INTERFACE (STRUCT) 'ptr TFontDescription' 'ptr TFontDescription' IN
+# return: INTERFACE 'Font' 'TransferFull[TFont]' (diff., need sugar)
 proc pango_font_map_load_font(self: ptr TFontMap, context: ptr TContext, desc: ptr TFontDescription): TransferFull[TFont] {.cdecl, dynlib: lib, importc: "pango_font_map_load_font".}
-proc load_font*(self: FontMap, context: Context, desc: TFontDescription): Font {.inline.} =
-  wrap(pango_font_map_load_font(self, context.getPointer, myUnsafeAddr(desc)))
-# proc load_font*(self: FontMap, context: Context, desc: TFontDescription): Font {.inline.} =
+proc load_font*(self: FontMap, context: Context, desc: ptr TFontDescription): Font {.inline.} =
+  wrap(pango_font_map_load_font(self, context.getPointer, desc))
+# proc load_font*(self: FontMap, context: Context, desc: ptr TFontDescription): Font {.inline.} =
 
 # pango_font_map_load_fontset
 # flags: {isMethod} container: FontMap
 # need sugar: is method
-# context 'Context' 'ptr TContext' IN (diff., need sugar)
-# desc 'TFontDescription' 'ptr TFontDescription' IN (diff., need sugar)
-# language 'TLanguage' 'ptr TLanguage' IN (diff., need sugar)
-# 'Fontset' 'TransferFull[TFontset]' (diff., need sugar)
+# arg context: INTERFACE (OBJECT) 'Context' 'ptr TContext' IN (diff., need sugar)
+# arg desc: INTERFACE (STRUCT) 'ptr TFontDescription' 'ptr TFontDescription' IN
+# arg language: INTERFACE (STRUCT) 'ptr TLanguage' 'ptr TLanguage' IN
+# return: INTERFACE 'Fontset' 'TransferFull[TFontset]' (diff., need sugar)
 proc pango_font_map_load_fontset(self: ptr TFontMap, context: ptr TContext, desc: ptr TFontDescription, language: ptr TLanguage): TransferFull[TFontset] {.cdecl, dynlib: lib, importc: "pango_font_map_load_fontset".}
-proc load_fontset*(self: FontMap, context: Context, desc: TFontDescription, language: TLanguage): Fontset {.inline.} =
-  wrap(pango_font_map_load_fontset(self, context.getPointer, myUnsafeAddr(desc), myUnsafeAddr(language)))
-# proc load_fontset*(self: FontMap, context: Context, desc: TFontDescription, language: TLanguage): Fontset {.inline.} =
+proc load_fontset*(self: FontMap, context: Context, desc: ptr TFontDescription, language: ptr TLanguage): Fontset {.inline.} =
+  wrap(pango_font_map_load_fontset(self, context.getPointer, desc, language))
+# proc load_fontset*(self: FontMap, context: Context, desc: ptr TFontDescription, language: ptr TLanguage): Fontset {.inline.} =
 
+# initializer for Fontset: pango_fontset_get_type
+proc pango_fontset_get_type(): GType {.cdecl, dynlib: lib, importc: "pango_fontset_get_type".}
+template gtype*(klass_parameter: typedesc[Fontset]): GType = pango_fontset_get_type()
 # pango_fontset_foreach
 # flags: {isMethod} container: Fontset
 # need sugar: is method
-# func 'pointer' 'pointer' IN
-# data 'pointer' 'pointer' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg func: INTERFACE (CALLBACK) 'pointer' 'pointer' IN
+# arg data: VOID 'pointer' 'pointer' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_fontset_foreach(self: ptr TFontset, func_x: pointer, data: pointer) {.cdecl, dynlib: lib, importc: "pango_fontset_foreach".}
 proc foreach*(self: Fontset, func_x: pointer, data: pointer) {.inline.} =
   pango_fontset_foreach(self, func_x, data)
@@ -1681,8 +1635,8 @@ proc foreach*(self: Fontset, func_x: pointer, data: pointer) {.inline.} =
 # pango_fontset_get_font
 # flags: {isMethod} container: Fontset
 # need sugar: is method
-# wc 'uint32' 'uint32' IN
-# 'Font' 'TransferFull[TFont]' (diff., need sugar)
+# arg wc: UINT32 'uint32' 'uint32' IN
+# return: INTERFACE 'Font' 'TransferFull[TFont]' (diff., need sugar)
 proc pango_fontset_get_font(self: ptr TFontset, wc: uint32): TransferFull[TFont] {.cdecl, dynlib: lib, importc: "pango_fontset_get_font".}
 proc get_font*(self: Fontset, wc: uint32): Font {.inline.} =
   wrap(pango_fontset_get_font(self, wc))
@@ -1691,27 +1645,30 @@ proc get_font*(self: Fontset, wc: uint32): Font {.inline.} =
 # pango_fontset_get_metrics
 # flags: {isMethod} container: Fontset
 # need sugar: is method
-# 'TFontMetrics' 'ptr TFontMetrics' (diff., need sugar)
+# return: INTERFACE 'ptr TFontMetrics' 'ptr TFontMetrics'
 proc pango_fontset_get_metrics(self: ptr TFontset): ptr TFontMetrics {.cdecl, dynlib: lib, importc: "pango_fontset_get_metrics".}
-proc get_metrics*(self: Fontset): TFontMetrics {.inline.} =
-  (pango_fontset_get_metrics(self))[]
-# proc get_metrics*(self: Fontset): TFontMetrics {.inline.} =
+proc get_metrics*(self: Fontset): ptr TFontMetrics {.inline.} =
+  pango_fontset_get_metrics(self)
+# proc get_metrics*(self: Fontset): ptr TFontMetrics {.inline.} =
 
+# initializer for FontsetSimple: pango_fontset_simple_get_type
+proc pango_fontset_simple_get_type(): GType {.cdecl, dynlib: lib, importc: "pango_fontset_simple_get_type".}
+template gtype*(klass_parameter: typedesc[FontsetSimple]): GType = pango_fontset_simple_get_type()
 # pango_fontset_simple_new
 # flags: {isConstructor} container: FontsetSimple
 # need sugar: is static method
-# language 'TLanguage' 'ptr TLanguage' IN (diff., need sugar)
-# 'FontsetSimple' 'TransferFull[TFontsetSimple]' (diff., need sugar)
+# arg language: INTERFACE (STRUCT) 'ptr TLanguage' 'ptr TLanguage' IN
+# return: INTERFACE 'FontsetSimple' 'TransferFull[TFontsetSimple]' (diff., need sugar)
 proc pango_fontset_simple_new(language: ptr TLanguage): TransferFull[TFontsetSimple] {.cdecl, dynlib: lib, importc: "pango_fontset_simple_new".}
-proc new_fontsetsimple*(language: TLanguage): FontsetSimple {.inline.} =
-  wrap(pango_fontset_simple_new(myUnsafeAddr(language)))
-# proc new_fontsetsimple*(language: TLanguage): FontsetSimple {.inline.} =
+proc new_fontsetsimple*(language: ptr TLanguage): FontsetSimple {.inline.} =
+  wrap(pango_fontset_simple_new(language))
+# proc new_fontsetsimple*(language: ptr TLanguage): FontsetSimple {.inline.} =
 
 # pango_fontset_simple_append
 # flags: {isMethod} container: FontsetSimple
 # need sugar: is method
-# font 'Font' 'ptr TFont' IN (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg font: INTERFACE (OBJECT) 'Font' 'ptr TFont' IN (diff., need sugar)
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_fontset_simple_append(self: ptr TFontsetSimple, font: ptr TFont) {.cdecl, dynlib: lib, importc: "pango_fontset_simple_append".}
 proc append*(self: FontsetSimple, font: Font) {.inline.} =
   pango_fontset_simple_append(self, font.getPointer)
@@ -1720,17 +1677,20 @@ proc append*(self: FontsetSimple, font: Font) {.inline.} =
 # pango_fontset_simple_size
 # flags: {isMethod} container: FontsetSimple
 # need sugar: is method
-# 'int32' 'int32'
+# return: INT32 'int32' 'int32'
 proc pango_fontset_simple_size(self: ptr TFontsetSimple): int32 {.cdecl, dynlib: lib, importc: "pango_fontset_simple_size".}
 proc size*(self: FontsetSimple): int32 {.inline.} =
   pango_fontset_simple_size(self)
 # proc size*(self: FontsetSimple): int32 {.inline.} =
 
+# initializer for Layout: pango_layout_get_type
+proc pango_layout_get_type(): GType {.cdecl, dynlib: lib, importc: "pango_layout_get_type".}
+template gtype*(klass_parameter: typedesc[Layout]): GType = pango_layout_get_type()
 # pango_layout_new
 # flags: {isConstructor} container: Layout
 # need sugar: is static method
-# context 'Context' 'ptr TContext' IN (diff., need sugar)
-# 'Layout' 'TransferFull[TLayout]' (diff., need sugar)
+# arg context: INTERFACE (OBJECT) 'Context' 'ptr TContext' IN (diff., need sugar)
+# return: INTERFACE 'Layout' 'TransferFull[TLayout]' (diff., need sugar)
 proc pango_layout_new(context: ptr TContext): TransferFull[TLayout] {.cdecl, dynlib: lib, importc: "pango_layout_new".}
 proc new_layout*(context: Context): Layout {.inline.} =
   wrap(pango_layout_new(context.getPointer))
@@ -1739,7 +1699,7 @@ proc new_layout*(context: Context): Layout {.inline.} =
 # pango_layout_context_changed
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# 'VOID_TODO' 'VOID_TODO'
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_context_changed(self: ptr TLayout) {.cdecl, dynlib: lib, importc: "pango_layout_context_changed".}
 proc context_changed*(self: Layout) {.inline.} =
   pango_layout_context_changed(self)
@@ -1748,7 +1708,7 @@ proc context_changed*(self: Layout) {.inline.} =
 # pango_layout_copy
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# 'Layout' 'TransferFull[TLayout]' (diff., need sugar)
+# return: INTERFACE 'Layout' 'TransferFull[TLayout]' (diff., need sugar)
 proc pango_layout_copy(self: ptr TLayout): TransferFull[TLayout] {.cdecl, dynlib: lib, importc: "pango_layout_copy".}
 proc copy*(self: Layout): Layout {.inline.} =
   wrap(pango_layout_copy(self))
@@ -1757,7 +1717,7 @@ proc copy*(self: Layout): Layout {.inline.} =
 # pango_layout_get_alignment
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# 'Alignment' 'Alignment'
+# return: INTERFACE 'Alignment' 'Alignment'
 proc pango_layout_get_alignment(self: ptr TLayout): Alignment {.cdecl, dynlib: lib, importc: "pango_layout_get_alignment".}
 proc get_alignment*(self: Layout): Alignment {.inline.} =
   pango_layout_get_alignment(self)
@@ -1766,16 +1726,16 @@ proc get_alignment*(self: Layout): Alignment {.inline.} =
 # pango_layout_get_attributes
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# 'TAttrList' 'ptr TAttrList' (diff., need sugar)
+# return: INTERFACE 'ptr TAttrList' 'ptr TAttrList'
 proc pango_layout_get_attributes(self: ptr TLayout): ptr TAttrList {.cdecl, dynlib: lib, importc: "pango_layout_get_attributes".}
-proc get_attributes*(self: Layout): TAttrList {.inline.} =
-  (pango_layout_get_attributes(self))[]
-# proc get_attributes*(self: Layout): TAttrList {.inline.} =
+proc get_attributes*(self: Layout): ptr TAttrList {.inline.} =
+  pango_layout_get_attributes(self)
+# proc get_attributes*(self: Layout): ptr TAttrList {.inline.} =
 
 # pango_layout_get_auto_dir
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# 'bool' 'bool'
+# return: BOOLEAN 'bool' 'bool'
 proc pango_layout_get_auto_dir(self: ptr TLayout): bool {.cdecl, dynlib: lib, importc: "pango_layout_get_auto_dir".}
 proc get_auto_dir*(self: Layout): bool {.inline.} =
   pango_layout_get_auto_dir(self)
@@ -1784,7 +1744,7 @@ proc get_auto_dir*(self: Layout): bool {.inline.} =
 # pango_layout_get_baseline
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# 'int32' 'int32'
+# return: INT32 'int32' 'int32'
 proc pango_layout_get_baseline(self: ptr TLayout): int32 {.cdecl, dynlib: lib, importc: "pango_layout_get_baseline".}
 proc get_baseline*(self: Layout): int32 {.inline.} =
   pango_layout_get_baseline(self)
@@ -1793,7 +1753,7 @@ proc get_baseline*(self: Layout): int32 {.inline.} =
 # pango_layout_get_character_count
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# 'int32' 'int32'
+# return: INT32 'int32' 'int32'
 proc pango_layout_get_character_count(self: ptr TLayout): int32 {.cdecl, dynlib: lib, importc: "pango_layout_get_character_count".}
 proc get_character_count*(self: Layout): int32 {.inline.} =
   pango_layout_get_character_count(self)
@@ -1802,7 +1762,7 @@ proc get_character_count*(self: Layout): int32 {.inline.} =
 # pango_layout_get_context
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# 'Context' 'TransferNone[TContext]' (diff., need sugar)
+# return: INTERFACE 'Context' 'TransferNone[TContext]' (diff., need sugar)
 proc pango_layout_get_context(self: ptr TLayout): TransferNone[TContext] {.cdecl, dynlib: lib, importc: "pango_layout_get_context".}
 proc get_context*(self: Layout): Context {.inline.} =
   wrap(pango_layout_get_context(self))
@@ -1811,22 +1771,22 @@ proc get_context*(self: Layout): Context {.inline.} =
 # pango_layout_get_cursor_pos
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# index_ 'int32' 'int32' IN
-# strong_pos 'var TRectangle' 'ptr TRectangle' OUT (diff., need sugar) caller-allocates optional
-# weak_pos 'var TRectangle' 'ptr TRectangle' OUT (diff., need sugar) caller-allocates optional
-# 'VOID_TODO' 'VOID_TODO'
+# arg index_: INT32 'int32' 'int32' IN
+# arg strong_pos: INTERFACE (STRUCT) 'ptr TRectangle' 'ptr TRectangle' OUT caller-allocates optional
+# arg weak_pos: INTERFACE (STRUCT) 'ptr TRectangle' 'ptr TRectangle' OUT caller-allocates optional
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_get_cursor_pos(self: ptr TLayout, index_x: int32, strong_pos: ptr TRectangle, weak_pos: ptr TRectangle) {.cdecl, dynlib: lib, importc: "pango_layout_get_cursor_pos".}
-proc get_cursor_pos*(self: Layout, index_x: int32, strong_pos: var TRectangle, weak_pos: var TRectangle) {.inline.} =
-  pango_layout_get_cursor_pos(self, index_x, addr(strong_pos), addr(weak_pos))
+proc get_cursor_pos*(self: Layout, index_x: int32, strong_pos: ptr TRectangle, weak_pos: ptr TRectangle) {.inline.} =
+  pango_layout_get_cursor_pos(self, index_x, strong_pos, weak_pos)
 # tuple-return
-# strong_pos: var TRectangle
-# weak_pos: var TRectangle
+# strong_pos: ptr TRectangle
+# weak_pos: ptr TRectangle
 # proc get_cursor_pos*(self: Layout, index_x: int32) {.inline.} =
 
 # pango_layout_get_ellipsize
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# 'EllipsizeMode' 'EllipsizeMode'
+# return: INTERFACE 'EllipsizeMode' 'EllipsizeMode'
 proc pango_layout_get_ellipsize(self: ptr TLayout): EllipsizeMode {.cdecl, dynlib: lib, importc: "pango_layout_get_ellipsize".}
 proc get_ellipsize*(self: Layout): EllipsizeMode {.inline.} =
   pango_layout_get_ellipsize(self)
@@ -1835,30 +1795,30 @@ proc get_ellipsize*(self: Layout): EllipsizeMode {.inline.} =
 # pango_layout_get_extents
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# ink_rect 'var TRectangle' 'ptr TRectangle' OUT (diff., need sugar) caller-allocates optional
-# logical_rect 'var TRectangle' 'ptr TRectangle' OUT (diff., need sugar) caller-allocates optional
-# 'VOID_TODO' 'VOID_TODO'
+# arg ink_rect: INTERFACE (STRUCT) 'ptr TRectangle' 'ptr TRectangle' OUT caller-allocates optional
+# arg logical_rect: INTERFACE (STRUCT) 'ptr TRectangle' 'ptr TRectangle' OUT caller-allocates optional
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_get_extents(self: ptr TLayout, ink_rect: ptr TRectangle, logical_rect: ptr TRectangle) {.cdecl, dynlib: lib, importc: "pango_layout_get_extents".}
-proc get_extents*(self: Layout, ink_rect: var TRectangle, logical_rect: var TRectangle) {.inline.} =
-  pango_layout_get_extents(self, addr(ink_rect), addr(logical_rect))
+proc get_extents*(self: Layout, ink_rect: ptr TRectangle, logical_rect: ptr TRectangle) {.inline.} =
+  pango_layout_get_extents(self, ink_rect, logical_rect)
 # tuple-return
-# ink_rect: var TRectangle
-# logical_rect: var TRectangle
+# ink_rect: ptr TRectangle
+# logical_rect: ptr TRectangle
 # proc get_extents*(self: Layout) {.inline.} =
 
 # pango_layout_get_font_description
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# 'TFontDescription' 'ptr TFontDescription' (diff., need sugar)
+# return: INTERFACE 'ptr TFontDescription' 'ptr TFontDescription'
 proc pango_layout_get_font_description(self: ptr TLayout): ptr TFontDescription {.cdecl, dynlib: lib, importc: "pango_layout_get_font_description".}
-proc get_font_description*(self: Layout): TFontDescription {.inline.} =
-  (pango_layout_get_font_description(self))[]
-# proc get_font_description*(self: Layout): TFontDescription {.inline.} =
+proc get_font_description*(self: Layout): ptr TFontDescription {.inline.} =
+  pango_layout_get_font_description(self)
+# proc get_font_description*(self: Layout): ptr TFontDescription {.inline.} =
 
 # pango_layout_get_height
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# 'int32' 'int32'
+# return: INT32 'int32' 'int32'
 proc pango_layout_get_height(self: ptr TLayout): int32 {.cdecl, dynlib: lib, importc: "pango_layout_get_height".}
 proc get_height*(self: Layout): int32 {.inline.} =
   pango_layout_get_height(self)
@@ -1867,7 +1827,7 @@ proc get_height*(self: Layout): int32 {.inline.} =
 # pango_layout_get_indent
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# 'int32' 'int32'
+# return: INT32 'int32' 'int32'
 proc pango_layout_get_indent(self: ptr TLayout): int32 {.cdecl, dynlib: lib, importc: "pango_layout_get_indent".}
 proc get_indent*(self: Layout): int32 {.inline.} =
   pango_layout_get_indent(self)
@@ -1876,16 +1836,16 @@ proc get_indent*(self: Layout): int32 {.inline.} =
 # pango_layout_get_iter
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# 'TLayoutIter' 'ptr TLayoutIter' (diff., need sugar)
+# return: INTERFACE 'ptr TLayoutIter' 'ptr TLayoutIter'
 proc pango_layout_get_iter(self: ptr TLayout): ptr TLayoutIter {.cdecl, dynlib: lib, importc: "pango_layout_get_iter".}
-proc get_iter*(self: Layout): TLayoutIter {.inline.} =
-  (pango_layout_get_iter(self))[]
-# proc get_iter*(self: Layout): TLayoutIter {.inline.} =
+proc get_iter*(self: Layout): ptr TLayoutIter {.inline.} =
+  pango_layout_get_iter(self)
+# proc get_iter*(self: Layout): ptr TLayoutIter {.inline.} =
 
 # pango_layout_get_justify
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# 'bool' 'bool'
+# return: BOOLEAN 'bool' 'bool'
 proc pango_layout_get_justify(self: ptr TLayout): bool {.cdecl, dynlib: lib, importc: "pango_layout_get_justify".}
 proc get_justify*(self: Layout): bool {.inline.} =
   pango_layout_get_justify(self)
@@ -1894,17 +1854,17 @@ proc get_justify*(self: Layout): bool {.inline.} =
 # pango_layout_get_line
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# line 'int32' 'int32' IN
-# 'TLayoutLine' 'ptr TLayoutLine' (diff., need sugar)
+# arg line: INT32 'int32' 'int32' IN
+# return: INTERFACE 'ptr TLayoutLine' 'ptr TLayoutLine'
 proc pango_layout_get_line(self: ptr TLayout, line: int32): ptr TLayoutLine {.cdecl, dynlib: lib, importc: "pango_layout_get_line".}
-proc get_line*(self: Layout, line: int32): TLayoutLine {.inline.} =
-  (pango_layout_get_line(self, line))[]
-# proc get_line*(self: Layout, line: int32): TLayoutLine {.inline.} =
+proc get_line*(self: Layout, line: int32): ptr TLayoutLine {.inline.} =
+  pango_layout_get_line(self, line)
+# proc get_line*(self: Layout, line: int32): ptr TLayoutLine {.inline.} =
 
 # pango_layout_get_line_count
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# 'int32' 'int32'
+# return: INT32 'int32' 'int32'
 proc pango_layout_get_line_count(self: ptr TLayout): int32 {.cdecl, dynlib: lib, importc: "pango_layout_get_line_count".}
 proc get_line_count*(self: Layout): int32 {.inline.} =
   pango_layout_get_line_count(self)
@@ -1913,17 +1873,17 @@ proc get_line_count*(self: Layout): int32 {.inline.} =
 # pango_layout_get_line_readonly
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# line 'int32' 'int32' IN
-# 'TLayoutLine' 'ptr TLayoutLine' (diff., need sugar)
+# arg line: INT32 'int32' 'int32' IN
+# return: INTERFACE 'ptr TLayoutLine' 'ptr TLayoutLine'
 proc pango_layout_get_line_readonly(self: ptr TLayout, line: int32): ptr TLayoutLine {.cdecl, dynlib: lib, importc: "pango_layout_get_line_readonly".}
-proc get_line_readonly*(self: Layout, line: int32): TLayoutLine {.inline.} =
-  (pango_layout_get_line_readonly(self, line))[]
-# proc get_line_readonly*(self: Layout, line: int32): TLayoutLine {.inline.} =
+proc get_line_readonly*(self: Layout, line: int32): ptr TLayoutLine {.inline.} =
+  pango_layout_get_line_readonly(self, line)
+# proc get_line_readonly*(self: Layout, line: int32): ptr TLayoutLine {.inline.} =
 
 # pango_layout_get_lines
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# 'ptr GSLIST_TODO' 'ptr GSLIST_TODO'
+# return: GSLIST 'ptr GSLIST_TODO' 'ptr GSLIST_TODO'
 proc pango_layout_get_lines(self: ptr TLayout): ptr GSLIST_TODO {.cdecl, dynlib: lib, importc: "pango_layout_get_lines".}
 proc get_lines*(self: Layout): ptr GSLIST_TODO {.inline.} =
   pango_layout_get_lines(self)
@@ -1932,7 +1892,7 @@ proc get_lines*(self: Layout): ptr GSLIST_TODO {.inline.} =
 # pango_layout_get_lines_readonly
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# 'ptr GSLIST_TODO' 'ptr GSLIST_TODO'
+# return: GSLIST 'ptr GSLIST_TODO' 'ptr GSLIST_TODO'
 proc pango_layout_get_lines_readonly(self: ptr TLayout): ptr GSLIST_TODO {.cdecl, dynlib: lib, importc: "pango_layout_get_lines_readonly".}
 proc get_lines_readonly*(self: Layout): ptr GSLIST_TODO {.inline.} =
   pango_layout_get_lines_readonly(self)
@@ -1941,9 +1901,9 @@ proc get_lines_readonly*(self: Layout): ptr GSLIST_TODO {.inline.} =
 # pango_layout_get_log_attrs
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# attrs 'var openarray[TLogAttr]' 'openarray[TLogAttr]' OUT (diff., need sugar) array lengthArg: 1
-# n_attrs 'var int32' 'ptr int32' OUT (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg attrs: ARRAY 'var openarray[TLogAttr]' 'openarray[TLogAttr]' OUT (diff., need sugar) array lengthArg: 1
+# arg n_attrs: INT32 'var int32' 'ptr int32' OUT (diff., need sugar)
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_get_log_attrs(self: ptr TLayout, attrs: openarray[TLogAttr], n_attrs: ptr int32) {.cdecl, dynlib: lib, importc: "pango_layout_get_log_attrs".}
 proc get_log_attrs*(self: Layout, attrs: var openarray[TLogAttr], n_attrs: var int32) {.inline.} =
   pango_layout_get_log_attrs(self, attrs, addr(n_attrs))
@@ -1955,8 +1915,8 @@ proc get_log_attrs*(self: Layout, attrs: var openarray[TLogAttr], n_attrs: var i
 # pango_layout_get_log_attrs_readonly
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# n_attrs 'var int32' 'ptr int32' OUT (diff., need sugar)
-# 'zeroTerminatedArray[TLogAttr]' 'zeroTerminatedArray[TLogAttr]'
+# arg n_attrs: INT32 'var int32' 'ptr int32' OUT (diff., need sugar)
+# return: ARRAY 'zeroTerminatedArray[TLogAttr]' 'zeroTerminatedArray[TLogAttr]'
 proc pango_layout_get_log_attrs_readonly(self: ptr TLayout, n_attrs: ptr int32): zeroTerminatedArray[TLogAttr] {.cdecl, dynlib: lib, importc: "pango_layout_get_log_attrs_readonly".}
 proc get_log_attrs_readonly*(self: Layout, n_attrs: var int32): zeroTerminatedArray[TLogAttr] {.inline.} =
   pango_layout_get_log_attrs_readonly(self, addr(n_attrs))
@@ -1967,23 +1927,23 @@ proc get_log_attrs_readonly*(self: Layout, n_attrs: var int32): zeroTerminatedAr
 # pango_layout_get_pixel_extents
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# ink_rect 'var TRectangle' 'ptr TRectangle' OUT (diff., need sugar) caller-allocates optional
-# logical_rect 'var TRectangle' 'ptr TRectangle' OUT (diff., need sugar) caller-allocates optional
-# 'VOID_TODO' 'VOID_TODO'
+# arg ink_rect: INTERFACE (STRUCT) 'ptr TRectangle' 'ptr TRectangle' OUT caller-allocates optional
+# arg logical_rect: INTERFACE (STRUCT) 'ptr TRectangle' 'ptr TRectangle' OUT caller-allocates optional
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_get_pixel_extents(self: ptr TLayout, ink_rect: ptr TRectangle, logical_rect: ptr TRectangle) {.cdecl, dynlib: lib, importc: "pango_layout_get_pixel_extents".}
-proc get_pixel_extents*(self: Layout, ink_rect: var TRectangle, logical_rect: var TRectangle) {.inline.} =
-  pango_layout_get_pixel_extents(self, addr(ink_rect), addr(logical_rect))
+proc get_pixel_extents*(self: Layout, ink_rect: ptr TRectangle, logical_rect: ptr TRectangle) {.inline.} =
+  pango_layout_get_pixel_extents(self, ink_rect, logical_rect)
 # tuple-return
-# ink_rect: var TRectangle
-# logical_rect: var TRectangle
+# ink_rect: ptr TRectangle
+# logical_rect: ptr TRectangle
 # proc get_pixel_extents*(self: Layout) {.inline.} =
 
 # pango_layout_get_pixel_size
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# width 'var int32' 'ptr int32' OUT (diff., need sugar) optional
-# height 'var int32' 'ptr int32' OUT (diff., need sugar) optional
-# 'VOID_TODO' 'VOID_TODO'
+# arg width: INT32 'var int32' 'ptr int32' OUT (diff., need sugar) optional
+# arg height: INT32 'var int32' 'ptr int32' OUT (diff., need sugar) optional
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_get_pixel_size(self: ptr TLayout, width: ptr int32, height: ptr int32) {.cdecl, dynlib: lib, importc: "pango_layout_get_pixel_size".}
 proc get_pixel_size*(self: Layout, width: var int32, height: var int32) {.inline.} =
   pango_layout_get_pixel_size(self, addr(width), addr(height))
@@ -1995,7 +1955,7 @@ proc get_pixel_size*(self: Layout, width: var int32, height: var int32) {.inline
 # pango_layout_get_serial
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# 'uint32' 'uint32'
+# return: UINT32 'uint32' 'uint32'
 proc pango_layout_get_serial(self: ptr TLayout): uint32 {.cdecl, dynlib: lib, importc: "pango_layout_get_serial".}
 proc get_serial*(self: Layout): uint32 {.inline.} =
   pango_layout_get_serial(self)
@@ -2004,7 +1964,7 @@ proc get_serial*(self: Layout): uint32 {.inline.} =
 # pango_layout_get_single_paragraph_mode
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# 'bool' 'bool'
+# return: BOOLEAN 'bool' 'bool'
 proc pango_layout_get_single_paragraph_mode(self: ptr TLayout): bool {.cdecl, dynlib: lib, importc: "pango_layout_get_single_paragraph_mode".}
 proc get_single_paragraph_mode*(self: Layout): bool {.inline.} =
   pango_layout_get_single_paragraph_mode(self)
@@ -2013,9 +1973,9 @@ proc get_single_paragraph_mode*(self: Layout): bool {.inline.} =
 # pango_layout_get_size
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# width 'var int32' 'ptr int32' OUT (diff., need sugar) caller-allocates optional
-# height 'var int32' 'ptr int32' OUT (diff., need sugar) caller-allocates optional
-# 'VOID_TODO' 'VOID_TODO'
+# arg width: INT32 'var int32' 'ptr int32' OUT (diff., need sugar) caller-allocates optional
+# arg height: INT32 'var int32' 'ptr int32' OUT (diff., need sugar) caller-allocates optional
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_get_size(self: ptr TLayout, width: ptr int32, height: ptr int32) {.cdecl, dynlib: lib, importc: "pango_layout_get_size".}
 proc get_size*(self: Layout, width: var int32, height: var int32) {.inline.} =
   pango_layout_get_size(self, addr(width), addr(height))
@@ -2027,7 +1987,7 @@ proc get_size*(self: Layout, width: var int32, height: var int32) {.inline.} =
 # pango_layout_get_spacing
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# 'int32' 'int32'
+# return: INT32 'int32' 'int32'
 proc pango_layout_get_spacing(self: ptr TLayout): int32 {.cdecl, dynlib: lib, importc: "pango_layout_get_spacing".}
 proc get_spacing*(self: Layout): int32 {.inline.} =
   pango_layout_get_spacing(self)
@@ -2036,25 +1996,25 @@ proc get_spacing*(self: Layout): int32 {.inline.} =
 # pango_layout_get_tabs
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# 'TTabArray' 'ptr TTabArray' (diff., need sugar)
+# return: INTERFACE 'ptr TTabArray' 'ptr TTabArray'
 proc pango_layout_get_tabs(self: ptr TLayout): ptr TTabArray {.cdecl, dynlib: lib, importc: "pango_layout_get_tabs".}
-proc get_tabs*(self: Layout): TTabArray {.inline.} =
-  (pango_layout_get_tabs(self))[]
-# proc get_tabs*(self: Layout): TTabArray {.inline.} =
+proc get_tabs*(self: Layout): ptr TTabArray {.inline.} =
+  pango_layout_get_tabs(self)
+# proc get_tabs*(self: Layout): ptr TTabArray {.inline.} =
 
 # pango_layout_get_text
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# 'ustring' 'ucstring' (diff., need sugar)
+# return: UTF8 'ucstring' 'ucstring'
 proc pango_layout_get_text(self: ptr TLayout): ucstring {.cdecl, dynlib: lib, importc: "pango_layout_get_text".}
-proc get_text*(self: Layout): ustring {.inline.} =
-  ustring($(pango_layout_get_text(self)))
-# proc get_text*(self: Layout): ustring {.inline.} =
+proc get_text*(self: Layout): ucstring {.inline.} =
+  pango_layout_get_text(self)
+# proc get_text*(self: Layout): ucstring {.inline.} =
 
 # pango_layout_get_unknown_glyphs_count
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# 'int32' 'int32'
+# return: INT32 'int32' 'int32'
 proc pango_layout_get_unknown_glyphs_count(self: ptr TLayout): int32 {.cdecl, dynlib: lib, importc: "pango_layout_get_unknown_glyphs_count".}
 proc get_unknown_glyphs_count*(self: Layout): int32 {.inline.} =
   pango_layout_get_unknown_glyphs_count(self)
@@ -2063,7 +2023,7 @@ proc get_unknown_glyphs_count*(self: Layout): int32 {.inline.} =
 # pango_layout_get_width
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# 'int32' 'int32'
+# return: INT32 'int32' 'int32'
 proc pango_layout_get_width(self: ptr TLayout): int32 {.cdecl, dynlib: lib, importc: "pango_layout_get_width".}
 proc get_width*(self: Layout): int32 {.inline.} =
   pango_layout_get_width(self)
@@ -2072,7 +2032,7 @@ proc get_width*(self: Layout): int32 {.inline.} =
 # pango_layout_get_wrap
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# 'WrapMode' 'WrapMode'
+# return: INTERFACE 'WrapMode' 'WrapMode'
 proc pango_layout_get_wrap(self: ptr TLayout): WrapMode {.cdecl, dynlib: lib, importc: "pango_layout_get_wrap".}
 proc get_wrap*(self: Layout): WrapMode {.inline.} =
   pango_layout_get_wrap(self)
@@ -2081,11 +2041,11 @@ proc get_wrap*(self: Layout): WrapMode {.inline.} =
 # pango_layout_index_to_line_x
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# index_ 'int32' 'int32' IN
-# trailing 'bool' 'bool' IN
-# line 'var int32' 'ptr int32' OUT (diff., need sugar) optional
-# x_pos 'var int32' 'ptr int32' OUT (diff., need sugar) optional
-# 'VOID_TODO' 'VOID_TODO'
+# arg index_: INT32 'int32' 'int32' IN
+# arg trailing: BOOLEAN 'bool' 'bool' IN
+# arg line: INT32 'var int32' 'ptr int32' OUT (diff., need sugar) optional
+# arg x_pos: INT32 'var int32' 'ptr int32' OUT (diff., need sugar) optional
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_index_to_line_x(self: ptr TLayout, index_x: int32, trailing: bool, line: ptr int32, x_pos: ptr int32) {.cdecl, dynlib: lib, importc: "pango_layout_index_to_line_x".}
 proc index_to_line_x*(self: Layout, index_x: int32, trailing: bool, line: var int32, x_pos: var int32) {.inline.} =
   pango_layout_index_to_line_x(self, index_x, trailing, addr(line), addr(x_pos))
@@ -2097,20 +2057,20 @@ proc index_to_line_x*(self: Layout, index_x: int32, trailing: bool, line: var in
 # pango_layout_index_to_pos
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# index_ 'int32' 'int32' IN
-# pos 'var TRectangle' 'ptr TRectangle' OUT (diff., need sugar) caller-allocates
-# 'VOID_TODO' 'VOID_TODO'
+# arg index_: INT32 'int32' 'int32' IN
+# arg pos: INTERFACE (STRUCT) 'ptr TRectangle' 'ptr TRectangle' OUT caller-allocates
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_index_to_pos(self: ptr TLayout, index_x: int32, pos: ptr TRectangle) {.cdecl, dynlib: lib, importc: "pango_layout_index_to_pos".}
-proc index_to_pos*(self: Layout, index_x: int32, pos: var TRectangle) {.inline.} =
-  pango_layout_index_to_pos(self, index_x, addr(pos))
+proc index_to_pos*(self: Layout, index_x: int32, pos: ptr TRectangle) {.inline.} =
+  pango_layout_index_to_pos(self, index_x, pos)
 # tuple-return
-# pos: var TRectangle
+# pos: ptr TRectangle
 # proc index_to_pos*(self: Layout, index_x: int32) {.inline.} =
 
 # pango_layout_is_ellipsized
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# 'bool' 'bool'
+# return: BOOLEAN 'bool' 'bool'
 proc pango_layout_is_ellipsized(self: ptr TLayout): bool {.cdecl, dynlib: lib, importc: "pango_layout_is_ellipsized".}
 proc is_ellipsized*(self: Layout): bool {.inline.} =
   pango_layout_is_ellipsized(self)
@@ -2119,7 +2079,7 @@ proc is_ellipsized*(self: Layout): bool {.inline.} =
 # pango_layout_is_wrapped
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# 'bool' 'bool'
+# return: BOOLEAN 'bool' 'bool'
 proc pango_layout_is_wrapped(self: ptr TLayout): bool {.cdecl, dynlib: lib, importc: "pango_layout_is_wrapped".}
 proc is_wrapped*(self: Layout): bool {.inline.} =
   pango_layout_is_wrapped(self)
@@ -2128,13 +2088,13 @@ proc is_wrapped*(self: Layout): bool {.inline.} =
 # pango_layout_move_cursor_visually
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# strong 'bool' 'bool' IN
-# old_index 'int32' 'int32' IN
-# old_trailing 'int32' 'int32' IN
-# direction 'int32' 'int32' IN
-# new_index 'var int32' 'ptr int32' OUT (diff., need sugar)
-# new_trailing 'var int32' 'ptr int32' OUT (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg strong: BOOLEAN 'bool' 'bool' IN
+# arg old_index: INT32 'int32' 'int32' IN
+# arg old_trailing: INT32 'int32' 'int32' IN
+# arg direction: INT32 'int32' 'int32' IN
+# arg new_index: INT32 'var int32' 'ptr int32' OUT (diff., need sugar)
+# arg new_trailing: INT32 'var int32' 'ptr int32' OUT (diff., need sugar)
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_move_cursor_visually(self: ptr TLayout, strong: bool, old_index: int32, old_trailing: int32, direction: int32, new_index: ptr int32, new_trailing: ptr int32) {.cdecl, dynlib: lib, importc: "pango_layout_move_cursor_visually".}
 proc move_cursor_visually*(self: Layout, strong: bool, old_index: int32, old_trailing: int32, direction: int32, new_index: var int32, new_trailing: var int32) {.inline.} =
   pango_layout_move_cursor_visually(self, strong, old_index, old_trailing, direction, addr(new_index), addr(new_trailing))
@@ -2146,8 +2106,8 @@ proc move_cursor_visually*(self: Layout, strong: bool, old_index: int32, old_tra
 # pango_layout_set_alignment
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# alignment 'Alignment' 'Alignment' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg alignment: INTERFACE (ENUM) 'Alignment' 'Alignment' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_set_alignment(self: ptr TLayout, alignment: Alignment) {.cdecl, dynlib: lib, importc: "pango_layout_set_alignment".}
 proc set_alignment*(self: Layout, alignment: Alignment) {.inline.} =
   pango_layout_set_alignment(self, alignment)
@@ -2156,18 +2116,18 @@ proc set_alignment*(self: Layout, alignment: Alignment) {.inline.} =
 # pango_layout_set_attributes
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# attrs 'TAttrList' 'ptr TAttrList' IN (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg attrs: INTERFACE (STRUCT) 'ptr TAttrList' 'ptr TAttrList' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_set_attributes(self: ptr TLayout, attrs: ptr TAttrList) {.cdecl, dynlib: lib, importc: "pango_layout_set_attributes".}
-proc set_attributes*(self: Layout, attrs: TAttrList) {.inline.} =
-  pango_layout_set_attributes(self, myUnsafeAddr(attrs))
-# proc set_attributes*(self: Layout, attrs: TAttrList) {.inline.} =
+proc set_attributes*(self: Layout, attrs: ptr TAttrList) {.inline.} =
+  pango_layout_set_attributes(self, attrs)
+# proc set_attributes*(self: Layout, attrs: ptr TAttrList) {.inline.} =
 
 # pango_layout_set_auto_dir
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# auto_dir 'bool' 'bool' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg auto_dir: BOOLEAN 'bool' 'bool' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_set_auto_dir(self: ptr TLayout, auto_dir: bool) {.cdecl, dynlib: lib, importc: "pango_layout_set_auto_dir".}
 proc set_auto_dir*(self: Layout, auto_dir: bool) {.inline.} =
   pango_layout_set_auto_dir(self, auto_dir)
@@ -2176,8 +2136,8 @@ proc set_auto_dir*(self: Layout, auto_dir: bool) {.inline.} =
 # pango_layout_set_ellipsize
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# ellipsize 'EllipsizeMode' 'EllipsizeMode' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg ellipsize: INTERFACE (ENUM) 'EllipsizeMode' 'EllipsizeMode' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_set_ellipsize(self: ptr TLayout, ellipsize: EllipsizeMode) {.cdecl, dynlib: lib, importc: "pango_layout_set_ellipsize".}
 proc set_ellipsize*(self: Layout, ellipsize: EllipsizeMode) {.inline.} =
   pango_layout_set_ellipsize(self, ellipsize)
@@ -2186,18 +2146,18 @@ proc set_ellipsize*(self: Layout, ellipsize: EllipsizeMode) {.inline.} =
 # pango_layout_set_font_description
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# desc 'TFontDescription' 'ptr TFontDescription' IN (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg desc: INTERFACE (STRUCT) 'ptr TFontDescription' 'ptr TFontDescription' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_set_font_description(self: ptr TLayout, desc: ptr TFontDescription) {.cdecl, dynlib: lib, importc: "pango_layout_set_font_description".}
-proc set_font_description*(self: Layout, desc: TFontDescription) {.inline.} =
-  pango_layout_set_font_description(self, myUnsafeAddr(desc))
-# proc set_font_description*(self: Layout, desc: TFontDescription) {.inline.} =
+proc set_font_description*(self: Layout, desc: ptr TFontDescription) {.inline.} =
+  pango_layout_set_font_description(self, desc)
+# proc set_font_description*(self: Layout, desc: ptr TFontDescription) {.inline.} =
 
 # pango_layout_set_height
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# height 'int32' 'int32' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg height: INT32 'int32' 'int32' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_set_height(self: ptr TLayout, height: int32) {.cdecl, dynlib: lib, importc: "pango_layout_set_height".}
 proc set_height*(self: Layout, height: int32) {.inline.} =
   pango_layout_set_height(self, height)
@@ -2206,8 +2166,8 @@ proc set_height*(self: Layout, height: int32) {.inline.} =
 # pango_layout_set_indent
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# indent 'int32' 'int32' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg indent: INT32 'int32' 'int32' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_set_indent(self: ptr TLayout, indent: int32) {.cdecl, dynlib: lib, importc: "pango_layout_set_indent".}
 proc set_indent*(self: Layout, indent: int32) {.inline.} =
   pango_layout_set_indent(self, indent)
@@ -2216,8 +2176,8 @@ proc set_indent*(self: Layout, indent: int32) {.inline.} =
 # pango_layout_set_justify
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# justify 'bool' 'bool' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg justify: BOOLEAN 'bool' 'bool' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_set_justify(self: ptr TLayout, justify: bool) {.cdecl, dynlib: lib, importc: "pango_layout_set_justify".}
 proc set_justify*(self: Layout, justify: bool) {.inline.} =
   pango_layout_set_justify(self, justify)
@@ -2226,9 +2186,9 @@ proc set_justify*(self: Layout, justify: bool) {.inline.} =
 # pango_layout_set_markup
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# markup 'ustring' 'ucstring' IN (diff., need sugar)
-# length 'int32' 'int32' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg markup: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# arg length: INT32 'int32' 'int32' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_set_markup(self: ptr TLayout, markup: ucstring, length: int32) {.cdecl, dynlib: lib, importc: "pango_layout_set_markup".}
 proc set_markup*(self: Layout, markup: ustring, length: int32) {.inline.} =
   pango_layout_set_markup(self, ucstring(markup), length)
@@ -2237,11 +2197,11 @@ proc set_markup*(self: Layout, markup: ustring, length: int32) {.inline.} =
 # pango_layout_set_markup_with_accel
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# markup 'ustring' 'ucstring' IN (diff., need sugar)
-# length 'int32' 'int32' IN
-# accel_marker 'unichar' 'unichar' IN
-# accel_char 'var unichar' 'ptr unichar' OUT (diff., need sugar) caller-allocates optional
-# 'VOID_TODO' 'VOID_TODO'
+# arg markup: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# arg length: INT32 'int32' 'int32' IN
+# arg accel_marker: UNICHAR 'unichar' 'unichar' IN
+# arg accel_char: UNICHAR 'var unichar' 'ptr unichar' OUT (diff., need sugar) caller-allocates optional
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_set_markup_with_accel(self: ptr TLayout, markup: ucstring, length: int32, accel_marker: unichar, accel_char: ptr unichar) {.cdecl, dynlib: lib, importc: "pango_layout_set_markup_with_accel".}
 proc set_markup_with_accel*(self: Layout, markup: ustring, length: int32, accel_marker: unichar, accel_char: var unichar) {.inline.} =
   pango_layout_set_markup_with_accel(self, ucstring(markup), length, accel_marker, addr(accel_char))
@@ -2252,8 +2212,8 @@ proc set_markup_with_accel*(self: Layout, markup: ustring, length: int32, accel_
 # pango_layout_set_single_paragraph_mode
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# setting 'bool' 'bool' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg setting: BOOLEAN 'bool' 'bool' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_set_single_paragraph_mode(self: ptr TLayout, setting: bool) {.cdecl, dynlib: lib, importc: "pango_layout_set_single_paragraph_mode".}
 proc set_single_paragraph_mode*(self: Layout, setting: bool) {.inline.} =
   pango_layout_set_single_paragraph_mode(self, setting)
@@ -2262,8 +2222,8 @@ proc set_single_paragraph_mode*(self: Layout, setting: bool) {.inline.} =
 # pango_layout_set_spacing
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# spacing 'int32' 'int32' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg spacing: INT32 'int32' 'int32' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_set_spacing(self: ptr TLayout, spacing: int32) {.cdecl, dynlib: lib, importc: "pango_layout_set_spacing".}
 proc set_spacing*(self: Layout, spacing: int32) {.inline.} =
   pango_layout_set_spacing(self, spacing)
@@ -2272,19 +2232,19 @@ proc set_spacing*(self: Layout, spacing: int32) {.inline.} =
 # pango_layout_set_tabs
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# tabs 'TTabArray' 'ptr TTabArray' IN (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg tabs: INTERFACE (STRUCT) 'ptr TTabArray' 'ptr TTabArray' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_set_tabs(self: ptr TLayout, tabs: ptr TTabArray) {.cdecl, dynlib: lib, importc: "pango_layout_set_tabs".}
-proc set_tabs*(self: Layout, tabs: TTabArray) {.inline.} =
-  pango_layout_set_tabs(self, myUnsafeAddr(tabs))
-# proc set_tabs*(self: Layout, tabs: TTabArray) {.inline.} =
+proc set_tabs*(self: Layout, tabs: ptr TTabArray) {.inline.} =
+  pango_layout_set_tabs(self, tabs)
+# proc set_tabs*(self: Layout, tabs: ptr TTabArray) {.inline.} =
 
 # pango_layout_set_text
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# text 'ustring' 'ucstring' IN (diff., need sugar)
-# length 'int32' 'int32' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg text: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# arg length: INT32 'int32' 'int32' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_set_text(self: ptr TLayout, text: ucstring, length: int32) {.cdecl, dynlib: lib, importc: "pango_layout_set_text".}
 proc set_text*(self: Layout, text: ustring, length: int32) {.inline.} =
   pango_layout_set_text(self, ucstring(text), length)
@@ -2293,8 +2253,8 @@ proc set_text*(self: Layout, text: ustring, length: int32) {.inline.} =
 # pango_layout_set_width
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# width 'int32' 'int32' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg width: INT32 'int32' 'int32' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_set_width(self: ptr TLayout, width: int32) {.cdecl, dynlib: lib, importc: "pango_layout_set_width".}
 proc set_width*(self: Layout, width: int32) {.inline.} =
   pango_layout_set_width(self, width)
@@ -2303,8 +2263,8 @@ proc set_width*(self: Layout, width: int32) {.inline.} =
 # pango_layout_set_wrap
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# wrap 'WrapMode' 'WrapMode' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg wrap: INTERFACE (ENUM) 'WrapMode' 'WrapMode' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_set_wrap(self: ptr TLayout, wrap: WrapMode) {.cdecl, dynlib: lib, importc: "pango_layout_set_wrap".}
 proc set_wrap*(self: Layout, wrap: WrapMode) {.inline.} =
   pango_layout_set_wrap(self, wrap)
@@ -2313,11 +2273,11 @@ proc set_wrap*(self: Layout, wrap: WrapMode) {.inline.} =
 # pango_layout_xy_to_index
 # flags: {isMethod} container: Layout
 # need sugar: is method
-# x 'int32' 'int32' IN
-# y 'int32' 'int32' IN
-# index_ 'var int32' 'ptr int32' OUT (diff., need sugar)
-# trailing 'var int32' 'ptr int32' OUT (diff., need sugar)
-# 'bool' 'bool'
+# arg x: INT32 'int32' 'int32' IN
+# arg y: INT32 'int32' 'int32' IN
+# arg index_: INT32 'var int32' 'ptr int32' OUT (diff., need sugar)
+# arg trailing: INT32 'var int32' 'ptr int32' OUT (diff., need sugar)
+# return: BOOLEAN 'bool' 'bool'
 proc pango_layout_xy_to_index(self: ptr TLayout, x: int32, y: int32, index_x: ptr int32, trailing: ptr int32): bool {.cdecl, dynlib: lib, importc: "pango_layout_xy_to_index".}
 proc xy_to_index*(self: Layout, x: int32, y: int32, index_x: var int32, trailing: var int32): bool {.inline.} =
   pango_layout_xy_to_index(self, x, y, addr(index_x), addr(trailing))
@@ -2326,10 +2286,13 @@ proc xy_to_index*(self: Layout, x: int32, y: int32, index_x: var int32, trailing
 # trailing: var int32
 # proc xy_to_index*(self: Layout, x: int32, y: int32): bool {.inline.} =
 
+# initializer for Renderer: pango_renderer_get_type
+proc pango_renderer_get_type(): GType {.cdecl, dynlib: lib, importc: "pango_renderer_get_type".}
+template gtype*(klass_parameter: typedesc[Renderer]): GType = pango_renderer_get_type()
 # pango_renderer_activate
 # flags: {isMethod} container: Renderer
 # need sugar: is method
-# 'VOID_TODO' 'VOID_TODO'
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_renderer_activate(self: ptr TRenderer) {.cdecl, dynlib: lib, importc: "pango_renderer_activate".}
 proc activate*(self: Renderer) {.inline.} =
   pango_renderer_activate(self)
@@ -2338,7 +2301,7 @@ proc activate*(self: Renderer) {.inline.} =
 # pango_renderer_deactivate
 # flags: {isMethod} container: Renderer
 # need sugar: is method
-# 'VOID_TODO' 'VOID_TODO'
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_renderer_deactivate(self: ptr TRenderer) {.cdecl, dynlib: lib, importc: "pango_renderer_deactivate".}
 proc deactivate*(self: Renderer) {.inline.} =
   pango_renderer_deactivate(self)
@@ -2347,11 +2310,11 @@ proc deactivate*(self: Renderer) {.inline.} =
 # pango_renderer_draw_error_underline
 # flags: {isMethod} container: Renderer
 # need sugar: is method
-# x 'int32' 'int32' IN
-# y 'int32' 'int32' IN
-# width 'int32' 'int32' IN
-# height 'int32' 'int32' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg x: INT32 'int32' 'int32' IN
+# arg y: INT32 'int32' 'int32' IN
+# arg width: INT32 'int32' 'int32' IN
+# arg height: INT32 'int32' 'int32' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_renderer_draw_error_underline(self: ptr TRenderer, x: int32, y: int32, width: int32, height: int32) {.cdecl, dynlib: lib, importc: "pango_renderer_draw_error_underline".}
 proc draw_error_underline*(self: Renderer, x: int32, y: int32, width: int32, height: int32) {.inline.} =
   pango_renderer_draw_error_underline(self, x, y, width, height)
@@ -2360,11 +2323,11 @@ proc draw_error_underline*(self: Renderer, x: int32, y: int32, width: int32, hei
 # pango_renderer_draw_glyph
 # flags: {isMethod} container: Renderer
 # need sugar: is method
-# font 'Font' 'ptr TFont' IN (diff., need sugar)
-# glyph 'uint32' 'uint32' IN
-# x 'float64' 'float64' IN
-# y 'float64' 'float64' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg font: INTERFACE (OBJECT) 'Font' 'ptr TFont' IN (diff., need sugar)
+# arg glyph: UINT32 'uint32' 'uint32' IN
+# arg x: DOUBLE 'float64' 'float64' IN
+# arg y: DOUBLE 'float64' 'float64' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_renderer_draw_glyph(self: ptr TRenderer, font: ptr TFont, glyph: uint32, x: float64, y: float64) {.cdecl, dynlib: lib, importc: "pango_renderer_draw_glyph".}
 proc draw_glyph*(self: Renderer, font: Font, glyph: uint32, x: float64, y: float64) {.inline.} =
   pango_renderer_draw_glyph(self, font.getPointer, glyph, x, y)
@@ -2373,36 +2336,36 @@ proc draw_glyph*(self: Renderer, font: Font, glyph: uint32, x: float64, y: float
 # pango_renderer_draw_glyph_item
 # flags: {isMethod} container: Renderer
 # need sugar: is method
-# text 'ustring' 'ucstring' IN (diff., need sugar)
-# glyph_item 'TGlyphItem' 'ptr TGlyphItem' IN (diff., need sugar)
-# x 'int32' 'int32' IN
-# y 'int32' 'int32' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg text: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# arg glyph_item: INTERFACE (STRUCT) 'ptr TGlyphItem' 'ptr TGlyphItem' IN
+# arg x: INT32 'int32' 'int32' IN
+# arg y: INT32 'int32' 'int32' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_renderer_draw_glyph_item(self: ptr TRenderer, text: ucstring, glyph_item: ptr TGlyphItem, x: int32, y: int32) {.cdecl, dynlib: lib, importc: "pango_renderer_draw_glyph_item".}
-proc draw_glyph_item*(self: Renderer, text: ustring, glyph_item: TGlyphItem, x: int32, y: int32) {.inline.} =
-  pango_renderer_draw_glyph_item(self, ucstring(text), myUnsafeAddr(glyph_item), x, y)
-# proc draw_glyph_item*(self: Renderer, text: ustring, glyph_item: TGlyphItem, x: int32, y: int32) {.inline.} =
+proc draw_glyph_item*(self: Renderer, text: ustring, glyph_item: ptr TGlyphItem, x: int32, y: int32) {.inline.} =
+  pango_renderer_draw_glyph_item(self, ucstring(text), glyph_item, x, y)
+# proc draw_glyph_item*(self: Renderer, text: ustring, glyph_item: ptr TGlyphItem, x: int32, y: int32) {.inline.} =
 
 # pango_renderer_draw_glyphs
 # flags: {isMethod} container: Renderer
 # need sugar: is method
-# font 'Font' 'ptr TFont' IN (diff., need sugar)
-# glyphs 'TGlyphString' 'ptr TGlyphString' IN (diff., need sugar)
-# x 'int32' 'int32' IN
-# y 'int32' 'int32' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg font: INTERFACE (OBJECT) 'Font' 'ptr TFont' IN (diff., need sugar)
+# arg glyphs: INTERFACE (STRUCT) 'ptr TGlyphString' 'ptr TGlyphString' IN
+# arg x: INT32 'int32' 'int32' IN
+# arg y: INT32 'int32' 'int32' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_renderer_draw_glyphs(self: ptr TRenderer, font: ptr TFont, glyphs: ptr TGlyphString, x: int32, y: int32) {.cdecl, dynlib: lib, importc: "pango_renderer_draw_glyphs".}
-proc draw_glyphs*(self: Renderer, font: Font, glyphs: TGlyphString, x: int32, y: int32) {.inline.} =
-  pango_renderer_draw_glyphs(self, font.getPointer, myUnsafeAddr(glyphs), x, y)
-# proc draw_glyphs*(self: Renderer, font: Font, glyphs: TGlyphString, x: int32, y: int32) {.inline.} =
+proc draw_glyphs*(self: Renderer, font: Font, glyphs: ptr TGlyphString, x: int32, y: int32) {.inline.} =
+  pango_renderer_draw_glyphs(self, font.getPointer, glyphs, x, y)
+# proc draw_glyphs*(self: Renderer, font: Font, glyphs: ptr TGlyphString, x: int32, y: int32) {.inline.} =
 
 # pango_renderer_draw_layout
 # flags: {isMethod} container: Renderer
 # need sugar: is method
-# layout 'Layout' 'ptr TLayout' IN (diff., need sugar)
-# x 'int32' 'int32' IN
-# y 'int32' 'int32' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg layout: INTERFACE (OBJECT) 'Layout' 'ptr TLayout' IN (diff., need sugar)
+# arg x: INT32 'int32' 'int32' IN
+# arg y: INT32 'int32' 'int32' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_renderer_draw_layout(self: ptr TRenderer, layout: ptr TLayout, x: int32, y: int32) {.cdecl, dynlib: lib, importc: "pango_renderer_draw_layout".}
 proc draw_layout*(self: Renderer, layout: Layout, x: int32, y: int32) {.inline.} =
   pango_renderer_draw_layout(self, layout.getPointer, x, y)
@@ -2411,24 +2374,24 @@ proc draw_layout*(self: Renderer, layout: Layout, x: int32, y: int32) {.inline.}
 # pango_renderer_draw_layout_line
 # flags: {isMethod} container: Renderer
 # need sugar: is method
-# line 'TLayoutLine' 'ptr TLayoutLine' IN (diff., need sugar)
-# x 'int32' 'int32' IN
-# y 'int32' 'int32' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg line: INTERFACE (STRUCT) 'ptr TLayoutLine' 'ptr TLayoutLine' IN
+# arg x: INT32 'int32' 'int32' IN
+# arg y: INT32 'int32' 'int32' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_renderer_draw_layout_line(self: ptr TRenderer, line: ptr TLayoutLine, x: int32, y: int32) {.cdecl, dynlib: lib, importc: "pango_renderer_draw_layout_line".}
-proc draw_layout_line*(self: Renderer, line: TLayoutLine, x: int32, y: int32) {.inline.} =
-  pango_renderer_draw_layout_line(self, myUnsafeAddr(line), x, y)
-# proc draw_layout_line*(self: Renderer, line: TLayoutLine, x: int32, y: int32) {.inline.} =
+proc draw_layout_line*(self: Renderer, line: ptr TLayoutLine, x: int32, y: int32) {.inline.} =
+  pango_renderer_draw_layout_line(self, line, x, y)
+# proc draw_layout_line*(self: Renderer, line: ptr TLayoutLine, x: int32, y: int32) {.inline.} =
 
 # pango_renderer_draw_rectangle
 # flags: {isMethod} container: Renderer
 # need sugar: is method
-# part 'RenderPart' 'RenderPart' IN
-# x 'int32' 'int32' IN
-# y 'int32' 'int32' IN
-# width 'int32' 'int32' IN
-# height 'int32' 'int32' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg part: INTERFACE (ENUM) 'RenderPart' 'RenderPart' IN
+# arg x: INT32 'int32' 'int32' IN
+# arg y: INT32 'int32' 'int32' IN
+# arg width: INT32 'int32' 'int32' IN
+# arg height: INT32 'int32' 'int32' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_renderer_draw_rectangle(self: ptr TRenderer, part: RenderPart, x: int32, y: int32, width: int32, height: int32) {.cdecl, dynlib: lib, importc: "pango_renderer_draw_rectangle".}
 proc draw_rectangle*(self: Renderer, part: RenderPart, x: int32, y: int32, width: int32, height: int32) {.inline.} =
   pango_renderer_draw_rectangle(self, part, x, y, width, height)
@@ -2437,33 +2400,43 @@ proc draw_rectangle*(self: Renderer, part: RenderPart, x: int32, y: int32, width
 # pango_renderer_draw_trapezoid
 # flags: {isMethod} container: Renderer
 # need sugar: is method
-# part 'RenderPart' 'RenderPart' IN
-# y1_ 'float64' 'float64' IN
-# x11 'float64' 'float64' IN
-# x21 'float64' 'float64' IN
-# y2 'float64' 'float64' IN
-# x12 'float64' 'float64' IN
-# x22 'float64' 'float64' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg part: INTERFACE (ENUM) 'RenderPart' 'RenderPart' IN
+# arg y1_: DOUBLE 'float64' 'float64' IN
+# arg x11: DOUBLE 'float64' 'float64' IN
+# arg x21: DOUBLE 'float64' 'float64' IN
+# arg y2: DOUBLE 'float64' 'float64' IN
+# arg x12: DOUBLE 'float64' 'float64' IN
+# arg x22: DOUBLE 'float64' 'float64' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_renderer_draw_trapezoid(self: ptr TRenderer, part: RenderPart, y1_x: float64, x11: float64, x21: float64, y2: float64, x12: float64, x22: float64) {.cdecl, dynlib: lib, importc: "pango_renderer_draw_trapezoid".}
 proc draw_trapezoid*(self: Renderer, part: RenderPart, y1_x: float64, x11: float64, x21: float64, y2: float64, x12: float64, x22: float64) {.inline.} =
   pango_renderer_draw_trapezoid(self, part, y1_x, x11, x21, y2, x12, x22)
 # proc draw_trapezoid*(self: Renderer, part: RenderPart, y1_x: float64, x11: float64, x21: float64, y2: float64, x12: float64, x22: float64) {.inline.} =
 
+# pango_renderer_get_alpha
+# flags: {isMethod} container: Renderer
+# need sugar: is method
+# arg part: INTERFACE (ENUM) 'RenderPart' 'RenderPart' IN
+# return: UINT16 'uint16' 'uint16'
+proc pango_renderer_get_alpha(self: ptr TRenderer, part: RenderPart): uint16 {.cdecl, dynlib: lib, importc: "pango_renderer_get_alpha".}
+proc get_alpha*(self: Renderer, part: RenderPart): uint16 {.inline.} =
+  pango_renderer_get_alpha(self, part)
+# proc get_alpha*(self: Renderer, part: RenderPart): uint16 {.inline.} =
+
 # pango_renderer_get_color
 # flags: {isMethod} container: Renderer
 # need sugar: is method
-# part 'RenderPart' 'RenderPart' IN
-# 'TColor' 'ptr TColor' (diff., need sugar)
+# arg part: INTERFACE (ENUM) 'RenderPart' 'RenderPart' IN
+# return: INTERFACE 'ptr TColor' 'ptr TColor'
 proc pango_renderer_get_color(self: ptr TRenderer, part: RenderPart): ptr TColor {.cdecl, dynlib: lib, importc: "pango_renderer_get_color".}
-proc get_color*(self: Renderer, part: RenderPart): TColor {.inline.} =
-  (pango_renderer_get_color(self, part))[]
-# proc get_color*(self: Renderer, part: RenderPart): TColor {.inline.} =
+proc get_color*(self: Renderer, part: RenderPart): ptr TColor {.inline.} =
+  pango_renderer_get_color(self, part)
+# proc get_color*(self: Renderer, part: RenderPart): ptr TColor {.inline.} =
 
 # pango_renderer_get_layout
 # flags: {isMethod} container: Renderer
 # need sugar: is method
-# 'Layout' 'TransferNone[TLayout]' (diff., need sugar)
+# return: INTERFACE 'Layout' 'TransferNone[TLayout]' (diff., need sugar)
 proc pango_renderer_get_layout(self: ptr TRenderer): TransferNone[TLayout] {.cdecl, dynlib: lib, importc: "pango_renderer_get_layout".}
 proc get_layout*(self: Renderer): Layout {.inline.} =
   wrap(pango_renderer_get_layout(self))
@@ -2472,51 +2445,62 @@ proc get_layout*(self: Renderer): Layout {.inline.} =
 # pango_renderer_get_layout_line
 # flags: {isMethod} container: Renderer
 # need sugar: is method
-# 'TLayoutLine' 'ptr TLayoutLine' (diff., need sugar)
+# return: INTERFACE 'ptr TLayoutLine' 'ptr TLayoutLine'
 proc pango_renderer_get_layout_line(self: ptr TRenderer): ptr TLayoutLine {.cdecl, dynlib: lib, importc: "pango_renderer_get_layout_line".}
-proc get_layout_line*(self: Renderer): TLayoutLine {.inline.} =
-  (pango_renderer_get_layout_line(self))[]
-# proc get_layout_line*(self: Renderer): TLayoutLine {.inline.} =
+proc get_layout_line*(self: Renderer): ptr TLayoutLine {.inline.} =
+  pango_renderer_get_layout_line(self)
+# proc get_layout_line*(self: Renderer): ptr TLayoutLine {.inline.} =
 
 # pango_renderer_get_matrix
 # flags: {isMethod} container: Renderer
 # need sugar: is method
-# 'TMatrix' 'ptr TMatrix' (diff., need sugar)
+# return: INTERFACE 'ptr TMatrix' 'ptr TMatrix'
 proc pango_renderer_get_matrix(self: ptr TRenderer): ptr TMatrix {.cdecl, dynlib: lib, importc: "pango_renderer_get_matrix".}
-proc get_matrix*(self: Renderer): TMatrix {.inline.} =
-  (pango_renderer_get_matrix(self))[]
-# proc get_matrix*(self: Renderer): TMatrix {.inline.} =
+proc get_matrix*(self: Renderer): ptr TMatrix {.inline.} =
+  pango_renderer_get_matrix(self)
+# proc get_matrix*(self: Renderer): ptr TMatrix {.inline.} =
 
 # pango_renderer_part_changed
 # flags: {isMethod} container: Renderer
 # need sugar: is method
-# part 'RenderPart' 'RenderPart' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg part: INTERFACE (ENUM) 'RenderPart' 'RenderPart' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_renderer_part_changed(self: ptr TRenderer, part: RenderPart) {.cdecl, dynlib: lib, importc: "pango_renderer_part_changed".}
 proc part_changed*(self: Renderer, part: RenderPart) {.inline.} =
   pango_renderer_part_changed(self, part)
 # proc part_changed*(self: Renderer, part: RenderPart) {.inline.} =
 
+# pango_renderer_set_alpha
+# flags: {isMethod} container: Renderer
+# need sugar: is method
+# arg part: INTERFACE (ENUM) 'RenderPart' 'RenderPart' IN
+# arg alpha: UINT16 'uint16' 'uint16' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
+proc pango_renderer_set_alpha(self: ptr TRenderer, part: RenderPart, alpha: uint16) {.cdecl, dynlib: lib, importc: "pango_renderer_set_alpha".}
+proc set_alpha*(self: Renderer, part: RenderPart, alpha: uint16) {.inline.} =
+  pango_renderer_set_alpha(self, part, alpha)
+# proc set_alpha*(self: Renderer, part: RenderPart, alpha: uint16) {.inline.} =
+
 # pango_renderer_set_color
 # flags: {isMethod} container: Renderer
 # need sugar: is method
-# part 'RenderPart' 'RenderPart' IN
-# color 'TColor' 'ptr TColor' IN (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg part: INTERFACE (ENUM) 'RenderPart' 'RenderPart' IN
+# arg color: INTERFACE (STRUCT) 'ptr TColor' 'ptr TColor' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_renderer_set_color(self: ptr TRenderer, part: RenderPart, color: ptr TColor) {.cdecl, dynlib: lib, importc: "pango_renderer_set_color".}
-proc set_color*(self: Renderer, part: RenderPart, color: TColor) {.inline.} =
-  pango_renderer_set_color(self, part, myUnsafeAddr(color))
-# proc set_color*(self: Renderer, part: RenderPart, color: TColor) {.inline.} =
+proc set_color*(self: Renderer, part: RenderPart, color: ptr TColor) {.inline.} =
+  pango_renderer_set_color(self, part, color)
+# proc set_color*(self: Renderer, part: RenderPart, color: ptr TColor) {.inline.} =
 
 # pango_renderer_set_matrix
 # flags: {isMethod} container: Renderer
 # need sugar: is method
-# matrix 'TMatrix' 'ptr TMatrix' IN (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg matrix: INTERFACE (STRUCT) 'ptr TMatrix' 'ptr TMatrix' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_renderer_set_matrix(self: ptr TRenderer, matrix: ptr TMatrix) {.cdecl, dynlib: lib, importc: "pango_renderer_set_matrix".}
-proc set_matrix*(self: Renderer, matrix: TMatrix) {.inline.} =
-  pango_renderer_set_matrix(self, myUnsafeAddr(matrix))
-# proc set_matrix*(self: Renderer, matrix: TMatrix) {.inline.} =
+proc set_matrix*(self: Renderer, matrix: ptr TMatrix) {.inline.} =
+  pango_renderer_set_matrix(self, matrix)
+# proc set_matrix*(self: Renderer, matrix: ptr TMatrix) {.inline.} =
 
 # object signals
 #------------------
@@ -2527,151 +2511,152 @@ proc set_matrix*(self: Renderer, matrix: TMatrix) {.inline.} =
 # struct AttrColor
 # struct AttrFloat
 # struct AttrFontDesc
+# struct AttrFontFeatures
 # struct AttrInt
 # struct AttrIterator
 # pango_attr_iterator_destroy
 # flags: {isMethod} container: AttrIterator
 # need sugar: is method
-# 'VOID_TODO' 'VOID_TODO'
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_attr_iterator_destroy(self: ptr TAttrIterator) {.cdecl, dynlib: lib, importc: "pango_attr_iterator_destroy".}
-proc destroy*(self: AttrIterator) {.inline.} =
+proc destroy*(self: ptr TAttrIterator) {.inline.} =
   pango_attr_iterator_destroy(self)
-# proc destroy*(self: AttrIterator) {.inline.} =
+# proc destroy*(self: ptr TAttrIterator) {.inline.} =
 
 # pango_attr_iterator_get_attrs
 # flags: {isMethod} container: AttrIterator
 # need sugar: is method
-# 'ptr GSLIST_TODO' 'ptr GSLIST_TODO'
+# return: GSLIST 'ptr GSLIST_TODO' 'ptr GSLIST_TODO'
 proc pango_attr_iterator_get_attrs(self: ptr TAttrIterator): ptr GSLIST_TODO {.cdecl, dynlib: lib, importc: "pango_attr_iterator_get_attrs".}
-proc get_attrs*(self: AttrIterator): ptr GSLIST_TODO {.inline.} =
+proc get_attrs*(self: ptr TAttrIterator): ptr GSLIST_TODO {.inline.} =
   pango_attr_iterator_get_attrs(self)
-# proc get_attrs*(self: AttrIterator): ptr GSLIST_TODO {.inline.} =
+# proc get_attrs*(self: ptr TAttrIterator): ptr GSLIST_TODO {.inline.} =
 
 # pango_attr_iterator_get_font
 # flags: {isMethod} container: AttrIterator
 # need sugar: is method
-# desc 'TFontDescription' 'ptr TFontDescription' IN (diff., need sugar)
-# language 'TLanguage' 'ptr TLanguage' IN (diff., need sugar)
-# extra_attrs 'ptr GSLIST_TODO' 'ptr GSLIST_TODO' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg desc: INTERFACE (STRUCT) 'ptr TFontDescription' 'ptr TFontDescription' IN
+# arg language: INTERFACE (STRUCT) 'ptr TLanguage' 'ptr TLanguage' IN
+# arg extra_attrs: GSLIST 'ptr GSLIST_TODO' 'ptr GSLIST_TODO' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_attr_iterator_get_font(self: ptr TAttrIterator, desc: ptr TFontDescription, language: ptr TLanguage, extra_attrs: ptr GSLIST_TODO) {.cdecl, dynlib: lib, importc: "pango_attr_iterator_get_font".}
-proc get_font*(self: AttrIterator, desc: TFontDescription, language: TLanguage, extra_attrs: ptr GSLIST_TODO) {.inline.} =
-  pango_attr_iterator_get_font(self, myUnsafeAddr(desc), myUnsafeAddr(language), extra_attrs)
-# proc get_font*(self: AttrIterator, desc: TFontDescription, language: TLanguage, extra_attrs: ptr GSLIST_TODO) {.inline.} =
+proc get_font*(self: ptr TAttrIterator, desc: ptr TFontDescription, language: ptr TLanguage, extra_attrs: ptr GSLIST_TODO) {.inline.} =
+  pango_attr_iterator_get_font(self, desc, language, extra_attrs)
+# proc get_font*(self: ptr TAttrIterator, desc: ptr TFontDescription, language: ptr TLanguage, extra_attrs: ptr GSLIST_TODO) {.inline.} =
 
 # pango_attr_iterator_next
 # flags: {isMethod} container: AttrIterator
 # need sugar: is method
-# 'bool' 'bool'
+# return: BOOLEAN 'bool' 'bool'
 proc pango_attr_iterator_next(self: ptr TAttrIterator): bool {.cdecl, dynlib: lib, importc: "pango_attr_iterator_next".}
-proc next*(self: AttrIterator): bool {.inline.} =
+proc next*(self: ptr TAttrIterator): bool {.inline.} =
   pango_attr_iterator_next(self)
-# proc next*(self: AttrIterator): bool {.inline.} =
+# proc next*(self: ptr TAttrIterator): bool {.inline.} =
 
 # pango_attr_iterator_range
 # flags: {isMethod} container: AttrIterator
 # need sugar: is method
-# start 'var int32' 'ptr int32' OUT (diff., need sugar)
-# end 'var int32' 'ptr int32' OUT (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg start: INT32 'var int32' 'ptr int32' OUT (diff., need sugar)
+# arg end: INT32 'var int32' 'ptr int32' OUT (diff., need sugar)
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_attr_iterator_range(self: ptr TAttrIterator, start: ptr int32, end_x: ptr int32) {.cdecl, dynlib: lib, importc: "pango_attr_iterator_range".}
-proc range*(self: AttrIterator, start: var int32, end_x: var int32) {.inline.} =
+proc range*(self: ptr TAttrIterator, start: var int32, end_x: var int32) {.inline.} =
   pango_attr_iterator_range(self, addr(start), addr(end_x))
 # tuple-return
 # start: var int32
 # end: var int32
-# proc range*(self: AttrIterator) {.inline.} =
+# proc range*(self: ptr TAttrIterator) {.inline.} =
 
 # struct AttrLanguage
 # struct AttrList
 # pango_attr_list_new
 # flags: {isConstructor} container: AttrList
 # need sugar: is static method
-# 'TAttrList' 'ptr TAttrList' (diff., need sugar)
+# return: INTERFACE 'ptr TAttrList' 'ptr TAttrList'
 proc pango_attr_list_new(): ptr TAttrList {.cdecl, dynlib: lib, importc: "pango_attr_list_new".}
-proc new_attrlist*(): TAttrList {.inline.} =
-  (pango_attr_list_new())[]
-# proc new_attrlist*(): TAttrList {.inline.} =
+proc new_attrlist*(): ptr TAttrList {.inline.} =
+  pango_attr_list_new()
+# proc new_attrlist*(): ptr TAttrList {.inline.} =
 
 # pango_attr_list_change
 # flags: {isMethod} container: AttrList
 # need sugar: is method
-# attr 'TAttribute' 'ptr TAttribute' IN (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg attr: INTERFACE (STRUCT) 'ptr TAttribute' 'ptr TAttribute' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_attr_list_change(self: ptr TAttrList, attr: ptr TAttribute) {.cdecl, dynlib: lib, importc: "pango_attr_list_change".}
-proc change*(self: AttrList, attr: TAttribute) {.inline.} =
-  pango_attr_list_change(self, myUnsafeAddr(attr))
-# proc change*(self: AttrList, attr: TAttribute) {.inline.} =
+proc change*(self: ptr TAttrList, attr: ptr TAttribute) {.inline.} =
+  pango_attr_list_change(self, attr)
+# proc change*(self: ptr TAttrList, attr: ptr TAttribute) {.inline.} =
 
 # pango_attr_list_copy
 # flags: {isMethod} container: AttrList
 # need sugar: is method
-# 'TAttrList' 'ptr TAttrList' (diff., need sugar)
+# return: INTERFACE 'ptr TAttrList' 'ptr TAttrList'
 proc pango_attr_list_copy(self: ptr TAttrList): ptr TAttrList {.cdecl, dynlib: lib, importc: "pango_attr_list_copy".}
-proc copy*(self: AttrList): TAttrList {.inline.} =
-  (pango_attr_list_copy(self))[]
-# proc copy*(self: AttrList): TAttrList {.inline.} =
+proc copy*(self: ptr TAttrList): ptr TAttrList {.inline.} =
+  pango_attr_list_copy(self)
+# proc copy*(self: ptr TAttrList): ptr TAttrList {.inline.} =
 
 # pango_attr_list_filter
 # flags: {isMethod} container: AttrList
 # need sugar: is method
-# func 'pointer' 'pointer' IN
-# data 'pointer' 'pointer' IN
-# 'TAttrList' 'ptr TAttrList' (diff., need sugar)
+# arg func: INTERFACE (CALLBACK) 'pointer' 'pointer' IN
+# arg data: VOID 'pointer' 'pointer' IN
+# return: INTERFACE 'ptr TAttrList' 'ptr TAttrList'
 proc pango_attr_list_filter(self: ptr TAttrList, func_x: pointer, data: pointer): ptr TAttrList {.cdecl, dynlib: lib, importc: "pango_attr_list_filter".}
-proc filter*(self: AttrList, func_x: pointer, data: pointer): TAttrList {.inline.} =
-  (pango_attr_list_filter(self, func_x, data))[]
-# proc filter*(self: AttrList, func_x: pointer, data: pointer): TAttrList {.inline.} =
+proc filter*(self: ptr TAttrList, func_x: pointer, data: pointer): ptr TAttrList {.inline.} =
+  pango_attr_list_filter(self, func_x, data)
+# proc filter*(self: ptr TAttrList, func_x: pointer, data: pointer): ptr TAttrList {.inline.} =
 
 # pango_attr_list_insert
 # flags: {isMethod} container: AttrList
 # need sugar: is method
-# attr 'TAttribute' 'ptr TAttribute' IN (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg attr: INTERFACE (STRUCT) 'ptr TAttribute' 'ptr TAttribute' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_attr_list_insert(self: ptr TAttrList, attr: ptr TAttribute) {.cdecl, dynlib: lib, importc: "pango_attr_list_insert".}
-proc insert*(self: AttrList, attr: TAttribute) {.inline.} =
-  pango_attr_list_insert(self, myUnsafeAddr(attr))
-# proc insert*(self: AttrList, attr: TAttribute) {.inline.} =
+proc insert*(self: ptr TAttrList, attr: ptr TAttribute) {.inline.} =
+  pango_attr_list_insert(self, attr)
+# proc insert*(self: ptr TAttrList, attr: ptr TAttribute) {.inline.} =
 
 # pango_attr_list_insert_before
 # flags: {isMethod} container: AttrList
 # need sugar: is method
-# attr 'TAttribute' 'ptr TAttribute' IN (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg attr: INTERFACE (STRUCT) 'ptr TAttribute' 'ptr TAttribute' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_attr_list_insert_before(self: ptr TAttrList, attr: ptr TAttribute) {.cdecl, dynlib: lib, importc: "pango_attr_list_insert_before".}
-proc insert_before*(self: AttrList, attr: TAttribute) {.inline.} =
-  pango_attr_list_insert_before(self, myUnsafeAddr(attr))
-# proc insert_before*(self: AttrList, attr: TAttribute) {.inline.} =
+proc insert_before*(self: ptr TAttrList, attr: ptr TAttribute) {.inline.} =
+  pango_attr_list_insert_before(self, attr)
+# proc insert_before*(self: ptr TAttrList, attr: ptr TAttribute) {.inline.} =
 
 # pango_attr_list_ref
 # flags: {isMethod} container: AttrList
 # need sugar: is method
-# 'TAttrList' 'ptr TAttrList' (diff., need sugar)
+# return: INTERFACE 'ptr TAttrList' 'ptr TAttrList'
 proc pango_attr_list_ref(self: ptr TAttrList): ptr TAttrList {.cdecl, dynlib: lib, importc: "pango_attr_list_ref".}
-proc ref_x*(self: AttrList): TAttrList {.inline.} =
-  (pango_attr_list_ref(self))[]
-# proc ref_x*(self: AttrList): TAttrList {.inline.} =
+proc ref_x*(self: ptr TAttrList): ptr TAttrList {.inline.} =
+  pango_attr_list_ref(self)
+# proc ref_x*(self: ptr TAttrList): ptr TAttrList {.inline.} =
 
 # pango_attr_list_splice
 # flags: {isMethod} container: AttrList
 # need sugar: is method
-# other 'TAttrList' 'ptr TAttrList' IN (diff., need sugar)
-# pos 'int32' 'int32' IN
-# len 'int32' 'int32' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg other: INTERFACE (STRUCT) 'ptr TAttrList' 'ptr TAttrList' IN
+# arg pos: INT32 'int32' 'int32' IN
+# arg len: INT32 'int32' 'int32' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_attr_list_splice(self: ptr TAttrList, other: ptr TAttrList, pos: int32, len: int32) {.cdecl, dynlib: lib, importc: "pango_attr_list_splice".}
-proc splice*(self: AttrList, other: TAttrList, pos: int32, len: int32) {.inline.} =
-  pango_attr_list_splice(self, myUnsafeAddr(other), pos, len)
-# proc splice*(self: AttrList, other: TAttrList, pos: int32, len: int32) {.inline.} =
+proc splice*(self: ptr TAttrList, other: ptr TAttrList, pos: int32, len: int32) {.inline.} =
+  pango_attr_list_splice(self, other, pos, len)
+# proc splice*(self: ptr TAttrList, other: ptr TAttrList, pos: int32, len: int32) {.inline.} =
 
 # pango_attr_list_unref
 # flags: {isMethod} container: AttrList
 # need sugar: is method
-# 'VOID_TODO' 'VOID_TODO'
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_attr_list_unref(self: ptr TAttrList) {.cdecl, dynlib: lib, importc: "pango_attr_list_unref".}
-proc unref*(self: AttrList) {.inline.} =
+proc unref*(self: ptr TAttrList) {.inline.} =
   pango_attr_list_unref(self)
-# proc unref*(self: AttrList) {.inline.} =
+# proc unref*(self: ptr TAttrList) {.inline.} =
 
 # struct AttrShape
 # struct AttrSize
@@ -2680,125 +2665,125 @@ proc unref*(self: AttrList) {.inline.} =
 # pango_attribute_destroy
 # flags: {isMethod} container: Attribute
 # need sugar: is method
-# 'VOID_TODO' 'VOID_TODO'
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_attribute_destroy(self: ptr TAttribute) {.cdecl, dynlib: lib, importc: "pango_attribute_destroy".}
-proc destroy*(self: Attribute) {.inline.} =
+proc destroy*(self: ptr TAttribute) {.inline.} =
   pango_attribute_destroy(self)
-# proc destroy*(self: Attribute) {.inline.} =
+# proc destroy*(self: ptr TAttribute) {.inline.} =
 
 # pango_attribute_equal
 # flags: {isMethod} container: Attribute
 # need sugar: is method
-# attr2 'TAttribute' 'ptr TAttribute' IN (diff., need sugar)
-# 'bool' 'bool'
+# arg attr2: INTERFACE (STRUCT) 'ptr TAttribute' 'ptr TAttribute' IN
+# return: BOOLEAN 'bool' 'bool'
 proc pango_attribute_equal(self: ptr TAttribute, attr2: ptr TAttribute): bool {.cdecl, dynlib: lib, importc: "pango_attribute_equal".}
-proc equal*(self: Attribute, attr2: TAttribute): bool {.inline.} =
-  pango_attribute_equal(self, myUnsafeAddr(attr2))
-# proc equal*(self: Attribute, attr2: TAttribute): bool {.inline.} =
+proc equal*(self: ptr TAttribute, attr2: ptr TAttribute): bool {.inline.} =
+  pango_attribute_equal(self, attr2)
+# proc equal*(self: ptr TAttribute, attr2: ptr TAttribute): bool {.inline.} =
 
 # pango_attribute_init
 # flags: {isMethod} container: Attribute
 # need sugar: is method
-# klass 'TAttrClass' 'ptr TAttrClass' IN (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg klass: INTERFACE (STRUCT) 'ptr TAttrClass' 'ptr TAttrClass' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_attribute_init(self: ptr TAttribute, klass: ptr TAttrClass) {.cdecl, dynlib: lib, importc: "pango_attribute_init".}
-proc init*(self: Attribute, klass: TAttrClass) {.inline.} =
-  pango_attribute_init(self, myUnsafeAddr(klass))
-# proc init*(self: Attribute, klass: TAttrClass) {.inline.} =
+proc init*(self: ptr TAttribute, klass: ptr TAttrClass) {.inline.} =
+  pango_attribute_init(self, klass)
+# proc init*(self: ptr TAttribute, klass: ptr TAttrClass) {.inline.} =
 
 # struct Color
 # pango_color_copy
 # flags: {isMethod} container: Color
 # need sugar: is method
-# 'TColor' 'ptr TColor' (diff., need sugar)
+# return: INTERFACE 'ptr TColor' 'ptr TColor'
 proc pango_color_copy(self: ptr TColor): ptr TColor {.cdecl, dynlib: lib, importc: "pango_color_copy".}
-proc copy*(self: Color): TColor {.inline.} =
-  (pango_color_copy(self))[]
-# proc copy*(self: Color): TColor {.inline.} =
+proc copy*(self: ptr TColor): ptr TColor {.inline.} =
+  pango_color_copy(self)
+# proc copy*(self: ptr TColor): ptr TColor {.inline.} =
 
 # pango_color_free
 # flags: {isMethod} container: Color
 # need sugar: is method
-# 'VOID_TODO' 'VOID_TODO'
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_color_free(self: ptr TColor) {.cdecl, dynlib: lib, importc: "pango_color_free".}
-proc free*(self: Color) {.inline.} =
+proc free*(self: ptr TColor) {.inline.} =
   pango_color_free(self)
-# proc free*(self: Color) {.inline.} =
+# proc free*(self: ptr TColor) {.inline.} =
 
 # pango_color_parse
 # flags: {isMethod} container: Color
 # need sugar: is method
-# spec 'ustring' 'ucstring' IN (diff., need sugar)
-# 'bool' 'bool'
+# arg spec: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# return: BOOLEAN 'bool' 'bool'
 proc pango_color_parse(self: ptr TColor, spec: ucstring): bool {.cdecl, dynlib: lib, importc: "pango_color_parse".}
-proc parse*(self: Color, spec: ustring): bool {.inline.} =
+proc parse*(self: ptr TColor, spec: ustring): bool {.inline.} =
   pango_color_parse(self, ucstring(spec))
-# proc parse*(self: Color, spec: ustring): bool {.inline.} =
+# proc parse*(self: ptr TColor, spec: ustring): bool {.inline.} =
 
 # pango_color_to_string
 # flags: {isMethod} container: Color
 # need sugar: is method
-# 'ustring' 'ucstring' (diff., need sugar)
+# return: UTF8 'ucstring' 'ucstring'
 proc pango_color_to_string(self: ptr TColor): ucstring {.cdecl, dynlib: lib, importc: "pango_color_to_string".}
-proc to_string*(self: Color): ustring {.inline.} =
-  ustring($(pango_color_to_string(self)))
-# proc to_string*(self: Color): ustring {.inline.} =
+proc to_string*(self: ptr TColor): ucstring {.inline.} =
+  pango_color_to_string(self)
+# proc to_string*(self: ptr TColor): ucstring {.inline.} =
 
 # struct ContextClass
 # struct Coverage
 # pango_coverage_get
 # flags: {isMethod} container: Coverage
 # need sugar: is method
-# index_ 'int32' 'int32' IN
-# 'CoverageLevel' 'CoverageLevel'
+# arg index_: INT32 'int32' 'int32' IN
+# return: INTERFACE 'CoverageLevel' 'CoverageLevel'
 proc pango_coverage_get(self: ptr TCoverage, index_x: int32): CoverageLevel {.cdecl, dynlib: lib, importc: "pango_coverage_get".}
-proc get*(self: Coverage, index_x: int32): CoverageLevel {.inline.} =
+proc get*(self: ptr TCoverage, index_x: int32): CoverageLevel {.inline.} =
   pango_coverage_get(self, index_x)
-# proc get*(self: Coverage, index_x: int32): CoverageLevel {.inline.} =
+# proc get*(self: ptr TCoverage, index_x: int32): CoverageLevel {.inline.} =
 
 # pango_coverage_max
 # flags: {isMethod} container: Coverage
 # need sugar: is method
-# other 'TCoverage' 'ptr TCoverage' IN (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg other: INTERFACE (STRUCT) 'ptr TCoverage' 'ptr TCoverage' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_coverage_max(self: ptr TCoverage, other: ptr TCoverage) {.cdecl, dynlib: lib, importc: "pango_coverage_max".}
-proc max*(self: Coverage, other: TCoverage) {.inline.} =
-  pango_coverage_max(self, myUnsafeAddr(other))
-# proc max*(self: Coverage, other: TCoverage) {.inline.} =
+proc max*(self: ptr TCoverage, other: ptr TCoverage) {.inline.} =
+  pango_coverage_max(self, other)
+# proc max*(self: ptr TCoverage, other: ptr TCoverage) {.inline.} =
 
 # pango_coverage_set
 # flags: {isMethod} container: Coverage
 # need sugar: is method
-# index_ 'int32' 'int32' IN
-# level 'CoverageLevel' 'CoverageLevel' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg index_: INT32 'int32' 'int32' IN
+# arg level: INTERFACE (ENUM) 'CoverageLevel' 'CoverageLevel' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_coverage_set(self: ptr TCoverage, index_x: int32, level: CoverageLevel) {.cdecl, dynlib: lib, importc: "pango_coverage_set".}
-proc set*(self: Coverage, index_x: int32, level: CoverageLevel) {.inline.} =
+proc set*(self: ptr TCoverage, index_x: int32, level: CoverageLevel) {.inline.} =
   pango_coverage_set(self, index_x, level)
-# proc set*(self: Coverage, index_x: int32, level: CoverageLevel) {.inline.} =
+# proc set*(self: ptr TCoverage, index_x: int32, level: CoverageLevel) {.inline.} =
 
 # pango_coverage_to_bytes
 # flags: {isMethod} container: Coverage
 # need sugar: is method
-# bytes 'string' 'cstring' OUT (diff., need sugar) array lengthArg: 1
-# n_bytes 'var int32' 'ptr int32' OUT (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg bytes: ARRAY 'string' 'cstring' OUT (diff., need sugar) array lengthArg: 1
+# arg n_bytes: INT32 'var int32' 'ptr int32' OUT (diff., need sugar)
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_coverage_to_bytes(self: ptr TCoverage, bytes: cstring, n_bytes: ptr int32) {.cdecl, dynlib: lib, importc: "pango_coverage_to_bytes".}
-proc to_bytes*(self: Coverage, bytes: string, n_bytes: var int32) {.inline.} =
+proc to_bytes*(self: ptr TCoverage, bytes: string, n_bytes: var int32) {.inline.} =
   pango_coverage_to_bytes(self, cstring(bytes), addr(n_bytes))
 # tuple-return
 # bytes: string
 # n_bytes: var int32
-# proc to_bytes*(self: Coverage) {.inline.} =
+# proc to_bytes*(self: ptr TCoverage) {.inline.} =
 
 # pango_coverage_unref
 # flags: {isMethod} container: Coverage
 # need sugar: is method
-# 'VOID_TODO' 'VOID_TODO'
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_coverage_unref(self: ptr TCoverage) {.cdecl, dynlib: lib, importc: "pango_coverage_unref".}
-proc unref*(self: Coverage) {.inline.} =
+proc unref*(self: ptr TCoverage) {.inline.} =
   pango_coverage_unref(self)
-# proc unref*(self: Coverage) {.inline.} =
+# proc unref*(self: ptr TCoverage) {.inline.} =
 
 # struct EngineClass
 # struct EngineInfo
@@ -2810,300 +2795,300 @@ proc unref*(self: Coverage) {.inline.} =
 # pango_font_description_new
 # flags: {isConstructor} container: FontDescription
 # need sugar: is static method
-# 'TFontDescription' 'ptr TFontDescription' (diff., need sugar)
+# return: INTERFACE 'ptr TFontDescription' 'ptr TFontDescription'
 proc pango_font_description_new(): ptr TFontDescription {.cdecl, dynlib: lib, importc: "pango_font_description_new".}
-proc new_fontdescription*(): TFontDescription {.inline.} =
-  (pango_font_description_new())[]
-# proc new_fontdescription*(): TFontDescription {.inline.} =
+proc new_fontdescription*(): ptr TFontDescription {.inline.} =
+  pango_font_description_new()
+# proc new_fontdescription*(): ptr TFontDescription {.inline.} =
 
 # pango_font_description_better_match
 # flags: {isMethod} container: FontDescription
 # need sugar: is method
-# old_match 'TFontDescription' 'ptr TFontDescription' IN (diff., need sugar)
-# new_match 'TFontDescription' 'ptr TFontDescription' IN (diff., need sugar)
-# 'bool' 'bool'
+# arg old_match: INTERFACE (STRUCT) 'ptr TFontDescription' 'ptr TFontDescription' IN
+# arg new_match: INTERFACE (STRUCT) 'ptr TFontDescription' 'ptr TFontDescription' IN
+# return: BOOLEAN 'bool' 'bool'
 proc pango_font_description_better_match(self: ptr TFontDescription, old_match: ptr TFontDescription, new_match: ptr TFontDescription): bool {.cdecl, dynlib: lib, importc: "pango_font_description_better_match".}
-proc better_match*(self: FontDescription, old_match: TFontDescription, new_match: TFontDescription): bool {.inline.} =
-  pango_font_description_better_match(self, myUnsafeAddr(old_match), myUnsafeAddr(new_match))
-# proc better_match*(self: FontDescription, old_match: TFontDescription, new_match: TFontDescription): bool {.inline.} =
+proc better_match*(self: ptr TFontDescription, old_match: ptr TFontDescription, new_match: ptr TFontDescription): bool {.inline.} =
+  pango_font_description_better_match(self, old_match, new_match)
+# proc better_match*(self: ptr TFontDescription, old_match: ptr TFontDescription, new_match: ptr TFontDescription): bool {.inline.} =
 
 # pango_font_description_copy
 # flags: {isMethod} container: FontDescription
 # need sugar: is method
-# 'TFontDescription' 'ptr TFontDescription' (diff., need sugar)
+# return: INTERFACE 'ptr TFontDescription' 'ptr TFontDescription'
 proc pango_font_description_copy(self: ptr TFontDescription): ptr TFontDescription {.cdecl, dynlib: lib, importc: "pango_font_description_copy".}
-proc copy*(self: FontDescription): TFontDescription {.inline.} =
-  (pango_font_description_copy(self))[]
-# proc copy*(self: FontDescription): TFontDescription {.inline.} =
+proc copy*(self: ptr TFontDescription): ptr TFontDescription {.inline.} =
+  pango_font_description_copy(self)
+# proc copy*(self: ptr TFontDescription): ptr TFontDescription {.inline.} =
 
 # pango_font_description_copy_static
 # flags: {isMethod} container: FontDescription
 # need sugar: is method
-# 'TFontDescription' 'ptr TFontDescription' (diff., need sugar)
+# return: INTERFACE 'ptr TFontDescription' 'ptr TFontDescription'
 proc pango_font_description_copy_static(self: ptr TFontDescription): ptr TFontDescription {.cdecl, dynlib: lib, importc: "pango_font_description_copy_static".}
-proc copy_static*(self: FontDescription): TFontDescription {.inline.} =
-  (pango_font_description_copy_static(self))[]
-# proc copy_static*(self: FontDescription): TFontDescription {.inline.} =
+proc copy_static*(self: ptr TFontDescription): ptr TFontDescription {.inline.} =
+  pango_font_description_copy_static(self)
+# proc copy_static*(self: ptr TFontDescription): ptr TFontDescription {.inline.} =
 
 # pango_font_description_equal
 # flags: {isMethod} container: FontDescription
 # need sugar: is method
-# desc2 'TFontDescription' 'ptr TFontDescription' IN (diff., need sugar)
-# 'bool' 'bool'
+# arg desc2: INTERFACE (STRUCT) 'ptr TFontDescription' 'ptr TFontDescription' IN
+# return: BOOLEAN 'bool' 'bool'
 proc pango_font_description_equal(self: ptr TFontDescription, desc2: ptr TFontDescription): bool {.cdecl, dynlib: lib, importc: "pango_font_description_equal".}
-proc equal*(self: FontDescription, desc2: TFontDescription): bool {.inline.} =
-  pango_font_description_equal(self, myUnsafeAddr(desc2))
-# proc equal*(self: FontDescription, desc2: TFontDescription): bool {.inline.} =
+proc equal*(self: ptr TFontDescription, desc2: ptr TFontDescription): bool {.inline.} =
+  pango_font_description_equal(self, desc2)
+# proc equal*(self: ptr TFontDescription, desc2: ptr TFontDescription): bool {.inline.} =
 
 # pango_font_description_free
 # flags: {isMethod} container: FontDescription
 # need sugar: is method
-# 'VOID_TODO' 'VOID_TODO'
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_font_description_free(self: ptr TFontDescription) {.cdecl, dynlib: lib, importc: "pango_font_description_free".}
-proc free*(self: FontDescription) {.inline.} =
+proc free*(self: ptr TFontDescription) {.inline.} =
   pango_font_description_free(self)
-# proc free*(self: FontDescription) {.inline.} =
+# proc free*(self: ptr TFontDescription) {.inline.} =
 
 # pango_font_description_get_family
 # flags: {isMethod} container: FontDescription
 # need sugar: is method
-# 'ustring' 'ucstring' (diff., need sugar)
+# return: UTF8 'ucstring' 'ucstring'
 proc pango_font_description_get_family(self: ptr TFontDescription): ucstring {.cdecl, dynlib: lib, importc: "pango_font_description_get_family".}
-proc get_family*(self: FontDescription): ustring {.inline.} =
-  ustring($(pango_font_description_get_family(self)))
-# proc get_family*(self: FontDescription): ustring {.inline.} =
+proc get_family*(self: ptr TFontDescription): ucstring {.inline.} =
+  pango_font_description_get_family(self)
+# proc get_family*(self: ptr TFontDescription): ucstring {.inline.} =
 
 # pango_font_description_get_gravity
 # flags: {isMethod} container: FontDescription
 # need sugar: is method
-# 'Gravity' 'Gravity'
+# return: INTERFACE 'Gravity' 'Gravity'
 proc pango_font_description_get_gravity(self: ptr TFontDescription): Gravity {.cdecl, dynlib: lib, importc: "pango_font_description_get_gravity".}
-proc get_gravity*(self: FontDescription): Gravity {.inline.} =
+proc get_gravity*(self: ptr TFontDescription): Gravity {.inline.} =
   pango_font_description_get_gravity(self)
-# proc get_gravity*(self: FontDescription): Gravity {.inline.} =
+# proc get_gravity*(self: ptr TFontDescription): Gravity {.inline.} =
 
 # pango_font_description_get_set_fields
 # flags: {isMethod} container: FontDescription
 # need sugar: is method
-# 'SFontMask' 'SFontMask'
+# return: INTERFACE 'SFontMask' 'SFontMask'
 proc pango_font_description_get_set_fields(self: ptr TFontDescription): SFontMask {.cdecl, dynlib: lib, importc: "pango_font_description_get_set_fields".}
-proc get_set_fields*(self: FontDescription): SFontMask {.inline.} =
+proc get_set_fields*(self: ptr TFontDescription): SFontMask {.inline.} =
   pango_font_description_get_set_fields(self)
-# proc get_set_fields*(self: FontDescription): SFontMask {.inline.} =
+# proc get_set_fields*(self: ptr TFontDescription): SFontMask {.inline.} =
 
 # pango_font_description_get_size
 # flags: {isMethod} container: FontDescription
 # need sugar: is method
-# 'int32' 'int32'
+# return: INT32 'int32' 'int32'
 proc pango_font_description_get_size(self: ptr TFontDescription): int32 {.cdecl, dynlib: lib, importc: "pango_font_description_get_size".}
-proc get_size*(self: FontDescription): int32 {.inline.} =
+proc get_size*(self: ptr TFontDescription): int32 {.inline.} =
   pango_font_description_get_size(self)
-# proc get_size*(self: FontDescription): int32 {.inline.} =
+# proc get_size*(self: ptr TFontDescription): int32 {.inline.} =
 
 # pango_font_description_get_size_is_absolute
 # flags: {isMethod} container: FontDescription
 # need sugar: is method
-# 'bool' 'bool'
+# return: BOOLEAN 'bool' 'bool'
 proc pango_font_description_get_size_is_absolute(self: ptr TFontDescription): bool {.cdecl, dynlib: lib, importc: "pango_font_description_get_size_is_absolute".}
-proc get_size_is_absolute*(self: FontDescription): bool {.inline.} =
+proc get_size_is_absolute*(self: ptr TFontDescription): bool {.inline.} =
   pango_font_description_get_size_is_absolute(self)
-# proc get_size_is_absolute*(self: FontDescription): bool {.inline.} =
+# proc get_size_is_absolute*(self: ptr TFontDescription): bool {.inline.} =
 
 # pango_font_description_get_stretch
 # flags: {isMethod} container: FontDescription
 # need sugar: is method
-# 'Stretch' 'Stretch'
+# return: INTERFACE 'Stretch' 'Stretch'
 proc pango_font_description_get_stretch(self: ptr TFontDescription): Stretch {.cdecl, dynlib: lib, importc: "pango_font_description_get_stretch".}
-proc get_stretch*(self: FontDescription): Stretch {.inline.} =
+proc get_stretch*(self: ptr TFontDescription): Stretch {.inline.} =
   pango_font_description_get_stretch(self)
-# proc get_stretch*(self: FontDescription): Stretch {.inline.} =
+# proc get_stretch*(self: ptr TFontDescription): Stretch {.inline.} =
 
 # pango_font_description_get_style
 # flags: {isMethod} container: FontDescription
 # need sugar: is method
-# 'Style' 'Style'
+# return: INTERFACE 'Style' 'Style'
 proc pango_font_description_get_style(self: ptr TFontDescription): Style {.cdecl, dynlib: lib, importc: "pango_font_description_get_style".}
-proc get_style*(self: FontDescription): Style {.inline.} =
+proc get_style*(self: ptr TFontDescription): Style {.inline.} =
   pango_font_description_get_style(self)
-# proc get_style*(self: FontDescription): Style {.inline.} =
+# proc get_style*(self: ptr TFontDescription): Style {.inline.} =
 
 # pango_font_description_get_variant
 # flags: {isMethod} container: FontDescription
 # need sugar: is method
-# 'Variant' 'Variant'
+# return: INTERFACE 'Variant' 'Variant'
 proc pango_font_description_get_variant(self: ptr TFontDescription): Variant {.cdecl, dynlib: lib, importc: "pango_font_description_get_variant".}
-proc get_variant*(self: FontDescription): Variant {.inline.} =
+proc get_variant*(self: ptr TFontDescription): Variant {.inline.} =
   pango_font_description_get_variant(self)
-# proc get_variant*(self: FontDescription): Variant {.inline.} =
+# proc get_variant*(self: ptr TFontDescription): Variant {.inline.} =
 
 # pango_font_description_get_weight
 # flags: {isMethod} container: FontDescription
 # need sugar: is method
-# 'Weight' 'Weight'
+# return: INTERFACE 'Weight' 'Weight'
 proc pango_font_description_get_weight(self: ptr TFontDescription): Weight {.cdecl, dynlib: lib, importc: "pango_font_description_get_weight".}
-proc get_weight*(self: FontDescription): Weight {.inline.} =
+proc get_weight*(self: ptr TFontDescription): Weight {.inline.} =
   pango_font_description_get_weight(self)
-# proc get_weight*(self: FontDescription): Weight {.inline.} =
+# proc get_weight*(self: ptr TFontDescription): Weight {.inline.} =
 
 # pango_font_description_hash
 # flags: {isMethod} container: FontDescription
 # need sugar: is method
-# 'uint32' 'uint32'
+# return: UINT32 'uint32' 'uint32'
 proc pango_font_description_hash(self: ptr TFontDescription): uint32 {.cdecl, dynlib: lib, importc: "pango_font_description_hash".}
-proc hash*(self: FontDescription): uint32 {.inline.} =
+proc hash*(self: ptr TFontDescription): uint32 {.inline.} =
   pango_font_description_hash(self)
-# proc hash*(self: FontDescription): uint32 {.inline.} =
+# proc hash*(self: ptr TFontDescription): uint32 {.inline.} =
 
 # pango_font_description_merge
 # flags: {isMethod} container: FontDescription
 # need sugar: is method
-# desc_to_merge 'TFontDescription' 'ptr TFontDescription' IN (diff., need sugar)
-# replace_existing 'bool' 'bool' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg desc_to_merge: INTERFACE (STRUCT) 'ptr TFontDescription' 'ptr TFontDescription' IN
+# arg replace_existing: BOOLEAN 'bool' 'bool' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_font_description_merge(self: ptr TFontDescription, desc_to_merge: ptr TFontDescription, replace_existing: bool) {.cdecl, dynlib: lib, importc: "pango_font_description_merge".}
-proc merge*(self: FontDescription, desc_to_merge: TFontDescription, replace_existing: bool) {.inline.} =
-  pango_font_description_merge(self, myUnsafeAddr(desc_to_merge), replace_existing)
-# proc merge*(self: FontDescription, desc_to_merge: TFontDescription, replace_existing: bool) {.inline.} =
+proc merge*(self: ptr TFontDescription, desc_to_merge: ptr TFontDescription, replace_existing: bool) {.inline.} =
+  pango_font_description_merge(self, desc_to_merge, replace_existing)
+# proc merge*(self: ptr TFontDescription, desc_to_merge: ptr TFontDescription, replace_existing: bool) {.inline.} =
 
 # pango_font_description_merge_static
 # flags: {isMethod} container: FontDescription
 # need sugar: is method
-# desc_to_merge 'TFontDescription' 'ptr TFontDescription' IN (diff., need sugar)
-# replace_existing 'bool' 'bool' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg desc_to_merge: INTERFACE (STRUCT) 'ptr TFontDescription' 'ptr TFontDescription' IN
+# arg replace_existing: BOOLEAN 'bool' 'bool' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_font_description_merge_static(self: ptr TFontDescription, desc_to_merge: ptr TFontDescription, replace_existing: bool) {.cdecl, dynlib: lib, importc: "pango_font_description_merge_static".}
-proc merge_static*(self: FontDescription, desc_to_merge: TFontDescription, replace_existing: bool) {.inline.} =
-  pango_font_description_merge_static(self, myUnsafeAddr(desc_to_merge), replace_existing)
-# proc merge_static*(self: FontDescription, desc_to_merge: TFontDescription, replace_existing: bool) {.inline.} =
+proc merge_static*(self: ptr TFontDescription, desc_to_merge: ptr TFontDescription, replace_existing: bool) {.inline.} =
+  pango_font_description_merge_static(self, desc_to_merge, replace_existing)
+# proc merge_static*(self: ptr TFontDescription, desc_to_merge: ptr TFontDescription, replace_existing: bool) {.inline.} =
 
 # pango_font_description_set_absolute_size
 # flags: {isMethod} container: FontDescription
 # need sugar: is method
-# size 'float64' 'float64' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg size: DOUBLE 'float64' 'float64' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_font_description_set_absolute_size(self: ptr TFontDescription, size: float64) {.cdecl, dynlib: lib, importc: "pango_font_description_set_absolute_size".}
-proc set_absolute_size*(self: FontDescription, size: float64) {.inline.} =
+proc set_absolute_size*(self: ptr TFontDescription, size: float64) {.inline.} =
   pango_font_description_set_absolute_size(self, size)
-# proc set_absolute_size*(self: FontDescription, size: float64) {.inline.} =
+# proc set_absolute_size*(self: ptr TFontDescription, size: float64) {.inline.} =
 
 # pango_font_description_set_family
 # flags: {isMethod} container: FontDescription
 # need sugar: is method
-# family 'ustring' 'ucstring' IN (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg family: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_font_description_set_family(self: ptr TFontDescription, family: ucstring) {.cdecl, dynlib: lib, importc: "pango_font_description_set_family".}
-proc set_family*(self: FontDescription, family: ustring) {.inline.} =
+proc set_family*(self: ptr TFontDescription, family: ustring) {.inline.} =
   pango_font_description_set_family(self, ucstring(family))
-# proc set_family*(self: FontDescription, family: ustring) {.inline.} =
+# proc set_family*(self: ptr TFontDescription, family: ustring) {.inline.} =
 
 # pango_font_description_set_family_static
 # flags: {isMethod} container: FontDescription
 # need sugar: is method
-# family 'ustring' 'ucstring' IN (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg family: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_font_description_set_family_static(self: ptr TFontDescription, family: ucstring) {.cdecl, dynlib: lib, importc: "pango_font_description_set_family_static".}
-proc set_family_static*(self: FontDescription, family: ustring) {.inline.} =
+proc set_family_static*(self: ptr TFontDescription, family: ustring) {.inline.} =
   pango_font_description_set_family_static(self, ucstring(family))
-# proc set_family_static*(self: FontDescription, family: ustring) {.inline.} =
+# proc set_family_static*(self: ptr TFontDescription, family: ustring) {.inline.} =
 
 # pango_font_description_set_gravity
 # flags: {isMethod} container: FontDescription
 # need sugar: is method
-# gravity 'Gravity' 'Gravity' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg gravity: INTERFACE (ENUM) 'Gravity' 'Gravity' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_font_description_set_gravity(self: ptr TFontDescription, gravity: Gravity) {.cdecl, dynlib: lib, importc: "pango_font_description_set_gravity".}
-proc set_gravity*(self: FontDescription, gravity: Gravity) {.inline.} =
+proc set_gravity*(self: ptr TFontDescription, gravity: Gravity) {.inline.} =
   pango_font_description_set_gravity(self, gravity)
-# proc set_gravity*(self: FontDescription, gravity: Gravity) {.inline.} =
+# proc set_gravity*(self: ptr TFontDescription, gravity: Gravity) {.inline.} =
 
 # pango_font_description_set_size
 # flags: {isMethod} container: FontDescription
 # need sugar: is method
-# size 'int32' 'int32' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg size: INT32 'int32' 'int32' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_font_description_set_size(self: ptr TFontDescription, size: int32) {.cdecl, dynlib: lib, importc: "pango_font_description_set_size".}
-proc set_size*(self: FontDescription, size: int32) {.inline.} =
+proc set_size*(self: ptr TFontDescription, size: int32) {.inline.} =
   pango_font_description_set_size(self, size)
-# proc set_size*(self: FontDescription, size: int32) {.inline.} =
+# proc set_size*(self: ptr TFontDescription, size: int32) {.inline.} =
 
 # pango_font_description_set_stretch
 # flags: {isMethod} container: FontDescription
 # need sugar: is method
-# stretch 'Stretch' 'Stretch' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg stretch: INTERFACE (ENUM) 'Stretch' 'Stretch' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_font_description_set_stretch(self: ptr TFontDescription, stretch: Stretch) {.cdecl, dynlib: lib, importc: "pango_font_description_set_stretch".}
-proc set_stretch*(self: FontDescription, stretch: Stretch) {.inline.} =
+proc set_stretch*(self: ptr TFontDescription, stretch: Stretch) {.inline.} =
   pango_font_description_set_stretch(self, stretch)
-# proc set_stretch*(self: FontDescription, stretch: Stretch) {.inline.} =
+# proc set_stretch*(self: ptr TFontDescription, stretch: Stretch) {.inline.} =
 
 # pango_font_description_set_style
 # flags: {isMethod} container: FontDescription
 # need sugar: is method
-# style 'Style' 'Style' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg style: INTERFACE (ENUM) 'Style' 'Style' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_font_description_set_style(self: ptr TFontDescription, style: Style) {.cdecl, dynlib: lib, importc: "pango_font_description_set_style".}
-proc set_style*(self: FontDescription, style: Style) {.inline.} =
+proc set_style*(self: ptr TFontDescription, style: Style) {.inline.} =
   pango_font_description_set_style(self, style)
-# proc set_style*(self: FontDescription, style: Style) {.inline.} =
+# proc set_style*(self: ptr TFontDescription, style: Style) {.inline.} =
 
 # pango_font_description_set_variant
 # flags: {isMethod} container: FontDescription
 # need sugar: is method
-# variant 'Variant' 'Variant' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg variant: INTERFACE (ENUM) 'Variant' 'Variant' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_font_description_set_variant(self: ptr TFontDescription, variant: Variant) {.cdecl, dynlib: lib, importc: "pango_font_description_set_variant".}
-proc set_variant*(self: FontDescription, variant: Variant) {.inline.} =
+proc set_variant*(self: ptr TFontDescription, variant: Variant) {.inline.} =
   pango_font_description_set_variant(self, variant)
-# proc set_variant*(self: FontDescription, variant: Variant) {.inline.} =
+# proc set_variant*(self: ptr TFontDescription, variant: Variant) {.inline.} =
 
 # pango_font_description_set_weight
 # flags: {isMethod} container: FontDescription
 # need sugar: is method
-# weight 'Weight' 'Weight' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg weight: INTERFACE (ENUM) 'Weight' 'Weight' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_font_description_set_weight(self: ptr TFontDescription, weight: Weight) {.cdecl, dynlib: lib, importc: "pango_font_description_set_weight".}
-proc set_weight*(self: FontDescription, weight: Weight) {.inline.} =
+proc set_weight*(self: ptr TFontDescription, weight: Weight) {.inline.} =
   pango_font_description_set_weight(self, weight)
-# proc set_weight*(self: FontDescription, weight: Weight) {.inline.} =
+# proc set_weight*(self: ptr TFontDescription, weight: Weight) {.inline.} =
 
 # pango_font_description_to_filename
 # flags: {isMethod} container: FontDescription
 # need sugar: is method
-# 'ustring' 'ucstring' (diff., need sugar)
+# return: UTF8 'ucstring' 'ucstring'
 proc pango_font_description_to_filename(self: ptr TFontDescription): ucstring {.cdecl, dynlib: lib, importc: "pango_font_description_to_filename".}
-proc to_filename*(self: FontDescription): ustring {.inline.} =
-  ustring($(pango_font_description_to_filename(self)))
-# proc to_filename*(self: FontDescription): ustring {.inline.} =
+proc to_filename*(self: ptr TFontDescription): ucstring {.inline.} =
+  pango_font_description_to_filename(self)
+# proc to_filename*(self: ptr TFontDescription): ucstring {.inline.} =
 
 # pango_font_description_to_string
 # flags: {isMethod} container: FontDescription
 # need sugar: is method
-# 'ustring' 'ucstring' (diff., need sugar)
+# return: UTF8 'ucstring' 'ucstring'
 proc pango_font_description_to_string(self: ptr TFontDescription): ucstring {.cdecl, dynlib: lib, importc: "pango_font_description_to_string".}
-proc to_string*(self: FontDescription): ustring {.inline.} =
-  ustring($(pango_font_description_to_string(self)))
-# proc to_string*(self: FontDescription): ustring {.inline.} =
+proc to_string*(self: ptr TFontDescription): ucstring {.inline.} =
+  pango_font_description_to_string(self)
+# proc to_string*(self: ptr TFontDescription): ucstring {.inline.} =
 
 # pango_font_description_unset_fields
 # flags: {isMethod} container: FontDescription
 # need sugar: is method
-# to_unset 'SFontMask' 'SFontMask' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg to_unset: INTERFACE (FLAGS) 'SFontMask' 'SFontMask' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_font_description_unset_fields(self: ptr TFontDescription, to_unset: SFontMask) {.cdecl, dynlib: lib, importc: "pango_font_description_unset_fields".}
-proc unset_fields*(self: FontDescription, to_unset: SFontMask) {.inline.} =
+proc unset_fields*(self: ptr TFontDescription, to_unset: SFontMask) {.inline.} =
   pango_font_description_unset_fields(self, to_unset)
-# proc unset_fields*(self: FontDescription, to_unset: SFontMask) {.inline.} =
+# proc unset_fields*(self: ptr TFontDescription, to_unset: SFontMask) {.inline.} =
 
 # pango_font_description_from_string
 # flags: {} container: FontDescription
 # need sugar: is static method
-# str 'ustring' 'ucstring' IN (diff., need sugar)
-# 'TFontDescription' 'ptr TFontDescription' (diff., need sugar)
+# arg str: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# return: INTERFACE 'ptr TFontDescription' 'ptr TFontDescription'
 # warning, already written a prototype with the name of pango_font_description_from_string
 # proc pango_font_description_from_string(str: ucstring): ptr TFontDescription {.cdecl, dynlib: lib, importc: "pango_font_description_from_string".}
-template from_string*(klass_parameter: typedesc[FontDescription], str: ustring): TFontDescription =
-  (pango_font_description_from_string(ucstring(str)))[]
-# template from_string*(klass_parameter: typedesc[FontDescription], str: ustring): TFontDescription =
+template from_string*(klass_parameter: typedesc[TFontDescription], str: ustring): ptr TFontDescription =
+  pango_font_description_from_string(ucstring(str))
+# template from_string*(klass_parameter: typedesc[TFontDescription], str: ustring): ptr TFontDescription =
 
 # struct FontFaceClass
 # struct FontFamilyClass
@@ -3112,101 +3097,101 @@ template from_string*(klass_parameter: typedesc[FontDescription], str: ustring):
 # pango_font_metrics_new
 # flags: {isConstructor} container: FontMetrics
 # need sugar: is static method
-# 'TFontMetrics' 'ptr TFontMetrics' (diff., need sugar)
+# return: INTERFACE 'ptr TFontMetrics' 'ptr TFontMetrics'
 proc pango_font_metrics_new(): ptr TFontMetrics {.cdecl, dynlib: lib, importc: "pango_font_metrics_new".}
-proc new_fontmetrics*(): TFontMetrics {.inline.} =
-  (pango_font_metrics_new())[]
-# proc new_fontmetrics*(): TFontMetrics {.inline.} =
+proc new_fontmetrics*(): ptr TFontMetrics {.inline.} =
+  pango_font_metrics_new()
+# proc new_fontmetrics*(): ptr TFontMetrics {.inline.} =
 
 # pango_font_metrics_get_approximate_char_width
 # flags: {isMethod} container: FontMetrics
 # need sugar: is method
-# 'int32' 'int32'
+# return: INT32 'int32' 'int32'
 proc pango_font_metrics_get_approximate_char_width(self: ptr TFontMetrics): int32 {.cdecl, dynlib: lib, importc: "pango_font_metrics_get_approximate_char_width".}
-proc get_approximate_char_width*(self: FontMetrics): int32 {.inline.} =
+proc get_approximate_char_width*(self: ptr TFontMetrics): int32 {.inline.} =
   pango_font_metrics_get_approximate_char_width(self)
-# proc get_approximate_char_width*(self: FontMetrics): int32 {.inline.} =
+# proc get_approximate_char_width*(self: ptr TFontMetrics): int32 {.inline.} =
 
 # pango_font_metrics_get_approximate_digit_width
 # flags: {isMethod} container: FontMetrics
 # need sugar: is method
-# 'int32' 'int32'
+# return: INT32 'int32' 'int32'
 proc pango_font_metrics_get_approximate_digit_width(self: ptr TFontMetrics): int32 {.cdecl, dynlib: lib, importc: "pango_font_metrics_get_approximate_digit_width".}
-proc get_approximate_digit_width*(self: FontMetrics): int32 {.inline.} =
+proc get_approximate_digit_width*(self: ptr TFontMetrics): int32 {.inline.} =
   pango_font_metrics_get_approximate_digit_width(self)
-# proc get_approximate_digit_width*(self: FontMetrics): int32 {.inline.} =
+# proc get_approximate_digit_width*(self: ptr TFontMetrics): int32 {.inline.} =
 
 # pango_font_metrics_get_ascent
 # flags: {isMethod} container: FontMetrics
 # need sugar: is method
-# 'int32' 'int32'
+# return: INT32 'int32' 'int32'
 proc pango_font_metrics_get_ascent(self: ptr TFontMetrics): int32 {.cdecl, dynlib: lib, importc: "pango_font_metrics_get_ascent".}
-proc get_ascent*(self: FontMetrics): int32 {.inline.} =
+proc get_ascent*(self: ptr TFontMetrics): int32 {.inline.} =
   pango_font_metrics_get_ascent(self)
-# proc get_ascent*(self: FontMetrics): int32 {.inline.} =
+# proc get_ascent*(self: ptr TFontMetrics): int32 {.inline.} =
 
 # pango_font_metrics_get_descent
 # flags: {isMethod} container: FontMetrics
 # need sugar: is method
-# 'int32' 'int32'
+# return: INT32 'int32' 'int32'
 proc pango_font_metrics_get_descent(self: ptr TFontMetrics): int32 {.cdecl, dynlib: lib, importc: "pango_font_metrics_get_descent".}
-proc get_descent*(self: FontMetrics): int32 {.inline.} =
+proc get_descent*(self: ptr TFontMetrics): int32 {.inline.} =
   pango_font_metrics_get_descent(self)
-# proc get_descent*(self: FontMetrics): int32 {.inline.} =
+# proc get_descent*(self: ptr TFontMetrics): int32 {.inline.} =
 
 # pango_font_metrics_get_strikethrough_position
 # flags: {isMethod} container: FontMetrics
 # need sugar: is method
-# 'int32' 'int32'
+# return: INT32 'int32' 'int32'
 proc pango_font_metrics_get_strikethrough_position(self: ptr TFontMetrics): int32 {.cdecl, dynlib: lib, importc: "pango_font_metrics_get_strikethrough_position".}
-proc get_strikethrough_position*(self: FontMetrics): int32 {.inline.} =
+proc get_strikethrough_position*(self: ptr TFontMetrics): int32 {.inline.} =
   pango_font_metrics_get_strikethrough_position(self)
-# proc get_strikethrough_position*(self: FontMetrics): int32 {.inline.} =
+# proc get_strikethrough_position*(self: ptr TFontMetrics): int32 {.inline.} =
 
 # pango_font_metrics_get_strikethrough_thickness
 # flags: {isMethod} container: FontMetrics
 # need sugar: is method
-# 'int32' 'int32'
+# return: INT32 'int32' 'int32'
 proc pango_font_metrics_get_strikethrough_thickness(self: ptr TFontMetrics): int32 {.cdecl, dynlib: lib, importc: "pango_font_metrics_get_strikethrough_thickness".}
-proc get_strikethrough_thickness*(self: FontMetrics): int32 {.inline.} =
+proc get_strikethrough_thickness*(self: ptr TFontMetrics): int32 {.inline.} =
   pango_font_metrics_get_strikethrough_thickness(self)
-# proc get_strikethrough_thickness*(self: FontMetrics): int32 {.inline.} =
+# proc get_strikethrough_thickness*(self: ptr TFontMetrics): int32 {.inline.} =
 
 # pango_font_metrics_get_underline_position
 # flags: {isMethod} container: FontMetrics
 # need sugar: is method
-# 'int32' 'int32'
+# return: INT32 'int32' 'int32'
 proc pango_font_metrics_get_underline_position(self: ptr TFontMetrics): int32 {.cdecl, dynlib: lib, importc: "pango_font_metrics_get_underline_position".}
-proc get_underline_position*(self: FontMetrics): int32 {.inline.} =
+proc get_underline_position*(self: ptr TFontMetrics): int32 {.inline.} =
   pango_font_metrics_get_underline_position(self)
-# proc get_underline_position*(self: FontMetrics): int32 {.inline.} =
+# proc get_underline_position*(self: ptr TFontMetrics): int32 {.inline.} =
 
 # pango_font_metrics_get_underline_thickness
 # flags: {isMethod} container: FontMetrics
 # need sugar: is method
-# 'int32' 'int32'
+# return: INT32 'int32' 'int32'
 proc pango_font_metrics_get_underline_thickness(self: ptr TFontMetrics): int32 {.cdecl, dynlib: lib, importc: "pango_font_metrics_get_underline_thickness".}
-proc get_underline_thickness*(self: FontMetrics): int32 {.inline.} =
+proc get_underline_thickness*(self: ptr TFontMetrics): int32 {.inline.} =
   pango_font_metrics_get_underline_thickness(self)
-# proc get_underline_thickness*(self: FontMetrics): int32 {.inline.} =
+# proc get_underline_thickness*(self: ptr TFontMetrics): int32 {.inline.} =
 
 # pango_font_metrics_ref
 # flags: {isMethod} container: FontMetrics
 # need sugar: is method
-# 'TFontMetrics' 'ptr TFontMetrics' (diff., need sugar)
+# return: INTERFACE 'ptr TFontMetrics' 'ptr TFontMetrics'
 proc pango_font_metrics_ref(self: ptr TFontMetrics): ptr TFontMetrics {.cdecl, dynlib: lib, importc: "pango_font_metrics_ref".}
-proc ref_x*(self: FontMetrics): TFontMetrics {.inline.} =
-  (pango_font_metrics_ref(self))[]
-# proc ref_x*(self: FontMetrics): TFontMetrics {.inline.} =
+proc ref_x*(self: ptr TFontMetrics): ptr TFontMetrics {.inline.} =
+  pango_font_metrics_ref(self)
+# proc ref_x*(self: ptr TFontMetrics): ptr TFontMetrics {.inline.} =
 
 # pango_font_metrics_unref
 # flags: {isMethod} container: FontMetrics
 # need sugar: is method
-# 'VOID_TODO' 'VOID_TODO'
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_font_metrics_unref(self: ptr TFontMetrics) {.cdecl, dynlib: lib, importc: "pango_font_metrics_unref".}
-proc unref*(self: FontMetrics) {.inline.} =
+proc unref*(self: ptr TFontMetrics) {.inline.} =
   pango_font_metrics_unref(self)
-# proc unref*(self: FontMetrics) {.inline.} =
+# proc unref*(self: ptr TFontMetrics) {.inline.} =
 
 # struct FontsetClass
 # struct FontsetSimpleClass
@@ -3216,251 +3201,251 @@ proc unref*(self: FontMetrics) {.inline.} =
 # pango_glyph_item_apply_attrs
 # flags: {isMethod} container: GlyphItem
 # need sugar: is method
-# text 'ustring' 'ucstring' IN (diff., need sugar)
-# list 'TAttrList' 'ptr TAttrList' IN (diff., need sugar)
-# 'ptr GSLIST_TODO' 'ptr GSLIST_TODO'
+# arg text: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# arg list: INTERFACE (STRUCT) 'ptr TAttrList' 'ptr TAttrList' IN
+# return: GSLIST 'ptr GSLIST_TODO' 'ptr GSLIST_TODO'
 proc pango_glyph_item_apply_attrs(self: ptr TGlyphItem, text: ucstring, list: ptr TAttrList): ptr GSLIST_TODO {.cdecl, dynlib: lib, importc: "pango_glyph_item_apply_attrs".}
-proc apply_attrs*(self: GlyphItem, text: ustring, list: TAttrList): ptr GSLIST_TODO {.inline.} =
-  pango_glyph_item_apply_attrs(self, ucstring(text), myUnsafeAddr(list))
-# proc apply_attrs*(self: GlyphItem, text: ustring, list: TAttrList): ptr GSLIST_TODO {.inline.} =
+proc apply_attrs*(self: ptr TGlyphItem, text: ustring, list: ptr TAttrList): ptr GSLIST_TODO {.inline.} =
+  pango_glyph_item_apply_attrs(self, ucstring(text), list)
+# proc apply_attrs*(self: ptr TGlyphItem, text: ustring, list: ptr TAttrList): ptr GSLIST_TODO {.inline.} =
 
 # pango_glyph_item_copy
 # flags: {isMethod} container: GlyphItem
 # need sugar: is method
-# 'TGlyphItem' 'ptr TGlyphItem' (diff., need sugar)
+# return: INTERFACE 'ptr TGlyphItem' 'ptr TGlyphItem'
 proc pango_glyph_item_copy(self: ptr TGlyphItem): ptr TGlyphItem {.cdecl, dynlib: lib, importc: "pango_glyph_item_copy".}
-proc copy*(self: GlyphItem): TGlyphItem {.inline.} =
-  (pango_glyph_item_copy(self))[]
-# proc copy*(self: GlyphItem): TGlyphItem {.inline.} =
+proc copy*(self: ptr TGlyphItem): ptr TGlyphItem {.inline.} =
+  pango_glyph_item_copy(self)
+# proc copy*(self: ptr TGlyphItem): ptr TGlyphItem {.inline.} =
 
 # pango_glyph_item_free
 # flags: {isMethod} container: GlyphItem
 # need sugar: is method
-# 'VOID_TODO' 'VOID_TODO'
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_glyph_item_free(self: ptr TGlyphItem) {.cdecl, dynlib: lib, importc: "pango_glyph_item_free".}
-proc free*(self: GlyphItem) {.inline.} =
+proc free*(self: ptr TGlyphItem) {.inline.} =
   pango_glyph_item_free(self)
-# proc free*(self: GlyphItem) {.inline.} =
+# proc free*(self: ptr TGlyphItem) {.inline.} =
 
 # pango_glyph_item_get_logical_widths
 # flags: {isMethod} container: GlyphItem
 # need sugar: is method
-# text 'ustring' 'ucstring' IN (diff., need sugar)
-# logical_widths 'uncheckedArray[int32]' 'uncheckedArray[int32]' IN array
-# 'VOID_TODO' 'VOID_TODO'
+# arg text: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# arg logical_widths: ARRAY 'uncheckedArray[int32]' 'uncheckedArray[int32]' IN array
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_glyph_item_get_logical_widths(self: ptr TGlyphItem, text: ucstring, logical_widths: uncheckedArray[int32]) {.cdecl, dynlib: lib, importc: "pango_glyph_item_get_logical_widths".}
-proc get_logical_widths*(self: GlyphItem, text: ustring, logical_widths: uncheckedArray[int32]) {.inline.} =
+proc get_logical_widths*(self: ptr TGlyphItem, text: ustring, logical_widths: uncheckedArray[int32]) {.inline.} =
   pango_glyph_item_get_logical_widths(self, ucstring(text), logical_widths)
-# proc get_logical_widths*(self: GlyphItem, text: ustring, logical_widths: uncheckedArray[int32]) {.inline.} =
+# proc get_logical_widths*(self: ptr TGlyphItem, text: ustring, logical_widths: uncheckedArray[int32]) {.inline.} =
 
 # pango_glyph_item_letter_space
 # flags: {isMethod} container: GlyphItem
 # need sugar: is method
-# text 'ustring' 'ucstring' IN (diff., need sugar)
-# log_attrs 'uncheckedArray[TLogAttr]' 'uncheckedArray[TLogAttr]' IN array
-# letter_spacing 'int32' 'int32' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg text: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# arg log_attrs: ARRAY 'uncheckedArray[TLogAttr]' 'uncheckedArray[TLogAttr]' IN array
+# arg letter_spacing: INT32 'int32' 'int32' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_glyph_item_letter_space(self: ptr TGlyphItem, text: ucstring, log_attrs: uncheckedArray[TLogAttr], letter_spacing: int32) {.cdecl, dynlib: lib, importc: "pango_glyph_item_letter_space".}
-proc letter_space*(self: GlyphItem, text: ustring, log_attrs: uncheckedArray[TLogAttr], letter_spacing: int32) {.inline.} =
+proc letter_space*(self: ptr TGlyphItem, text: ustring, log_attrs: uncheckedArray[TLogAttr], letter_spacing: int32) {.inline.} =
   pango_glyph_item_letter_space(self, ucstring(text), log_attrs, letter_spacing)
-# proc letter_space*(self: GlyphItem, text: ustring, log_attrs: uncheckedArray[TLogAttr], letter_spacing: int32) {.inline.} =
+# proc letter_space*(self: ptr TGlyphItem, text: ustring, log_attrs: uncheckedArray[TLogAttr], letter_spacing: int32) {.inline.} =
 
 # pango_glyph_item_split
 # flags: {isMethod} container: GlyphItem
 # need sugar: is method
-# text 'ustring' 'ucstring' IN (diff., need sugar)
-# split_index 'int32' 'int32' IN
-# 'TGlyphItem' 'ptr TGlyphItem' (diff., need sugar)
+# arg text: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# arg split_index: INT32 'int32' 'int32' IN
+# return: INTERFACE 'ptr TGlyphItem' 'ptr TGlyphItem'
 proc pango_glyph_item_split(self: ptr TGlyphItem, text: ucstring, split_index: int32): ptr TGlyphItem {.cdecl, dynlib: lib, importc: "pango_glyph_item_split".}
-proc split*(self: GlyphItem, text: ustring, split_index: int32): TGlyphItem {.inline.} =
-  (pango_glyph_item_split(self, ucstring(text), split_index))[]
-# proc split*(self: GlyphItem, text: ustring, split_index: int32): TGlyphItem {.inline.} =
+proc split*(self: ptr TGlyphItem, text: ustring, split_index: int32): ptr TGlyphItem {.inline.} =
+  pango_glyph_item_split(self, ucstring(text), split_index)
+# proc split*(self: ptr TGlyphItem, text: ustring, split_index: int32): ptr TGlyphItem {.inline.} =
 
 # struct GlyphItemIter
 # pango_glyph_item_iter_copy
 # flags: {isMethod} container: GlyphItemIter
 # need sugar: is method
-# 'TGlyphItemIter' 'ptr TGlyphItemIter' (diff., need sugar)
+# return: INTERFACE 'ptr TGlyphItemIter' 'ptr TGlyphItemIter'
 proc pango_glyph_item_iter_copy(self: ptr TGlyphItemIter): ptr TGlyphItemIter {.cdecl, dynlib: lib, importc: "pango_glyph_item_iter_copy".}
-proc copy*(self: GlyphItemIter): TGlyphItemIter {.inline.} =
-  (pango_glyph_item_iter_copy(self))[]
-# proc copy*(self: GlyphItemIter): TGlyphItemIter {.inline.} =
+proc copy*(self: ptr TGlyphItemIter): ptr TGlyphItemIter {.inline.} =
+  pango_glyph_item_iter_copy(self)
+# proc copy*(self: ptr TGlyphItemIter): ptr TGlyphItemIter {.inline.} =
 
 # pango_glyph_item_iter_free
 # flags: {isMethod} container: GlyphItemIter
 # need sugar: is method
-# 'VOID_TODO' 'VOID_TODO'
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_glyph_item_iter_free(self: ptr TGlyphItemIter) {.cdecl, dynlib: lib, importc: "pango_glyph_item_iter_free".}
-proc free*(self: GlyphItemIter) {.inline.} =
+proc free*(self: ptr TGlyphItemIter) {.inline.} =
   pango_glyph_item_iter_free(self)
-# proc free*(self: GlyphItemIter) {.inline.} =
+# proc free*(self: ptr TGlyphItemIter) {.inline.} =
 
 # pango_glyph_item_iter_init_end
 # flags: {isMethod} container: GlyphItemIter
 # need sugar: is method
-# glyph_item 'TGlyphItem' 'ptr TGlyphItem' IN (diff., need sugar)
-# text 'ustring' 'ucstring' IN (diff., need sugar)
-# 'bool' 'bool'
+# arg glyph_item: INTERFACE (STRUCT) 'ptr TGlyphItem' 'ptr TGlyphItem' IN
+# arg text: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# return: BOOLEAN 'bool' 'bool'
 proc pango_glyph_item_iter_init_end(self: ptr TGlyphItemIter, glyph_item: ptr TGlyphItem, text: ucstring): bool {.cdecl, dynlib: lib, importc: "pango_glyph_item_iter_init_end".}
-proc init_end*(self: GlyphItemIter, glyph_item: TGlyphItem, text: ustring): bool {.inline.} =
-  pango_glyph_item_iter_init_end(self, myUnsafeAddr(glyph_item), ucstring(text))
-# proc init_end*(self: GlyphItemIter, glyph_item: TGlyphItem, text: ustring): bool {.inline.} =
+proc init_end*(self: ptr TGlyphItemIter, glyph_item: ptr TGlyphItem, text: ustring): bool {.inline.} =
+  pango_glyph_item_iter_init_end(self, glyph_item, ucstring(text))
+# proc init_end*(self: ptr TGlyphItemIter, glyph_item: ptr TGlyphItem, text: ustring): bool {.inline.} =
 
 # pango_glyph_item_iter_init_start
 # flags: {isMethod} container: GlyphItemIter
 # need sugar: is method
-# glyph_item 'TGlyphItem' 'ptr TGlyphItem' IN (diff., need sugar)
-# text 'ustring' 'ucstring' IN (diff., need sugar)
-# 'bool' 'bool'
+# arg glyph_item: INTERFACE (STRUCT) 'ptr TGlyphItem' 'ptr TGlyphItem' IN
+# arg text: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# return: BOOLEAN 'bool' 'bool'
 proc pango_glyph_item_iter_init_start(self: ptr TGlyphItemIter, glyph_item: ptr TGlyphItem, text: ucstring): bool {.cdecl, dynlib: lib, importc: "pango_glyph_item_iter_init_start".}
-proc init_start*(self: GlyphItemIter, glyph_item: TGlyphItem, text: ustring): bool {.inline.} =
-  pango_glyph_item_iter_init_start(self, myUnsafeAddr(glyph_item), ucstring(text))
-# proc init_start*(self: GlyphItemIter, glyph_item: TGlyphItem, text: ustring): bool {.inline.} =
+proc init_start*(self: ptr TGlyphItemIter, glyph_item: ptr TGlyphItem, text: ustring): bool {.inline.} =
+  pango_glyph_item_iter_init_start(self, glyph_item, ucstring(text))
+# proc init_start*(self: ptr TGlyphItemIter, glyph_item: ptr TGlyphItem, text: ustring): bool {.inline.} =
 
 # pango_glyph_item_iter_next_cluster
 # flags: {isMethod} container: GlyphItemIter
 # need sugar: is method
-# 'bool' 'bool'
+# return: BOOLEAN 'bool' 'bool'
 proc pango_glyph_item_iter_next_cluster(self: ptr TGlyphItemIter): bool {.cdecl, dynlib: lib, importc: "pango_glyph_item_iter_next_cluster".}
-proc next_cluster*(self: GlyphItemIter): bool {.inline.} =
+proc next_cluster*(self: ptr TGlyphItemIter): bool {.inline.} =
   pango_glyph_item_iter_next_cluster(self)
-# proc next_cluster*(self: GlyphItemIter): bool {.inline.} =
+# proc next_cluster*(self: ptr TGlyphItemIter): bool {.inline.} =
 
 # pango_glyph_item_iter_prev_cluster
 # flags: {isMethod} container: GlyphItemIter
 # need sugar: is method
-# 'bool' 'bool'
+# return: BOOLEAN 'bool' 'bool'
 proc pango_glyph_item_iter_prev_cluster(self: ptr TGlyphItemIter): bool {.cdecl, dynlib: lib, importc: "pango_glyph_item_iter_prev_cluster".}
-proc prev_cluster*(self: GlyphItemIter): bool {.inline.} =
+proc prev_cluster*(self: ptr TGlyphItemIter): bool {.inline.} =
   pango_glyph_item_iter_prev_cluster(self)
-# proc prev_cluster*(self: GlyphItemIter): bool {.inline.} =
+# proc prev_cluster*(self: ptr TGlyphItemIter): bool {.inline.} =
 
 # struct GlyphString
 # pango_glyph_string_new
 # flags: {isConstructor} container: GlyphString
 # need sugar: is static method
-# 'TGlyphString' 'ptr TGlyphString' (diff., need sugar)
+# return: INTERFACE 'ptr TGlyphString' 'ptr TGlyphString'
 proc pango_glyph_string_new(): ptr TGlyphString {.cdecl, dynlib: lib, importc: "pango_glyph_string_new".}
-proc new_glyphstring*(): TGlyphString {.inline.} =
-  (pango_glyph_string_new())[]
-# proc new_glyphstring*(): TGlyphString {.inline.} =
+proc new_glyphstring*(): ptr TGlyphString {.inline.} =
+  pango_glyph_string_new()
+# proc new_glyphstring*(): ptr TGlyphString {.inline.} =
 
 # pango_glyph_string_copy
 # flags: {isMethod} container: GlyphString
 # need sugar: is method
-# 'TGlyphString' 'ptr TGlyphString' (diff., need sugar)
+# return: INTERFACE 'ptr TGlyphString' 'ptr TGlyphString'
 proc pango_glyph_string_copy(self: ptr TGlyphString): ptr TGlyphString {.cdecl, dynlib: lib, importc: "pango_glyph_string_copy".}
-proc copy*(self: GlyphString): TGlyphString {.inline.} =
-  (pango_glyph_string_copy(self))[]
-# proc copy*(self: GlyphString): TGlyphString {.inline.} =
+proc copy*(self: ptr TGlyphString): ptr TGlyphString {.inline.} =
+  pango_glyph_string_copy(self)
+# proc copy*(self: ptr TGlyphString): ptr TGlyphString {.inline.} =
 
 # pango_glyph_string_extents
 # flags: {isMethod} container: GlyphString
 # need sugar: is method
-# font 'Font' 'ptr TFont' IN (diff., need sugar)
-# ink_rect 'var TRectangle' 'ptr TRectangle' OUT (diff., need sugar) caller-allocates optional
-# logical_rect 'var TRectangle' 'ptr TRectangle' OUT (diff., need sugar) caller-allocates optional
-# 'VOID_TODO' 'VOID_TODO'
+# arg font: INTERFACE (OBJECT) 'Font' 'ptr TFont' IN (diff., need sugar)
+# arg ink_rect: INTERFACE (STRUCT) 'ptr TRectangle' 'ptr TRectangle' OUT caller-allocates optional
+# arg logical_rect: INTERFACE (STRUCT) 'ptr TRectangle' 'ptr TRectangle' OUT caller-allocates optional
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_glyph_string_extents(self: ptr TGlyphString, font: ptr TFont, ink_rect: ptr TRectangle, logical_rect: ptr TRectangle) {.cdecl, dynlib: lib, importc: "pango_glyph_string_extents".}
-proc extents*(self: GlyphString, font: Font, ink_rect: var TRectangle, logical_rect: var TRectangle) {.inline.} =
-  pango_glyph_string_extents(self, font.getPointer, addr(ink_rect), addr(logical_rect))
+proc extents*(self: ptr TGlyphString, font: Font, ink_rect: ptr TRectangle, logical_rect: ptr TRectangle) {.inline.} =
+  pango_glyph_string_extents(self, font.getPointer, ink_rect, logical_rect)
 # tuple-return
-# ink_rect: var TRectangle
-# logical_rect: var TRectangle
-# proc extents*(self: GlyphString, font: Font) {.inline.} =
+# ink_rect: ptr TRectangle
+# logical_rect: ptr TRectangle
+# proc extents*(self: ptr TGlyphString, font: Font) {.inline.} =
 
 # pango_glyph_string_extents_range
 # flags: {isMethod} container: GlyphString
 # need sugar: is method
-# start 'int32' 'int32' IN
-# end 'int32' 'int32' IN
-# font 'Font' 'ptr TFont' IN (diff., need sugar)
-# ink_rect 'var TRectangle' 'ptr TRectangle' OUT (diff., need sugar) caller-allocates
-# logical_rect 'var TRectangle' 'ptr TRectangle' OUT (diff., need sugar) caller-allocates
-# 'VOID_TODO' 'VOID_TODO'
+# arg start: INT32 'int32' 'int32' IN
+# arg end: INT32 'int32' 'int32' IN
+# arg font: INTERFACE (OBJECT) 'Font' 'ptr TFont' IN (diff., need sugar)
+# arg ink_rect: INTERFACE (STRUCT) 'ptr TRectangle' 'ptr TRectangle' OUT caller-allocates optional
+# arg logical_rect: INTERFACE (STRUCT) 'ptr TRectangle' 'ptr TRectangle' OUT caller-allocates optional
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_glyph_string_extents_range(self: ptr TGlyphString, start: int32, end_x: int32, font: ptr TFont, ink_rect: ptr TRectangle, logical_rect: ptr TRectangle) {.cdecl, dynlib: lib, importc: "pango_glyph_string_extents_range".}
-proc extents_range*(self: GlyphString, start: int32, end_x: int32, font: Font, ink_rect: var TRectangle, logical_rect: var TRectangle) {.inline.} =
-  pango_glyph_string_extents_range(self, start, end_x, font.getPointer, addr(ink_rect), addr(logical_rect))
+proc extents_range*(self: ptr TGlyphString, start: int32, end_x: int32, font: Font, ink_rect: ptr TRectangle, logical_rect: ptr TRectangle) {.inline.} =
+  pango_glyph_string_extents_range(self, start, end_x, font.getPointer, ink_rect, logical_rect)
 # tuple-return
-# ink_rect: var TRectangle
-# logical_rect: var TRectangle
-# proc extents_range*(self: GlyphString, start: int32, end_x: int32, font: Font) {.inline.} =
+# ink_rect: ptr TRectangle
+# logical_rect: ptr TRectangle
+# proc extents_range*(self: ptr TGlyphString, start: int32, end_x: int32, font: Font) {.inline.} =
 
 # pango_glyph_string_free
 # flags: {isMethod} container: GlyphString
 # need sugar: is method
-# 'VOID_TODO' 'VOID_TODO'
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_glyph_string_free(self: ptr TGlyphString) {.cdecl, dynlib: lib, importc: "pango_glyph_string_free".}
-proc free*(self: GlyphString) {.inline.} =
+proc free*(self: ptr TGlyphString) {.inline.} =
   pango_glyph_string_free(self)
-# proc free*(self: GlyphString) {.inline.} =
+# proc free*(self: ptr TGlyphString) {.inline.} =
 
 # pango_glyph_string_get_logical_widths
 # flags: {isMethod} container: GlyphString
 # need sugar: is method
-# text 'ustring' 'ucstring' IN (diff., need sugar)
-# length 'int32' 'int32' IN
-# embedding_level 'int32' 'int32' IN
-# logical_widths 'uncheckedArray[int32]' 'uncheckedArray[int32]' IN array
-# 'VOID_TODO' 'VOID_TODO'
+# arg text: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# arg length: INT32 'int32' 'int32' IN
+# arg embedding_level: INT32 'int32' 'int32' IN
+# arg logical_widths: ARRAY 'uncheckedArray[int32]' 'uncheckedArray[int32]' IN array
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_glyph_string_get_logical_widths(self: ptr TGlyphString, text: ucstring, length: int32, embedding_level: int32, logical_widths: uncheckedArray[int32]) {.cdecl, dynlib: lib, importc: "pango_glyph_string_get_logical_widths".}
-proc get_logical_widths*(self: GlyphString, text: ustring, length: int32, embedding_level: int32, logical_widths: uncheckedArray[int32]) {.inline.} =
+proc get_logical_widths*(self: ptr TGlyphString, text: ustring, length: int32, embedding_level: int32, logical_widths: uncheckedArray[int32]) {.inline.} =
   pango_glyph_string_get_logical_widths(self, ucstring(text), length, embedding_level, logical_widths)
-# proc get_logical_widths*(self: GlyphString, text: ustring, length: int32, embedding_level: int32, logical_widths: uncheckedArray[int32]) {.inline.} =
+# proc get_logical_widths*(self: ptr TGlyphString, text: ustring, length: int32, embedding_level: int32, logical_widths: uncheckedArray[int32]) {.inline.} =
 
 # pango_glyph_string_get_width
 # flags: {isMethod} container: GlyphString
 # need sugar: is method
-# 'int32' 'int32'
+# return: INT32 'int32' 'int32'
 proc pango_glyph_string_get_width(self: ptr TGlyphString): int32 {.cdecl, dynlib: lib, importc: "pango_glyph_string_get_width".}
-proc get_width*(self: GlyphString): int32 {.inline.} =
+proc get_width*(self: ptr TGlyphString): int32 {.inline.} =
   pango_glyph_string_get_width(self)
-# proc get_width*(self: GlyphString): int32 {.inline.} =
+# proc get_width*(self: ptr TGlyphString): int32 {.inline.} =
 
 # pango_glyph_string_index_to_x
 # flags: {isMethod} container: GlyphString
 # need sugar: is method
-# text 'ustring' 'ucstring' IN (diff., need sugar)
-# length 'int32' 'int32' IN
-# analysis 'TAnalysis' 'ptr TAnalysis' IN (diff., need sugar)
-# index_ 'int32' 'int32' IN
-# trailing 'bool' 'bool' IN
-# x_pos 'var int32' 'ptr int32' OUT (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg text: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# arg length: INT32 'int32' 'int32' IN
+# arg analysis: INTERFACE (STRUCT) 'ptr TAnalysis' 'ptr TAnalysis' IN
+# arg index_: INT32 'int32' 'int32' IN
+# arg trailing: BOOLEAN 'bool' 'bool' IN
+# arg x_pos: INT32 'var int32' 'ptr int32' OUT (diff., need sugar)
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_glyph_string_index_to_x(self: ptr TGlyphString, text: ucstring, length: int32, analysis: ptr TAnalysis, index_x: int32, trailing: bool, x_pos: ptr int32) {.cdecl, dynlib: lib, importc: "pango_glyph_string_index_to_x".}
-proc index_to_x*(self: GlyphString, text: ustring, length: int32, analysis: TAnalysis, index_x: int32, trailing: bool, x_pos: var int32) {.inline.} =
-  pango_glyph_string_index_to_x(self, ucstring(text), length, myUnsafeAddr(analysis), index_x, trailing, addr(x_pos))
+proc index_to_x*(self: ptr TGlyphString, text: ustring, length: int32, analysis: ptr TAnalysis, index_x: int32, trailing: bool, x_pos: var int32) {.inline.} =
+  pango_glyph_string_index_to_x(self, ucstring(text), length, analysis, index_x, trailing, addr(x_pos))
 # tuple-return
 # x_pos: var int32
-# proc index_to_x*(self: GlyphString, text: ustring, length: int32, analysis: TAnalysis, index_x: int32, trailing: bool) {.inline.} =
+# proc index_to_x*(self: ptr TGlyphString, text: ustring, length: int32, analysis: ptr TAnalysis, index_x: int32, trailing: bool) {.inline.} =
 
 # pango_glyph_string_set_size
 # flags: {isMethod} container: GlyphString
 # need sugar: is method
-# new_len 'int32' 'int32' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg new_len: INT32 'int32' 'int32' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_glyph_string_set_size(self: ptr TGlyphString, new_len: int32) {.cdecl, dynlib: lib, importc: "pango_glyph_string_set_size".}
-proc set_size*(self: GlyphString, new_len: int32) {.inline.} =
+proc set_size*(self: ptr TGlyphString, new_len: int32) {.inline.} =
   pango_glyph_string_set_size(self, new_len)
-# proc set_size*(self: GlyphString, new_len: int32) {.inline.} =
+# proc set_size*(self: ptr TGlyphString, new_len: int32) {.inline.} =
 
 # pango_glyph_string_x_to_index
 # flags: {isMethod} container: GlyphString
 # need sugar: is method
-# text 'ustring' 'ucstring' IN (diff., need sugar)
-# length 'int32' 'int32' IN
-# analysis 'TAnalysis' 'ptr TAnalysis' IN (diff., need sugar)
-# x_pos 'int32' 'int32' IN
-# index_ 'var int32' 'ptr int32' OUT (diff., need sugar)
-# trailing 'var int32' 'ptr int32' OUT (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg text: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# arg length: INT32 'int32' 'int32' IN
+# arg analysis: INTERFACE (STRUCT) 'ptr TAnalysis' 'ptr TAnalysis' IN
+# arg x_pos: INT32 'int32' 'int32' IN
+# arg index_: INT32 'var int32' 'ptr int32' OUT (diff., need sugar)
+# arg trailing: INT32 'var int32' 'ptr int32' OUT (diff., need sugar)
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_glyph_string_x_to_index(self: ptr TGlyphString, text: ucstring, length: int32, analysis: ptr TAnalysis, x_pos: int32, index_x: ptr int32, trailing: ptr int32) {.cdecl, dynlib: lib, importc: "pango_glyph_string_x_to_index".}
-proc x_to_index*(self: GlyphString, text: ustring, length: int32, analysis: TAnalysis, x_pos: int32, index_x: var int32, trailing: var int32) {.inline.} =
-  pango_glyph_string_x_to_index(self, ucstring(text), length, myUnsafeAddr(analysis), x_pos, addr(index_x), addr(trailing))
+proc x_to_index*(self: ptr TGlyphString, text: ustring, length: int32, analysis: ptr TAnalysis, x_pos: int32, index_x: var int32, trailing: var int32) {.inline.} =
+  pango_glyph_string_x_to_index(self, ucstring(text), length, analysis, x_pos, addr(index_x), addr(trailing))
 # tuple-return
 # index_: var int32
 # trailing: var int32
-# proc x_to_index*(self: GlyphString, text: ustring, length: int32, analysis: TAnalysis, x_pos: int32) {.inline.} =
+# proc x_to_index*(self: ptr TGlyphString, text: ustring, length: int32, analysis: ptr TAnalysis, x_pos: int32) {.inline.} =
 
 # struct GlyphVisAttr
 # struct IncludedModule
@@ -3468,413 +3453,414 @@ proc x_to_index*(self: GlyphString, text: ustring, length: int32, analysis: TAna
 # pango_item_new
 # flags: {isConstructor} container: Item
 # need sugar: is static method
-# 'TItem' 'ptr TItem' (diff., need sugar)
+# return: INTERFACE 'ptr TItem' 'ptr TItem'
 proc pango_item_new(): ptr TItem {.cdecl, dynlib: lib, importc: "pango_item_new".}
-proc new_item*(): TItem {.inline.} =
-  (pango_item_new())[]
-# proc new_item*(): TItem {.inline.} =
+proc new_item*(): ptr TItem {.inline.} =
+  pango_item_new()
+# proc new_item*(): ptr TItem {.inline.} =
 
 # pango_item_copy
 # flags: {isMethod} container: Item
 # need sugar: is method
-# 'TItem' 'ptr TItem' (diff., need sugar)
+# return: INTERFACE 'ptr TItem' 'ptr TItem'
 proc pango_item_copy(self: ptr TItem): ptr TItem {.cdecl, dynlib: lib, importc: "pango_item_copy".}
-proc copy*(self: Item): TItem {.inline.} =
-  (pango_item_copy(self))[]
-# proc copy*(self: Item): TItem {.inline.} =
+proc copy*(self: ptr TItem): ptr TItem {.inline.} =
+  pango_item_copy(self)
+# proc copy*(self: ptr TItem): ptr TItem {.inline.} =
 
 # pango_item_free
 # flags: {isMethod} container: Item
 # need sugar: is method
-# 'VOID_TODO' 'VOID_TODO'
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_item_free(self: ptr TItem) {.cdecl, dynlib: lib, importc: "pango_item_free".}
-proc free*(self: Item) {.inline.} =
+proc free*(self: ptr TItem) {.inline.} =
   pango_item_free(self)
-# proc free*(self: Item) {.inline.} =
+# proc free*(self: ptr TItem) {.inline.} =
 
 # pango_item_split
 # flags: {isMethod} container: Item
 # need sugar: is method
-# split_index 'int32' 'int32' IN
-# split_offset 'int32' 'int32' IN
-# 'TItem' 'ptr TItem' (diff., need sugar)
+# arg split_index: INT32 'int32' 'int32' IN
+# arg split_offset: INT32 'int32' 'int32' IN
+# return: INTERFACE 'ptr TItem' 'ptr TItem'
 proc pango_item_split(self: ptr TItem, split_index: int32, split_offset: int32): ptr TItem {.cdecl, dynlib: lib, importc: "pango_item_split".}
-proc split*(self: Item, split_index: int32, split_offset: int32): TItem {.inline.} =
-  (pango_item_split(self, split_index, split_offset))[]
-# proc split*(self: Item, split_index: int32, split_offset: int32): TItem {.inline.} =
+proc split*(self: ptr TItem, split_index: int32, split_offset: int32): ptr TItem {.inline.} =
+  pango_item_split(self, split_index, split_offset)
+# proc split*(self: ptr TItem, split_index: int32, split_offset: int32): ptr TItem {.inline.} =
 
 # struct Language
 # pango_language_get_sample_string
 # flags: {isMethod} container: Language
 # need sugar: is method
-# 'ustring' 'ucstring' (diff., need sugar)
+# return: UTF8 'ucstring' 'ucstring'
 proc pango_language_get_sample_string(self: ptr TLanguage): ucstring {.cdecl, dynlib: lib, importc: "pango_language_get_sample_string".}
-proc get_sample_string*(self: Language): ustring {.inline.} =
-  ustring($(pango_language_get_sample_string(self)))
-# proc get_sample_string*(self: Language): ustring {.inline.} =
+proc get_sample_string*(self: ptr TLanguage): ucstring {.inline.} =
+  pango_language_get_sample_string(self)
+# proc get_sample_string*(self: ptr TLanguage): ucstring {.inline.} =
 
 # pango_language_get_scripts
 # flags: {isMethod} container: Language
 # need sugar: is method
-# num_scripts 'var int32' 'ptr int32' OUT (diff., need sugar) caller-allocates optional
-# 'zeroTerminatedArray[Script]' 'zeroTerminatedArray[Script]'
+# arg num_scripts: INT32 'var int32' 'ptr int32' OUT (diff., need sugar) caller-allocates optional
+# return: ARRAY 'zeroTerminatedArray[Script]' 'zeroTerminatedArray[Script]'
 proc pango_language_get_scripts(self: ptr TLanguage, num_scripts: ptr int32): zeroTerminatedArray[Script] {.cdecl, dynlib: lib, importc: "pango_language_get_scripts".}
-proc get_scripts*(self: Language, num_scripts: var int32): zeroTerminatedArray[Script] {.inline.} =
+proc get_scripts*(self: ptr TLanguage, num_scripts: var int32): zeroTerminatedArray[Script] {.inline.} =
   pango_language_get_scripts(self, addr(num_scripts))
 # tuple-return
 # num_scripts: var int32
-# proc get_scripts*(self: Language): zeroTerminatedArray[Script] {.inline.} =
+# proc get_scripts*(self: ptr TLanguage): zeroTerminatedArray[Script] {.inline.} =
 
 # pango_language_includes_script
 # flags: {isMethod} container: Language
 # need sugar: is method
-# script 'Script' 'Script' IN
-# 'bool' 'bool'
+# arg script: INTERFACE (ENUM) 'Script' 'Script' IN
+# return: BOOLEAN 'bool' 'bool'
 proc pango_language_includes_script(self: ptr TLanguage, script: Script): bool {.cdecl, dynlib: lib, importc: "pango_language_includes_script".}
-proc includes_script*(self: Language, script: Script): bool {.inline.} =
+proc includes_script*(self: ptr TLanguage, script: Script): bool {.inline.} =
   pango_language_includes_script(self, script)
-# proc includes_script*(self: Language, script: Script): bool {.inline.} =
+# proc includes_script*(self: ptr TLanguage, script: Script): bool {.inline.} =
 
 # pango_language_matches
 # flags: {isMethod} container: Language
 # need sugar: is method
-# range_list 'ustring' 'ucstring' IN (diff., need sugar)
-# 'bool' 'bool'
+# arg range_list: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# return: BOOLEAN 'bool' 'bool'
 proc pango_language_matches(self: ptr TLanguage, range_list: ucstring): bool {.cdecl, dynlib: lib, importc: "pango_language_matches".}
-proc matches*(self: Language, range_list: ustring): bool {.inline.} =
+proc matches*(self: ptr TLanguage, range_list: ustring): bool {.inline.} =
   pango_language_matches(self, ucstring(range_list))
-# proc matches*(self: Language, range_list: ustring): bool {.inline.} =
+# proc matches*(self: ptr TLanguage, range_list: ustring): bool {.inline.} =
 
 # pango_language_to_string
 # flags: {isMethod} container: Language
 # need sugar: is method
-# 'ustring' 'ucstring' (diff., need sugar)
+# return: UTF8 'ucstring' 'ucstring'
 proc pango_language_to_string(self: ptr TLanguage): ucstring {.cdecl, dynlib: lib, importc: "pango_language_to_string".}
-proc to_string*(self: Language): ustring {.inline.} =
-  ustring($(pango_language_to_string(self)))
-# proc to_string*(self: Language): ustring {.inline.} =
+proc to_string*(self: ptr TLanguage): ucstring {.inline.} =
+  pango_language_to_string(self)
+# proc to_string*(self: ptr TLanguage): ucstring {.inline.} =
 
 # pango_language_from_string
 # flags: {} container: Language
 # need sugar: is static method
-# language 'ustring' 'ucstring' IN (diff., need sugar)
-# 'TLanguage' 'ptr TLanguage' (diff., need sugar)
+# arg language: UTF8 'ustring' 'ucstring' IN (diff., need sugar)
+# return: INTERFACE 'ptr TLanguage' 'ptr TLanguage'
 # warning, already written a prototype with the name of pango_language_from_string
 # proc pango_language_from_string(language: ucstring): ptr TLanguage {.cdecl, dynlib: lib, importc: "pango_language_from_string".}
-template from_string*(klass_parameter: typedesc[Language], language: ustring): TLanguage =
-  (pango_language_from_string(ucstring(language)))[]
-# template from_string*(klass_parameter: typedesc[Language], language: ustring): TLanguage =
+template from_string*(klass_parameter: typedesc[TLanguage], language: ustring): ptr TLanguage =
+  pango_language_from_string(ucstring(language))
+# template from_string*(klass_parameter: typedesc[TLanguage], language: ustring): ptr TLanguage =
 
 # pango_language_get_default
 # flags: {} container: Language
 # need sugar: is static method
-# 'TLanguage' 'ptr TLanguage' (diff., need sugar)
-proc pango_language_get_default(): ptr TLanguage {.cdecl, dynlib: lib, importc: "pango_language_get_default".}
-template get_default*(klass_parameter: typedesc[Language]): TLanguage =
-  (pango_language_get_default())[]
-# template get_default*(klass_parameter: typedesc[Language]): TLanguage =
+# return: INTERFACE 'ptr TLanguage' 'ptr TLanguage'
+# warning, already written a prototype with the name of pango_language_get_default
+# proc pango_language_get_default(): ptr TLanguage {.cdecl, dynlib: lib, importc: "pango_language_get_default".}
+template get_default*(klass_parameter: typedesc[TLanguage]): ptr TLanguage =
+  pango_language_get_default()
+# template get_default*(klass_parameter: typedesc[TLanguage]): ptr TLanguage =
 
 # struct LayoutClass
 # struct LayoutIter
 # pango_layout_iter_at_last_line
 # flags: {isMethod} container: LayoutIter
 # need sugar: is method
-# 'bool' 'bool'
+# return: BOOLEAN 'bool' 'bool'
 proc pango_layout_iter_at_last_line(self: ptr TLayoutIter): bool {.cdecl, dynlib: lib, importc: "pango_layout_iter_at_last_line".}
-proc at_last_line*(self: LayoutIter): bool {.inline.} =
+proc at_last_line*(self: ptr TLayoutIter): bool {.inline.} =
   pango_layout_iter_at_last_line(self)
-# proc at_last_line*(self: LayoutIter): bool {.inline.} =
+# proc at_last_line*(self: ptr TLayoutIter): bool {.inline.} =
 
 # pango_layout_iter_copy
 # flags: {isMethod} container: LayoutIter
 # need sugar: is method
-# 'TLayoutIter' 'ptr TLayoutIter' (diff., need sugar)
+# return: INTERFACE 'ptr TLayoutIter' 'ptr TLayoutIter'
 proc pango_layout_iter_copy(self: ptr TLayoutIter): ptr TLayoutIter {.cdecl, dynlib: lib, importc: "pango_layout_iter_copy".}
-proc copy*(self: LayoutIter): TLayoutIter {.inline.} =
-  (pango_layout_iter_copy(self))[]
-# proc copy*(self: LayoutIter): TLayoutIter {.inline.} =
+proc copy*(self: ptr TLayoutIter): ptr TLayoutIter {.inline.} =
+  pango_layout_iter_copy(self)
+# proc copy*(self: ptr TLayoutIter): ptr TLayoutIter {.inline.} =
 
 # pango_layout_iter_free
 # flags: {isMethod} container: LayoutIter
 # need sugar: is method
-# 'VOID_TODO' 'VOID_TODO'
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_iter_free(self: ptr TLayoutIter) {.cdecl, dynlib: lib, importc: "pango_layout_iter_free".}
-proc free*(self: LayoutIter) {.inline.} =
+proc free*(self: ptr TLayoutIter) {.inline.} =
   pango_layout_iter_free(self)
-# proc free*(self: LayoutIter) {.inline.} =
+# proc free*(self: ptr TLayoutIter) {.inline.} =
 
 # pango_layout_iter_get_baseline
 # flags: {isMethod} container: LayoutIter
 # need sugar: is method
-# 'int32' 'int32'
+# return: INT32 'int32' 'int32'
 proc pango_layout_iter_get_baseline(self: ptr TLayoutIter): int32 {.cdecl, dynlib: lib, importc: "pango_layout_iter_get_baseline".}
-proc get_baseline*(self: LayoutIter): int32 {.inline.} =
+proc get_baseline*(self: ptr TLayoutIter): int32 {.inline.} =
   pango_layout_iter_get_baseline(self)
-# proc get_baseline*(self: LayoutIter): int32 {.inline.} =
+# proc get_baseline*(self: ptr TLayoutIter): int32 {.inline.} =
 
 # pango_layout_iter_get_char_extents
 # flags: {isMethod} container: LayoutIter
 # need sugar: is method
-# logical_rect 'var TRectangle' 'ptr TRectangle' OUT (diff., need sugar) caller-allocates
-# 'VOID_TODO' 'VOID_TODO'
+# arg logical_rect: INTERFACE (STRUCT) 'ptr TRectangle' 'ptr TRectangle' OUT caller-allocates
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_iter_get_char_extents(self: ptr TLayoutIter, logical_rect: ptr TRectangle) {.cdecl, dynlib: lib, importc: "pango_layout_iter_get_char_extents".}
-proc get_char_extents*(self: LayoutIter, logical_rect: var TRectangle) {.inline.} =
-  pango_layout_iter_get_char_extents(self, addr(logical_rect))
+proc get_char_extents*(self: ptr TLayoutIter, logical_rect: ptr TRectangle) {.inline.} =
+  pango_layout_iter_get_char_extents(self, logical_rect)
 # tuple-return
-# logical_rect: var TRectangle
-# proc get_char_extents*(self: LayoutIter) {.inline.} =
+# logical_rect: ptr TRectangle
+# proc get_char_extents*(self: ptr TLayoutIter) {.inline.} =
 
 # pango_layout_iter_get_cluster_extents
 # flags: {isMethod} container: LayoutIter
 # need sugar: is method
-# ink_rect 'var TRectangle' 'ptr TRectangle' OUT (diff., need sugar) caller-allocates optional
-# logical_rect 'var TRectangle' 'ptr TRectangle' OUT (diff., need sugar) caller-allocates optional
-# 'VOID_TODO' 'VOID_TODO'
+# arg ink_rect: INTERFACE (STRUCT) 'ptr TRectangle' 'ptr TRectangle' OUT caller-allocates optional
+# arg logical_rect: INTERFACE (STRUCT) 'ptr TRectangle' 'ptr TRectangle' OUT caller-allocates optional
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_iter_get_cluster_extents(self: ptr TLayoutIter, ink_rect: ptr TRectangle, logical_rect: ptr TRectangle) {.cdecl, dynlib: lib, importc: "pango_layout_iter_get_cluster_extents".}
-proc get_cluster_extents*(self: LayoutIter, ink_rect: var TRectangle, logical_rect: var TRectangle) {.inline.} =
-  pango_layout_iter_get_cluster_extents(self, addr(ink_rect), addr(logical_rect))
+proc get_cluster_extents*(self: ptr TLayoutIter, ink_rect: ptr TRectangle, logical_rect: ptr TRectangle) {.inline.} =
+  pango_layout_iter_get_cluster_extents(self, ink_rect, logical_rect)
 # tuple-return
-# ink_rect: var TRectangle
-# logical_rect: var TRectangle
-# proc get_cluster_extents*(self: LayoutIter) {.inline.} =
+# ink_rect: ptr TRectangle
+# logical_rect: ptr TRectangle
+# proc get_cluster_extents*(self: ptr TLayoutIter) {.inline.} =
 
 # pango_layout_iter_get_index
 # flags: {isMethod} container: LayoutIter
 # need sugar: is method
-# 'int32' 'int32'
+# return: INT32 'int32' 'int32'
 proc pango_layout_iter_get_index(self: ptr TLayoutIter): int32 {.cdecl, dynlib: lib, importc: "pango_layout_iter_get_index".}
-proc get_index*(self: LayoutIter): int32 {.inline.} =
+proc get_index*(self: ptr TLayoutIter): int32 {.inline.} =
   pango_layout_iter_get_index(self)
-# proc get_index*(self: LayoutIter): int32 {.inline.} =
+# proc get_index*(self: ptr TLayoutIter): int32 {.inline.} =
 
 # pango_layout_iter_get_layout
 # flags: {isMethod} container: LayoutIter
 # need sugar: is method
-# 'Layout' 'TransferNone[TLayout]' (diff., need sugar)
+# return: INTERFACE 'Layout' 'TransferNone[TLayout]' (diff., need sugar)
 proc pango_layout_iter_get_layout(self: ptr TLayoutIter): TransferNone[TLayout] {.cdecl, dynlib: lib, importc: "pango_layout_iter_get_layout".}
-proc get_layout*(self: LayoutIter): Layout {.inline.} =
+proc get_layout*(self: ptr TLayoutIter): Layout {.inline.} =
   wrap(pango_layout_iter_get_layout(self))
-# proc get_layout*(self: LayoutIter): Layout {.inline.} =
+# proc get_layout*(self: ptr TLayoutIter): Layout {.inline.} =
 
 # pango_layout_iter_get_layout_extents
 # flags: {isMethod} container: LayoutIter
 # need sugar: is method
-# ink_rect 'var TRectangle' 'ptr TRectangle' OUT (diff., need sugar) caller-allocates optional
-# logical_rect 'var TRectangle' 'ptr TRectangle' OUT (diff., need sugar) caller-allocates optional
-# 'VOID_TODO' 'VOID_TODO'
+# arg ink_rect: INTERFACE (STRUCT) 'ptr TRectangle' 'ptr TRectangle' OUT caller-allocates optional
+# arg logical_rect: INTERFACE (STRUCT) 'ptr TRectangle' 'ptr TRectangle' OUT caller-allocates optional
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_iter_get_layout_extents(self: ptr TLayoutIter, ink_rect: ptr TRectangle, logical_rect: ptr TRectangle) {.cdecl, dynlib: lib, importc: "pango_layout_iter_get_layout_extents".}
-proc get_layout_extents*(self: LayoutIter, ink_rect: var TRectangle, logical_rect: var TRectangle) {.inline.} =
-  pango_layout_iter_get_layout_extents(self, addr(ink_rect), addr(logical_rect))
+proc get_layout_extents*(self: ptr TLayoutIter, ink_rect: ptr TRectangle, logical_rect: ptr TRectangle) {.inline.} =
+  pango_layout_iter_get_layout_extents(self, ink_rect, logical_rect)
 # tuple-return
-# ink_rect: var TRectangle
-# logical_rect: var TRectangle
-# proc get_layout_extents*(self: LayoutIter) {.inline.} =
+# ink_rect: ptr TRectangle
+# logical_rect: ptr TRectangle
+# proc get_layout_extents*(self: ptr TLayoutIter) {.inline.} =
 
 # pango_layout_iter_get_line
 # flags: {isMethod} container: LayoutIter
 # need sugar: is method
-# 'TLayoutLine' 'ptr TLayoutLine' (diff., need sugar)
+# return: INTERFACE 'ptr TLayoutLine' 'ptr TLayoutLine'
 proc pango_layout_iter_get_line(self: ptr TLayoutIter): ptr TLayoutLine {.cdecl, dynlib: lib, importc: "pango_layout_iter_get_line".}
-proc get_line*(self: LayoutIter): TLayoutLine {.inline.} =
-  (pango_layout_iter_get_line(self))[]
-# proc get_line*(self: LayoutIter): TLayoutLine {.inline.} =
+proc get_line*(self: ptr TLayoutIter): ptr TLayoutLine {.inline.} =
+  pango_layout_iter_get_line(self)
+# proc get_line*(self: ptr TLayoutIter): ptr TLayoutLine {.inline.} =
 
 # pango_layout_iter_get_line_extents
 # flags: {isMethod} container: LayoutIter
 # need sugar: is method
-# ink_rect 'var TRectangle' 'ptr TRectangle' OUT (diff., need sugar) caller-allocates optional
-# logical_rect 'var TRectangle' 'ptr TRectangle' OUT (diff., need sugar) caller-allocates optional
-# 'VOID_TODO' 'VOID_TODO'
+# arg ink_rect: INTERFACE (STRUCT) 'ptr TRectangle' 'ptr TRectangle' OUT caller-allocates optional
+# arg logical_rect: INTERFACE (STRUCT) 'ptr TRectangle' 'ptr TRectangle' OUT caller-allocates optional
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_iter_get_line_extents(self: ptr TLayoutIter, ink_rect: ptr TRectangle, logical_rect: ptr TRectangle) {.cdecl, dynlib: lib, importc: "pango_layout_iter_get_line_extents".}
-proc get_line_extents*(self: LayoutIter, ink_rect: var TRectangle, logical_rect: var TRectangle) {.inline.} =
-  pango_layout_iter_get_line_extents(self, addr(ink_rect), addr(logical_rect))
+proc get_line_extents*(self: ptr TLayoutIter, ink_rect: ptr TRectangle, logical_rect: ptr TRectangle) {.inline.} =
+  pango_layout_iter_get_line_extents(self, ink_rect, logical_rect)
 # tuple-return
-# ink_rect: var TRectangle
-# logical_rect: var TRectangle
-# proc get_line_extents*(self: LayoutIter) {.inline.} =
+# ink_rect: ptr TRectangle
+# logical_rect: ptr TRectangle
+# proc get_line_extents*(self: ptr TLayoutIter) {.inline.} =
 
 # pango_layout_iter_get_line_readonly
 # flags: {isMethod} container: LayoutIter
 # need sugar: is method
-# 'TLayoutLine' 'ptr TLayoutLine' (diff., need sugar)
+# return: INTERFACE 'ptr TLayoutLine' 'ptr TLayoutLine'
 proc pango_layout_iter_get_line_readonly(self: ptr TLayoutIter): ptr TLayoutLine {.cdecl, dynlib: lib, importc: "pango_layout_iter_get_line_readonly".}
-proc get_line_readonly*(self: LayoutIter): TLayoutLine {.inline.} =
-  (pango_layout_iter_get_line_readonly(self))[]
-# proc get_line_readonly*(self: LayoutIter): TLayoutLine {.inline.} =
+proc get_line_readonly*(self: ptr TLayoutIter): ptr TLayoutLine {.inline.} =
+  pango_layout_iter_get_line_readonly(self)
+# proc get_line_readonly*(self: ptr TLayoutIter): ptr TLayoutLine {.inline.} =
 
 # pango_layout_iter_get_line_yrange
 # flags: {isMethod} container: LayoutIter
 # need sugar: is method
-# y0_ 'var int32' 'ptr int32' OUT (diff., need sugar) optional
-# y1_ 'var int32' 'ptr int32' OUT (diff., need sugar) optional
-# 'VOID_TODO' 'VOID_TODO'
+# arg y0_: INT32 'var int32' 'ptr int32' OUT (diff., need sugar) optional
+# arg y1_: INT32 'var int32' 'ptr int32' OUT (diff., need sugar) optional
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_iter_get_line_yrange(self: ptr TLayoutIter, y0_x: ptr int32, y1_x: ptr int32) {.cdecl, dynlib: lib, importc: "pango_layout_iter_get_line_yrange".}
-proc get_line_yrange*(self: LayoutIter, y0_x: var int32, y1_x: var int32) {.inline.} =
+proc get_line_yrange*(self: ptr TLayoutIter, y0_x: var int32, y1_x: var int32) {.inline.} =
   pango_layout_iter_get_line_yrange(self, addr(y0_x), addr(y1_x))
 # tuple-return
 # y0_: var int32
 # y1_: var int32
-# proc get_line_yrange*(self: LayoutIter) {.inline.} =
+# proc get_line_yrange*(self: ptr TLayoutIter) {.inline.} =
 
 # pango_layout_iter_get_run
 # flags: {isMethod} container: LayoutIter
 # need sugar: is method
-# 'TGlyphItem' 'ptr TGlyphItem' (diff., need sugar)
+# return: INTERFACE 'ptr TGlyphItem' 'ptr TGlyphItem'
 proc pango_layout_iter_get_run(self: ptr TLayoutIter): ptr TGlyphItem {.cdecl, dynlib: lib, importc: "pango_layout_iter_get_run".}
-proc get_run*(self: LayoutIter): TGlyphItem {.inline.} =
-  (pango_layout_iter_get_run(self))[]
-# proc get_run*(self: LayoutIter): TGlyphItem {.inline.} =
+proc get_run*(self: ptr TLayoutIter): ptr TGlyphItem {.inline.} =
+  pango_layout_iter_get_run(self)
+# proc get_run*(self: ptr TLayoutIter): ptr TGlyphItem {.inline.} =
 
 # pango_layout_iter_get_run_extents
 # flags: {isMethod} container: LayoutIter
 # need sugar: is method
-# ink_rect 'var TRectangle' 'ptr TRectangle' OUT (diff., need sugar) caller-allocates optional
-# logical_rect 'var TRectangle' 'ptr TRectangle' OUT (diff., need sugar) caller-allocates optional
-# 'VOID_TODO' 'VOID_TODO'
+# arg ink_rect: INTERFACE (STRUCT) 'ptr TRectangle' 'ptr TRectangle' OUT caller-allocates optional
+# arg logical_rect: INTERFACE (STRUCT) 'ptr TRectangle' 'ptr TRectangle' OUT caller-allocates optional
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_iter_get_run_extents(self: ptr TLayoutIter, ink_rect: ptr TRectangle, logical_rect: ptr TRectangle) {.cdecl, dynlib: lib, importc: "pango_layout_iter_get_run_extents".}
-proc get_run_extents*(self: LayoutIter, ink_rect: var TRectangle, logical_rect: var TRectangle) {.inline.} =
-  pango_layout_iter_get_run_extents(self, addr(ink_rect), addr(logical_rect))
+proc get_run_extents*(self: ptr TLayoutIter, ink_rect: ptr TRectangle, logical_rect: ptr TRectangle) {.inline.} =
+  pango_layout_iter_get_run_extents(self, ink_rect, logical_rect)
 # tuple-return
-# ink_rect: var TRectangle
-# logical_rect: var TRectangle
-# proc get_run_extents*(self: LayoutIter) {.inline.} =
+# ink_rect: ptr TRectangle
+# logical_rect: ptr TRectangle
+# proc get_run_extents*(self: ptr TLayoutIter) {.inline.} =
 
 # pango_layout_iter_get_run_readonly
 # flags: {isMethod} container: LayoutIter
 # need sugar: is method
-# 'TGlyphItem' 'ptr TGlyphItem' (diff., need sugar)
+# return: INTERFACE 'ptr TGlyphItem' 'ptr TGlyphItem'
 proc pango_layout_iter_get_run_readonly(self: ptr TLayoutIter): ptr TGlyphItem {.cdecl, dynlib: lib, importc: "pango_layout_iter_get_run_readonly".}
-proc get_run_readonly*(self: LayoutIter): TGlyphItem {.inline.} =
-  (pango_layout_iter_get_run_readonly(self))[]
-# proc get_run_readonly*(self: LayoutIter): TGlyphItem {.inline.} =
+proc get_run_readonly*(self: ptr TLayoutIter): ptr TGlyphItem {.inline.} =
+  pango_layout_iter_get_run_readonly(self)
+# proc get_run_readonly*(self: ptr TLayoutIter): ptr TGlyphItem {.inline.} =
 
 # pango_layout_iter_next_char
 # flags: {isMethod} container: LayoutIter
 # need sugar: is method
-# 'bool' 'bool'
+# return: BOOLEAN 'bool' 'bool'
 proc pango_layout_iter_next_char(self: ptr TLayoutIter): bool {.cdecl, dynlib: lib, importc: "pango_layout_iter_next_char".}
-proc next_char*(self: LayoutIter): bool {.inline.} =
+proc next_char*(self: ptr TLayoutIter): bool {.inline.} =
   pango_layout_iter_next_char(self)
-# proc next_char*(self: LayoutIter): bool {.inline.} =
+# proc next_char*(self: ptr TLayoutIter): bool {.inline.} =
 
 # pango_layout_iter_next_cluster
 # flags: {isMethod} container: LayoutIter
 # need sugar: is method
-# 'bool' 'bool'
+# return: BOOLEAN 'bool' 'bool'
 proc pango_layout_iter_next_cluster(self: ptr TLayoutIter): bool {.cdecl, dynlib: lib, importc: "pango_layout_iter_next_cluster".}
-proc next_cluster*(self: LayoutIter): bool {.inline.} =
+proc next_cluster*(self: ptr TLayoutIter): bool {.inline.} =
   pango_layout_iter_next_cluster(self)
-# proc next_cluster*(self: LayoutIter): bool {.inline.} =
+# proc next_cluster*(self: ptr TLayoutIter): bool {.inline.} =
 
 # pango_layout_iter_next_line
 # flags: {isMethod} container: LayoutIter
 # need sugar: is method
-# 'bool' 'bool'
+# return: BOOLEAN 'bool' 'bool'
 proc pango_layout_iter_next_line(self: ptr TLayoutIter): bool {.cdecl, dynlib: lib, importc: "pango_layout_iter_next_line".}
-proc next_line*(self: LayoutIter): bool {.inline.} =
+proc next_line*(self: ptr TLayoutIter): bool {.inline.} =
   pango_layout_iter_next_line(self)
-# proc next_line*(self: LayoutIter): bool {.inline.} =
+# proc next_line*(self: ptr TLayoutIter): bool {.inline.} =
 
 # pango_layout_iter_next_run
 # flags: {isMethod} container: LayoutIter
 # need sugar: is method
-# 'bool' 'bool'
+# return: BOOLEAN 'bool' 'bool'
 proc pango_layout_iter_next_run(self: ptr TLayoutIter): bool {.cdecl, dynlib: lib, importc: "pango_layout_iter_next_run".}
-proc next_run*(self: LayoutIter): bool {.inline.} =
+proc next_run*(self: ptr TLayoutIter): bool {.inline.} =
   pango_layout_iter_next_run(self)
-# proc next_run*(self: LayoutIter): bool {.inline.} =
+# proc next_run*(self: ptr TLayoutIter): bool {.inline.} =
 
 # struct LayoutLine
 # pango_layout_line_get_extents
 # flags: {isMethod} container: LayoutLine
 # need sugar: is method
-# ink_rect 'var TRectangle' 'ptr TRectangle' OUT (diff., need sugar) caller-allocates optional
-# logical_rect 'var TRectangle' 'ptr TRectangle' OUT (diff., need sugar) caller-allocates optional
-# 'VOID_TODO' 'VOID_TODO'
+# arg ink_rect: INTERFACE (STRUCT) 'ptr TRectangle' 'ptr TRectangle' OUT caller-allocates optional
+# arg logical_rect: INTERFACE (STRUCT) 'ptr TRectangle' 'ptr TRectangle' OUT caller-allocates optional
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_line_get_extents(self: ptr TLayoutLine, ink_rect: ptr TRectangle, logical_rect: ptr TRectangle) {.cdecl, dynlib: lib, importc: "pango_layout_line_get_extents".}
-proc get_extents*(self: LayoutLine, ink_rect: var TRectangle, logical_rect: var TRectangle) {.inline.} =
-  pango_layout_line_get_extents(self, addr(ink_rect), addr(logical_rect))
+proc get_extents*(self: ptr TLayoutLine, ink_rect: ptr TRectangle, logical_rect: ptr TRectangle) {.inline.} =
+  pango_layout_line_get_extents(self, ink_rect, logical_rect)
 # tuple-return
-# ink_rect: var TRectangle
-# logical_rect: var TRectangle
-# proc get_extents*(self: LayoutLine) {.inline.} =
+# ink_rect: ptr TRectangle
+# logical_rect: ptr TRectangle
+# proc get_extents*(self: ptr TLayoutLine) {.inline.} =
 
 # pango_layout_line_get_pixel_extents
 # flags: {isMethod} container: LayoutLine
 # need sugar: is method
-# ink_rect 'var TRectangle' 'ptr TRectangle' OUT (diff., need sugar) caller-allocates optional
-# logical_rect 'var TRectangle' 'ptr TRectangle' OUT (diff., need sugar) caller-allocates optional
-# 'VOID_TODO' 'VOID_TODO'
+# arg ink_rect: INTERFACE (STRUCT) 'ptr TRectangle' 'ptr TRectangle' OUT caller-allocates optional
+# arg logical_rect: INTERFACE (STRUCT) 'ptr TRectangle' 'ptr TRectangle' OUT caller-allocates optional
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_line_get_pixel_extents(self: ptr TLayoutLine, ink_rect: ptr TRectangle, logical_rect: ptr TRectangle) {.cdecl, dynlib: lib, importc: "pango_layout_line_get_pixel_extents".}
-proc get_pixel_extents*(self: LayoutLine, ink_rect: var TRectangle, logical_rect: var TRectangle) {.inline.} =
-  pango_layout_line_get_pixel_extents(self, addr(ink_rect), addr(logical_rect))
+proc get_pixel_extents*(self: ptr TLayoutLine, ink_rect: ptr TRectangle, logical_rect: ptr TRectangle) {.inline.} =
+  pango_layout_line_get_pixel_extents(self, ink_rect, logical_rect)
 # tuple-return
-# ink_rect: var TRectangle
-# logical_rect: var TRectangle
-# proc get_pixel_extents*(self: LayoutLine) {.inline.} =
+# ink_rect: ptr TRectangle
+# logical_rect: ptr TRectangle
+# proc get_pixel_extents*(self: ptr TLayoutLine) {.inline.} =
 
 # pango_layout_line_get_x_ranges
 # flags: {isMethod} container: LayoutLine
 # need sugar: is method
-# start_index 'int32' 'int32' IN
-# end_index 'int32' 'int32' IN
-# ranges 'var openarray[int32]' 'openarray[int32]' OUT (diff., need sugar) array lengthArg: 3
-# n_ranges 'var int32' 'ptr int32' OUT (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg start_index: INT32 'int32' 'int32' IN
+# arg end_index: INT32 'int32' 'int32' IN
+# arg ranges: ARRAY 'var openarray[int32]' 'openarray[int32]' OUT (diff., need sugar) array lengthArg: 3
+# arg n_ranges: INT32 'var int32' 'ptr int32' OUT (diff., need sugar)
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_line_get_x_ranges(self: ptr TLayoutLine, start_index: int32, end_index: int32, ranges: openarray[int32], n_ranges: ptr int32) {.cdecl, dynlib: lib, importc: "pango_layout_line_get_x_ranges".}
-proc get_x_ranges*(self: LayoutLine, start_index: int32, end_index: int32, ranges: var openarray[int32], n_ranges: var int32) {.inline.} =
+proc get_x_ranges*(self: ptr TLayoutLine, start_index: int32, end_index: int32, ranges: var openarray[int32], n_ranges: var int32) {.inline.} =
   pango_layout_line_get_x_ranges(self, start_index, end_index, ranges, addr(n_ranges))
 # tuple-return
 # ranges: var openarray[int32]
 # n_ranges: var int32
-# proc get_x_ranges*(self: LayoutLine, start_index: int32, end_index: int32) {.inline.} =
+# proc get_x_ranges*(self: ptr TLayoutLine, start_index: int32, end_index: int32) {.inline.} =
 
 # pango_layout_line_index_to_x
 # flags: {isMethod} container: LayoutLine
 # need sugar: is method
-# index_ 'int32' 'int32' IN
-# trailing 'bool' 'bool' IN
-# x_pos 'var int32' 'ptr int32' OUT (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg index_: INT32 'int32' 'int32' IN
+# arg trailing: BOOLEAN 'bool' 'bool' IN
+# arg x_pos: INT32 'var int32' 'ptr int32' OUT (diff., need sugar)
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_line_index_to_x(self: ptr TLayoutLine, index_x: int32, trailing: bool, x_pos: ptr int32) {.cdecl, dynlib: lib, importc: "pango_layout_line_index_to_x".}
-proc index_to_x*(self: LayoutLine, index_x: int32, trailing: bool, x_pos: var int32) {.inline.} =
+proc index_to_x*(self: ptr TLayoutLine, index_x: int32, trailing: bool, x_pos: var int32) {.inline.} =
   pango_layout_line_index_to_x(self, index_x, trailing, addr(x_pos))
 # tuple-return
 # x_pos: var int32
-# proc index_to_x*(self: LayoutLine, index_x: int32, trailing: bool) {.inline.} =
+# proc index_to_x*(self: ptr TLayoutLine, index_x: int32, trailing: bool) {.inline.} =
 
 # pango_layout_line_ref
 # flags: {isMethod} container: LayoutLine
 # need sugar: is method
-# 'TLayoutLine' 'ptr TLayoutLine' (diff., need sugar)
+# return: INTERFACE 'ptr TLayoutLine' 'ptr TLayoutLine'
 proc pango_layout_line_ref(self: ptr TLayoutLine): ptr TLayoutLine {.cdecl, dynlib: lib, importc: "pango_layout_line_ref".}
-proc ref_x*(self: LayoutLine): TLayoutLine {.inline.} =
-  (pango_layout_line_ref(self))[]
-# proc ref_x*(self: LayoutLine): TLayoutLine {.inline.} =
+proc ref_x*(self: ptr TLayoutLine): ptr TLayoutLine {.inline.} =
+  pango_layout_line_ref(self)
+# proc ref_x*(self: ptr TLayoutLine): ptr TLayoutLine {.inline.} =
 
 # pango_layout_line_unref
 # flags: {isMethod} container: LayoutLine
 # need sugar: is method
-# 'VOID_TODO' 'VOID_TODO'
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_layout_line_unref(self: ptr TLayoutLine) {.cdecl, dynlib: lib, importc: "pango_layout_line_unref".}
-proc unref*(self: LayoutLine) {.inline.} =
+proc unref*(self: ptr TLayoutLine) {.inline.} =
   pango_layout_line_unref(self)
-# proc unref*(self: LayoutLine) {.inline.} =
+# proc unref*(self: ptr TLayoutLine) {.inline.} =
 
 # pango_layout_line_x_to_index
 # flags: {isMethod} container: LayoutLine
 # need sugar: is method
-# x_pos 'int32' 'int32' IN
-# index_ 'var int32' 'ptr int32' OUT (diff., need sugar)
-# trailing 'var int32' 'ptr int32' OUT (diff., need sugar)
-# 'bool' 'bool'
+# arg x_pos: INT32 'int32' 'int32' IN
+# arg index_: INT32 'var int32' 'ptr int32' OUT (diff., need sugar)
+# arg trailing: INT32 'var int32' 'ptr int32' OUT (diff., need sugar)
+# return: BOOLEAN 'bool' 'bool'
 proc pango_layout_line_x_to_index(self: ptr TLayoutLine, x_pos: int32, index_x: ptr int32, trailing: ptr int32): bool {.cdecl, dynlib: lib, importc: "pango_layout_line_x_to_index".}
-proc x_to_index*(self: LayoutLine, x_pos: int32, index_x: var int32, trailing: var int32): bool {.inline.} =
+proc x_to_index*(self: ptr TLayoutLine, x_pos: int32, index_x: var int32, trailing: var int32): bool {.inline.} =
   pango_layout_line_x_to_index(self, x_pos, addr(index_x), addr(trailing))
 # tuple-return
 # index_: var int32
 # trailing: var int32
-# proc x_to_index*(self: LayoutLine, x_pos: int32): bool {.inline.} =
+# proc x_to_index*(self: ptr TLayoutLine, x_pos: int32): bool {.inline.} =
 
 # struct LogAttr
 # struct Map
@@ -3883,113 +3869,127 @@ proc x_to_index*(self: LayoutLine, x_pos: int32, index_x: var int32, trailing: v
 # pango_matrix_concat
 # flags: {isMethod} container: Matrix
 # need sugar: is method
-# new_matrix 'TMatrix' 'ptr TMatrix' IN (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg new_matrix: INTERFACE (STRUCT) 'ptr TMatrix' 'ptr TMatrix' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_matrix_concat(self: ptr TMatrix, new_matrix: ptr TMatrix) {.cdecl, dynlib: lib, importc: "pango_matrix_concat".}
-proc concat*(self: Matrix, new_matrix: TMatrix) {.inline.} =
-  pango_matrix_concat(self, myUnsafeAddr(new_matrix))
-# proc concat*(self: Matrix, new_matrix: TMatrix) {.inline.} =
+proc concat*(self: ptr TMatrix, new_matrix: ptr TMatrix) {.inline.} =
+  pango_matrix_concat(self, new_matrix)
+# proc concat*(self: ptr TMatrix, new_matrix: ptr TMatrix) {.inline.} =
 
 # pango_matrix_copy
 # flags: {isMethod} container: Matrix
 # need sugar: is method
-# 'TMatrix' 'ptr TMatrix' (diff., need sugar)
+# return: INTERFACE 'ptr TMatrix' 'ptr TMatrix'
 proc pango_matrix_copy(self: ptr TMatrix): ptr TMatrix {.cdecl, dynlib: lib, importc: "pango_matrix_copy".}
-proc copy*(self: Matrix): TMatrix {.inline.} =
-  (pango_matrix_copy(self))[]
-# proc copy*(self: Matrix): TMatrix {.inline.} =
+proc copy*(self: ptr TMatrix): ptr TMatrix {.inline.} =
+  pango_matrix_copy(self)
+# proc copy*(self: ptr TMatrix): ptr TMatrix {.inline.} =
 
 # pango_matrix_free
 # flags: {isMethod} container: Matrix
 # need sugar: is method
-# 'VOID_TODO' 'VOID_TODO'
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_matrix_free(self: ptr TMatrix) {.cdecl, dynlib: lib, importc: "pango_matrix_free".}
-proc free*(self: Matrix) {.inline.} =
+proc free*(self: ptr TMatrix) {.inline.} =
   pango_matrix_free(self)
-# proc free*(self: Matrix) {.inline.} =
+# proc free*(self: ptr TMatrix) {.inline.} =
 
 # pango_matrix_get_font_scale_factor
 # flags: {isMethod} container: Matrix
 # need sugar: is method
-# 'float64' 'float64'
+# return: DOUBLE 'float64' 'float64'
 proc pango_matrix_get_font_scale_factor(self: ptr TMatrix): float64 {.cdecl, dynlib: lib, importc: "pango_matrix_get_font_scale_factor".}
-proc get_font_scale_factor*(self: Matrix): float64 {.inline.} =
+proc get_font_scale_factor*(self: ptr TMatrix): float64 {.inline.} =
   pango_matrix_get_font_scale_factor(self)
-# proc get_font_scale_factor*(self: Matrix): float64 {.inline.} =
+# proc get_font_scale_factor*(self: ptr TMatrix): float64 {.inline.} =
+
+# pango_matrix_get_font_scale_factors
+# flags: {isMethod} container: Matrix
+# need sugar: is method
+# arg xscale: DOUBLE 'var float64' 'ptr float64' OUT (diff., need sugar) optional
+# arg yscale: DOUBLE 'var float64' 'ptr float64' OUT (diff., need sugar) optional
+# return: VOID 'VOID_TODO' 'VOID_TODO'
+proc pango_matrix_get_font_scale_factors(self: ptr TMatrix, xscale: ptr float64, yscale: ptr float64) {.cdecl, dynlib: lib, importc: "pango_matrix_get_font_scale_factors".}
+proc get_font_scale_factors*(self: ptr TMatrix, xscale: var float64, yscale: var float64) {.inline.} =
+  pango_matrix_get_font_scale_factors(self, addr(xscale), addr(yscale))
+# tuple-return
+# xscale: var float64
+# yscale: var float64
+# proc get_font_scale_factors*(self: ptr TMatrix) {.inline.} =
 
 # pango_matrix_rotate
 # flags: {isMethod} container: Matrix
 # need sugar: is method
-# degrees 'float64' 'float64' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg degrees: DOUBLE 'float64' 'float64' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_matrix_rotate(self: ptr TMatrix, degrees: float64) {.cdecl, dynlib: lib, importc: "pango_matrix_rotate".}
-proc rotate*(self: Matrix, degrees: float64) {.inline.} =
+proc rotate*(self: ptr TMatrix, degrees: float64) {.inline.} =
   pango_matrix_rotate(self, degrees)
-# proc rotate*(self: Matrix, degrees: float64) {.inline.} =
+# proc rotate*(self: ptr TMatrix, degrees: float64) {.inline.} =
 
 # pango_matrix_scale
 # flags: {isMethod} container: Matrix
 # need sugar: is method
-# scale_x 'float64' 'float64' IN
-# scale_y 'float64' 'float64' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg scale_x: DOUBLE 'float64' 'float64' IN
+# arg scale_y: DOUBLE 'float64' 'float64' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_matrix_scale(self: ptr TMatrix, scale_x: float64, scale_y: float64) {.cdecl, dynlib: lib, importc: "pango_matrix_scale".}
-proc scale*(self: Matrix, scale_x: float64, scale_y: float64) {.inline.} =
+proc scale*(self: ptr TMatrix, scale_x: float64, scale_y: float64) {.inline.} =
   pango_matrix_scale(self, scale_x, scale_y)
-# proc scale*(self: Matrix, scale_x: float64, scale_y: float64) {.inline.} =
+# proc scale*(self: ptr TMatrix, scale_x: float64, scale_y: float64) {.inline.} =
 
 # pango_matrix_transform_distance
 # flags: {isMethod} container: Matrix
 # need sugar: is method
-# dx 'var float64' 'ptr float64' INOUT (diff., need sugar)
-# dy 'var float64' 'ptr float64' INOUT (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg dx: DOUBLE 'var float64' 'ptr float64' INOUT (diff., need sugar)
+# arg dy: DOUBLE 'var float64' 'ptr float64' INOUT (diff., need sugar)
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_matrix_transform_distance(self: ptr TMatrix, dx: ptr float64, dy: ptr float64) {.cdecl, dynlib: lib, importc: "pango_matrix_transform_distance".}
-proc transform_distance*(self: Matrix, dx: var float64, dy: var float64) {.inline.} =
+proc transform_distance*(self: ptr TMatrix, dx: var float64, dy: var float64) {.inline.} =
   pango_matrix_transform_distance(self, addr(dx), addr(dy))
-# proc transform_distance*(self: Matrix, dx: var float64, dy: var float64) {.inline.} =
+# proc transform_distance*(self: ptr TMatrix, dx: var float64, dy: var float64) {.inline.} =
 
 # pango_matrix_transform_pixel_rectangle
 # flags: {isMethod} container: Matrix
 # need sugar: is method
-# rect 'var TRectangle' 'ptr TRectangle' INOUT (diff., need sugar) optional
-# 'VOID_TODO' 'VOID_TODO'
+# arg rect: INTERFACE (STRUCT) 'ptr TRectangle' 'ptr TRectangle' INOUT optional
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_matrix_transform_pixel_rectangle(self: ptr TMatrix, rect: ptr TRectangle) {.cdecl, dynlib: lib, importc: "pango_matrix_transform_pixel_rectangle".}
-proc transform_pixel_rectangle*(self: Matrix, rect: var TRectangle) {.inline.} =
-  pango_matrix_transform_pixel_rectangle(self, addr(rect))
-# proc transform_pixel_rectangle*(self: Matrix, rect: var TRectangle) {.inline.} =
+proc transform_pixel_rectangle*(self: ptr TMatrix, rect: ptr TRectangle) {.inline.} =
+  pango_matrix_transform_pixel_rectangle(self, rect)
+# proc transform_pixel_rectangle*(self: ptr TMatrix, rect: ptr TRectangle) {.inline.} =
 
 # pango_matrix_transform_point
 # flags: {isMethod} container: Matrix
 # need sugar: is method
-# x 'var float64' 'ptr float64' INOUT (diff., need sugar)
-# y 'var float64' 'ptr float64' INOUT (diff., need sugar)
-# 'VOID_TODO' 'VOID_TODO'
+# arg x: DOUBLE 'var float64' 'ptr float64' INOUT (diff., need sugar)
+# arg y: DOUBLE 'var float64' 'ptr float64' INOUT (diff., need sugar)
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_matrix_transform_point(self: ptr TMatrix, x: ptr float64, y: ptr float64) {.cdecl, dynlib: lib, importc: "pango_matrix_transform_point".}
-proc transform_point*(self: Matrix, x: var float64, y: var float64) {.inline.} =
+proc transform_point*(self: ptr TMatrix, x: var float64, y: var float64) {.inline.} =
   pango_matrix_transform_point(self, addr(x), addr(y))
-# proc transform_point*(self: Matrix, x: var float64, y: var float64) {.inline.} =
+# proc transform_point*(self: ptr TMatrix, x: var float64, y: var float64) {.inline.} =
 
 # pango_matrix_transform_rectangle
 # flags: {isMethod} container: Matrix
 # need sugar: is method
-# rect 'var TRectangle' 'ptr TRectangle' INOUT (diff., need sugar) optional
-# 'VOID_TODO' 'VOID_TODO'
+# arg rect: INTERFACE (STRUCT) 'ptr TRectangle' 'ptr TRectangle' INOUT optional
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_matrix_transform_rectangle(self: ptr TMatrix, rect: ptr TRectangle) {.cdecl, dynlib: lib, importc: "pango_matrix_transform_rectangle".}
-proc transform_rectangle*(self: Matrix, rect: var TRectangle) {.inline.} =
-  pango_matrix_transform_rectangle(self, addr(rect))
-# proc transform_rectangle*(self: Matrix, rect: var TRectangle) {.inline.} =
+proc transform_rectangle*(self: ptr TMatrix, rect: ptr TRectangle) {.inline.} =
+  pango_matrix_transform_rectangle(self, rect)
+# proc transform_rectangle*(self: ptr TMatrix, rect: ptr TRectangle) {.inline.} =
 
 # pango_matrix_translate
 # flags: {isMethod} container: Matrix
 # need sugar: is method
-# tx 'float64' 'float64' IN
-# ty 'float64' 'float64' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg tx: DOUBLE 'float64' 'float64' IN
+# arg ty: DOUBLE 'float64' 'float64' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_matrix_translate(self: ptr TMatrix, tx: float64, ty: float64) {.cdecl, dynlib: lib, importc: "pango_matrix_translate".}
-proc translate*(self: Matrix, tx: float64, ty: float64) {.inline.} =
+proc translate*(self: ptr TMatrix, tx: float64, ty: float64) {.inline.} =
   pango_matrix_translate(self, tx, ty)
-# proc translate*(self: Matrix, tx: float64, ty: float64) {.inline.} =
+# proc translate*(self: ptr TMatrix, tx: float64, ty: float64) {.inline.} =
 
 # struct Rectangle
 # struct RendererClass
@@ -3999,133 +3999,138 @@ proc translate*(self: Matrix, tx: float64, ty: float64) {.inline.} =
 # pango_script_iter_free
 # flags: {isMethod} container: ScriptIter
 # need sugar: is method
-# 'VOID_TODO' 'VOID_TODO'
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_script_iter_free(self: ptr TScriptIter) {.cdecl, dynlib: lib, importc: "pango_script_iter_free".}
-proc free*(self: ScriptIter) {.inline.} =
+proc free*(self: ptr TScriptIter) {.inline.} =
   pango_script_iter_free(self)
-# proc free*(self: ScriptIter) {.inline.} =
+# proc free*(self: ptr TScriptIter) {.inline.} =
 
 # pango_script_iter_get_range
 # flags: {isMethod} container: ScriptIter
 # need sugar: is method
-# start 'var ucstring' 'ptr ucstring' OUT (diff., need sugar) optional
-# end 'var ucstring' 'ptr ucstring' OUT (diff., need sugar) optional
-# script 'Script' 'Script' OUT optional
-# 'VOID_TODO' 'VOID_TODO'
+# arg start: UTF8 'var ucstring' 'ptr ucstring' OUT (diff., need sugar) optional
+# arg end: UTF8 'var ucstring' 'ptr ucstring' OUT (diff., need sugar) optional
+# arg script: INTERFACE (ENUM) 'Script' 'Script' OUT optional
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_script_iter_get_range(self: ptr TScriptIter, start: ptr ucstring, end_x: ptr ucstring, script: Script) {.cdecl, dynlib: lib, importc: "pango_script_iter_get_range".}
-proc get_range*(self: ScriptIter, start: var ucstring, end_x: var ucstring, script: Script) {.inline.} =
+proc get_range*(self: ptr TScriptIter, start: var ucstring, end_x: var ucstring, script: Script) {.inline.} =
   pango_script_iter_get_range(self, addr(start), addr(end_x), script)
 # tuple-return
 # start: var ucstring
 # end: var ucstring
 # script: Script
-# proc get_range*(self: ScriptIter) {.inline.} =
+# proc get_range*(self: ptr TScriptIter) {.inline.} =
 
 # pango_script_iter_next
 # flags: {isMethod} container: ScriptIter
 # need sugar: is method
-# 'bool' 'bool'
+# return: BOOLEAN 'bool' 'bool'
 proc pango_script_iter_next(self: ptr TScriptIter): bool {.cdecl, dynlib: lib, importc: "pango_script_iter_next".}
-proc next*(self: ScriptIter): bool {.inline.} =
+proc next*(self: ptr TScriptIter): bool {.inline.} =
   pango_script_iter_next(self)
-# proc next*(self: ScriptIter): bool {.inline.} =
+# proc next*(self: ptr TScriptIter): bool {.inline.} =
 
 # struct TabArray
 # pango_tab_array_new
 # flags: {isConstructor} container: TabArray
 # need sugar: is static method
-# initial_size 'int32' 'int32' IN
-# positions_in_pixels 'bool' 'bool' IN
-# 'TTabArray' 'ptr TTabArray' (diff., need sugar)
+# arg initial_size: INT32 'int32' 'int32' IN
+# arg positions_in_pixels: BOOLEAN 'bool' 'bool' IN
+# return: INTERFACE 'ptr TTabArray' 'ptr TTabArray'
 proc pango_tab_array_new(initial_size: int32, positions_in_pixels: bool): ptr TTabArray {.cdecl, dynlib: lib, importc: "pango_tab_array_new".}
-proc new_tabarray*(initial_size: int32, positions_in_pixels: bool): TTabArray {.inline.} =
-  (pango_tab_array_new(initial_size, positions_in_pixels))[]
-# proc new_tabarray*(initial_size: int32, positions_in_pixels: bool): TTabArray {.inline.} =
+proc new_tabarray*(initial_size: int32, positions_in_pixels: bool): ptr TTabArray {.inline.} =
+  pango_tab_array_new(initial_size, positions_in_pixels)
+# proc new_tabarray*(initial_size: int32, positions_in_pixels: bool): ptr TTabArray {.inline.} =
 
 # pango_tab_array_copy
 # flags: {isMethod} container: TabArray
 # need sugar: is method
-# 'TTabArray' 'ptr TTabArray' (diff., need sugar)
+# return: INTERFACE 'ptr TTabArray' 'ptr TTabArray'
 proc pango_tab_array_copy(self: ptr TTabArray): ptr TTabArray {.cdecl, dynlib: lib, importc: "pango_tab_array_copy".}
-proc copy*(self: TabArray): TTabArray {.inline.} =
-  (pango_tab_array_copy(self))[]
-# proc copy*(self: TabArray): TTabArray {.inline.} =
+proc copy*(self: ptr TTabArray): ptr TTabArray {.inline.} =
+  pango_tab_array_copy(self)
+# proc copy*(self: ptr TTabArray): ptr TTabArray {.inline.} =
 
 # pango_tab_array_free
 # flags: {isMethod} container: TabArray
 # need sugar: is method
-# 'VOID_TODO' 'VOID_TODO'
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_tab_array_free(self: ptr TTabArray) {.cdecl, dynlib: lib, importc: "pango_tab_array_free".}
-proc free*(self: TabArray) {.inline.} =
+proc free*(self: ptr TTabArray) {.inline.} =
   pango_tab_array_free(self)
-# proc free*(self: TabArray) {.inline.} =
+# proc free*(self: ptr TTabArray) {.inline.} =
 
 # pango_tab_array_get_positions_in_pixels
 # flags: {isMethod} container: TabArray
 # need sugar: is method
-# 'bool' 'bool'
+# return: BOOLEAN 'bool' 'bool'
 proc pango_tab_array_get_positions_in_pixels(self: ptr TTabArray): bool {.cdecl, dynlib: lib, importc: "pango_tab_array_get_positions_in_pixels".}
-proc get_positions_in_pixels*(self: TabArray): bool {.inline.} =
+proc get_positions_in_pixels*(self: ptr TTabArray): bool {.inline.} =
   pango_tab_array_get_positions_in_pixels(self)
-# proc get_positions_in_pixels*(self: TabArray): bool {.inline.} =
+# proc get_positions_in_pixels*(self: ptr TTabArray): bool {.inline.} =
 
 # pango_tab_array_get_size
 # flags: {isMethod} container: TabArray
 # need sugar: is method
-# 'int32' 'int32'
+# return: INT32 'int32' 'int32'
 proc pango_tab_array_get_size(self: ptr TTabArray): int32 {.cdecl, dynlib: lib, importc: "pango_tab_array_get_size".}
-proc get_size*(self: TabArray): int32 {.inline.} =
+proc get_size*(self: ptr TTabArray): int32 {.inline.} =
   pango_tab_array_get_size(self)
-# proc get_size*(self: TabArray): int32 {.inline.} =
+# proc get_size*(self: ptr TTabArray): int32 {.inline.} =
 
 # pango_tab_array_get_tab
 # flags: {isMethod} container: TabArray
 # need sugar: is method
-# tab_index 'int32' 'int32' IN
-# alignment 'TabAlign' 'TabAlign' OUT optional
-# location 'var int32' 'ptr int32' OUT (diff., need sugar) optional
-# 'VOID_TODO' 'VOID_TODO'
+# arg tab_index: INT32 'int32' 'int32' IN
+# arg alignment: INTERFACE (ENUM) 'TabAlign' 'TabAlign' OUT optional
+# arg location: INT32 'var int32' 'ptr int32' OUT (diff., need sugar) optional
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_tab_array_get_tab(self: ptr TTabArray, tab_index: int32, alignment: TabAlign, location: ptr int32) {.cdecl, dynlib: lib, importc: "pango_tab_array_get_tab".}
-proc get_tab*(self: TabArray, tab_index: int32, alignment: TabAlign, location: var int32) {.inline.} =
+proc get_tab*(self: ptr TTabArray, tab_index: int32, alignment: TabAlign, location: var int32) {.inline.} =
   pango_tab_array_get_tab(self, tab_index, alignment, addr(location))
 # tuple-return
 # alignment: TabAlign
 # location: var int32
-# proc get_tab*(self: TabArray, tab_index: int32) {.inline.} =
+# proc get_tab*(self: ptr TTabArray, tab_index: int32) {.inline.} =
 
 # pango_tab_array_get_tabs
 # flags: {isMethod} container: TabArray
 # need sugar: is method
-# alignments 'TabAlign' 'TabAlign' OUT optional
-# locations 'uncheckedArray[int32]' 'uncheckedArray[int32]' OUT array optional
-# 'VOID_TODO' 'VOID_TODO'
+# arg alignments: INTERFACE (ENUM) 'TabAlign' 'TabAlign' OUT optional
+# arg locations: ARRAY 'uncheckedArray[int32]' 'uncheckedArray[int32]' OUT array optional
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_tab_array_get_tabs(self: ptr TTabArray, alignments: TabAlign, locations: uncheckedArray[int32]) {.cdecl, dynlib: lib, importc: "pango_tab_array_get_tabs".}
-proc get_tabs*(self: TabArray, alignments: TabAlign, locations: uncheckedArray[int32]) {.inline.} =
+proc get_tabs*(self: ptr TTabArray, alignments: TabAlign, locations: uncheckedArray[int32]) {.inline.} =
   pango_tab_array_get_tabs(self, alignments, locations)
 # tuple-return
 # alignments: TabAlign
 # locations: uncheckedArray[int32]
-# proc get_tabs*(self: TabArray) {.inline.} =
+# proc get_tabs*(self: ptr TTabArray) {.inline.} =
 
 # pango_tab_array_resize
 # flags: {isMethod} container: TabArray
 # need sugar: is method
-# new_size 'int32' 'int32' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg new_size: INT32 'int32' 'int32' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_tab_array_resize(self: ptr TTabArray, new_size: int32) {.cdecl, dynlib: lib, importc: "pango_tab_array_resize".}
-proc resize*(self: TabArray, new_size: int32) {.inline.} =
+proc resize*(self: ptr TTabArray, new_size: int32) {.inline.} =
   pango_tab_array_resize(self, new_size)
-# proc resize*(self: TabArray, new_size: int32) {.inline.} =
+# proc resize*(self: ptr TTabArray, new_size: int32) {.inline.} =
 
 # pango_tab_array_set_tab
 # flags: {isMethod} container: TabArray
 # need sugar: is method
-# tab_index 'int32' 'int32' IN
-# alignment 'TabAlign' 'TabAlign' IN
-# location 'int32' 'int32' IN
-# 'VOID_TODO' 'VOID_TODO'
+# arg tab_index: INT32 'int32' 'int32' IN
+# arg alignment: INTERFACE (ENUM) 'TabAlign' 'TabAlign' IN
+# arg location: INT32 'int32' 'int32' IN
+# return: VOID 'VOID_TODO' 'VOID_TODO'
 proc pango_tab_array_set_tab(self: ptr TTabArray, tab_index: int32, alignment: TabAlign, location: int32) {.cdecl, dynlib: lib, importc: "pango_tab_array_set_tab".}
-proc set_tab*(self: TabArray, tab_index: int32, alignment: TabAlign, location: int32) {.inline.} =
+proc set_tab*(self: ptr TTabArray, tab_index: int32, alignment: TabAlign, location: int32) {.inline.} =
   pango_tab_array_set_tab(self, tab_index, alignment, location)
-# proc set_tab*(self: TabArray, tab_index: int32, alignment: TabAlign, location: int32) {.inline.} =
+# proc set_tab*(self: ptr TTabArray, tab_index: int32, alignment: TabAlign, location: int32) {.inline.} =
 
+  # flag type methods
+  #------------------
+# initializer for FontMask: pango_font_mask_get_type
+proc pango_font_mask_get_type(): GType {.cdecl, dynlib: lib, importc: "pango_font_mask_get_type".}
+template gtype*(klass_parameter: typedesc[FontMask]): GType = pango_font_mask_get_type()

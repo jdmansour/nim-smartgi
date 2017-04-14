@@ -27,6 +27,8 @@ smartgi Pango-1.0 || goto :error
 smartgi PangoCairo-1.0 || goto :error
 REM smartgi PangoFT2-1.0 || goto :error
 smartgi xlib-2.0 || goto :error
+smartgi Soup-2.4 || goto :error
+smartgi Json-1.0 || goto :error
 
 goto :EOF
 :error
