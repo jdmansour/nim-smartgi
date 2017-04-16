@@ -8,9 +8,9 @@ when defined(win32):
 # elif declared(gtk_quartz):
 #   const
 #     lib = "libgtk-quartz-2.0.0.dylib"
-# elif defined(macosx):
-#   const
-#     lib = "libgtk-x11-2.0.dylib"
+elif defined(macosx):
+  const
+    lib = "libgirepository-1.0.dylib"
 #   # linklib gtk-x11-2.0
 #   # linklib gdk-x11-2.0
 #   # linklib pango-1.0.0
