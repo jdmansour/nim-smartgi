@@ -65,17 +65,14 @@ type
   TGITypelib = object of TRoot
   GITypelib* = ref GSmartPtr[TGITypelib]
 
-
-  # todo remove *
-  TGIBaseInfo* = object of TRoot
+  TGIBaseInfo = object of TRoot
   GIBaseInfo* = ref GSmartPtr[TGIBaseInfo]
 
   # alias
   TGIFieldInfo = object of TGIBaseInfo
   GIFieldInfo* = ref GSmartPtr[TGIFieldInfo]
 
-  # todo remove *
-  TGICallableInfo* = object of TGIBaseInfo
+  TGICallableInfo = object of TGIBaseInfo
   GICallableInfo* = ref GSmartPtr[TGICallableInfo]
 
   TGIConstantInfo = object of TGIBaseInfo
@@ -216,8 +213,7 @@ type
 type
   FloatingPtr[T] = distinct ptr T
   UntransferredPtr[T] = distinct ptr T
-  # todo remove *
-  CustomCleanupPtr*[T] = distinct ptr T
+  CustomCleanupPtr[T] = distinct ptr T
 
 discard """ proc g_object_ref[T](obj: ptr T): ptr T {. importc: "g_object_ref", cdecl, dynlib: gobjectlib .}
 proc g_object_ref_sink[T](obj: FloatingPtr[T]): ptr T {. importc: "g_object_ref_sink", cdecl, dynlib: gobjectlib .}
@@ -254,8 +250,7 @@ converter wrap[T](pointer: ptr T): ref GSmartPtr[T] =
 
 proc g_base_info_unref (info: ptr TGIBaseInfo) {.cdecl, dynlib: lib,
                                                  importc: "g_base_info_unref".}
-# jm todo remove *
-proc g_base_info_ref* (info: ptr TGIBaseInfo) {.cdecl, dynlib: lib,
+proc g_base_info_ref (info: ptr TGIBaseInfo) {.cdecl, dynlib: lib,
                                                  importc: "g_base_info_ref".}
 
 proc g_base_info_equal (info1: ptr TGIBaseInfo, info2: ptr TGIBaseInfo): bool {.cdecl, dynlib: lib,
@@ -295,8 +290,7 @@ proc noopFinalizer[T](x: ref GSmartPtr[T]) =
   #echo "noopFinalizer ", T.type.name
   discard
 
-# todo remove *
-converter wrap*[T](point: CustomCleanupPtr[T]): ref GSmartPtr[T] =
+converter wrap[T](point: CustomCleanupPtr[T]): ref GSmartPtr[T] =
   #echo "wrapping custom pointer of type ", T.type.name
 #  assert cast[pointer](point) != nil
   # nil pointers don't get cleaned up
@@ -335,12 +329,17 @@ template declareSubclass(S: typedesc[TRoot], T: typedesc[TRoot]) =
   {.pop.}
 
   converter upcast*(source: ref GSmartPtr[S]): ref GSmartPtr[T] =
-    assert source.pointer != nil
-    # todo: are there multiple ref functions?
+    # todo: may this be nil?
+    # assert source.pointer != nil
+    if source.pointer == nil:
+      new(result)
+      result.pointer = cast[ptr T](source.pointer)
+      return
+
     when compiles g_base_info_ref(source.pointer):
+      # todo: are there multiple ref functions?
       g_base_info_ref(source.pointer)
       result = wrap(cast[CustomCleanupPtr[T]](source.pointer))
-      assert result.pointer != nil
     else:
       # no cleanup
       new(result)
