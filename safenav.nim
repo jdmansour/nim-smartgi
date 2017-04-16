@@ -13,7 +13,7 @@ proc default[T](): T =
 # template nillike*[T](a: T): bool =
 #   a != nil
 
-template `?.`*(a, b: expr): expr =
+template `?.`*(a, b: untyped): untyped =
   type T = type(a.b)
   if a != nil:
     a.b
@@ -67,9 +67,9 @@ if isMainModule:
   echo stra ?: "-nil-"
   echo strb ?: "-nil-"
 
-  echo stra?.toUpper
-  echo strb?.toUpper
-  echo ((strb?:"nil").toUpper)
+  echo stra?.toUpperAscii
+  echo strb?.toUpperAscii
+  echo((strb?:"nil").toUpperAscii)
 
   echo stra?.len
   echo strb?.len

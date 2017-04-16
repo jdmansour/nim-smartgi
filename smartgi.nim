@@ -84,7 +84,7 @@ proc getVersionedNamespace(info: GIBaseInfo): string =
   # echo cast[int64](info.pointer)
   let
     ns = info.getNamespace
-    version = g_irepository_get_version (nil, ns);
+    version = g_irepository_get_version(nil, ns);
 
   if version.len == 0:
     return ns
@@ -94,9 +94,9 @@ proc getVersionedNamespace(info: GIBaseInfo): string =
 
 proc getQualifiedNimStructName(info: GIBaseInfo, wrapped=false): string =
   assert info.pointer != nil
-  assert (case info.getType
-          of GIInfoType.OBJECT, GIInfoType.STRUCT, GIInfoType.UNION, GIInfoType.Interface: true
-          else: false, "type is " & $info.getType)
+  assert(case info.getType
+         of GIInfoType.OBJECT, GIInfoType.STRUCT, GIInfoType.UNION, GIInfoType.Interface: true
+         else: false, "type is " & $info.getType)
 
   let ns = info.getVersionedNamespace
   var name = escapeName(info.getName)
@@ -113,7 +113,7 @@ proc getNimTypeName(tag: GITypeTag, wrapped=false): string =
   case tag:
   of GITypeTag.UTF8:     (if wrapped: "ustring" else: "ucstring")
   of GITypeTag.BOOLEAN:  "bool"
-  of GITypeTag.INT8..GITypeTag.UINT64: ($tag).toLower
+  of GITypeTag.INT8..GITypeTag.UINT64: ($tag).toLowerAscii
   of GITypeTag.FLOAT:    "float32"
   of GITypeTag.DOUBLE:   "float64"
   of GITypeTag.FILENAME: (if wrapped: "string" else: "cstring")
@@ -764,7 +764,7 @@ proc disambiguateAmongSuperclasses(fieldName: string, oi: GIObjectInfo): string 
   var newFieldName = fieldName
   # var extraNum = 1
   if isAmbiguousAmongSuperclasses(newFieldName, oi):
-    newFieldName = fieldName & "_" & oi.getNamespace.toLower & oi.getName.toLower
+    newFieldName = fieldName & "_" & oi.getNamespace.toLowerAscii & oi.getName.toLowerAscii
 
   return newFieldName
 
@@ -999,14 +999,14 @@ proc createSugarSignature(meth: GIFunctionInfo, parent: GIRegisteredTypeInfo, ou
     var methname = meth.getName
     let sugarname =
       if methname.startswith("new"):
-        "new_" & parent.getName.toLower & methname.substr(3)
+        "new_" & parent.getName.toLowerAscii & methname.substr(3)
       else:
-        parent.getName.toLower & "_" & meth.getName
+        parent.getName.toLowerAscii & "_" & meth.getName
 
     assert parent != nil
     assert parent.pointer != nil
     output.write "proc ", sugarname, "*("
-    # output.write "proc ", parent.getName.toLower, "_", meth.getName, "*("
+    # output.write "proc ", parent.getName.toLowerAscii, "_", meth.getName, "*("
     first = true
   elif container != nil:
     # there is a container, but it is not a method => class method

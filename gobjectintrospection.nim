@@ -66,14 +66,16 @@ type
   GITypelib* = ref GSmartPtr[TGITypelib]
 
 
-  TGIBaseInfo = object of TRoot
+  # todo remove *
+  TGIBaseInfo* = object of TRoot
   GIBaseInfo* = ref GSmartPtr[TGIBaseInfo]
 
   # alias
   TGIFieldInfo = object of TGIBaseInfo
   GIFieldInfo* = ref GSmartPtr[TGIFieldInfo]
 
-  TGICallableInfo = object of TGIBaseInfo
+  # todo remove *
+  TGICallableInfo* = object of TGIBaseInfo
   GICallableInfo* = ref GSmartPtr[TGICallableInfo]
 
   TGIConstantInfo = object of TGIBaseInfo
@@ -208,59 +210,14 @@ type
     # v_pointe: pointer
   GIArgument* = ref GSmartPtr[TGIArgument]
 
-template declareSubclass(S: typedesc[TRoot], T: typedesc[TRoot]) =
-  #converter castup(s: S): T = s
-  # TODO: check for subtype if we know how
-  #when S is T:
-  #  {.fatal: "declareSubclass: arguments must not be equal".}
-  converter unwrap(s: ref GSmartPtr[S]): ptr T =
-    return s.pointer
-
-#declareSubclass(Window, Widget) # should fail (needs the struct types as params)
-
-# allow implicit conversion of Window -> ptr TWidget,
-# which is missing otherwise.
-declareSubclass(TGIRepository, TGObject)
-
-declareSubclass(TGIArgInfo, TGIBaseInfo)
-
-declareSubclass(TGIRegisteredTypeInfo, TGIBaseInfo)
-declareSubclass(TGIObjectInfo, TGIRegisteredTypeInfo)
-declareSubclass(TGIStructInfo, TGIRegisteredTypeInfo)
-declareSubclass(TGIUnionInfo, TGIRegisteredTypeInfo)
-declareSubclass(TGIInterfaceInfo, TGIRegisteredTypeInfo)
-declareSubclass(TGIEnumInfo, TGIRegisteredTypeInfo)
-
-declareSubclass(TGICallableInfo, TGIBaseInfo)
-declareSubclass(TGIFunctionInfo, TGICallableInfo)
-declareSubclass(TGICallbackInfo, TGICallableInfo)
-
-declareSubclass(TGITypeInfo, TGIBaseInfo)
-declareSubclass(TGIFieldInfo, TGIBaseInfo)
-declareSubclass(TGIValueInfo, TGIBaseInfo)
-
-
-
-proc sum[T](input: set[T]): int =
-  result = 0
-  for it in input:
-    result += it.ord
-
-proc toSet[T](input: int): set[T] =
-  result = {}
-  var x = high(T).ord
-  # var x = T.high.ord
-  while x > 0:
-    if (input and x) > 0:
-      result.incl(T(x))
-    x = x shr 1
 
 
 # GInitiallyUnowned
 type
   FloatingPtr[T] = distinct ptr T
   UntransferredPtr[T] = distinct ptr T
-  CustomCleanupPtr[T] = distinct ptr T
+  # todo remove *
+  CustomCleanupPtr*[T] = distinct ptr T
 
 discard """ proc g_object_ref[T](obj: ptr T): ptr T {. importc: "g_object_ref", cdecl, dynlib: gobjectlib .}
 proc g_object_ref_sink[T](obj: FloatingPtr[T]): ptr T {. importc: "g_object_ref_sink", cdecl, dynlib: gobjectlib .}
@@ -297,8 +254,8 @@ converter wrap[T](pointer: ptr T): ref GSmartPtr[T] =
 
 proc g_base_info_unref (info: ptr TGIBaseInfo) {.cdecl, dynlib: lib,
                                                  importc: "g_base_info_unref".}
-
-proc g_base_info_ref (info: ptr TGIBaseInfo) {.cdecl, dynlib: lib,
+# jm todo remove *
+proc g_base_info_ref* (info: ptr TGIBaseInfo) {.cdecl, dynlib: lib,
                                                  importc: "g_base_info_ref".}
 
 proc g_base_info_equal (info1: ptr TGIBaseInfo, info2: ptr TGIBaseInfo): bool {.cdecl, dynlib: lib,
@@ -338,7 +295,8 @@ proc noopFinalizer[T](x: ref GSmartPtr[T]) =
   #echo "noopFinalizer ", T.type.name
   discard
 
-converter wrap[T](point: CustomCleanupPtr[T]): ref GSmartPtr[T] =
+# todo remove *
+converter wrap*[T](point: CustomCleanupPtr[T]): ref GSmartPtr[T] =
   #echo "wrapping custom pointer of type ", T.type.name
 #  assert cast[pointer](point) != nil
   # nil pointers don't get cleaned up
@@ -358,6 +316,108 @@ converter wrap[T](point: UntransferredPtr[T]): ref GSmartPtr[T] =
 converter unwrap[T](s: ref GSmartPtr[T]): ptr T =
   # echo "unwrapping pointer"
   return s.pointer
+
+
+
+
+
+
+
+template declareSubclass(S: typedesc[TRoot], T: typedesc[TRoot]) =
+  #converter castup(s: S): T = s
+  # TODO: check for subtype if we know how
+  #when S is T:
+  #  {.fatal: "declareSubclass: arguments must not be equal".}
+
+  {.push hint[XDeclaredButNotUsed]: off.}
+  converter unwrap(s: ref GSmartPtr[S]): ptr T =
+    return s.pointer
+  {.pop.}
+
+  converter upcast*(source: ref GSmartPtr[S]): ref GSmartPtr[T] =
+    assert source.pointer != nil
+    # todo: are there multiple ref functions?
+    when compiles g_base_info_ref(source.pointer):
+      g_base_info_ref(source.pointer)
+      result = wrap(cast[CustomCleanupPtr[T]](source.pointer))
+      assert result.pointer != nil
+    else:
+      # no cleanup
+      new(result)
+      result.pointer = cast[ptr T](source.pointer)
+    
+
+  #converter upcast(source: ref GSmartPtr[S]): ref GSmartPtr[T
+
+# template declareSubclassTest(S: typedesc[TRoot], T: typedesc[TRoot]) =
+#   converter upcast*(source: ref GSmartPtr[S]): ref GSmartPtr[T] =
+#     assert source.pointer != nil
+#     g_base_info_ref(source.pointer)
+#     # when Subclass is TGIObjectInfo:
+#     #   assert source.getType() == GIInfoType.OBJECT
+#     let res = wrap(cast[CustomCleanupPtr[T]](source.pointer))
+#     assert res.pointer != nil
+#     return res
+
+
+# declareSubclassTest(TGICallableInfo, TGIBaseInfo)
+
+#declareSubclass(Window, Widget) # should fail (needs the struct types as params)
+
+# allow implicit conversion of Window -> ptr TWidget,
+# which is missing otherwise.
+{.push hint[XDeclaredButNotUsed]: off.}
+declareSubclass(TGIRepository, TGObject)
+
+declareSubclass(TGIArgInfo, TGIBaseInfo)
+
+declareSubclass(TGIRegisteredTypeInfo, TGIBaseInfo)
+declareSubclass(TGIObjectInfo, TGIRegisteredTypeInfo)
+declareSubclass(TGIStructInfo, TGIRegisteredTypeInfo)
+declareSubclass(TGIUnionInfo, TGIRegisteredTypeInfo)
+declareSubclass(TGIInterfaceInfo, TGIRegisteredTypeInfo)
+declareSubclass(TGIEnumInfo, TGIRegisteredTypeInfo)
+
+declareSubclass(TGICallableInfo, TGIBaseInfo)
+declareSubclass(TGIFunctionInfo, TGICallableInfo)
+declareSubclass(TGISignalInfo, TGICallableInfo)
+declareSubclass(TGICallbackInfo, TGICallableInfo)
+
+declareSubclass(TGITypeInfo, TGIBaseInfo)
+declareSubclass(TGIFieldInfo, TGIBaseInfo)
+declareSubclass(TGIValueInfo, TGIBaseInfo)
+declareSubclass(TGIConstantInfo, TGIBaseInfo)
+
+
+# TODO: this should work transitively automatically
+declareSubclass(TGIFunctionInfo, TGIBaseInfo)
+declareSubclass(TGISignalInfo, TGIBaseInfo)
+declareSubclass(TGIObjectInfo, TGIBaseInfo)
+declareSubclass(TGIStructInfo, TGIBaseInfo)
+declareSubclass(TGIUnionInfo, TGIBaseInfo)
+declareSubclass(TGIInterfaceInfo, TGIBaseInfo)
+declareSubclass(TGIEnumInfo, TGIBaseInfo)
+
+
+
+
+{.pop.}
+
+
+
+proc sum[T](input: set[T]): int =
+  result = 0
+  for it in input:
+    result += it.ord
+
+proc toSet[T](input: int): set[T] =
+  result = {}
+  var x = high(T).ord
+  # var x = T.high.ord
+  while x > 0:
+    if (input and x) > 0:
+      result.incl(T(x))
+    x = x shr 1
 
 
 
@@ -865,6 +925,11 @@ proc downcast*[Subclass](source: GIBaseInfo): ref GSmartPtr[Subclass] =
 discard """ proc downcast2[SubclassPtr](source: GIBaseInfo): SubclassPtr =
   wrap(cast[CustomCleanupPtr[SubclassPtr.
  """
+
+converter toGICallableInfo*(source: GIBaseInfo): GICallableInfo =
+  assert source.getType == GIInfoType.FUNCTION
+  # TODO: or other GIInfoTypes that inherit from callable
+  downcast[TGICallableInfo](source)
 
 converter toGIConstantInfo*(source: GIBaseInfo): GIConstantInfo =
   assert source.getType == GIInfoType.CONSTANT
