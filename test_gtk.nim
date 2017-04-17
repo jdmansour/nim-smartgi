@@ -1,6 +1,6 @@
-import gir.GObject2 as GObject2
+# import gir.GObject2 as GObject2
 import gir.Gtk3 as Gtk3
-import gir.Gdk3 as Gdk3
+# import gir.Gdk3 as Gdk3
 import gobjectutils
 from future import `=>`
 # import strutils
@@ -24,6 +24,28 @@ template pointedTo(klass: typedesc[Gtk3.Window]): typedesc =
 
 echo Gtk3.Window.name
 echo Gtk3.Window.pointedTo.name
+
+# template myCreateCastsToBase*(S: typedesc[TRoot], T: typedesc[TRoot]) =
+#   converter myUnwrapToBase*(s: ref GSmartPtr[S]): ptr T =
+#     return s.pointer
+
+#   converter myUpcast*(source: ref GSmartPtr[S]): ref GSmartPtr[T] =
+#     # todo: may this be nil?
+#     # assert source.pointer != nil
+#     if source.pointer == nil:
+#       new(result)
+#       result.pointer = cast[ptr T](source.pointer)
+#       return
+
+#     when compiles g_object_ref(source.pointer):
+#       # todo: are there multiple ref functions?
+#       # discard g_object_ref(source.pointer)
+#       # by casting to TransferFull, we say this has to be reffed
+#       result = wrap(cast[TransferFull[T]](source.pointer))
+#     else:
+#       # no cleanup
+#       new(result)
+#       result.pointer = cast[ptr T](source.pointer)
 
 
 proc init() =
@@ -51,6 +73,9 @@ proc main() =
   button.connect("clicked", (bttn: Button)=>echo "moo")
   button.connect("clicked", (bttn: Button, x: string )=>echo x, "wuff")
 
+  # cast[Container](window).add(cast[Widget](button))
+  # cast[Widget](window).showAll
+
   # # works because Gdk3.TEventConfigure is byref
   # # proc windowConfigure(win: Gtk3.Window, ea: Gdk3.TEventConfigure): bool =
   # proc windowConfigure(win: Gtk3.Widget, ea: ptr Gdk3.TEventConfigure): bool =
@@ -65,7 +90,6 @@ proc main() =
   grid.setMarginTop(12)
   grid.setMarginBottom(12)
   window.add(grid)
-  
 
   let notebook = newNotebook()
   let lbl = newLabel(u"Label:")

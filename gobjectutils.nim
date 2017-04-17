@@ -127,8 +127,8 @@ converter unwrap*[T](s: ref GSmartPtr[T]): ptr T =
   # echo "unwrapping pointer"
   return s.pointer
 
-
 template createCastsToBase*(S: typedesc[TRoot], T: typedesc[TRoot]) =
+  # discard
   converter unwrapToBase*(s: ref GSmartPtr[S]): ptr T =
     return s.pointer
 
@@ -150,20 +150,31 @@ template createCastsToBase*(S: typedesc[TRoot], T: typedesc[TRoot]) =
       new(result)
       result.pointer = cast[ptr T](source.pointer)
 
+template createCastsToBaseRecursive*(S: typedesc[TRoot], T: typedesc[TRoot]) =
+  createCastsToBase(S, T)
   when not isRoot T:
-    createCastsToBase(S, smartgiParentClass(T))
+    createCastsToBaseRecursive(S, smartgiParentClass(T))
 
 
 template declareRoot*(S: typedesc[TRoot]) =
   ## declares that a class is not a subclass
   template isRoot*(klass_parameter: typedesc[S]): bool = true
 
+template declareSubclassWithoutCasts*(S: typedesc[TRoot], T: typedesc[TRoot]) =
+  template isRoot*(klass_parameter: typedesc[S]): bool = false
+  template smartgiParentClass*(klass_parameter: typedesc[S]): auto = T
+
+template declareSubclassNoRecurse*(S: typedesc[TRoot], T: typedesc[TRoot]) =
+  template isRoot*(klass_parameter: typedesc[S]): bool = false
+  template smartgiParentClass*(klass_parameter: typedesc[S]): auto = T
+
+  createCastsToBase(S, T)
 
 template declareSubclass*(S: typedesc[TRoot], T: typedesc[TRoot]) =
   template isRoot*(klass_parameter: typedesc[S]): bool = false
   template smartgiParentClass*(klass_parameter: typedesc[S]): auto = T
 
-  createCastsToBase(S, T)
+  createCastsToBaseRecursive(S, T)
 
   # converter toWrappedT*(s: ref GSmartPtr[S]): ref GSmartPtr[T] =
   #   # new(result)

@@ -1699,8 +1699,33 @@ proc main() =
     if parent.pointer == nil:
       output.writeln "declareRoot(", nimStructName, ")"
       continue
-    let parentClassName = getQualifiedNimStructName(parent)
-    output.writeln "declareSubclass(", nimStructName, ", ", parentClassName, ")"
+
+    var p: GIObjectInfo = parent
+    while p.pointer != nil:
+      let parentClassName = getQualifiedNimStructName(p)
+      # if p != parent: output.write "# "
+
+      if p == parent:
+        output.writeln "declareSubclassWithoutCasts(", nimStructName, ", ", parentClassName, ")"
+      # TObject here is Atk.TObject
+      if parentClassName == "GObject2.TInitiallyUnowned" or parentClassName == "TObject" or parentClassName == "GObject2.TObject" or parentClassName == "Atk1.TObject":
+
+        output.write "# "
+      output.writeln "createCastsToBase(", nimStructName, ", ", parentClassName, ")"
+
+      # if p == parent:
+      #   output.write "declareSubclassNoRecurse"
+      # else:
+      #   output.write "createCastsToBase"
+      # output.writeln "(", nimStructName, ", ", parentClassName, ")"
+      p = p.getParent()
+
+    # var p: GIObjectInfo = parent
+    # while p.pointer != nil:
+    #   let parentClassName = getQualifiedNimStructName(p)
+    #   if p != parent: output.write "# "
+    #   output.writeln "declareSubclass(", nimStructName, ", ", parentClassName, ")"
+    #   p = p.getParent()
 
   output.writeln ""
 
