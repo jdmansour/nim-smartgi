@@ -35,7 +35,11 @@ type
   GError* = object of TRoot
   PGError* = ptr GError
 
-  GSLIST_TODO* = pointer
+  TGSList* = object
+    data: pointer
+    next: ptr TGSList
+
+  # GSLIST_TODO* = pointer
   GLIST_TODO* = pointer
   GHASH_TODO* = pointer
   ERROR_TODO* = pointer

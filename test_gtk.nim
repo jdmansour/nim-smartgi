@@ -1,52 +1,16 @@
-# import gir.GObject2 as GObject2
 import gir.Gtk3 as Gtk3
-# import gir.Gdk3 as Gdk3
 import gobjectutils
 from future import `=>`
-# import strutils
 import typetraits
 
 # doesnt work, the byref/bycopy attribute of the original type stays:
 # type TEventConfigure_ByRef {.byref.} = Gdk3.TEventConfigure
-
-#proc toWidget(obj: Gtk3.Window): Gtk3.Widget =
-
-
-# declareSignal(Gtk3.Window, Gtk3.TWindow, destroy)
-# declareSignal(Gtk3.Button, Gtk3.TButton, clicked)
-# declareSignal(Gtk3.Window, Gtk3.TWindow, configure_event, Gdk3.TEventConfigure)
-
-# template pointedTo[T](klass: typedesc[ref GSmartPtr[T]]): typedesc =
-#   T.type
 
 template pointedTo(klass: typedesc[Gtk3.Window]): typedesc =
   Gtk3.TWindow.type
 
 echo Gtk3.Window.name
 echo Gtk3.Window.pointedTo.name
-
-# template myCreateCastsToBase*(S: typedesc[TRoot], T: typedesc[TRoot]) =
-#   converter myUnwrapToBase*(s: ref GSmartPtr[S]): ptr T =
-#     return s.pointer
-
-#   converter myUpcast*(source: ref GSmartPtr[S]): ref GSmartPtr[T] =
-#     # todo: may this be nil?
-#     # assert source.pointer != nil
-#     if source.pointer == nil:
-#       new(result)
-#       result.pointer = cast[ptr T](source.pointer)
-#       return
-
-#     when compiles g_object_ref(source.pointer):
-#       # todo: are there multiple ref functions?
-#       # discard g_object_ref(source.pointer)
-#       # by casting to TransferFull, we say this has to be reffed
-#       result = wrap(cast[TransferFull[T]](source.pointer))
-#     else:
-#       # no cleanup
-#       new(result)
-#       result.pointer = cast[ptr T](source.pointer)
-
 
 proc init() =
   echo "init()"
@@ -109,6 +73,14 @@ proc main() =
   let text = u"H 你好 Äpfel"
   buf.setText(text, int32(text.len))
   discard notebook.appendPage(sw, newLabel(u"Text"))
+
+
+  let vb = newBox(Orientation.vertical, 0)
+  let rb1 = newRadiobuttonWithLabel(nil, u"Hello")
+  vb.packStart(rb1, false, true, 0)
+  vb.packStart(newRadiobuttonWithLabel(rb1.getGroup(), u"Welt"), false, true, 0)
+
+  discard notebook.appendPage(vb, newLabel(u"Radio buttons"))
 
   # for x in text:
   #   echo x

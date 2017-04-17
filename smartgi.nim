@@ -120,6 +120,7 @@ proc getNimTypeName(tag: GITypeTag, wrapped=false): string =
   # GType = unsigned long
   of GITypeTag.GTYPE:    "GType"
   of GITypeTag.UNICHAR:  "unichar"
+  of GITypeTag.GSLIST:   "TGSList"
   else:                  $tag & "_TODO"
 
 
