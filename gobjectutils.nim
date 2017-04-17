@@ -128,9 +128,9 @@ converter unwrap*[T](s: ref GSmartPtr[T]): ptr T =
   return s.pointer
 
 template createCastsToBase*(S: typedesc[TRoot], T: typedesc[TRoot]) =
-  # discard
-  converter unwrapToBase*(s: ref GSmartPtr[S]): ptr T =
-    return s.pointer
+  # # discard
+  # converter unwrapToBase*(s: ref GSmartPtr[S]): ptr T =
+  #   return s.pointer
 
   converter upcast*(source: ref GSmartPtr[S]): ref GSmartPtr[T] =
     # todo: may this be nil?

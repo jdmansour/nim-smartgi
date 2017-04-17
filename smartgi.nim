@@ -1708,8 +1708,9 @@ proc main() =
       if p == parent:
         output.writeln "declareSubclassWithoutCasts(", nimStructName, ", ", parentClassName, ")"
       # TObject here is Atk.TObject
-      if parentClassName == "GObject2.TInitiallyUnowned" or parentClassName == "TObject" or parentClassName == "GObject2.TObject" or parentClassName == "Atk1.TObject":
-
+      if parentClassName == "GObject2.TInitiallyUnowned" or parentClassName == "TObject" or parentClassName == "GObject2.TObject" or parentClassName == "Atk1.TObject" or parentClassName == "TWidgetAccessible" or parentClassName == "TContainerAccessible" or parentClassName == "TAccessible":
+        output.write "# "
+      elif namespace != "Gtk":
         output.write "# "
       output.writeln "createCastsToBase(", nimStructName, ", ", parentClassName, ")"
 
