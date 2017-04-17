@@ -1,7 +1,8 @@
 # import typeinfo
-# import macros
 import typetraits
 import strutils
+import macros
+import tables
 
 type
   # ucstring = distinct cstring
@@ -87,12 +88,12 @@ proc g_object_unref*(obj: pointer) {. importc: "g_object_unref", cdecl, dynlib: 
 
 proc customFinalizer*[T: TRoot](x: ref GSmartPtr[T]) {.procvar.}=
   # echo "called custom finalizer for type ", T.type.name, ", descendant of TGIBaseInfo"
-  if x.pointer == nil:
-    # echo "warning, finalizer called with nil smart pointer of type ", $(T.type.name)
-    assert false
-    return
   assert x.pointer != nil
   g_object_unref(x.pointer)
+
+# proc customFinalizer*[T](x: ref GSmartPtr[T]) {.procvar.}=
+#   ## finalizer for things not descendant from TRoot?
+#   assert x.pointer != nil
 
 converter wrap*[T](point: TransferFull[T]): ref GSmartPtr[T] =
   echo "wrapping TransferFull pointer"# of type ", T.type.name
@@ -111,26 +112,58 @@ converter wrap*[T](point: TransferNone[T]): ref GSmartPtr[T] =
   result.pointer = cast[ptr T](point)
   
 converter wrap*[T](point: ptr T): ref GSmartPtr[T] =
-  echo "wrapping pointer"# of type ", T.type.name
-  discard g_object_ref(point)
-  new(result, customFinalizer[T])
-  result.pointer = cast[ptr T](point)
+  when compiles customFinalizer[T]:
+    echo "wrapping pointer"# of type ", T.type.name
+    discard g_object_ref(point)
+    new(result, customFinalizer[T])
+    result.pointer = cast[ptr T](point)
+  else:
+    echo "warning, fallback code"
+    new result
+    result.pointer = cast[ptr T](point)
   
-
   
 converter unwrap*[T](s: ref GSmartPtr[T]): ptr T =
   # echo "unwrapping pointer"
   return s.pointer
 
 
-template declareSubclass*(S: typedesc[TRoot], T: typedesc[TRoot]) =
-  #converter castup(s: S): T = s
-  # TODO: check for subtype if we know how
-  #when S is T:
-  #  {.fatal: "declareSubclass: arguments must not be equal".}
-
+template createCastsToBase*(S: typedesc[TRoot], T: typedesc[TRoot]) =
   converter unwrapToBase*(s: ref GSmartPtr[S]): ptr T =
     return s.pointer
+
+  converter upcast*(source: ref GSmartPtr[S]): ref GSmartPtr[T] =
+    # todo: may this be nil?
+    # assert source.pointer != nil
+    if source.pointer == nil:
+      new(result)
+      result.pointer = cast[ptr T](source.pointer)
+      return
+
+    when compiles g_object_ref(source.pointer):
+      # todo: are there multiple ref functions?
+      # discard g_object_ref(source.pointer)
+      # by casting to TransferFull, we say this has to be reffed
+      result = wrap(cast[TransferFull[T]](source.pointer))
+    else:
+      # no cleanup
+      new(result)
+      result.pointer = cast[ptr T](source.pointer)
+
+  when not isRoot T:
+    createCastsToBase(S, smartgiParentClass(T))
+
+
+template declareRoot*(S: typedesc[TRoot]) =
+  ## declares that a class is not a subclass
+  template isRoot*(klass_parameter: typedesc[S]): bool = true
+
+
+template declareSubclass*(S: typedesc[TRoot], T: typedesc[TRoot]) =
+  template isRoot*(klass_parameter: typedesc[S]): bool = false
+  template smartgiParentClass*(klass_parameter: typedesc[S]): auto = T
+
+  createCastsToBase(S, T)
 
   # converter toWrappedT*(s: ref GSmartPtr[S]): ref GSmartPtr[T] =
   #   # new(result)
@@ -236,15 +269,9 @@ proc myUnsafeAddr*[T](x: T): ptr T {.inline.} =
 
 
 
-# import gir.GObject2 as Gobject2
-import macros
-import tables
-import typetraits
-const lib = "libgobject-2.0-0.dll"
-
 # {.deadCodeElim: on.}
 proc g_signal_connect_data* (instance: pointer, detailed_signal: cstring, c_handler: pointer,
-  data: pointer, destroy_data: pointer, connect_flags: uint32): uint64 {.cdecl, dynlib: lib, importc: "g_signal_connect_data".}
+  data: pointer, destroy_data: pointer, connect_flags: uint32): uint64 {.cdecl, dynlib: gobjectlib, importc: "g_signal_connect_data".}
 
 
 macro connect*(instance: expr, name: string, fun: expr, arguments: varargs[expr]): auto =

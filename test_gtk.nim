@@ -51,12 +51,12 @@ proc main() =
   button.connect("clicked", (bttn: Button)=>echo "moo")
   button.connect("clicked", (bttn: Button, x: string )=>echo x, "wuff")
 
-  # works because Gdk3.TEventConfigure is byref
-  # proc windowConfigure(win: Gtk3.Window, ea: Gdk3.TEventConfigure): bool =
-  proc windowConfigure(win: Gtk3.Widget, ea: ptr Gdk3.TEventConfigure): bool =
-    echo ea.x, " ", ea.y
-    return true
-  window.connect("configure-event", windowConfigure)
+  # # works because Gdk3.TEventConfigure is byref
+  # # proc windowConfigure(win: Gtk3.Window, ea: Gdk3.TEventConfigure): bool =
+  # proc windowConfigure(win: Gtk3.Widget, ea: ptr Gdk3.TEventConfigure): bool =
+  #   echo ea.x, " ", ea.y
+  #   return true
+  # window.connect("configure-event", windowConfigure)
 
   let grid = newGrid()
   window.setDefaultSize(400, 300)

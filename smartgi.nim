@@ -497,13 +497,19 @@ proc identifyType(info: GITypeInfo, argInfo: GIArgInfo=nil, callableInfo: GICall
         wrapTo = Wrapper(id)
         unwrapFrom = Wrapper(id)
       
+      # TODO: do we want to wrap interface pointers??
+
       if callableInfo != nil:
         # returning this
         case callableInfo.getCallerOwns
         of Transfer.Everything:
           # no "ptr" in front, but use the distinct pointer type TransferFull instead
-          unwrappedTypeName = "TransferFull[" & getQualifiedNimStructName(iface, wrapped=false) & "]"
-          wrapTo = Wrapper((x:string) => "wrap(" & x & ")")
+          # TODO: need special TransferInterface?
+          # do some interfaces inherit from GObject?
+          # do we need to refcount interface pointers?
+          # unwrappedTypeName = "TransferFull[" & getQualifiedNimStructName(iface, wrapped=false) & "]"
+          # wrapTo = Wrapper((x:string) => "wrap(" & x & ")")
+          discard
         of Transfer.Nothing:
           unwrappedTypeName = "TransferNone[" & getQualifiedNimStructName(iface, wrapped=false) & "]"
           wrapTo = Wrapper((x:string) => "wrap(" & x & ")")
@@ -1277,6 +1283,7 @@ proc createMethod(meth: GIFunctionInfo, parent: GIRegisteredTypeInfo=nil) =
     needSugar = true
   else:
     output.writeln ""
+  output.writeln "#   wrapTo: `", retIdentity.wrapTo("x"), "`"
 
   let litProcName = escapeName(if not isAmbiguous: meth.getSymbol
                               else: meth.getSymbol & "_import")
@@ -1690,6 +1697,7 @@ proc main() =
       nimStructName = "T" & className
       parent: GIObjectInfo = oi.getParent
     if parent.pointer == nil:
+      output.writeln "declareRoot(", nimStructName, ")"
       continue
     let parentClassName = getQualifiedNimStructName(parent)
     output.writeln "declareSubclass(", nimStructName, ", ", parentClassName, ")"
