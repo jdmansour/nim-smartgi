@@ -77,6 +77,29 @@ proc escapeName(name: string, for_public=false): string =
     # hope there is only one empty name in this context
     result = "x"
 
+proc toCamelCase(input: string): string =
+  var
+    output = input
+    i = 0
+    j = 0
+
+  while i < input.len:
+    let c = input[i]
+    # echo i, " ", c
+    inc i
+
+    if c == '_':
+      if i < input.len:
+        output[j] = input[i].toUpperAscii
+        inc i
+        inc j
+      continue
+    output[j] = c
+    inc j
+
+  result = output.substr(0, j-1)
+  # echo input, " -> ", result
+
 proc getVersionedNamespace(info: GIBaseInfo): string =
   # there can only be one version loaded at a time
   assert info != nil
@@ -988,9 +1011,11 @@ proc createSugarSignature(meth: GIFunctionInfo, parent: GIRegisteredTypeInfo, ou
     first = true
 
   if FunctionInfoFlags.isMethod in flags:
+    # regular methods
     assert parent != nil
     assert parent.pointer != nil
-    output.write "proc ", escapeName(meth.getName), "*("
+    let prettyName = meth.getName.toCamelCase.escapeName
+    output.write "proc ", prettyName, "*("
     #output.write "self: ", getNimTypeName(parent.getInterface, wrapped=true)
     # make this like an inout parameter so we can pass by reference
     # TODO: see if we can remove the special casing
