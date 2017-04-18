@@ -234,7 +234,7 @@ proc toSeq*[T,U](input: U): seq[T] =
       result.add(T(x))
     x = x shr 1
 
-template declareEnum*(T: typedesc)  {.immediate.} =
+template declareEnum*(T: typedesc) =
   converter `toS T`*(s: seq[T]): `S T`  {.inject.} =
     sum[T, `S T`](s)
 
@@ -289,7 +289,7 @@ proc g_signal_connect_data* (instance: pointer, detailed_signal: cstring, c_hand
   data: pointer, destroy_data: pointer, connect_flags: uint32): uint64 {.cdecl, dynlib: gobjectlib, importc: "g_signal_connect_data".}
 
 
-macro connect*(instance: expr, name: string, fun: expr, arguments: varargs[expr]): auto =
+macro connect*(instance: typed, name: string, fun: typed, arguments: varargs[typed]): auto =
   {.hint: "connect called".}
   let signalName = ($name).replace("-", "_")
   let procExpr = newIdentNode("connect_for_signal_" & signalName)
@@ -385,7 +385,7 @@ proc freeTrampoline(pTrampoline: pointer) {.cdecl.} =
 
 
 
-macro declareSignal*(smartType: typedesc, structType: typedesc, expression: expr): auto =
+macro declareSignal*(smartType: typedesc, structType: typedesc, expression: untyped): auto =
   let
     signalStrLit = toStrLit(expression)
     signalName = repr(expression).replace("-", "_")
@@ -420,7 +420,7 @@ macro declareSignal*(smartType: typedesc, structType: typedesc, expression: expr
       discard g_signal_connect_data(instance.pointer, `signalStrLit`, specialTrampolineTwo[`structType`,V], data, freeTrampoline, 0)
 
 
-macro declareSignal*(smartType: typedesc, structType: typedesc, expression: expr, arg1Name: expr, arg1Type: typedesc): auto =
+macro declareSignal*(smartType: typedesc, structType: typedesc, expression: untyped, arg1Name: untyped, arg1Type: typedesc): auto =
   let
     signalStrLit = toStrLit(expression)
     signalName = repr(expression).replace("-", "_")
@@ -441,9 +441,9 @@ macro declareSignal*(smartType: typedesc, structType: typedesc, expression: expr
       discard g_signal_connect_data(instance.pointer, `signalStrLit`, specialTrampolineEA[`structType`,`arg1Type`], data, freeTrampoline, 0)
 
 
-macro declareSignal*(smartType: typedesc, structType: typedesc, expression: expr,
-  arg1Name: expr, arg1Type: typedesc, arg1RawType: typedesc,
-  arg2Name: expr, arg2Type: typedesc, arg2RawType: typedesc): auto =
+macro declareSignal*(smartType: typedesc, structType: typedesc, expression: untyped,
+  arg1Name: untyped, arg1Type: typedesc, arg1RawType: typedesc,
+  arg2Name: untyped, arg2Type: typedesc, arg2RawType: typedesc): auto =
   let
     signalStrLit = toStrLit(expression)
     signalName = repr(expression).replace("-", "_")

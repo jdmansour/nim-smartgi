@@ -1,4 +1,5 @@
 import gir.Gtk3 as Gtk3
+import gir.Gdk3 as Gdk3
 import gobjectutils
 from future import `=>`
 import typetraits
@@ -40,12 +41,12 @@ proc main() =
   # cast[Container](window).add(cast[Widget](button))
   # cast[Widget](window).showAll
 
-  # # works because Gdk3.TEventConfigure is byref
-  # # proc windowConfigure(win: Gtk3.Window, ea: Gdk3.TEventConfigure): bool =
-  # proc windowConfigure(win: Gtk3.Widget, ea: ptr Gdk3.TEventConfigure): bool =
-  #   echo ea.x, " ", ea.y
-  #   return true
-  # window.connect("configure-event", windowConfigure)
+  # works because Gdk3.TEventConfigure is byref
+  # proc windowConfigure(win: Gtk3.Window, ea: Gdk3.TEventConfigure): bool =
+  proc windowConfigure(win: Gtk3.Widget, ea: ptr Gdk3.TEventConfigure): bool =
+    echo ea.x, " ", ea.y
+    return true
+  window.connect("configure-event", windowConfigure)
 
   let grid = newGrid()
   window.setDefaultSize(400, 300)
