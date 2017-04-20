@@ -7,6 +7,7 @@ import algorithm
 import sequtils
 import strutils
 import tables
+import toposort
 import safenav
 
 var output = newStringStream()
@@ -1372,32 +1373,6 @@ proc partition(input: string, sep: string): tuple[left, right: string] =
     return (left: input[0..pos-1], right: input[pos+sep.len .. ^1])
 
 
-proc topoSort[T](objects: openarray[T], dependency: (proc(a,b:T):bool)): seq[T] =
-  var sortedObjects = newSeq[T]()
-
-  for b in objects:
-    # go through all already added objects
-    var inserted = false
-    for j in 0 .. sortedObjects.len-1:
-      let a = sortedObjects[j]
-      if dependency(a, b):
-        # a depends on b
-        # insert b before a
-        sortedObjects.insert(b, j)
-        inserted = true
-        break
-
-    if not inserted:
-      # nothing already there depends on this, so we put it at the end
-      sortedObjects.add(b)
-
-  # echo "objects.len == ", objects.len
-  # echo "sortedObjects.len == ", sortedObjects.len
-  assert objects.len == sortedObjects.len
-
-  return sortedObjects
-
-
 proc filterType(infos: seq[GIBaseInfo], theType: GIInfoType): seq[GIBaseInfo] =
   result = newSeq[GIBaseInfo]()
   for info in infos:
@@ -1523,9 +1498,6 @@ proc main() =
     return depends
 
   var sortedObjects = topoSort(objects, dependency)
-  sortedObjects = topoSort(sortedObjects, dependency)
-  sortedObjects = topoSort(sortedObjects, dependency)
-  sortedObjects = topoSort(sortedObjects, dependency)
 
   # var sortedObjects = newSeq[GIBaseInfo]()
 
