@@ -1,2 +1,18 @@
-nimcache/
+
+# Hide extentionless files
+# Executables on linux and mac
+# http://stackoverflow.com/a/19023985/143091
+*
+!/**/
+!*.*
+
+# Executables on windows
 *.exe
+
+# Generated directories
+nimcache/
+gir/
+
+# Other junk
+attic/
+.DS_Store
